@@ -1,0 +1,11 @@
+{
+  "name"         : "src-app-silver-papillon",
+  "version"      : "0.1.0",
+  "license"      : "MIT",
+  "dependencies" : {
+    "jquery"              : "~2.2",
+    "twbs/bootstrap-sass" : "~3.3",
+    "jquery-waypoints"    : "~4.0",
+    "font-awesome"        : "~4.6"
+  }
+}

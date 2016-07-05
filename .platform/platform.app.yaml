@@ -1,0 +1,62 @@
+
+name: php
+
+type: php:7.0
+build:
+  flavor: symfony
+
+runtime:
+    extensions:
+        - apcu
+        - curl
+        - gd
+        - igbinary
+        - imagick
+        - intl
+        - json
+        - mcrypt
+        - memcached
+        - msgpack
+        - opcache
+        - pdo_mysql
+        - xdebug
+    disabled_extensions:
+        - mysqli
+        - pdo_sqlite
+        - sqlite3
+
+dependencies:
+  ruby:
+    sass: "3.4.7"
+  nodejs:
+    grunt: "~0.4.5"
+    grunt-cli: "~0.1.13"
+
+access:
+  ssh: contributor
+
+relationships:
+    database: "mysql:mysql"
+
+web:
+    locations:
+      "/":
+        root: "web"
+        passthru: "/app.php"
+
+disk: 2048
+
+mounts:
+    "/var/cache": "shared:files/cache"
+    "/var/logs": "shared:files/logs"
+    "/var/sessions": "shared:files/sessions"
+
+hooks:
+    build: |
+      npm install
+      node_modules/.bin/bower install
+      node_modules/.bin/grunt
+      rm web/app_dev.php
+      bin/console --env=prod assets:install --no-debug
+    deploy: |
+      bin/console --env=prod cache:clear
