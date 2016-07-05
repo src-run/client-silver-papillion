@@ -1,134 +1,82 @@
 <?php
 
+/*
+ * This file is part of the Doctrine-TestSet project created by
+ * https://github.com/MacFJA
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * at https://github.com/MacFJA/Doctrine-TestSet
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Category
+ * Class Category.
  *
- * @Gedmo\Tree(type="nested")
- * @ORM\Table(name="categories")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * @author MacFJA
+ *
+ * @ORM\Table(name="category")
+ * @ORM\Entity
  */
 class Category
 {
     /**
-     * @var int
+     * The identifier of the category.
      *
+     * @var int
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id = null;
 
     /**
+     * The category name.
+     *
      * @var string
+     * @ORM\Column(type="string")
+     */
+    protected $name;
+
+    /**
+     * Product in the category.
      *
-     * @ORM\Column(name="title", type="string", length=64)
-     */
-    private $title;
+     * @var Product[]
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="categories")
+     **/
+    protected $products;
 
     /**
-     * @var string
+     * The category parent.
      *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
+     * @var Category
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     **/
+    protected $parent;
 
     /**
-     * @var string
-     *
-     * @Gedmo\Slug(fields={"created", "title"})
-     * @ORM\Column(name="slug", type="string", length=64, unique=true)
+     * Constructor of the Category class.
+     * (Initialize array field).
      */
-    private $slug;
+    public function __construct()
+    {
+        //Initialize product as a Doctrine Collection
+        $this->products = new ArrayCollection();
+    }
 
-    /**
-     * @var int
-     *
-     * @Gedmo\TreeLeft
-     * @ORM\Column(name="lft", type="integer")
-     */
-    private $lft;
-
-    /**
-     * @var int
-     *
-     * @Gedmo\TreeRight
-     * @ORM\Column(name="rgt", type="integer")
-     */
-    private $rgt;
-
-    /**
-     * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    private $parent;
-
-    /**
-     * @var int
-     *
-     * @Gedmo\TreeRoot
-     * @ORM\Column(name="root", type="integer", unique=true)
-     */
-    private $root;
-
-    /**
-     * @var int
-     *
-     * @Gedmo\TreeLevel
-     * @ORM\Column(name="lvl", type="integer")
-     */
-    private $level;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
-     */
-    private $children;
-
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created", type="datetime")
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="updated", type="datetime")
-     */
-    private $updated;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Blameable(on="create")
-     * @ORM\Column(name="createdBy", type="string", length=255)
-     */
-    private $createdBy;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Blameable(on="update")
-     * @ORM\Column(name="updatedBy", type="string", length=255)
-     */
-    private $updatedBy;
-
+    /** {@inheritdoc} */
     public function __toString()
     {
-        return $this->title;
+        return $this->getName();
     }
 
     /**
-     * Get id
+     * Get the id of the category.
+     * Return null if the category is new and not saved.
      *
      * @return int
      */
@@ -138,291 +86,83 @@ class Category
     }
 
     /**
-     * Set title
+     * Set the name of the category.
      *
-     * @param string $title
-     *
-     * @return Category
+     * @param string $name
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
-
-        return $this;
+        $this->name = $name;
     }
 
     /**
-     * Get title
+     * Get the name of the category.
      *
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
-     * Set description
+     * Set the parent category.
      *
-     * @param string $description
-     *
-     * @return Category
+     * @param Category $parent
      */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return Category
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set lft
-     *
-     * @param integer $lft
-     *
-     * @return Category
-     */
-    public function setLft($lft)
-    {
-        $this->lft = $lft;
-
-        return $this;
-    }
-
-    /**
-     * Get lft
-     *
-     * @return int
-     */
-    public function getLft()
-    {
-        return $this->lft;
-    }
-
-    /**
-     * Set rgt
-     *
-     * @param integer $rgt
-     *
-     * @return Category
-     */
-    public function setRgt($rgt)
-    {
-        $this->rgt = $rgt;
-
-        return $this;
-    }
-
-    /**
-     * Get rgt
-     *
-     * @return int
-     */
-    public function getRgt()
-    {
-        return $this->rgt;
-    }
-
     public function setParent($parent)
     {
         $this->parent = $parent;
-
-        return $this;
     }
 
+    /**
+     * Get the parent category.
+     *
+     * @return Category
+     */
     public function getParent()
     {
         return $this->parent;
     }
 
     /**
-     * Set root
+     * Return all product associated to the category.
      *
-     * @param integer $root
-     *
-     * @return Category
+     * @return Product[]
      */
-    public function setRoot($root)
+    public function getProducts()
     {
-        $this->root = $root;
-
-        return $this;
+        return $this->products;
     }
 
     /**
-     * Get root
+     * Set all products in the category.
      *
-     * @return int
+     * @param Product[] $products
      */
-    public function getRoot()
+    public function setProducts($products)
     {
-        return $this->root;
+        $this->products->clear();
+        $this->products = new ArrayCollection($products);
     }
 
     /**
-     * Set level
+     * Add a product in the category.
      *
-     * @param integer $level
-     *
-     * @return Category
+     * @param $product Product The product to associate
      */
-    public function setLevel($level)
+    public function addProduct($product)
     {
-        $this->level = $level;
-
-        return $this;
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+        }
     }
 
     /**
-     * Get level
-     *
-     * @return int
+     * @param Product $product
      */
-    public function getLevel()
+    public function removeProduct($product)
     {
-        return $this->level;
-    }
-
-    public function setChildren($children)
-    {
-        $this->children = $children;
-
-        return $this;
-    }
-
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return Category
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return Category
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
-
-    /**
-     * Set createdBy
-     *
-     * @param string $createdBy
-     *
-     * @return Category
-     */
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * Get createdBy
-     *
-     * @return string
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * Set updatedBy
-     *
-     * @param string $updatedBy
-     *
-     * @return Category
-     */
-    public function setUpdatedBy($updatedBy)
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedBy
-     *
-     * @return string
-     */
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
+        $this->products->removeElement($product);
     }
 }
-
