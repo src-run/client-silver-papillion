@@ -122,6 +122,10 @@ class Category
      */
     private $updatedBy;
 
+    public function __toString()
+    {
+        return $this->title;
+    }
 
     /**
      * Get id
@@ -253,6 +257,18 @@ class Category
         return $this->rgt;
     }
 
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
     /**
      * Set root
      *
@@ -299,6 +315,18 @@ class Category
     public function getLevel()
     {
         return $this->level;
+    }
+
+    public function setChildren($children)
+    {
+        $this->children = $children;
+
+        return $this;
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
     }
 
     /**

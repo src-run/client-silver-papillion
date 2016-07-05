@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new \Hautelook\TemplatedUriBundle\HautelookTemplatedUriBundle(),
             new \Bazinga\Bundle\RestExtraBundle\BazingaRestExtraBundle(),
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new \JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new \AppBundle\AppBundle(),
         ];
 

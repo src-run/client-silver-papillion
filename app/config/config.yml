@@ -97,6 +97,7 @@ fos_rest:
     format_listener:
         rules:
             - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
+            - { path: '^/admin', stop: true }
     versioning:
         enabled: true
         resolvers:
@@ -132,12 +133,6 @@ knp_menu:
         builder_service: false
         container_aware: false
 
-doctrine_migrations:
-    dir_name: "%kernel.root_dir%/Resources/migrations"
-    namespace: SR\AppBundle\Migrations
-    table_name: migration_versions
-    name: src-silver-papillon
-
 stof_doctrine_extensions:
     default_locale: en_US
     orm:
@@ -148,5 +143,11 @@ stof_doctrine_extensions:
             loggable: true
             sortable: true
             softdeleteable: true
+
+easy_admin:
+    site_name: "Silver Papillon Admin"
+    entities:
+#        - AppBundle\Entity\Product
+        - AppBundle\Entity\Category
 
 ...
