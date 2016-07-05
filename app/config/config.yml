@@ -5,29 +5,31 @@ imports:
     - { resource: parameters_platform.php }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: admin/ }
 
 parameters:
     locale: en
+    app.path.product_images: /uploads/images/products
+    app.path.user_contracts: /uploads/files/user/contracts
 
 framework:
-    translator:
-      fallback: "%locale%"
+    translator: { fallbacks: ["%locale%"] }
     secret: "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
     form: ~
-    csrf_protection: false
+    csrf_protection: ~
     validation:
         enable_annotations: true
-    #serializer:      { enable_annotations: true }
     templating:
         engines:
           - twig
     default_locale: "%locale%"
     trusted_hosts: ~
     trusted_proxies: ~
-    session:  false
+    session:
+        handler_id:  ~
     fragments: ~
     http_method_override: true
     assets: ~
@@ -53,26 +55,50 @@ doctrine:
         user: "%database_user%"
         password: "%database_password%"
         charset: UTF8
+        server_version: 5.6
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
-            loggable:
+            gedmo_translatable:
+                type: annotation
+                prefix: Gedmo\Translatable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
+                is_bundle: false
+            gedmo_translator:
+                type: annotation
+                prefix: Gedmo\Translator\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+                alias: GedmoTranslator # (optional) it will default to the name set for the mapping
+                is_bundle: false
+            gedmo_loggable:
                 type: annotation
                 prefix: Gedmo\Loggable\Entity
                 dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
                 alias: GedmoLoggable # (optional) it will default to the name set for the mappingmapping
                 is_bundle: false
-            tree:
+            gedmo_tree:
                 type: annotation
-                alias: Gedmo
                 prefix: Gedmo\Tree\Entity
                 dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                alias: GedmoTree # (optional) it will default to the name set for the mapping
+                is_bundle: false
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                 enabled: true
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        product_images:
+            uri_prefix: %app.path.product_images%
+            upload_destination: %kernel.root_dir%/../web/uploads/images/products
+        user_contracts:
+            uri_prefix: %app.path.user_contracts%
+            upload_destination: %kernel.root_dir%/../web/uploads/files/user/contracts
 
 swiftmailer:
     transport: "%mailer_transport%"
@@ -82,51 +108,6 @@ swiftmailer:
     spool:
       type: memory
 
-fos_rest:
-    disable_csrf_role: ROLE_API
-    param_fetcher_listener: true
-    view:
-        mime_types:
-            json: ['application/json', 'application/json;version=1.0', 'application/json;version=1.1', 'application/json;version=1.2']
-        view_response_listener: 'force'
-        formats:
-            xml:  true
-            json: true
-        templating_formats:
-            html: true
-    format_listener:
-        rules:
-            - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
-            - { path: '^/admin', stop: true }
-    versioning:
-        enabled: true
-        resolvers:
-            media_type:
-                enabled: true
-    exception:
-        codes:
-            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
-            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
-        messages:
-            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
-    allowed_methods_listener: true
-    access_denied_listener:
-        json: true
-    body_listener: true
-
-fos_http_cache:
-    cache_control:
-        rules:
-            # the controls section values are used in a call to Response::setCache();
-            -
-                match:
-                    path: ^/notes
-                    methods: [GET, HEAD]
-                headers:
-                    cache_control: { public: true, max_age: 15, s_maxage: 30 }
-                    last_modified: "-1 hour"
-                    vary: [Accept-Encoding, Accept-Language]
-
 knp_menu:
     providers:
         builder_alias: false
@@ -135,6 +116,10 @@ knp_menu:
 
 stof_doctrine_extensions:
     default_locale: en_US
+    uploadable:
+        default_file_path:       %kernel.root_dir%/../web/uploads
+        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
     orm:
         default:
             timestampable: true
@@ -144,10 +129,31 @@ stof_doctrine_extensions:
             sortable: true
             softdeleteable: true
 
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+
 easy_admin:
     site_name: "Silver Papillon Admin"
+    design:
+        color_scheme: 'dark'
+        form_theme: 'vertical'
     entities:
 #        - AppBundle\Entity\Product
-        - AppBundle\Entity\Category
-
+        Category:
+            class: AppBundle\Entity\Category
+            list:
+                fields:
+                    - title
+                    - slug
+                    - description
+                    - children
+                    - updated
+                    - updatedBy
+            form:
+                fields:
+                    - title
+                    - description
+                    - parent
 ...

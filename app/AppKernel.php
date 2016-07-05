@@ -32,14 +32,10 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new \JMS\SerializerBundle\JMSSerializerBundle(),
-            new \FOS\RestBundle\FOSRestBundle(),
-            new \Nelmio\ApiDocBundle\NelmioApiDocBundle(),
-            new \FOS\HttpCacheBundle\FOSHttpCacheBundle(),
-            new \Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
-            new \Hautelook\TemplatedUriBundle\HautelookTemplatedUriBundle(),
-            new \Bazinga\Bundle\RestExtraBundle\BazingaRestExtraBundle(),
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new \FOS\UserBundle\FOSUserBundle(),
+            new \Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new \Vich\UploaderBundle\VichUploaderBundle(),
             new \JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new \AppBundle\AppBundle(),
         ];
@@ -50,6 +46,7 @@ class AppKernel extends Kernel
             $bundles[] = new \Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
+            $bundles[] = new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
         }
 
         return $bundles;
