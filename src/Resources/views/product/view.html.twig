@@ -1,0 +1,17 @@
+{% extends 'AppBundle:product:base.html.twig' %}
+
+{% block bread %}
+    {{ parent() }}
+    <li><a href="{{ url('app_category_view', {categoryName: product.getCategory.getName|replace({' ': '-'})|lower, category: product.getCategory.getId}) }}">{{ product.getCategory.getName }}</a></li>
+    <li>{{ product.getName }}</li>
+{% endblock %}
+
+{% block bodyRow %}
+    <div class="col-sm-6">
+        <img class="img-responsive" src="/uploads/images/products/{{ product.getImage }}" alt="{{ product.getName }} Product Image" />
+    </div>
+    <div class="col-sm-6">
+        <h1>{{ product.getName }}</h1>
+        <h2>{{ product.getPrice }}</h2>
+    </div>
+{% endblock %}

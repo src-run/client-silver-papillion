@@ -16,24 +16,24 @@ app_root:
     permanent   : true
 
 app_category_list:
-  path     : /store/categories/list
+  path     : /store/categories
   defaults :
     _controller : AppBundle:Category:list
 
 app_category_view:
-  path     : /store/category/view/{categoryName}/{category}
+  path     : /store/category/{categoryName}/{category}
   defaults :
     _controller : AppBundle:Category:view
 
-app_store_list:
-  path     : /store/list
+app_product_list:
+  path     : /store/products
   defaults :
-    _controller : AppBundle:Store:list
+    _controller : AppBundle:Product:list
 
-app_store_view:
-  path     : /store/view/{product_name}/{product}
+app_product_view:
+  path     : /store/product/{productName}/{product}
   defaults :
-    _controller : AppBundle:Store:view
+    _controller : AppBundle:Product:view
 
 app_feed_view:
   path     : /news
