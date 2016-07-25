@@ -61,9 +61,22 @@
     {% for feature in featured %}
         <div class="col-md-4">
             <div class="card">
-                <img src="/uploads/images/products/{{ feature.getImage }}" alt="{{ feature.getName }} Product Image" />
-                <a class="link-header" href="{{ path('app_store_view', {'product_name': feature.getName|replace({' ': '-'})|lower, 'product': feature.getId}) }}">{{ feature.getName }}</a>
-                <span class="link-header-right">${{ feature.getPrice }}</span>
+                <div class="product" data-href="{{ path('app_store_view', {'product_name': feature.getName|replace({' ': '-'})|lower, 'product': feature.getId}) }}">
+                    <img src="/uploads/images/products/{{ feature.getImage }}" alt="{{ feature.getName }} Product Image" />
+                    <div class="product-info">
+                        <div class="product-price">
+                            <p>${{ feature.getPrice }}</p>
+                        </div>
+                        <div class="product-name">
+                            <h4>{{ feature.getName }}</h4>
+                        </div>
+                        <div class="product-add">
+                            <a href="{{ path('app_store_view', {'product_name': feature.getName|replace({' ': '-'})|lower, 'product': feature.getId}) }}">
+                                <span class="hidden">View Item Details</span> <i class="fa fa-cart-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     {% endfor %}
