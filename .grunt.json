@@ -3,18 +3,18 @@
     "fragments": {
       "script": "javascripts",
       "style" : "stylesheets",
-      "in"    : "bundles/app",
-      "to"    : "assets/"
+      "in"    : "bundles/app/",
+      "to"    : "components/"
     },
     "app": {
       "root": "web/",
       "in": {
-        "script": "${paths.app.root}${paths.fragments.in}/${paths.fragments.script}/",
-        "style" : "${paths.app.root}${paths.fragments.in}/${paths.fragments.style}/"
+        "script": "${paths.app.root}${paths.fragments.in}${paths.fragments.script}/",
+        "style" : "${paths.app.root}${paths.fragments.in}${paths.fragments.style}/"
       },
       "to": {
-        "script": "${paths.app.root}${paths.fragments.to}/${paths.fragments.script}/",
-        "style" : "${paths.app.root}${paths.fragments.to}/${paths.fragments.style}/"
+        "script": "${paths.app.root}${paths.fragments.to}${paths.fragments.script}/",
+        "style" : "${paths.app.root}${paths.fragments.to}${paths.fragments.style}/"
       }
     },
     "jquery": {
@@ -34,6 +34,12 @@
       },
       "to": {
         "style": "${paths.app.to.style}bootstrap.css"
+      }
+    },
+    "plug-fa": {
+      "root": "web/components/font-awesome/",
+      "in": {
+        "style" : "${paths.plug-fa.root}scss/"
       }
     },
     "plug-waypoints": {

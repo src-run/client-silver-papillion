@@ -1,0 +1,38 @@
+
+#
+# This file is part of the `src-run/<name>` project.
+#
+# (c) Rob Frawley 2nd <rmf@src.run>
+#
+# For the full copyright and license information, please view the LICENSE.md
+# file that was distributed with this source code.
+#
+
+app_root:
+  path     : /
+  defaults :
+    _controller : AppBundle:Default:index
+    route       : easyadmin
+    permanent   : true
+
+app_category_list:
+  path     : /store/categories/list
+  defaults :
+    _controller : AppBundle:Category:list
+
+app_category_view:
+  path     : /store/category/view/{category_name}/{category}
+  defaults :
+    _controller : AppBundle:Category:view
+
+app_store_list:
+  path     : /store/list
+  defaults :
+    _controller : AppBundle:Store:list
+
+app_store_view:
+  path     : /store/view/{product_name}/{product}
+  defaults :
+    _controller : AppBundle:Store:view
+
+# EOF
