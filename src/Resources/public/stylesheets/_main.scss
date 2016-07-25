@@ -8,6 +8,122 @@
  * file that was distributed with this source code.
 */
 
+body {
+  background-color:rgba(242, 241, 243, 0.8);
+}
+
+.promo {
+  background-color:#fff;
+  padding-top: 36px;
+  padding-bottom: 36px;
+  margin-bottom: 45px;
+
+  h2 {
+    font-weight: 100;
+    font-size: 28px;
+    padding: 3px 0 0 0;
+    margin: 0;
+    color: #d80874;
+  }
+}
+
+.card {
+  padding: 0;
+  background-color: #fff;
+  border: 2px solid #fff;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+
+  .link-header {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.9);
+    left: 0;
+    right: 0;
+    font-size: 21px;
+    padding: 10px;
+    color: #2194ef;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .link-header-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    font-size: 21px;
+    font-weight: 100;
+    padding: 10px;
+    color: rgba(211, 26, 124, 1);
+  }
+}
+
+#carousel-index {
+  .carousel-inner {
+    .item {
+      max-height: 360px;
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .carousel-indicators {
+    bottom: 10px;
+
+    li {
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 0;
+      height: 12px;
+      width: 12px;
+
+      &.active {
+        background-color: #fff;
+        margin: 1px;
+        height: 12px;
+        width: 12px;
+      }
+    }
+  }
+}
+
+.navbar {
+
+  &.navbar-inverse {
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.88);
+    background-image: url('/bundles/app/images/bg-large-opacity02.png');
+    background-size: cover;
+  }
+
+  #navbar {
+    .navbar-nav {
+      @media (min-width: $screen-sm-min) {
+        float: right;
+      }
+    }
+  }
+}
+
+.navbar-brand {
+  padding: 0;
+  img {
+    height: 63px;
+    padding-top: 2px;
+    opacity: 1;
+    transition: opacity 0.5s;
+    will-change: opacify;
+  }
+
+  &:hover img {
+    opacity:0.85;
+  }
+}
+
 #main-container {
   padding-top: 64px;
 }

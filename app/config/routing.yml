@@ -1,12 +1,5 @@
 ---
 
-_homepage:
-  path     : /
-  defaults :
-    _controller : FrameworkBundle:Redirect:redirect
-    route       : easyadmin
-    permanent   : true
-
 robots_controller:
   resource : "@AppBundle/Controller/RobotsController.php"
   type     : annotation
@@ -22,5 +15,8 @@ _fos_user:
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+_app:
+  resource : "@AppBundle/Resources/config/routing/app.yml"
 
 ...

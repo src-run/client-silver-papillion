@@ -1,0 +1,87 @@
+{% extends '::base.html.twig' %}
+
+{% block jumbotron %}
+<div id="carousel-index" class="carousel slide" data-ride="carousel" data-interval="4000">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-index" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-index" data-slide-to="1"></li>
+        <li data-target="#carousel-index" data-slide-to="2"></li>
+        <li data-target="#carousel-index" data-slide-to="3"></li>
+        <li data-target="#carousel-index" data-slide-to="4"></li>
+        <li data-target="#carousel-index" data-slide-to="5"></li>
+        <li data-target="#carousel-index" data-slide-to="6"></li>
+        <li data-target="#carousel-index" data-slide-to="7"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="{{ asset('bundles/app/images/store/store-front-sign.png') }}" alt="">
+            <div class="carousel-caption">
+            </div>
+        </div>
+        <div class="item">
+            <img src="{{ asset('bundles/app/images/store/store-front-table.png') }}" alt="">
+            <div class="carousel-caption">
+            </div>
+        </div>
+        <div class="item">
+            <img src="{{ asset('bundles/app/images/store/store-inside-display-01.png') }}" alt="">
+            <div class="carousel-caption">
+            </div>
+        </div>
+        <div class="item">
+            <img src="{{ asset('bundles/app/images/store/store-inside-cases-01.png') }}" alt="">
+            <div class="carousel-caption">
+            </div>
+        </div>
+        <div class="item">
+            <img src="{{ asset('bundles/app/images/store/store-inside-cases-02.png') }}" alt="">
+            <div class="carousel-caption">
+            </div>
+        </div>
+        <div class="item">
+            <img src="{{ asset('bundles/app/images/store/store-inside-wall-3.png') }}" alt="">
+            <div class="carousel-caption">
+            </div>
+        </div>
+        <div class="item">
+            <img src="{{ asset('bundles/app/images/store/nearby-bridge.png') }}" alt="">
+            <div class="carousel-caption">
+            </div>
+        </div>
+        <div class="item">
+            <img src="{{ asset('bundles/app/images/store/store-front-wide.png') }}" alt="">
+            <div class="carousel-caption">
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-index" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-index" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div> <!-- Carousel -->
+<div class="promo">
+    <div class="container">
+        <a href="{{ path('app_store_list') }}" class="pull-right btn btn-primary">Shop Now</a>
+        <h2>Bowse our large collection of <em>Wine Caddies</em> and other goods.</h2>
+    </div>
+</div>
+{% endblock %}
+
+{% block bodyRow %}
+    {% for feature in featured %}
+    <div class="col-md-4">
+        <div class="card">
+            <img src="/uploads/images/products/{{ feature.getImage }}" alt="{{ feature.getName }} Product Image" />
+            <a class="link-header" href="{{ path('app_store_view', {'product_name': feature.getName|lower, 'product': feature.getId}) }}">{{ feature.getName }}</a>
+            <span class="link-header-right">${{ feature.getPrice }}</span>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

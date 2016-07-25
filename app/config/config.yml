@@ -39,6 +39,7 @@ assetic:
   use_controller: false
   bundles:
     - FOSUserBundle
+    - AppBundle
   filters:
     cssrewrite: ~
 
