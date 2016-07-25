@@ -1,0 +1,6 @@
+parameters:
+
+services:
+
+  app.slugger:
+    class: AppBundle\Util\Slugger

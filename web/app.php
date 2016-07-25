@@ -11,18 +11,24 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @var Composer\Autoload\ClassLoader
- */
+/** @var Composer\Autoload\ClassLoader */
 $loader = require __DIR__.'/../app/autoload.php';
+
 include_once __DIR__.'/../var/bootstrap.php.cache';
 
+/** @var AppKernel $kernel */
 $kernel = new AppKernel('prod', false);
 $kernel->loadClassCache();
+
+/** @var AppCache $kernel */
 $kernel = new AppCache($kernel);
 
 Request::enableHttpMethodParameterOverride();
+
+/** @var Request $request */
 $request = Request::createFromGlobals();
+
+/** @var \Symfony\Component\HttpFoundation\Response $response */
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);

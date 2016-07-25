@@ -1,0 +1,4 @@
+AppBundle\Entity\Product:
+    category:
+        mapping:           product_images
+        filename_property: image

@@ -13,13 +13,11 @@ easy_admin:
             list:
                 title: 'Customers'
                 actions: ['-new']
-                fields: ['id', 'isActive', 'username', 'email', 'purchases', { property: 'contract', template: 'contract.html.twig', base_path: %app.path.user_contracts% }]
+                fields: ['id', 'username', 'email', 'orders']
             show:
-                fields: ['id', 'isActive', 'username', 'email', 'purchases', { property: 'contract', template: 'contract.html.twig', base_path: %app.path.user_contracts% }]
+                fields: ['id', 'username', 'email', 'orders']
             form:
                 fields:
                     - { property: 'username', css_class: 'col-sm-4' }
                     - { property: 'email', css_class: 'col-sm-6' }
-                    - { property: 'isActive', css_class: 'col-sm-2' }
-                    - { property: 'purchases', css_class: 'col-sm-12' }
-                    - { property: 'contractFile', type: 'Vich\UploaderBundle\Form\Type\VichFileType', css_class: 'col-sm-12' }
+                    - { property: 'orders', css_class: 'col-sm-12' }

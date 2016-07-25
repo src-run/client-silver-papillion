@@ -1,12 +1,12 @@
 ---
 
 imports:
-    - { resource: config.yml }
+  - { resource: config.yml }
 
 
 framework:
-    router:
-        strict_requirements: null
+  router:
+    strict_requirements: null
 
 #doctrine:
 #    orm:
@@ -15,14 +15,14 @@ framework:
 #        query_cache_driver: apc
 
 monolog:
-    handlers:
-        main:
-            type:         fingers_crossed
-            action_level: error
-            handler:      nested
-        nested:
-            type:  stream
-            path:  %kernel.logs_dir%/%kernel.environment%.log
-            level: debug
+  handlers:
+    main:
+      type:         fingers_crossed
+      action_level: error
+      handler:      nested
+    nested:
+      type:  stream
+      path:  %kernel.logs_dir%/%kernel.environment%.log
+      level: debug
 
 ...

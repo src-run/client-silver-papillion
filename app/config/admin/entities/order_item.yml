@@ -1,0 +1,9 @@
+---
+
+easy_admin:
+  entities:
+    OrderItem:
+      class: AppBundle\Entity\OrderItem
+      label: 'Order Items'
+
+...
