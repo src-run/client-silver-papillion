@@ -12,22 +12,38 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Category DefaultController.
+ * Category CategoryController.
  */
 class CategoryController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function listAction()
     {
-        $repo = $this->getDoctrine()->getManager()->getRepository(Category::class);
-        $categories = $repo->findAll();
+        return $this->render('AppBundle:category:list.html.twig', [
+            '_c' => static::class,
+            'categories' => $this->get('app.manager.category')->getAll()
+        ]);
+    }
 
-        return $this->render('AppBundle:default:index.html.twig', ['categories' => $categories]);
+    /**
+     * @ParamConverter("category")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewAction($categoryName, Category $category)
+    {
+        return $this->render('AppBundle:category:view.html.twig', [
+            '_c' => static::class,
+            'category' => $category,
+            'categories' => $this->get('app.manager.category')->getAll(),
+            'products' => $this->get('app.manager.product')->getAllFromCategory($category),
+        ]);
     }
 }
 

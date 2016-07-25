@@ -29,6 +29,7 @@ easy_admin:
           - enabled
           - featured
           - name
+          - category
 
           - property  : 'updatedOn'
             label     : 'Updated'
@@ -67,7 +68,7 @@ easy_admin:
             type      : 'image'
             base_path : '%app.path.product_images%'
 
-          - categories
+          - category
 
       form:
         fields:
@@ -87,8 +88,7 @@ easy_admin:
 
           - type      : 'divider'
 
-          - property  : 'categories'
-            type      : 'easyadmin_autocomplete'
+          - category
 
           - label     : 'Published State'
             type      : 'group'

@@ -80,9 +80,9 @@ class Product
     protected $price;
 
     /**
-     * @var \AppBundle\Entity\Category[]|\Doctrine\Common\Collections\ArrayCollection
+     * @var \AppBundle\Entity\Category
      */
-    protected $categories;
+    protected $category;
 
     /**
      * Assign entity property default values.
@@ -94,7 +94,6 @@ class Product
         $this->tags = [];
         $this->enabled = true;
         $this->featured = false;
-        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -392,33 +391,11 @@ class Product
     }
 
     /**
-     * @return \AppBundle\Entity\Category[]|ArrayCollection
+     * @return \AppBundle\Entity\Category
      */
-    public function getCategories()
+    public function getCategory()
     {
-        return $this->categories;
-    }
-
-    /**
-     * @param \AppBundle\Entity\Category[]|\Doctrine\Common\Collections\ArrayCollection $categories
-     *
-     * @return $this
-     */
-    public function setCategories(ArrayCollection $categories)
-    {
-        $categories = $categories->filter(function ($c) {
-            return $c instanceof Category;
-        });
-
-        foreach ($this->categories as $category) {
-            $this->removeCategory($category);
-        }
-
-        foreach ($categories as $category) {
-            $this->addCategory($category);
-        }
-
-        return $this;
+        return $this->category;
     }
 
     /**
@@ -426,26 +403,9 @@ class Product
      *
      * @return $this
      */
-    public function addCategory(Category $category)
+    public function setCategory(Category $category)
     {
-        $category->addProduct($this);
-
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param \AppBundle\Entity\Category $category
-     *
-     * @return $this
-     */
-    public function removeCategory(Category $category)
-    {
-        $category->removeProduct($this);
-        $this->categories->removeElement($category);
+        $this->category = $category;
 
         return $this;
     }

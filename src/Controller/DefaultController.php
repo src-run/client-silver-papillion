@@ -25,17 +25,10 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $manager = $this->getDoctrine()->getManager();
-
-        $categoriesRepo = $manager->getRepository(Category::class);
-        $categories = $categoriesRepo->findAll();
-
-        $productsRepo = $manager->getRepository(Product::class);
-        $featured = $productsRepo->findFeatured();
-
         return $this->render('AppBundle:default:index.html.twig', [
-            'categories' => $categories,
-            'featured' => $featured,
+            '_c' => static::class,
+            'categories' => $this->get('app.manager.category')->getAll(),
+            'featured' => $this->get('app.manager.product')->getFeatured(),
         ]);
     }
 }

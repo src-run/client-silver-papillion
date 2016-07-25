@@ -1,0 +1,13 @@
+{% extends 'AppBundle:category:base.html.twig' %}
+
+{% block bread %}{{ parent() }} <li>All</li>{% endblock %}
+
+{% block bodyRow %}
+    {% for c in categories %}
+    <div class="col-md-4">
+        <div class="card">
+            <h3>{{ c.getName }}</h3>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

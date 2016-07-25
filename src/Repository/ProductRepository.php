@@ -11,6 +11,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use Doctrine\ORM\EntityRepository;
 
@@ -28,6 +29,17 @@ class ProductRepository extends EntityRepository
             ->createQueryBuilder('p')
             ->where('p.featured = 1')
             ->setMaxResults(3)
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
+    public function findInCategory(Category $category)
+    {
+        $q = $this
+            ->createQueryBuilder('p')
+            ->where('p.category = :category')
+            ->setParameter('category', $category)
             ->getQuery();
 
         return $q->getResult();

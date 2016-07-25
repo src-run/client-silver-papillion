@@ -21,7 +21,7 @@ app_category_list:
     _controller : AppBundle:Category:list
 
 app_category_view:
-  path     : /store/category/view/{category_name}/{category}
+  path     : /store/category/view/{categoryName}/{category}
   defaults :
     _controller : AppBundle:Category:view
 
@@ -34,5 +34,20 @@ app_store_view:
   path     : /store/view/{product_name}/{product}
   defaults :
     _controller : AppBundle:Store:view
+
+app_feed_view:
+  path     : /news
+  defaults :
+    _controller : AppBundle:Feed:view
+
+app_account_view:
+  path     : /account
+  defaults :
+    _controller : AppBundle:Account:view
+
+app_contact_view:
+  path     : /contact
+  defaults :
+    _controller : AppBundle:Contact:view
 
 # EOF
