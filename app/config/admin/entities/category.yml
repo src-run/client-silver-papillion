@@ -26,15 +26,12 @@ easy_admin:
         fields:
 
           - id
-          - enabled
-          - featured
           - name
+          - enabled
 
           - property  : 'image'
             type      : 'image'
             base_path : '%app.path.category_images%'
-
-          - parent
 
       show:
         fields:
@@ -54,13 +51,7 @@ easy_admin:
           - property  : 'enabled'
             label     : 'Published'
 
-          - property  : 'featured'
-            label     : 'Featured'
-
-          - property  : 'parent'
-            label     : 'Parent category'
-
-          - products
+          - property  : 'products'
 
       form:
         fields:
@@ -70,10 +61,8 @@ easy_admin:
             icon      : 'pencil'
             css_class : 'col-sm-8'
 
-          - property  : name
-
-          - property  : 'parent'
-            type      : 'easyadmin_autocomplete'
+          - name
+          - products
 
           - property  : 'description'
             type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
@@ -85,8 +74,6 @@ easy_admin:
 
           - property  : 'enabled'
             label     : 'Published'
-
-          - property  : featured
 
           - label     : 'Attachments'
             type      : 'group'

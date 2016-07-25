@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `address` (
-  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `address` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:simple_array)',
   `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -39,36 +39,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES ('','Rob','149 Coleman Rd','Middletown','CT','06457');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `category_mapto_product`
---
-
-DROP TABLE IF EXISTS `category_mapto_product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `category_mapto_product` (
-  `product_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`category_id`),
-  KEY `IDX_ABFDFA534584665A` (`product_id`),
-  KEY `IDX_ABFDFA5312469DE2` (`category_id`),
-  CONSTRAINT `FK_ABFDFA5312469DE2` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_ABFDFA534584665A` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `category_mapto_product`
---
-
-LOCK TABLES `category_mapto_product` WRITE;
-/*!40000 ALTER TABLE `category_mapto_product` DISABLE KEYS */;
-INSERT INTO `category_mapto_product` VALUES (2,1),(3,1);
-/*!40000 ALTER TABLE `category_mapto_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -80,8 +51,8 @@ DROP TABLE IF EXISTS `customer_order`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_order` (
   `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `shipping_address_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `billing_address_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shipping_address_id` int(11) DEFAULT NULL,
+  `billing_address_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_on` datetime DEFAULT NULL,
   `updated_on` datetime DEFAULT NULL,
@@ -137,29 +108,6 @@ LOCK TABLES `customer_order_item` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migration_versions`
---
-
-DROP TABLE IF EXISTS `migration_versions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migration_versions` (
-  `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `migration_versions`
---
-
-LOCK TABLES `migration_versions` WRITE;
-/*!40000 ALTER TABLE `migration_versions` DISABLE KEYS */;
-INSERT INTO `migration_versions` VALUES ('20160724184856');
-/*!40000 ALTER TABLE `migration_versions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `product`
 --
 
@@ -168,6 +116,7 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) DEFAULT NULL,
   `created_on` datetime DEFAULT NULL,
   `updated_on` datetime DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -177,7 +126,9 @@ CREATE TABLE `product` (
   `featured` tinyint(1) NOT NULL,
   `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` double DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_D34A04ADA77A0A8C` (`category_id`),
+  CONSTRAINT `FK_D34A04ADA77A0A8C` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -187,7 +138,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (2,'2016-07-25 07:32:12','2016-07-25 07:32:12','Bicycle',NULL,NULL,1,1,'313899742-bicycle.jpg',49.99),(3,'2016-07-25 07:34:03','2016-07-25 07:34:03','Captain with Binoculars',NULL,NULL,1,1,'313899867-aptain-with-binoculars.jpg',49.99),(4,'2016-07-25 07:34:21','2016-07-25 07:34:21','Captain Silver',NULL,NULL,1,1,'313899877-captain-silver.jpg',49.99),(5,'2016-07-25 07:34:41','2016-07-25 07:34:41','Captain Painted',NULL,NULL,1,1,'313899891-captain-painted.jpg',49.99),(6,'2016-07-25 07:34:52','2016-07-25 07:35:44','Bartender',NULL,NULL,1,0,'313899903-bartender.jpg',49.99),(7,'2016-07-25 07:35:16','2016-07-25 07:35:38','Attorney',NULL,NULL,1,0,'314104271-attorney.jpg',49.99),(8,'2016-07-25 07:35:27','2016-07-25 07:35:27','Angel',NULL,NULL,1,0,'314104296-angel.jpg',49.99),(9,'2016-07-25 07:36:04','2016-07-25 07:36:04','Bartender with Stools',NULL,NULL,1,0,'320225582-artender-with-stools.jpg',49.99);
+INSERT INTO `product` VALUES (2,1,'2016-07-25 07:32:12','2016-07-25 10:08:11','Bicycle',NULL,NULL,1,1,'313899742-bicycle.jpg',49.99),(3,1,'2016-07-25 07:34:03','2016-07-25 10:08:16','Captain with Binoculars',NULL,NULL,1,1,'313899867-aptain-with-binoculars.jpg',49.99),(4,1,'2016-07-25 07:34:21','2016-07-25 10:08:19','Captain Silver',NULL,NULL,1,1,'313899877-captain-silver.jpg',49.99),(5,1,'2016-07-25 07:34:41','2016-07-25 10:08:23','Captain Painted',NULL,NULL,1,1,'313899891-captain-painted.jpg',49.99),(6,1,'2016-07-25 07:34:52','2016-07-25 10:08:26','Bartender',NULL,NULL,1,0,'313899903-bartender.jpg',49.99),(7,1,'2016-07-25 07:35:16','2016-07-25 10:08:30','Attorney',NULL,NULL,1,0,'314104271-attorney.jpg',49.99),(8,1,'2016-07-25 07:35:27','2016-07-25 10:08:35','Angel',NULL,NULL,1,0,'314104296-angel.jpg',49.99),(9,1,'2016-07-25 07:36:04','2016-07-25 10:07:35','Bartender with Stools',NULL,NULL,1,0,'320225582-artender-with-stools.jpg',49.99);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,16 +151,13 @@ DROP TABLE IF EXISTS `product_category`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT NULL,
   `enabled` tinyint(1) NOT NULL,
   `featured` tinyint(1) NOT NULL,
   `name` varchar(510) COLLATE utf8_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8_unicode_ci,
   `image` varchar(510) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_CDFC7356727ACA70` (`parent_id`),
-  CONSTRAINT `FK_CDFC7356727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `product_category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +166,7 @@ CREATE TABLE `product_category` (
 
 LOCK TABLES `product_category` WRITE;
 /*!40000 ALTER TABLE `product_category` DISABLE KEYS */;
-INSERT INTO `product_category` VALUES (1,NULL,1,0,'Wine Caddies',NULL,NULL);
+INSERT INTO `product_category` VALUES (1,1,0,'Wine Caddies',NULL,NULL);
 /*!40000 ALTER TABLE `product_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,7 +179,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `address_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address_id` int(11) DEFAULT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `username_canonical` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -262,7 +210,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,NULL,'admin','admin','rmf@src.run','rmf@src.run',1,'fph72p3ml14wo4wwsgsc8wgccg4c0wk','$2y$13$2Q0NcIONh1oZjc3Sa.aP5eknw87bUCK38ewQAbVY9IaWp4viUe9EG','2016-07-25 07:31:20',0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL);
+INSERT INTO `user` VALUES (1,NULL,'admin','admin','rmf@src.run','rmf@src.run',1,'eet93zwb6t4wscogs0k4s88cwcs8gok','$2y$13$h6cjtma1uIQeAHpO7D8QQ.EmsY3KElMi1uHl8Vw8WJl1NWwwcOp3u','2016-07-25 10:00:57',0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -275,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-25  8:12:34
+-- Dump completed on 2016-07-25 11:41:31

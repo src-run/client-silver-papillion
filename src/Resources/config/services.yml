@@ -4,3 +4,13 @@ services:
 
   app.slugger:
     class: AppBundle\Util\Slugger
+
+  app.manager.category:
+    class: AppBundle\Manager\CategoryManager
+    calls:
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.manager.product:
+    class: AppBundle\Manager\ProductManager
+    calls:
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]

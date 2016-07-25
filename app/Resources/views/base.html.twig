@@ -39,30 +39,60 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">News</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop Products <span class="caret"></span></a>
+                    <li class="{% if 'Default' in _c %}active{% endif %}">
+                        <a href="/">Home</a>
+                    </li>
+
+                    <li class="{% if 'Feed' in _c %}active{% endif %}">
+                        <a href="{{ url('app_feed_view') }}">News</a>
+                    </li>
+
+                    <li class="{% if 'Category' in _c %}active{% endif %} dropdown">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Products <span class="caret"></span>
+                        </a>
+
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('app_store_list') }}">All</a></li>
-                            {% for category in categories %}
-                                <li><a href="{{ path('app_category_view', {'category_name': category.name|lower, 'category': category.id}) }}">{{ category.name }}</a></li>
+                            <li>
+                                <a href="{{ path('app_category_list') }}">Show All</a>
+                            </li>
+
+                            {% for c in categories %}
+                                <li class="{% if category is defined and category.getId == c.getId %}active{% endif %}">
+                                    <a
+                                        href="{{ path('app_category_view', {'categoryName': c.name|replace({' ': '-'})|lower, 'category': c.id}) }}">
+                                        {{ c.name }}
+                                    </a>
+                                </li>
                             {% endfor %}
                         </ul>
+
                     </li>
-                    <li><a href="#contact">Contact</a></li>
+
+                    <li class="{% if 'Account' in _c %}active{% endif %}">
+                        <a href="{{ url('app_account_view') }}">Account</a>
+                    </li>
+
+                    <li class="{% if 'Contact' in _c %}active{% endif %}">
+                        <a href="{{ url('app_contact_view') }}">Contact</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div id="main-container">
-        {% block jumbotron %}
-        <div class="jumbotron">
-            <div class="container">
-                {% block lead %}{% endblock %}
+        {% block header %}
+            <div class="bread">
+                <div class="container">
+                    <ul class="list-unstyled">
+                        {% block bread %}
+                            <li><a href="/">Home</a></li>
+                        {% endblock %}
+                    </ul>
+                </div>
             </div>
-        </div>
         {% endblock %}
 
         {% block body %}
@@ -96,13 +126,12 @@
         {% endblock %}
     </div>
 
-    <div class="container">
-        <hr>
 
-        <footer>
+    <footer>
+        <div class="container">
             <p>&copy; 2016 Silver Papillon</p>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
     {% block javascripts %}
         {% if app.environment == 'prod' %}
