@@ -1,52 +1,120 @@
-# This file sets the configuration of the 'Product' entity.
-#
-# NOTE: this demo application splits the backend configuration into several
-# small files for educational purposes. In your application you can put the
-# entire backend configuration in just one file.
-#
-# The configuration options are explained in detail in the bundle documentation,
-# which is published at https://github.com/javiereguiluz/EasyAdminBundle
+---
+
 easy_admin:
-    entities:
-        # the configuration of this entity is very verbose because it's used as
-        # an example to show all the configuration options available for entities
-        # check out the configuration of the other entities to see how concise
-        # can be the configuration of your backend
-        Product:
-            class: AppBundle\Entity\Product
-            label: 'Products'
-            list:
-                fields:
-                    - id
-                    - enabled
-                    - name
-                    - { property: 'price', format: '%.2f' }
-                    - { property: 'ean', type: 'string' }
-                    - { property: 'image', type: 'image', base_path: %app.path.product_images% }
-                    - { property: 'createdAt', format: 'j / M / Y' }
-                    - tags
-            show:
-                fields:
-                    - id
-                    - { property: 'name', css_class: 'large' }
-                    - description
-                    - { property: 'enabled', label: 'Published' }
-                    - createdAt
-                    - price
-                    - { property: 'ean', type: 'string' }
-                    - { property: 'image', type: 'image', base_path: %app.path.product_images% }
-                    - features
-                    - categories
-                    - tags
-            form:
-                fields:
-                    - { property: 'name', css_class: 'col-sm-12 large' }
-                    - { property: 'description', type: 'Ivory\CKEditorBundle\Form\Type\CKEditorType', css_class: 'col-sm-12' }
-                    - { property: 'enabled', label: 'Published', css_class: 'col-sm-2' }
-                    - { property: 'createdAt', css_class: 'col-sm-4' }
-                    - { property: 'price', type: 'number', css_class: 'col-sm-2' }
-                    - { property: 'ean', help: 'EAN-13 valid code. Leave empty if unknown.', css_class: 'col-sm-4' }
-                    - { property: 'features', css_class: 'col-sm-8' }
-                    - { property: 'imageFile', type: 'Vich\UploaderBundle\Form\Type\VichImageType',  css_class: 'col-sm-4', type_options: { required: true } }
-                    - { property: 'categories', css_class: 'col-sm-8', type: 'easyadmin_autocomplete' }
-                    - { property: 'tags', css_class: 'col-sm-4' }
+  entities:
+    Product:
+      class: AppBundle\Entity\Product
+      label: 'Products'
+
+      list:
+        title: '%%entity_label%%'
+
+        actions:
+
+          - name  : 'show'
+            label : 'Show'
+            icon  : 'search'
+
+          - name  : 'edit'
+            label : 'Edit'
+            icon  : 'edit'
+
+          - name  : 'delete'
+            label : 'Delete'
+            icon  : 'trash'
+
+        fields:
+
+          - id
+          - enabled
+          - featured
+          - name
+
+          - property  : 'updatedOn'
+            label     : 'Updated'
+            format    : 'M j Y'
+
+          - property  : 'price'
+            format    : '%.2f'
+
+          - property  : 'image'
+            type      : 'image'
+            base_path : '%app.path.product_images%'
+
+      show:
+        fields:
+
+          - name
+
+          - property  : 'createdOn'
+            format    : 'M j Y'
+
+          - property  : 'updatedOn'
+            format    : 'M j Y'
+
+          - property  : 'price'
+            format    : '$%.2f'
+
+          - description
+
+          - property  : 'enabled'
+            label     : 'Published'
+
+          - property  : 'featured'
+            label     : 'Featured'
+
+          - property  : 'image'
+            type      : 'image'
+            base_path : '%app.path.product_images%'
+
+          - categories
+
+      form:
+        fields:
+
+          - label     : 'General Information'
+            type      : 'group'
+            icon      : 'pencil'
+            css_class : 'col-sm-8'
+
+          - property  : name
+
+          - property  : 'price'
+            type      : 'number'
+
+          - property  : 'description'
+            type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
+
+          - type      : 'divider'
+
+          - property  : 'categories'
+            type      : 'easyadmin_autocomplete'
+
+          - label     : 'Published State'
+            type      : 'group'
+            icon      : 'floppy-o'
+            css_class : 'col-sm-4'
+
+          - property  : 'enabled'
+            label     : 'Published'
+
+          - property  : featured
+
+          - label     : 'Attributes'
+            type      : 'group'
+            icon      : 'tags'
+            css_class : 'col-sm-4'
+
+          - property  : tags
+            label     : 'Features'
+
+          - label     : 'Attachments'
+            type      : 'group'
+            icon      : 'paperclip'
+            css_class : 'col-sm-4'
+
+          - property  : 'imageFile'
+            label     : 'Image'
+            type      : 'vich_image'
+
+...

@@ -16,21 +16,28 @@ use Symfony\Component\Debug\Debug;
 
 set_time_limit(0);
 
-/**
- * @var Composer\Autoload\ClassLoader $loader
- */
+/** @var Composer\Autoload\ClassLoader $loader */
 $loader = require __DIR__.'/../app/autoload.php';
 
+/** @var ArgvInput $input */
 $input = new ArgvInput();
+
+/** @var string $env */
 $env = $input->getParameterOption(['--env', '-e'], getenv('SYMFONY_ENV') ?: 'dev');
+
+/** @var bool $debug */
 $debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(['--no-debug', '']) && $env !== 'prod';
 
 if ($debug) {
     Debug::enable();
 }
 
+/** @var AppKernel $kernel */
 $kernel = new AppKernel($env, $debug);
+
+/** @var Application $application */
 $application = new Application($kernel);
+
 $application->run($input);
 
 /* EOF */

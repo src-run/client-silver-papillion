@@ -18,16 +18,18 @@
 # The "main menu" is an example of defining the labels explicitly
 # (they are translated following the 1) method)
 # ------------------------------------------------------------------------------
-menu.category:     Categories
-menu.product:      Products
-menu.product.list: List Products
-menu.product.add:  Add Product
-menu.customer:     Customers
-menu.purchase:     Purchases
-menu.about:        About EasyAdmin
-menu.about.home:   Project Home
-menu.about.docs:   Documentation
-menu.about.issues: Report Issues
+menu.category:      Categories
+menu.category.list: List
+menu.category.add:  Add
+menu.product:       Products
+menu.product.list:  List
+menu.product.add:   Add
+menu.customer:      Customers
+menu.purchase:      Purchases
+menu.about:         About EasyAdmin
+menu.about.home:    Project Home
+menu.about.docs:    Documentation
+menu.about.issues:  Report Issues
 
 # We let EasyAdmin generate the rest of the backend labels
 # (they are translated following the 2) method)

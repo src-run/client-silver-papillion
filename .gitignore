@@ -29,5 +29,6 @@
 node_modules/
 web/assets
 web/components/
+web/uploads
 
 ## EOF

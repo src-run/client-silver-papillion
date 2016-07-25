@@ -4,59 +4,48 @@
 
 {% block head_stylesheets %}
     {{ parent() }}
-    <style>
-        header.main-header,
-        aside.main-sidebar {
-            display: none;
-        }
-        .wrapper {
-            background: #F5F5F5;
-        }
-        .fixed .content-wrapper {
-            margin-left: 0;
-            padding-top: 0;
-        }
-    </style>
+
+    {% if app.environment == 'dev' %}
+        {% javascripts 'assets/javascripts/app.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% else %}
+        {% javascripts 'assets/javascripts/app.min.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endif %}
 {% endblock %}
 
-{% block page_title 'Welcome to the EasyAdmin Demo application' %}
-{% block body_id 'welcome' %}
+{% block body_javascript %}
+    {{ parent() }}
+
+    {% if app.environment == 'dev' %}
+        {% stylesheets 'assets/stylesheets/app.css' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% else %}
+        {% stylesheets 'assets/stylesheets/app.min.css' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endif %}
+{% endblock %}
+
+{% block page_title 'Silver Papillon Admin' %}
+{% block body_id 'admin-login' %}
 
 {% block main %}
+    <div class="admin-login-container">
+        <div class="admin-login-row">
+            <h1>Silver Papillon Admin</h1>
 
-    <div class="box box--secondary">
-        <h1>{{ block('page_title') }}</h1>
-
-        <p>
-            This is a <strong>sample application</strong> developed to showcase the
-            main features of <a href="https://github.com/javiereguiluz/EasyAdminBundle">EasyAdmin</a>,
-            the new (and simple) admin generator for Symfony applications.
-        </p>
-
-        <p>
-            <a href="https://github.com/javiereguiluz/easy-admin-demo">View the source code</a>
-            of this demo application, <a href="https://github.com/javiereguiluz/easy-admin-demo/issues">report issues</a>
-            or <a href="https://github.com/javiereguiluz/EasyAdminBundle#documentation">read EasyAdmin docs</a>
-            to create your own backend.
-        </p>
-
-    </div>
-
-    <div class="box box--primary">
-        <div class="row">
-            <h1 class="col-sm-12">
-                <i class="fa fa-lock"></i>
-                Log in to start using the backend
-            </h1>
-
-            <div class="col-sm-6">
+            <div class="admin-login-form">
                 <form action="{{ path("fos_user_security_check") }}" method="post">
                     {% if error %}
                         <div class="has-error">
                             <p class="error-block">
-                                <span class="label label-danger">
-                                    {{ 'errors'|transchoice(1, domain = 'EasyAdminBundle') }}
-                                </span>
+                            <span class="label label-danger">
+                                {{ 'errors'|transchoice(1, domain = 'EasyAdminBundle') }}
+                            </span>
                                 {{ error.messageKey|trans(error.messageData, 'security') }}
                             </p>
                         </div>
@@ -64,39 +53,27 @@
 
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-                    <div class="form-group">
+                    <fieldset class="form-group">
                         <label for="username">{{ 'security.login.username'|trans }}</label>
-                        <input class="form-control" type="text" id="username" name="_username" value="john.smith" required="required" />
-                    </div>
+                        <input class="form-control" type="text" id="username" name="_username" required="required" />
+                    </fieldset>
 
-                    <div class="form-group">
+                    <fieldset class="form-group">
                         <label for="password">{{ 'security.login.password'|trans }}</label>
-                        <input class="form-control" type="password" id="password" name="_password" required="required" value="1234" />
-                    </div>
+                        <input class="form-control" type="password" id="password" name="_password" required="required" />
+                    </fieldset>
 
-                    <div class="checkbox">
+                    <fieldset class="checkbox">
                         <label>
                             <input type="checkbox" checked id="remember_me" name="_remember_me" value="on" />
                             {{ 'security.login.remember_me'|trans }}
                         </label>
-                    </div>
+                    </fieldset>
 
-                    <div class="form-group">
+                    <fieldset class="form-group">
                         <button type="submit" class="btn btn-primary" id="_submit" name="_submit">{{ 'security.login.submit'|trans }}</button>
-                    </div>
+                    </fieldset>
                 </form>
-            </div>
-
-            <hr class="visible-xs" />
-
-            <div class="col-sm-6 login-help">
-                <p>Click on the <strong>Log in</strong> button to log in with the
-                    following demo user credentials:</p>
-                <ul>
-                    <li><strong>Username:</strong> john.smith</li>
-                    <li><strong>Password:</strong> 1234</li>
-                    <li><strong>Role:</strong> ROLE_ADMIN</li>
-                </ul>
             </div>
         </div>
     </div>

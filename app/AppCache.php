@@ -12,7 +12,7 @@
 use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 
 /**
- * Class AppCache
+ * Class AppCache.
  */
 class AppCache extends HttpCache
 {

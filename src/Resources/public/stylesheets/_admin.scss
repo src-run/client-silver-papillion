@@ -1,0 +1,45 @@
+/*!
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+#admin-login {
+  .main-header, .main-sidebar {
+    display : none;
+  }
+
+  .content-wrapper {
+    margin : 0;
+  }
+
+  .admin-login-container {
+    @extend .container;
+
+    .admin-login-row {
+      @include make-row;
+
+      background-color: #fff;
+      padding : 20px 40px;
+      border-radius : 3px;
+      border : 1px solid #ccc;
+
+      h1 {
+        color : #444;
+        font-size : 36px;
+        border-bottom : 1px solid #ccc;
+        padding-bottom : 3px;
+        margin-bottom : 27px;
+      }
+
+      .admin-login-form {
+        @include make-grid-columns(12);
+      }
+    }
+  }
+}
+
+/*! EOF */

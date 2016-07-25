@@ -1,159 +1,112 @@
 ---
 
 imports:
-    - { resource: parameters.yml }
-    - { resource: parameters_platform.php }
-    - { resource: security.yml }
-    - { resource: services.yml }
-    - { resource: admin/ }
+  - { resource: parameters.yml }
+  - { resource: parameters_platform.php }
+  - { resource: services.yml }
+  - { resource: security.yml }
+  - { resource: admin/ }
 
 parameters:
-    locale: en
-    app.path.product_images: /uploads/images/products
-    app.path.user_contracts: /uploads/files/user/contracts
+  locale: en
+  app.path.product_images: /uploads/images/products
+  app.path.category_images: /uploads/images/categories
 
 framework:
-    translator: { fallbacks: ["%locale%"] }
-    secret: "%secret%"
-    router:
-        resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: ~
-    form: ~
-    csrf_protection: ~
-    validation:
-        enable_annotations: true
-    templating:
-        engines:
-          - twig
-    default_locale: "%locale%"
-    trusted_hosts: ~
-    trusted_proxies: ~
-    session:
-        handler_id:  ~
-    fragments: ~
-    http_method_override: true
-    assets: ~
+  translator: { fallbacks: ["%locale%"] }
+  secret: "%secret%"
+  router:
+    resource: "%kernel.root_dir%/config/routing.yml"
+    strict_requirements: ~
+  form: ~
+  csrf_protection: ~
+  validation:
+    enable_annotations: true
+  templating:
+    engines:
+    - twig
+  default_locale: "%locale%"
+  trusted_hosts: ~
+  trusted_proxies: ~
+  session:
+    handler_id:  ~
+  fragments: ~
+  http_method_override: true
+  assets: ~
 
 assetic:
-    debug: '%kernel.debug%'
-    use_controller: false
-    bundles: []
-    filters:
-        cssrewrite: ~
+  debug: '%kernel.debug%'
+  use_controller: false
+  bundles:
+    - FOSUserBundle
+  filters:
+    cssrewrite: ~
 
 twig:
-    debug: "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
-    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
+  debug: "%kernel.debug%"
+  strict_variables: "%kernel.debug%"
 
 doctrine:
-    dbal:
-        driver: mysqli
-        host: "%database_host%"
-        port: "%database_port%"
-        dbname: "%database_name%"
-        user: "%database_user%"
-        password: "%database_password%"
-        charset: UTF8
-        server_version: 5.6
-    orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
-        mappings:
-            gedmo_translatable:
-                type: annotation
-                prefix: Gedmo\Translatable\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
-                alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
-                is_bundle: false
-            gedmo_translator:
-                type: annotation
-                prefix: Gedmo\Translator\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
-                alias: GedmoTranslator # (optional) it will default to the name set for the mapping
-                is_bundle: false
-            gedmo_loggable:
-                type: annotation
-                prefix: Gedmo\Loggable\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
-                alias: GedmoLoggable # (optional) it will default to the name set for the mappingmapping
-                is_bundle: false
-            gedmo_tree:
-                type: annotation
-                prefix: Gedmo\Tree\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
-                alias: GedmoTree # (optional) it will default to the name set for the mapping
-                is_bundle: false
-        filters:
-            softdeleteable:
-                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                enabled: true
+  dbal:
+    driver: mysqli
+    host: "%database_host%"
+    port: "%database_port%"
+    dbname: "%database_name%"
+    user: "%database_user%"
+    password: "%database_password%"
+    charset: UTF8
+    server_version: 5.6
+  orm:
+    auto_generate_proxy_classes: "%kernel.debug%"
+    naming_strategy: doctrine.orm.naming_strategy.underscore
+    auto_mapping: true
+    filters:
+      softdeleteable:
+        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+        enabled: true
 
 vich_uploader:
-    db_driver: orm
-    mappings:
-        product_images:
-            uri_prefix: %app.path.product_images%
-            upload_destination: %kernel.root_dir%/../web/uploads/images/products
-        user_contracts:
-            uri_prefix: %app.path.user_contracts%
-            upload_destination: %kernel.root_dir%/../web/uploads/files/user/contracts
+  db_driver: orm
+  mappings:
+    category_images:
+      uri_prefix: %app.path.category_images%
+      upload_destination: %kernel.root_dir%/../web/uploads/images/categories
+    product_images:
+      uri_prefix: %app.path.product_images%
+      upload_destination: %kernel.root_dir%/../web/uploads/images/products
 
 swiftmailer:
-    transport: "%mailer_transport%"
-    host: "%mailer_host%"
-    username: "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:
-      type: memory
+  transport: "%mailer_transport%"
+  host: "%mailer_host%"
+  username: "%mailer_user%"
+  password:  "%mailer_password%"
+  spool:
+    type: memory
 
 knp_menu:
-    providers:
-        builder_alias: false
-        builder_service: false
-        container_aware: false
+  providers:
+    builder_alias: false
+    builder_service: false
+    container_aware: false
 
 stof_doctrine_extensions:
-    default_locale: en_US
-    uploadable:
-        default_file_path:       %kernel.root_dir%/../web/uploads
-        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
-        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
-    orm:
-        default:
-            timestampable: true
-            blameable: true
-            sluggable: true
-            loggable: true
-            sortable: true
-            softdeleteable: true
+  default_locale: en_US
+  uploadable:
+    default_file_path:       %kernel.root_dir%/../web/uploads
+    mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+    default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
+  orm:
+    default:
+      timestampable: true
+      blameable: false
+      sluggable: true
+      loggable: false
+      sortable: true
+      softdeleteable: true
 
 fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: AppBundle\Entity\User
+  db_driver: orm
+  firewall_name: main
+  user_class: AppBundle\Entity\User
 
-easy_admin:
-    site_name: "Silver Papillon Admin"
-    design:
-        color_scheme: 'dark'
-        form_theme: 'vertical'
-    entities:
-#        - AppBundle\Entity\Product
-        Category:
-            class: AppBundle\Entity\Category
-            list:
-                fields:
-                    - title
-                    - slug
-                    - description
-                    - children
-                    - updated
-                    - updatedBy
-            form:
-                fields:
-                    - title
-                    - description
-                    - parent
 ...

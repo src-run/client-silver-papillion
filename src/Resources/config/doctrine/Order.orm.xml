@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+  <entity name="AppBundle\Entity\Order" table="customer_order">
+
+    <id name="id" type="string" column="id" />
+
+    <field name="createdOn" type="datetime" column="created_on" nullable="true" />
+
+    <field name="updatedOn" type="datetime" column="updated_on" nullable="true" />
+
+    <field name="shippedOn" type="datetime" column="shipped_on" nullable="true" />
+
+    <field name="shipping" type="object" column="shipping" nullable="true" />
+
+    <one-to-many field="orderItems" target-entity="AppBundle\Entity\OrderItem" mapped-by="order" fetch="LAZY" />
+
+    <many-to-one field="user" target-entity="AppBundle\Entity\User" inversed-by="orders" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="id" />
+      </join-columns>
+    </many-to-one>
+
+    <one-to-one field="shippingAddress" target-entity="AppBundle\Entity\Address" fetch="EAGER">
+      <join-column name="shipping_address_id" />
+    </one-to-one>
+
+    <one-to-one field="billingAddress" target-entity="AppBundle\Entity\Address" fetch="EAGER">
+      <join-column name="billing_address_id" />
+    </one-to-one>
+
+  </entity>
+
+</doctrine-mapping>
