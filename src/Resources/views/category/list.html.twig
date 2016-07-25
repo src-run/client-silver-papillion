@@ -1,12 +1,21 @@
-{% extends 'AppBundle:category:base.html.twig' %}
+{% extends '::base.html.twig' %}
 
-{% block bread %}{{ parent() }} <li>All</li>{% endblock %}
+{% block bread %}{{ parent() }} <li>Products</li>{% endblock %}
 
 {% block bodyRow %}
     {% for c in categories %}
-    <div class="col-md-4">
+    <div class="col-md-12">
         <div class="card">
-            <h3>{{ c.getName }}</h3>
+            <div class="category">
+                <div class="category-name">
+                    <a href="{{ url('app_category_view', {'categoryName': c.getName|lower|replace({' ': '-'}), 'category': c.getId}) }}">{{ c.getName }}</a>
+                </div>
+                <div class="category-products">
+                    {% for p in c.getProducts|slice(0, 6) %}
+                        <img src="/uploads/images/products/{{ p.getImage }}" alt="{{ p.getName }} Product Image" />
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}

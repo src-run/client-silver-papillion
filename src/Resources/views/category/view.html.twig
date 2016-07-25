@@ -4,9 +4,9 @@
 
 {% block bodyRow %}
     {% for product in products %}
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card">
-            <div class="product" data-href="{{ path('app_store_view', {'product_name': product.getName|replace({' ': '-'})|lower, 'product': product.getId}) }}">
+            <div class="product" data-href="{{ path('app_product_view', {'productName': product.getName|replace({' ': '-'})|lower, 'product': product.getId}) }}">
                 <img src="/uploads/images/products/{{ product.getImage }}" alt="{{ product.getName }} Product Image" />
                 <div class="product-info">
                     <div class="product-price">
@@ -16,8 +16,8 @@
                         <h4>{{ product.getName }}</h4>
                     </div>
                     <div class="product-add">
-                        <a href="{{ path('app_store_view', {'product_name': product.getName|replace({' ': '-'})|lower, 'product': product.getId}) }}">
-                            <span class="hidden">View Item Details</span> <i class="fa fa-cart-plus"></i>
+                        <a href="{{ path('app_product_view', {'productName': product.getName|replace({' ': '-'})|lower, 'product': product.getId}) }}">
+                            <span>View Item Details</span>
                         </a>
                     </div>
                 </div>
