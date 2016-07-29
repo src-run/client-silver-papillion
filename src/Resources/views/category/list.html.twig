@@ -11,7 +11,7 @@
                     <a href="{{ url('app_category_view', {'categoryName': c.getName|lower|replace({' ': '-'}), 'category': c.getId}) }}">{{ c.getName }}</a>
                 </div>
                 <div class="category-products">
-                    {% for p in c.getProducts|slice(0, 4) %}
+                    {% for p in c.getProducts|slice(0, 5) %}
                         <img src="/uploads/images/products/{{ p.getImage }}" alt="{{ p.getName }} Product Image" />
                     {% endfor %}
                 </div>
