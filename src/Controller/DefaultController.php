@@ -11,8 +11,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Message;
+use AppBundle\Form\MessageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -25,11 +25,15 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+
         return $this->render('AppBundle:default:index.html.twig', [
             '_c' => static::class,
             'categories' => $this->get('app.manager.category')->getAll(),
             'featured' => $this->get('app.manager.product')->getFeatured(),
             'feed' => array_slice($this->get('app.fb.provider.page_feed')->getFeed()->toArray(), 0, 8),
+            'form' => $form->createView(),
         ]);
     }
 }
