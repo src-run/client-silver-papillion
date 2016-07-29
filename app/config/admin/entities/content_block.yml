@@ -1,0 +1,62 @@
+---
+
+easy_admin:
+  entities:
+    ContentBlock:
+      class: AppBundle\Entity\ContentBlock
+      label: 'Content Blocks'
+
+      list:
+        title: '%%entity_label%%'
+
+        actions:
+
+          - name  : 'show'
+            label : 'Show'
+            icon  : 'search'
+
+          - name  : 'edit'
+            label : 'Edit'
+            icon  : 'edit'
+
+          - name  : 'delete'
+            label : 'Delete'
+            icon  : 'trash'
+
+        fields:
+
+          - id
+          - name
+          - title
+          - content
+          - properties
+
+      form:
+        fields:
+
+          - label     : 'General Information'
+            type      : 'group'
+            icon      : 'pencil'
+            css_class : 'col-sm-8'
+
+          - property  : title
+
+          - property  : 'content'
+            type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
+
+          - label     : 'Advanced'
+            type      : 'group'
+            icon      : 'warning'
+            css_class : 'col-sm-4'
+
+          - property  : 'name'
+            label     : 'Index'
+
+          - label     : 'Attributes'
+            type      : 'group'
+            icon      : 'tags'
+            css_class : 'col-sm-4'
+
+          - property  : properties
+            label     : 'Properties'
+...

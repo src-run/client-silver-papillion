@@ -25,26 +25,29 @@ class ProductRepository extends EntityRepository
      */
     public function findFeatured()
     {
-        $q = $this
+        return $this
             ->createQueryBuilder('p')
             ->where('p.featured = 1')
             ->orderBy('p.name')
             ->setMaxResults(3)
-            ->getQuery();
-
-        return $q->getResult();
+            ->getQuery()
+            ->getResult();
     }
 
+    /**
+     * @param Category $category
+     *
+     * @return Product[]
+     */
     public function findInCategory(Category $category)
     {
-        $q = $this
+        return $this
             ->createQueryBuilder('p')
             ->where('p.category = :category')
             ->setParameter('category', $category)
             ->orderBy('p.name')
-            ->getQuery();
-
-        return $q->getResult();
+            ->getQuery()
+            ->getResult();
     }
 }
 

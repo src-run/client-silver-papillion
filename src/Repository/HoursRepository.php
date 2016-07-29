@@ -11,13 +11,25 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Hours;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class UserRepository.
+ * Class HoursRepository.
  */
-class UserRepository extends EntityRepository
+class HoursRepository extends EntityRepository
 {
+    /**
+     * @return Hours[]
+     */
+    public function findAll()
+    {
+        return $this
+            ->createQueryBuilder('h')
+            ->orderBy('h.weight')
+            ->getQuery()
+            ->getResult();
+    }
 }
 
 /* EOF */

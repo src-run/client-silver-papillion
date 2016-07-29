@@ -30,9 +30,10 @@ class DefaultController extends Controller
 
         return $this->render('AppBundle:default:index.html.twig', [
             '_c' => static::class,
+            'hours' => $this->get('app.manager.hours')->getAll(),
             'categories' => $this->get('app.manager.category')->getAll(),
             'featured' => $this->get('app.manager.product')->getFeatured(),
-            'feed' => array_slice($this->get('app.fb.provider.page_feed')->getFeed()->toArray(), 0, 8),
+            'feed' => $this->get('app.fb.provider.page_feed')->getFeed(),
             'form' => $form->createView(),
         ]);
     }
