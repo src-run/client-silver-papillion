@@ -29,6 +29,7 @@ class DefaultController extends Controller
             '_c' => static::class,
             'categories' => $this->get('app.manager.category')->getAll(),
             'featured' => $this->get('app.manager.product')->getFeatured(),
+            'feed' => array_slice($this->get('app.fb.provider.page_feed')->getFeed()->toArray(), 0, 8),
         ]);
     }
 }
