@@ -51,33 +51,91 @@
 
     <div class="promo">
         <div class="container">
-            <a href="{{ path('app_category_list') }}" class="pull-right btn btn-primary">Shop Now</a>
-            <h2>Bowse our large collection of Wine Caddies and other products.</h2>
+            <a href="{{ path('app_category_list') }}" class="pull-right btn btn-primary">Shop Now <i class="fa fa-long-arrow-right"></i></a>
+            <h2>Bowse our large collection of Wine Caddies and other items now!</h2>
         </div>
     </div>
 {% endblock %}
 
 {% block bodyRow %}
-    {% for feature in featured %}
-        <div class="col-md-4">
-            <div class="card">
-                <div class="product" data-href="{{ path('app_product_view', {'productName': feature.getName|replace({' ': '-'})|lower, 'product': feature.getId}) }}">
-                    <img src="/uploads/images/products/{{ feature.getImage }}" alt="{{ feature.getName }} Product Image" />
-                    <div class="product-info">
-                        <div class="product-price">
-                            <p>${{ feature.getPrice }}</p>
-                        </div>
-                        <div class="product-name">
-                            <h4>{{ feature.getName }}</h4>
-                        </div>
-                        <div class="product-add">
-                            <a href="{{ path('app_product_view', {'productName': feature.getName|replace({' ': '-'})|lower, 'product': feature.getId}) }}">
-                                <span>View Item Details</span>
-                            </a>
+    {% block body %}
+    <div class="container products-index">
+        <h2>Featured Products</h2>
+        <div class="row">
+        {% for feature in featured %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="product" data-href="{{ path('app_product_view', {'productName': feature.getName|replace({' ': '-'})|lower, 'product': feature.getId}) }}">
+                        <img src="/uploads/images/products/{{ feature.getImage }}" alt="{{ feature.getName }} Product Image" />
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p>${{ feature.getPrice }}</p>
+                            </div>
+                            <div class="product-name">
+                                <h4>{{ feature.getName }}</h4>
+                            </div>
+                            <div class="product-add">
+                                <a href="{{ path('app_product_view', {'productName': feature.getName|replace({' ': '-'})|lower, 'product': feature.getId}) }}">
+                                    <span>View Item Details</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        {% endfor %}
         </div>
-    {% endfor %}
+    </div>
+    <div class="container-wrap">
+        <div class="container feed-index">
+            <h2>Latest Shared Media</h2>
+            <div class="row">
+                {% for i, item in feed %}
+                    <div id="feed-post-{{ item.getId }}" class="feed-post-wrapper-index col-sm-3">
+                        <div class="feed-post-index" data-href="{{ url('app_feed_view') }}#F_{{ item.getId }}">
+                            <div class="feed-post-attachments">
+                                {% set attachmentCount = 0 %}
+                                {% for attachment in item.getAttachments() if (attachment.hasMedia or attachment.hasSubAttachments) %}
+                                    {% for media in attachment.getMedia %}
+                                        {% set attachmentCount = attachmentCount + 1 %}
+                                        <div class="feed-post-attachment-media">
+                                            <img class="img-responsive center-block" src="{{ media.getLink() }}" alt="{{ attachment.getDescription }}" />
+                                        </div>
+                                    {% endfor %}
+                                    {% for subAttachment in attachment.getSubAttachments if attachment.hasSubAttachments %}
+                                        {% for media in subAttachment.getMedia %}
+                                            {% set attachmentCount = attachmentCount + 1 %}
+                                            <div class="feed-post-attachment-media">
+                                                <img class="img-responsive center-block" src="{{ media.getLink() }}" alt="{{ attachment.getDescription }}" />
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endfor %}
+                                {% if item.isVideo %}
+                                    {% set overlayType = 'feed-post-attachments-overlay-video' %}
+                                    {% set overlayData = '<p><i class="fa-youtube-play fa"></i></p><p>continue to video post</p>' %}
+                                {% elseif item.isPhoto %}
+                                    {% set overlayType = 'feed-post-attachments-overlay-photo' %}
+                                    {% set overlayData = '<p><i class="fa-picture-o fa"></i></p><p>continue to album post</p>' %}
+                                {% else %}
+                                    {% set overlayType = 'feed-post-attachments-overlay-generic' %}
+                                    {% set overlayData = '<p><i class="fa fa-long-arrow-right"></i></p><p>continue to full post</p>' %}
+                                {% endif %}
+                                <div class="feed-post-attachments-overlay {{ overlayType }}">
+                                    {{ overlayData|raw }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="{{ path('app_feed_view') }}" class="pull-right btn btn-primary">More Posts <i class="fa fa-long-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="container contact-index">
+        <h2>Contact Us</h2>
+        <div class="row">
+        </div>
+    </div>
+    {% endblock %}
 {% endblock %}

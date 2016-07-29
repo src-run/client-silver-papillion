@@ -68,6 +68,11 @@ class FeedItem extends AbstractModel
     /**
      * @var string
      */
+    protected $id;
+
+    /**
+     * @var string
+     */
     protected $permaLink;
 
     /**
@@ -124,6 +129,14 @@ class FeedItem extends AbstractModel
      * @var FeedReaction[]|null
      */
     protected $reactions;
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string

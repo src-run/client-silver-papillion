@@ -46,6 +46,14 @@ class PageFeed extends AbstractModel implements \IteratorAggregate
     protected $items;
 
     /**
+     * @return \AppBundle\Component\Facebook\Model\Feed\FeedItem[]
+     */
+    public function toArray()
+    {
+        return $this->items;
+    }
+
+    /**
      * @return \ArrayIterator|\AppBundle\Component\Facebook\Model\Feed\FeedItem[]
      */
     public function getIterator()
