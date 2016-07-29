@@ -18,3 +18,9 @@ parameters:
 
     # A secret key that authenticates with Google for the Cloud API
     google_api_server: ThisApiKeyMustBeGeneratedViaGoogleCloudConsole
+
+    # Facebook credentials
+    facebook_page_id: page_id
+    facebook_app_id: app_id
+    facebook_app_secret: app_secret
+    facebook_graph_version: 'v2.6'
