@@ -66,10 +66,10 @@
                                 {% set overlayData = '<p><i class="fa-youtube-play fa"></i></p><p>continue to video</p>' %}
                             {% elseif item.isPhoto %}
                                 {% set overlayType = 'feed-post-attachments-overlay-photo' %}
-                                {% if attachmentCount > 2 and attachmentCount - 2 == 1 %}
-                                    {% set overlayData = '<p><i class="fa-picture-o fa"></i></p><p>continue to album (' ~ (attachmentCount-2) ~ ' more photo)</p>' %}
-                                {% elseif attachmentCount > 2 and attachmentCount - 2 != 1 %}
-                                    {% set overlayData = '<p><i class="fa-picture-o fa"></i></p><p>continue to album (' ~ (attachmentCount-2) ~ ' more photos)</p>' %}
+                                {% if attachmentCount > 1 and attachmentCount - 1 == 1 %}
+                                    {% set overlayData = '<p><i class="fa-picture-o fa"></i></p><p>continue to album (' ~ (attachmentCount-1) ~ ' more photo)</p>' %}
+                                {% elseif attachmentCount > 1 and attachmentCount - 1 != 1 %}
+                                    {% set overlayData = '<p><i class="fa-picture-o fa"></i></p><p>continue to album (' ~ (attachmentCount-1) ~ ' more photos)</p>' %}
                                 {% else %}
                                     {% set overlayData = '<p><i class="fa-picture-o fa"></i></p><p>continue to album</p>' %}
                                 {% endif %}
