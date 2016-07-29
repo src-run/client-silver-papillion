@@ -32,10 +32,6 @@ body {
         background-color: #eaeaf1;
       }
 
-      .feed-post-attachments .feed-post-attachment-media {
-        opacity: 1;
-      }
-
       .feed-post-attachments .feed-post-attachments-overlay {
         transform: translateY(0);
       }
@@ -115,7 +111,6 @@ body {
       .feed-post-attachment-media {
         float:left;
         z-index:9;
-        opacity:0.6;
         transition: all 0.4s;
 
         img {
@@ -173,10 +168,6 @@ body {
         background-color: #eaeaf1;
       }
 
-      .feed-post-attachments .feed-post-attachment-media {
-        opacity: 1;
-      }
-
       .feed-post-attachments .feed-post-attachments-overlay {
         transform: translateY(0);
       }
@@ -191,7 +182,6 @@ body {
       .feed-post-attachment-media {
         float:left;
         z-index:9;
-        opacity:0.6;
         transition: all 0.4s;
 
         img {
