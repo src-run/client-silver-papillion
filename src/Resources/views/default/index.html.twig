@@ -88,9 +88,11 @@
     </div>
     <div class="container-wrap">
         <div class="container feed-index">
-            <h2>Latest Shared Media</h2>
+            <h2>Latest Shared Photos</h2>
             <div class="row">
-                {% for i, item in feed %}
+                {% set itemCount = 0 %}
+                {% for i, item in feed if item.isVideo != true and itemCount < 8 %}
+                    {% set itemCount = itemCount + 1 %}
                     <div id="feed-post-{{ item.getId }}" class="feed-post-wrapper-index col-sm-3">
                         <div class="feed-post-index" data-href="{{ url('app_feed_view') }}#F_{{ item.getId }}">
                             <div class="feed-post-attachments">
@@ -129,13 +131,48 @@
                     </div>
                 {% endfor %}
             </div>
-            <a href="{{ path('app_feed_view') }}" class="pull-right btn btn-primary">More Posts <i class="fa fa-long-arrow-right"></i></a>
+            <a href="{{ path('app_feed_view') }}" class="pull-right btn btn-primary">View All Shared Items <i class="fa fa-long-arrow-right"></i></a>
         </div>
     </div>
-    <div class="container contact-index">
+    <div class="container index-info">
+        <div class="row">
+            <div class="col-sm-4">
+                <h2 class="primary-hr-i">Our <em>Address</em></h2>
+                <p>11 W Main St<br />Mystic<br />Connecticut 06355</p>
+            </div>
+            <div class="col-sm-4">
+                <h2 class="primary-hr-i">Our <em>Hours</em></h2>
+                <ul class="list-unstyled index-info-hours">
+                {% for hour in hours %}
+                    <li {% if hour.dowToday %}class="today"{% endif %}>
+                        {% if hour.isClosed %}
+                            <strong>CLOSED</strong>
+                        {% else %}
+                            {{ hour.getTimeOpen.format('h:ia') }} - {{ hour.getTimeClose.format('h:ia') }}
+                        {% endif %}
+                        <em>{{ hour.getDow }}</em>
+                        {% if hour.dowToday %}<span class="today">(today's hours)</span>{% endif %}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <h2 class="primary-hr-i">Our <em>Phone</em></h2>
+                <p>(860) 415-8737</p>
+            </div>
+        </div>
+        <!--
         <h2>Contact Us</h2>
         <div class="row">
+            <div class="col-sm-9">
+                {{ form_start(form) }}
+                {{  form_end(form) }}
+            </div>
+            <div class="col-sm-3">
+                <p>Need to contact us?</p>
+            </div>
         </div>
+        -->
     </div>
     {% endblock %}
 {% endblock %}

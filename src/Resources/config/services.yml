@@ -15,6 +15,16 @@ services:
     calls:
       - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
 
+  app.manager.hours:
+    class: AppBundle\Manager\HoursManager
+    calls:
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.manager.content_block:
+    class: AppBundle\Manager\ContentBlockManager
+    calls:
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
   app.fb.provider.page_feed:
     class: AppBundle\Component\Facebook\Provider\PageFeedProvider
     arguments:

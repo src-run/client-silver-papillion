@@ -1,0 +1,38 @@
+---
+
+easy_admin:
+  entities:
+    Hours:
+      class: AppBundle\Entity\Hours
+      label: 'Hours'
+
+      list:
+        title: '%%entity_label%%'
+
+        actions:
+
+          - name  : 'show'
+            label : 'Show'
+            icon  : 'search'
+
+          - name  : 'edit'
+            label : 'Edit'
+            icon  : 'edit'
+
+          - name  : 'delete'
+            label : 'Delete'
+            icon  : 'trash'
+
+        fields:
+
+          - id
+          - weight
+          - property  : 'dow'
+            label     : 'Day of the Week'
+          - closed
+          - property  : timeOpen
+            label     : 'Opening Time'
+          - property  : timeClose
+            label     : 'Closing Time'
+
+...

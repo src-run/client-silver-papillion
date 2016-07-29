@@ -388,16 +388,6 @@ body {
   }
 }
 
-.contact-index {
-  h2 {
-    margin: 21px 0 36px 0;
-    font-size: 28px;
-    font-weight: 300;
-    color: #d80874;
-  }
-}
-
-
 .category {
   position: relative;
   cursor: pointer;
@@ -522,11 +512,51 @@ body {
   }
 }
 
+.index-info {
+  .index-info-hours {
+    margin-bottom: 36px;
+
+    li {
+      font-weight: 300;
+
+      em {
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      &.today {
+        font-weight: 500;
+
+        span.today {
+          font-style: italic;
+          font-weight: 400;
+        }
+
+        em {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
 .primary-hr {
   margin: 18px 0 36px 0;
   font-size: 28px;
   font-weight: 300;
   color: #d80874;
+}
+
+h2.primary-hr-i {
+  margin: 18px 0 36px 0;
+  font-size: 28px;
+  font-weight: 100;
+  color: #d80874;
+
+  em {
+    font-style: normal;
+    font-weight: 300;
+  }
 }
 
 .navbar {

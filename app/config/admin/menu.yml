@@ -16,17 +16,21 @@ easy_admin:
           - { entity: 'Category', icon: 'tags', label: 'menu.category.list' }
           - { entity: 'Category', icon: 'plus-circle', label: 'menu.category.add', params: { action: 'new' } }
 
-      - label: 'menu.customer'
-        entity: 'User'
-        icon: 'users'
+      - label: 'menu.meta'
+        icon: 'bookmark-o'
+        children:
+          - { entity: 'Hours', icon: 'building-o', label: 'menu.hours.list' }
+          - { entity: 'ContentBlock', icon: 'sticky-note-o', label: 'menu.blocks.list' }
 
-      - label: 'menu.purchase'
-        entity: 'Order'
-        icon: 'credit-card'
+      - label: 'menu.store'
+        icon: 'money'
+        children:
+          - label: 'menu.customer'
+            entity: 'User'
+            icon: 'users'
 
-      - label: 'menu.address'
-        entity: 'Address'
-
-      - label: 'menu.about'
+          - label: 'menu.purchase'
+            entity: 'Order'
+            icon: 'credit-card'
 
 ...

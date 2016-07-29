@@ -85,7 +85,7 @@ $(document).ready(function() {
 
             imgWrap.css({
                 width: (100 / images.length) + '%',
-                height: '280px',
+                height: '240px',
                 'background-image': 'url('+imgReal.attr('src')+')',
                 'background-position': '50% 50%',
                 'background-size': 'cover'
