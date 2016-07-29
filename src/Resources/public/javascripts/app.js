@@ -40,14 +40,8 @@ $(document).ready(function() {
 
         var images = $(post).find('.feed-post-attachment-media');
         var predicate = predicate = function(i) {
-            return i >= 2;
+            return i >= 1;
         };
-
-        if (images.length >= 2) {
-            predicate = function(i) {
-                return i % 2 != 0 || i >= 4;
-            };
-        }
 
         images.each(function(i, img) {
             if (predicate(i)) { $(img).remove(); }
@@ -57,16 +51,8 @@ $(document).ready(function() {
         images.each(function(i, img) {
             var imgWrap = $(img);
             var imgReal = imgWrap.find('img');
-
-            imgReal.remove();
-
-            imgWrap.css({
-                width: (100 / images.length) + '%',
-                height: '300px',
-                'background-image': 'url('+imgReal.attr('src')+')',
-                'background-position': '50% 50%',
-                'background-size': 'cover'
-            })
+            imgReal.addClass('center-block');
+            imgReal.addClass('img-responsive');
         });
     });
 

@@ -109,13 +109,9 @@ body {
       position: relative;
 
       .feed-post-attachment-media {
-        float:left;
+        padding: 0 18px 18px 18px;
         z-index:9;
         transition: all 0.4s;
-
-        img {
-          width: 100%;
-        }
       }
 
 
