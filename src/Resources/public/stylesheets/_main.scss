@@ -12,6 +12,121 @@ body {
   background-color:rgba(242, 241, 243, 0.5);
 }
 
+.feed-post-wrapper {
+  .feed-post {
+    background-color: #fff;
+    border: 1px solid #fff;
+    margin-bottom: 36px;
+    cursor: pointer;
+    border-radius: 3px;
+
+    &:hover {
+      border: 1px solid #db0075;
+
+      .feed-post-message {
+        background-color: #eaeaf1;
+      }
+
+      .feed-post-attachments {
+        background-color: #eaeaf1;
+
+        .feed-post-attachment-media {
+          border-color: #eaeaf1;
+        }
+      }
+    }
+
+    .feed-post-info {
+      pointer-events: none;
+      padding: 12px 21px 14px 21px;
+      text-align: right;
+      background-color: #f3f3f7;
+
+      .feed-post-info-type {
+        display: inline-block;
+        float: left;
+        font-size: 15px;
+        color: rgb(33, 148, 239);
+        margin-right: 15px;
+      }
+
+      .feed-post-info-date {
+        display: inline-block;
+        float: left;
+
+        time {
+          display: block;
+          font-size: 13px;
+          color: #2194ef;
+          text-transform: uppercase;
+          font-weight: 300;
+          padding-top: 3px;
+        }
+      }
+
+      .feed-post-info-reactions {
+        display: inline-block;
+
+        p {
+          display: inline-block;
+          font-size: 10px;
+          line-height: 10px;
+          margin: 0;
+          background-color: #fff;
+          padding: 4px 5px 3px 5px;
+          margin-left: 12px;
+          border-radius: 3px;
+          font-weight: 300;
+          color: #bbb;
+
+          &.em {
+            color: rgba(218,0,115,0.5);
+            font-weight: 400;
+          }
+        }
+      }
+    }
+
+    .feed-post-message {
+      pointer-events: none;
+      padding: 21px 21px 9px 21px;
+
+      p {
+        color: #505050;
+        margin: 0;
+        font-weight: 300;
+        font-size: 16px;
+      }
+    }
+
+    .feed-post-attachments {
+      pointer-events: none;
+      padding: 12px 12px 12px 12px;
+      border-radius: 2px;
+      overflow: hidden;
+
+      .feed-post-attachment-media {
+        float:left;
+        border-radius: 3px;
+
+        img {
+          width: 100%;
+        }
+
+        border-right: 6px solid #fff;
+        border-left: 6px solid #fff;
+
+        &:last-child {
+          border-right: none;
+        }
+        &:first-child {
+          border-left: none;
+        }
+      }
+    }
+  }
+}
+
 .promo {
   background-color:#fff;
   padding-top: 36px;
@@ -85,6 +200,10 @@ body {
 
   &:hover .product-info {
     transform: translateY(1px);
+  }
+
+  img {
+    padding-bottom: 60px;
   }
 
   .product-info {

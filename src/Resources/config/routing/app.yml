@@ -36,9 +36,9 @@ app_product_view:
     _controller : AppBundle:Product:view
 
 app_feed_view:
-  path     : /news
+  path     : /feed
   defaults :
-    _controller : AppBundle:Feed:view
+    _controller : AppBundle:Feed:index
 
 app_account_view:
   path     : /account

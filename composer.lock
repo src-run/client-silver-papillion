@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c97e893ba17f260bd7de1870329dd41b",
-    "content-hash": "e1bedc03a3d6af0af838228b2abedf12",
+    "hash": "2d5c56563bc4cd08bf9f9a95d348825d",
+    "content-hash": "73bc6741baeedb56cc97cc8073379a02",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -926,6 +926,63 @@
             "time": "2015-12-06 13:20:24"
         },
         {
+            "name": "facebook/php-sdk-v4",
+            "version": "5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/facebook-php-sdk-v4.git",
+                "reference": "c60fba1fe1de62db1e0776d32fc2fb778189459c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/c60fba1fe1de62db1e0776d32fc2fb778189459c",
+                "reference": "c60fba1fe1de62db1e0776d32fc2fb778189459c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4|^7.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "~5.0",
+                "mockery/mockery": "~0.8",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\": "src/Facebook/"
+                },
+                "files": [
+                    "src/Facebook/polyfills.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Facebook Platform"
+            ],
+            "authors": [
+                {
+                    "name": "Facebook",
+                    "homepage": "https://github.com/facebook/facebook-php-sdk-v4/contributors"
+                }
+            ],
+            "description": "Facebook SDK for PHP",
+            "homepage": "https://github.com/facebook/facebook-php-sdk-v4",
+            "keywords": [
+                "facebook",
+                "sdk"
+            ],
+            "time": "2016-05-18 22:04:36"
+        },
+        {
             "name": "friendsofsymfony/user-bundle",
             "version": "dev-master",
             "source": {
@@ -996,16 +1053,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.18",
+            "version": "v2.4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "c453c7d695da0dd1c3e713a27ec71a05da355662"
+                "reference": "a5a5ee1391fc9abadd0fd1524ca38569df72005f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/c453c7d695da0dd1c3e713a27ec71a05da355662",
-                "reference": "c453c7d695da0dd1c3e713a27ec71a05da355662",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/a5a5ee1391fc9abadd0fd1524ca38569df72005f",
+                "reference": "a5a5ee1391fc9abadd0fd1524ca38569df72005f",
                 "shasum": ""
             },
             "require": {
@@ -1071,7 +1128,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2016-07-19 06:08:11"
+            "time": "2016-07-25 14:14:57"
         },
         {
             "name": "imagine/imagine",
@@ -1517,7 +1574,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "KnpLabs",
+                    "name": "Knplabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -1846,16 +1903,16 @@
         },
         {
             "name": "ocramius/package-versions",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/PackageVersions.git",
-                "reference": "510c1e5065c45e4318ddf86faafeda9f69e33014"
+                "reference": "4b2bfc8128db95b533303942b0d5b332bffa07c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/510c1e5065c45e4318ddf86faafeda9f69e33014",
-                "reference": "510c1e5065c45e4318ddf86faafeda9f69e33014",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/4b2bfc8128db95b533303942b0d5b332bffa07c6",
+                "reference": "4b2bfc8128db95b533303942b0d5b332bffa07c6",
                 "shasum": ""
             },
             "require": {
@@ -1876,10 +1933,7 @@
             "autoload": {
                 "psr-4": {
                     "PackageVersions\\": "src/PackageVersions"
-                },
-                "files": [
-                    "src/PackageVersions/Versions.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1892,7 +1946,7 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2016-07-22 14:47:43"
+            "time": "2016-07-25 07:13:56"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -3195,7 +3249,7 @@
             "dist": {
                 "type": "path",
                 "url": "/home/rmf/code/composer/augustus-utility-library",
-                "reference": "32b11f0ae8ee8f74056a6f4ee1e0f517736598e6",
+                "reference": "b8095141b26d6227719d5586fd94d0f1c1db3f23",
                 "shasum": null
             },
             "require": {
@@ -3259,7 +3313,7 @@
             "dist": {
                 "type": "path",
                 "url": "/home/rmf/code/composer/wonka-bundle",
-                "reference": "44920135742405647d0c5df6d217d40de4310808",
+                "reference": "9184b59a58503236c5b4547fdb129464c6ed17ff",
                 "shasum": null
             },
             "require": {
@@ -5363,16 +5417,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "4.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "900370c81280cc0d942ffbc5912d80464eaee7e9"
+                "reference": "5f3f7e736d6319d5f1fc402aff8b026da26709a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/900370c81280cc0d942ffbc5912d80464eaee7e9",
-                "reference": "900370c81280cc0d942ffbc5912d80464eaee7e9",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/5f3f7e736d6319d5f1fc402aff8b026da26709a3",
+                "reference": "5f3f7e736d6319d5f1fc402aff8b026da26709a3",
                 "shasum": ""
             },
             "require": {
@@ -5381,7 +5435,7 @@
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-token-stream": "^1.4.2",
                 "sebastian/code-unit-reverse-lookup": "~1.0",
-                "sebastian/environment": "^1.3.2",
+                "sebastian/environment": "^1.3.2 || ^2.0",
                 "sebastian/version": "~1.0|~2.0"
             },
             "require-dev": {
@@ -5422,7 +5476,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-06-03 05:03:56"
+            "time": "2016-07-26 14:39:29"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -5607,16 +5661,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.4.7",
+            "version": "5.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6c8a756c17a1a92a066c99860eb57922e8b723da"
+                "reference": "3132365e1430c091f208e120b8845d39c25f20e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6c8a756c17a1a92a066c99860eb57922e8b723da",
-                "reference": "6c8a756c17a1a92a066c99860eb57922e8b723da",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3132365e1430c091f208e120b8845d39c25f20e6",
+                "reference": "3132365e1430c091f208e120b8845d39c25f20e6",
                 "shasum": ""
             },
             "require": {
@@ -5628,7 +5682,7 @@
                 "myclabs/deep-copy": "~1.3",
                 "php": "^5.6 || ^7.0",
                 "phpspec/prophecy": "^1.3.1",
-                "phpunit/php-code-coverage": "^4.0",
+                "phpunit/php-code-coverage": "^4.0.1",
                 "phpunit/php-file-iterator": "~1.4",
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-timer": "^1.0.6",
@@ -5681,7 +5735,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-07-21 06:55:27"
+            "time": "2016-07-26 14:48:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

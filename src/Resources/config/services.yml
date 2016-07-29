@@ -14,3 +14,13 @@ services:
     class: AppBundle\Manager\ProductManager
     calls:
       - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.fb.provider.page_feed:
+    class: AppBundle\Component\Facebook\Provider\PageFeedProvider
+    arguments:
+      - '%facebook_page_id%'
+      - '%facebook_app_id%'
+      - '%facebook_app_secret%'
+      - '%facebook_graph_version%'
+    calls:
+      - [setCache, ['@cache.app']]

@@ -1,0 +1,63 @@
+{% extends '::base.html.twig' %}
+
+{% block bread %}{{ parent() }} <li>News Feed</li>{% endblock %}
+
+{% block bodyRow %}
+    {% for i, item in feed %}
+        <div class="feed-post-wrapper col-sm-6" style="{% if i % 2 == 0 %}clear: left;{% endif %}">
+            <div class="feed-post" data-href="{{ item.getPermaLink }}">
+                <div class="feed-post-info">
+                    <div class="feed-post-info-type">
+                        {% if item.isVideo %}
+                            <i class="fa fa-file-video-o"></i>
+                        {% elseif item.isPhoto %}
+                            <i class="fa fa-file-image-o"></i>
+                        {% else %}
+                            <i class="fa fa-file-text-o"></i>
+                        {% endif %}
+                    </div>
+                    <div class="feed-post-info-date">
+                        <time datetime="{{ item.getDate().format('c') }}">{{ item.getDate().format('l, F j Y \a\t g:ia') }}</time>
+                    </div>
+                    <div class="feed-post-info-reactions">
+                        <p class="{% if item.getComments|length > 0 %}em{% endif %}">
+                            {{ item.getComments|length }}
+                            {% if item.getComments|length == 1 %}
+                                comment
+                            {% elseif item.getComments|length > 1 or item.getComments|length ==  0 %}
+                                comments
+                            {% endif %}
+                        </p>
+                        <p class="{% if item.getReactions|length > 0 %}em{% endif %}">
+                            {{ item.getReactions|length }}
+                            {% if item.getReactions|length == 1 %}
+                                reaction
+                            {% elseif item.getReactions|length > 1 or item.getReactions|length ==  0 %}
+                                reactions
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <div class="feed-post-message">
+                    <p>{{ item.getMessage() }}</p>
+                </div>
+                <div class="feed-post-attachments">
+                    {% for attachment in item.getAttachments() if attachment.hasMedia or attachment.hasSubAttachments %}
+                        {% for media in attachment.getMedia %}
+                            <div class="feed-post-attachment-media">
+                                <img class="img-responsive center-block" src="{{ media.getLink() }}" alt="{{ attachment.getDescription }}" />
+                            </div>
+                        {% endfor %}
+                        {% for subAttachment in attachment.getSubAttachments if attachment.hasSubAttachments %}
+                            {% for media in subAttachment.getMedia %}
+                                <div class="feed-post-attachment-media">
+                                    <img class="img-responsive center-block" src="{{ media.getLink() }}" alt="{{ attachment.getDescription }}" />
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

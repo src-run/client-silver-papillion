@@ -48,11 +48,13 @@
     "src-run/wonka-bundle": "^0.6",
     "stof/doctrine-extensions-bundle": "^1.2",
     "symfony/assetic-bundle": "^2.8",
+    "symfony/cache": "^3.1",
     "symfony/monolog-bundle": "^2.11",
     "symfony/swiftmailer-bundle": "^2.3",
     "symfony/symfony": "^3.1",
     "vich/uploader-bundle": "^1.1",
-    "liip/imagine-bundle": "^1.6"
+    "liip/imagine-bundle": "^1.6",
+    "facebook/php-sdk-v4": "~5.0"
   },
   "require-dev" : {
     "doctrine/doctrine-fixtures-bundle": "^2.3",
