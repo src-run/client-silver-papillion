@@ -28,6 +28,7 @@ class ProductRepository extends EntityRepository
         $q = $this
             ->createQueryBuilder('p')
             ->where('p.featured = 1')
+            ->orderBy('p.name')
             ->setMaxResults(3)
             ->getQuery();
 
@@ -40,6 +41,7 @@ class ProductRepository extends EntityRepository
             ->createQueryBuilder('p')
             ->where('p.category = :category')
             ->setParameter('category', $category)
+            ->orderBy('p.name')
             ->getQuery();
 
         return $q->getResult();
