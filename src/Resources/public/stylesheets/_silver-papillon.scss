@@ -300,6 +300,7 @@ body {
   overflow: hidden;
   border:1px solid #fff;
   transition: border-color 0.5s;
+//  will-change: opacify;
   cursor: pointer;
 
   &:hover {
@@ -579,12 +580,11 @@ h2.primary-hr-i {
 .navbar-brand {
   padding: 0;
   img {
-    height: 63px;
-    padding-top: 2px;
+    height: 87px;
+    padding-top: 6px;
     opacity: 1;
     transition: opacity 0.5s;
-    will-change: opacify;
-    padding-left: 10px;
+    padding-left: 12px;
   }
 
   &:hover img {
@@ -598,7 +598,7 @@ footer {
 }
 
 #main-container {
-  padding-top: 64px;
+  padding-top: 92px;
 }
 
 // Navbar =====================================================================
@@ -606,26 +606,6 @@ footer {
 .navbar {
   border: none;
   @include box-shadow(0 1px 2px rgba(0,0,0,.3));
-
-  &-brand {
-    font-size: 24px;
-  }
-
-  &-inverse {
-    .navbar-form {
-
-      input[type=text],
-      input[type=password] {
-        color: #fff;
-        @include box-shadow(inset 0 -1px 0 $navbar-inverse-link-color);
-        @include placeholder($navbar-inverse-link-color);
-
-        &:focus {
-          @include box-shadow(inset 0 -2px 0 #fff);
-        }
-      }
-    }
-  }
 }
 
 // Buttons ====================================================================
