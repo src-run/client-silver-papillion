@@ -16,7 +16,7 @@
 
     {% block stylesheets %}
         {% if app.environment == 'prod' %}
-            <link rel="stylesheet" href="{{  asset('components/stylesheets/app.min.css') }}" />
+            <link rel="stylesheet" href="{{  asset('components/stylesheets/app.css') }}" />
         {% else %}
             <link rel="stylesheet" href="{{  asset('components/stylesheets/app.css') }}" />
         {% endif %}
@@ -135,7 +135,7 @@
 
     {% block javascripts %}
         {% if app.environment == 'prod' %}
-            <script src="{{  asset('components/javascripts/app.min.js') }}"></script>
+            <script src="{{  asset('components/javascripts/app.js') }}"></script>
         {% else %}
             <script src="{{  asset('components/javascripts/app.js') }}"></script>
         {% endif %}
