@@ -26,6 +26,9 @@
         "script": "${paths.app.to.script}jquery.js"
       }
     },
+    "plug": {
+      "root": "web/components/"
+    },
     "plug-bs": {
       "root": "web/components/bootstrap-sass/assets/",
       "in": {
