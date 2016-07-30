@@ -10,7 +10,7 @@
                 <img src="/uploads/images/products/{{ product.getImage }}" alt="{{ product.getName }} Product Image" />
                 <div class="product-info">
                     <div class="product-price">
-                        <p>${{ product.getPrice }}</p>
+                        <p>${{ product.getPrice|format('%.2f') }}</p>
                     </div>
                     <div class="product-name">
                         <h4>{{ product.getName }}</h4>

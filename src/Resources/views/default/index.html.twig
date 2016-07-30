@@ -69,7 +69,7 @@
                         <img src="/uploads/images/products/{{ feature.getImage }}" alt="{{ feature.getName }} Product Image" />
                         <div class="product-info">
                             <div class="product-price">
-                                <p>${{ feature.getPrice }}</p>
+                                <p>${{ feature.getPrice|format('%.2f') }}</p>
                             </div>
                             <div class="product-name">
                                 <h4>{{ feature.getName }}</h4>
