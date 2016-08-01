@@ -6,11 +6,16 @@ imports:
   - { resource: services.yml }
   - { resource: security.yml }
   - { resource: admin/ }
+  - { resource: bundles/ }
 
 parameters:
   locale: en
-  app.path.product_images: /uploads/images/products
-  app.path.category_images: /uploads/images/categories
+  app.path.product_images  : /uploads/images/products
+  app.path.category_images : /uploads/images/categories
+  app.sys_path.root        : "%kernel.root_dir%/../web"
+  app.web_path.root        : ""
+  app.sys_path.upload      : "%app.sys_path.root%/uploads"
+  app.web_path.upload      : "%app.web_path.root%/uploads"
 
 framework:
   translator: { fallbacks: ["%locale%"] }

@@ -1,0 +1,94 @@
+{% extends '::base.html.twig' %}
+
+{% block bread %}{{ parent() }} <li>News Feed</li>{% endblock %}
+
+{% block bodyRow %}
+    <div class="col-sm-6">
+        <div class="row">
+            {% for i, item in feed if i < 12 %}
+                <div class="feed-post-wrapper col-sm-12" style="{% if i % 2 == 0 %}clear: left;{% endif %}">
+                    <div id="{{ item.getId }}" class="feed-post" data-href="{{ item.getPermaLink }}">
+                        <div class="feed-post-info">
+                            <div class="feed-post-info-type">
+                                {% if item.isVideo %}
+                                    <i class="fa fa-file-video-o"></i>
+                                {% elseif item.isPhoto %}
+                                    <i class="fa fa-file-image-o"></i>
+                                {% else %}
+                                    <i class="fa fa-file-text-o"></i>
+                                {% endif %}
+                            </div>
+                            <div class="feed-post-info-date">
+                                <time datetime="{{ item.getDate().format('c') }}">{{ item.getDate().format('l, F j Y \a\t g:ia') }}</time>
+                            </div>
+                            <div class="feed-post-info-reactions">
+                                <p class="{% if item.getComments|length > 0 %}em{% endif %}">
+                                    {{ item.getComments|length }}
+                                    {% if item.getComments|length == 1 %}
+                                        comment
+                                    {% elseif item.getComments|length > 1 or item.getComments|length ==  0 %}
+                                        comments
+                                    {% endif %}
+                                </p>
+                                <p class="{% if item.getReactions|length > 0 %}em{% endif %}">
+                                    {{ item.getReactions|length }}
+                                    {% if item.getReactions|length == 1 %}
+                                        reaction
+                                    {% elseif item.getReactions|length > 1 or item.getReactions|length ==  0 %}
+                                        reactions
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feed-post-message">
+                            <p>{{ item.getMessage() }}</p>
+                        </div>
+                        <div class="feed-post-attachments">
+                            {% set attachmentCount = 0 %}
+                            {% for attachment in item.getAttachments() if attachment.hasMedia or attachment.hasSubAttachments %}
+                                {% for media in attachment.getMedia %}
+                                    {% set attachmentCount = attachmentCount + 1 %}
+                                    <div class="feed-post-attachment-media">
+                                        <img class="img-responsive center-block" src="{{ media.getLink() }}" alt="{{ attachment.getDescription }}" />
+                                    </div>
+                                {% endfor %}
+                                {% for subAttachment in attachment.getSubAttachments if attachment.hasSubAttachments %}
+                                    {% for media in subAttachment.getMedia %}
+                                        {% set attachmentCount = attachmentCount + 1 %}
+                                        <div class="feed-post-attachment-media">
+                                            <img class="img-responsive center-block" src="{{ media.getLink() }}" alt="{{ attachment.getDescription }}" />
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                            {% if item.isVideo %}
+                                {% set overlayType = 'feed-post-attachments-overlay-video' %}
+                                {% set overlayData = '<p><i class="fa-youtube-play fa"></i></p><p>continue to video</p>' %}
+                            {% elseif item.isPhoto %}
+                                {% set overlayType = 'feed-post-attachments-overlay-photo' %}
+                                {% if attachmentCount > 1 and attachmentCount - 1 == 1 %}
+                                    {% set overlayData = '<p><i class="fa-picture-o fa"></i></p><p>continue to album (' ~ (attachmentCount-1) ~ ' more photo)</p>' %}
+                                {% elseif attachmentCount > 1 and attachmentCount - 1 != 1 %}
+                                    {% set overlayData = '<p><i class="fa-picture-o fa"></i></p><p>continue to album (' ~ (attachmentCount-1) ~ ' more photos)</p>' %}
+                                {% else %}
+                                    {% set overlayData = '<p><i class="fa-picture-o fa"></i></p><p>continue to album</p>' %}
+                                {% endif %}
+                            {% else %}
+                                {% set overlayType = 'feed-post-attachments-overlay-generic' %}
+                                {% set overlayData = '<p><i class="fa fa-long-arrow-right"></i></p><p>continue to full post</p>' %}
+                            {% endif %}
+                            <div class="feed-post-attachments-overlay {{ overlayType }}">
+                                {{ overlayData|raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm-4 col-sm-offset-2">
+        <h2 class="primary-hr">Social</h2>
+        <p>Looking for more news and information?! Join us on Facebook and be sure to like our page!</p>
+        <a href="https://www.facebook.com/SilverPapillonOfMystic" class="btn btn-primary">Visit our Facebook Page <i class="fa fa-long-arrow-right"></i></a>
+    </div>
+{% endblock %}

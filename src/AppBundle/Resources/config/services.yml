@@ -1,0 +1,73 @@
+services :
+
+  app.slugger :
+    class : AppBundle\Util\Slugger
+
+  app.twig_extension.slugger:
+    class  : AppBundle\Twig\SluggerExtension
+    public : false
+    calls  :
+      - [setSlugger, ["@app.slugger"]]
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.content_block:
+    class  : AppBundle\Twig\ContentBlockExtension
+    public : false
+    calls  :
+      - [setContentBlockManager, ["@app.manager.content_block"]]
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.url_to_file:
+    class  : AppBundle\Twig\UrlToFileExtension
+    public : false
+    calls  :
+      - [setSysDir, ["%app.sys_path.upload%"]]
+      - [setWebDir, ["%app.web_path.upload%"]]
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.moment:
+    class  : SR\WonkaBundle\Twig\MomentTwigExtension
+    public : false
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.vich_file_path:
+    class  : AppBundle\Twig\VichFilePathExtension
+    public : false
+    calls  :
+      - [setPaths, [{product: '%app.path.product_images%', category: '%app.path.category_images%'}]]
+    tags   :
+      - { name : twig.extension }
+
+  app.manager.category :
+    class : AppBundle\Manager\CategoryManager
+    calls :
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.manager.product :
+    class : AppBundle\Manager\ProductManager
+    calls :
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.manager.hours :
+    class : AppBundle\Manager\HoursManager
+    calls :
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.manager.content_block :
+    class : AppBundle\Manager\ContentBlockManager
+    calls :
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.fb.provider.page_feed :
+    class     : AppBundle\Component\Facebook\Provider\PageFeedProvider
+    arguments :
+      - '%facebook_page_id%'
+      - '%facebook_app_id%'
+      - '%facebook_app_secret%'
+      - '%facebook_graph_version%'
+    calls :
+      - [setCache, ['@cache.app']]

@@ -1,0 +1,37 @@
+---
+
+liip_imagine :
+  resolvers :
+    default :
+      web_path : ~
+
+  filter_sets :
+    cache         : ~
+    product_thumb :
+      quality : 88
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        thumbnail   : { size : [480, 480], mode : outbound }
+      post_processors :
+        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+
+    feed_photo_thumb :
+      quality : 88
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min: [620, 480] }
+        thumbnail   : { size : [620, 480], mode : outbound }
+      post_processors :
+        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+
+    carousel :
+      quality : 90
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        downscale   : { max: [2800, 1200] }
+      post_processors :
+        jpegoptim   : { strip_all : true, max : 90, progressive : true }
+...

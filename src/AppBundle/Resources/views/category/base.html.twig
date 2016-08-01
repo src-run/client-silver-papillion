@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block bread %}{{ parent() }} <li><a href="{{ url('app_category_list') }}">Products</a></li>{% endblock %}
+
+{% block bodyRow %}
+    {% for product in products %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="/uploads/images/products/{{ product.getImage }}" alt="{{ product.getName }} Product Image" />
+                <a class="link-header" href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId}) }}">{{ product.getName }}</a>
+                <span class="link-header-right">${{ product.getPrice }}</span>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
