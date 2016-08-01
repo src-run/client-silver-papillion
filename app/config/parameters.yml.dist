@@ -3,24 +3,21 @@ parameters:
     # Database connectivity information
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
-    database_user:     root
+    database_name:     srsp
+    database_user:     srsp
     database_password: ~
 
     # The values for mail transport server
     mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
+    mailer_host:       smtp.sparkpostmail.com
+    mailer_user:       SMTP_Injection
     mailer_password:   ~
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    # A secret key that authenticates with Google for the Cloud API
-    google_api_server: ThisApiKeyMustBeGeneratedViaGoogleCloudConsole
-
     # Facebook credentials
-    facebook_page_id: page_id
-    facebook_app_id: app_id
-    facebook_app_secret: app_secret
-    facebook_graph_version: 'v2.6'
+    facebook_page_id:       ~
+    facebook_app_id:        ~
+    facebook_app_secret:    ~
+    facebook_graph_version: v2.6

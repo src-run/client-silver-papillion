@@ -16,7 +16,7 @@
 
     {% block stylesheets %}
         {% if app.environment == 'prod' %}
-            <link rel="stylesheet" href="{{  asset('components/stylesheets/app.css') }}" />
+            <link rel="stylesheet" href="{{  asset('components/stylesheets/app.min.css') }}" />
         {% else %}
             <link rel="stylesheet" href="{{  asset('components/stylesheets/app.css') }}" />
         {% endif %}
@@ -82,7 +82,7 @@
         </div>
     </nav>
 
-    <div id="main-container">
+    <div class="container-main-wrap">
         {% block header %}
             <div class="bread">
                 <div class="container">
@@ -129,13 +129,13 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2016 Silver Papillon</p>
+            {{ block_content('about.copyright') }}
         </div>
     </footer>
 
     {% block javascripts %}
         {% if app.environment == 'prod' %}
-            <script src="{{  asset('components/javascripts/app.js') }}"></script>
+            <script src="{{  asset('components/javascripts/app.min.js') }}"></script>
         {% else %}
             <script src="{{  asset('components/javascripts/app.js') }}"></script>
         {% endif %}
