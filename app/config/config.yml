@@ -16,6 +16,11 @@ parameters:
   app.web_path.root        : ""
   app.sys_path.upload      : "%app.sys_path.root%/uploads"
   app.web_path.upload      : "%app.web_path.root%/uploads"
+  app.sys_path.cache       : "%app.sys_path.root%/assets/cache"
+  app.web_path.cache       : "%app.web_path.root%/assets/cache"
+  google_static_maps_uri   : "https://maps.googleapis.com/maps/api/staticmap?center=${address}&markers=${address}&zoom=15&size=640x320&scale=2&maptype=roadmap&style=visibility:simplified&format=png32&key=${api_key}"
+  google_street_view_uri   : "https://maps.googleapis.com/maps/api/streetview?location=${address}&size=640x320&fov=80&heading=180&pitch=2&key=${api_key}"
+  google_directions_uri    : "https://www.google.com/maps/dir//${address}"
 
 framework:
   translator: { fallbacks: ["%locale%"] }

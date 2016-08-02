@@ -6,7 +6,7 @@
     </id>
     <field name="name" type="string" column="name" length="255" unique="true"/>
     <field name="title" type="string" column="title" length="255" nullable="true"/>
-    <field name="content" type="string" column="content" length="255" nullable="true"/>
+    <field name="content" type="text" column="content" nullable="true"/>
     <field name="properties" type="simple_array" column="properties" nullable="true"/>
   </entity>
 </doctrine-mapping>

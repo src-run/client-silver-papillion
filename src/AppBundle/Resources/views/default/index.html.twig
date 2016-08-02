@@ -76,7 +76,7 @@
                             </div>
                         </div>
                         <div class="card-section-body">
-                            <img alt="{{ feature.getName }}" src="{{ asset_product(feature.getImage) | imagine_filter('product_thumb') }}"/>
+                            <img alt="{{ feature.getName }}" src="{{ asset_product(feature.getImage) | imagine_filter('product_thumbs') }}"/>
                         </div>
 
                         <div class="card-section-foot is-overlay is-toggleable">
@@ -109,7 +109,7 @@
                                     {% set media = f.getAttachments|first.getSubattachments|first.getMedia|first %}
                                 {% endif %}
 
-                                <img class="feed-attachment" src="{{ media.getLink() | url_to_file | imagine_filter('feed_photo_thumb')  }}" alt="{{ f.getMessage }}" />
+                                <img class="feed-attachment" src="{{ media.getLink() | url_to_file | imagine_filter('feed_photo_thumbs')  }}" alt="{{ f.getMessage }}" />
                             </div>
 
                             <div class="card-section-foot is-overlay is-toggleable">
@@ -141,6 +141,7 @@
                 <div class="info-address">
                     {{ block_content('about.address') }}
                 </div>
+                <a href="{{ url('app_about') }}" class="btn btn-default">More About Us <i class="fa fa-long-arrow-right"></i></a>
             </div>
 
             <div class="col-sm-4">
@@ -156,7 +157,7 @@
                     {% for hour in hours %}
                         <li {% if hour.dowToday %}class="today"{% endif %}>
                             {% if hour.isClosed %}
-                                <strong>CLOSED</strong>
+                                <strong>closed</strong>
                             {% else %}
                                 {{ hour.getTimeOpen.format('h:ia') }} - {{ hour.getTimeClose.format('h:ia') }}
                             {% endif %}

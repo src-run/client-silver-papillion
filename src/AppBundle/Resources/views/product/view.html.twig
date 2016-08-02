@@ -2,16 +2,36 @@
 
 {% block bread %}
     {{ parent() }}
-    <li><a href="{{ url('app_category_view', {categoryName: product.getCategory.getName|slugify, category: product.getCategory.getId}) }}">{{ product.getCategory.getName }}</a></li>
+    <li>
+        <a href="{{ url('app_category_view', {categoryName: product.getCategory.getName|slugify, category: product.getCategory.getId}) }}">
+            {{ product.getCategory.getName }}
+        </a>
+    </li>
     <li>{{ product.getName }}</li>
 {% endblock %}
 
 {% block bodyRow %}
-    <div class="col-sm-6">
-        <img class="img-responsive" src="/uploads/images/products/{{ product.getImage }}" alt="{{ product.getName }} Product Image" />
+    <div class="product-view-image">
+        <div class="card is-linkable is-animated">
+            <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" data-jslghtbx="{{ asset_product(product.getImage) }}" />
+        </div>
     </div>
-    <div class="col-sm-6">
+    <div class="product-view-info">
         <h1>{{ product.getName }}</h1>
-        <h2>${{ product.getPrice|number_format(2, '.', ',') }}</h2>
+        {% if product.hasDescription %}
+            <div class="product-desc">
+                {{ product.getDescription }}
+            </div>
+        {% endif %}
+        <div class="product-price">
+            <p>${{ product.getPrice|number_format(2, '.', ',') }}</p>
+        </div>
+        <div class="product-action">
+            <div class="product-add">
+                <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Add to cart
+                </a>
+            </div>
+        </div>
     </div>
 {% endblock %}

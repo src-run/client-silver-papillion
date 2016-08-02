@@ -291,6 +291,17 @@ $(document).ready(function () {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 
+    registerEvent.onClick('.about-map .card', function (event) {
+      helpers.followLink(linkResolver.resolve(event.target));
+    });
+
+    registerEvent.onClick('.feed-post', function (event) {
+      helpers.followLink(linkResolver.resolve(event.target));
+    });
+
+    var lightBox = new Lightbox();
+    lightBox.load();
+
   })();
 });
 

@@ -1,15 +1,5 @@
-
-#
-# This file is part of the `src-run/src-silver-papillon` project
-#
-# (c) Rob Frawley 2nd <rmf@src.run>
-#
-# For the full copyright and license information, please view the LICENSE.md
-# file that was distributed with this source code.
-#
-
+/.idea/
 /app/config/parameters.yml
-/app/config/parameters.*.yml
 /build/
 /phpunit.xml
 /var/*
@@ -24,11 +14,10 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
+/httpconf/
 /web/bundles/
-/.idea/
-node_modules/
-web/assets
-web/components/
-web/uploads
-web/media
-## EOF
+/composer.phar
+/node_modules/
+/web/components/
+/web/assets/
+/web/uploads/

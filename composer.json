@@ -50,7 +50,8 @@
     "symfony/routing": "^3.2",
     "vich/uploader-bundle": "^1.2",
     "liip/imagine-bundle": "^1.6",
-    "facebook/php-sdk-v4": "~5.0"
+    "facebook/php-sdk-v4": "~5.0",
+    "hostnet/form-handler-bundle": "~1.1"
   },
   "require-dev" : {
     "doctrine/doctrine-fixtures-bundle": "^2.3",

@@ -35,6 +35,26 @@ app_product_view:
   defaults :
     _controller : AppBundle:Product:view
 
+app_cart_add:
+  path     : /store/_/add/{product}/{quantity}
+  defaults :
+    _controller : AppBundle:Cart:add
+
+app_cart_view:
+  path     : /store/cart
+  defaults :
+    _controller : AppBundle:Cart:view
+
+app_about:
+  path     : /about
+  defaults :
+    _controller : AppBundle:Default:about
+
+app_orders_list:
+  path     : /store/orders
+  defaults :
+    _controller : AppBundle:Orders:view
+
 app_feed_view:
   path     : /feed
   defaults :

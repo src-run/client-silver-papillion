@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "75cf79d956e0228167fbcb6d3409c4c8",
-    "content-hash": "177375c96822695c6669226cd1b07f87",
+    "hash": "e6dbf8655891888f182096136def2ac2",
+    "content-hash": "0d532ccbeaa6a4e48adc6ccf483ba833",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1134,6 +1134,101 @@
             "time": "2016-07-30 15:51:52"
         },
         {
+            "name": "hostnet/form-handler-bundle",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hostnet/form-handler-bundle.git",
+                "reference": "9fa62cc12d89e95b4ed85d49d12c26faa8f031cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hostnet/form-handler-bundle/zipball/9fa62cc12d89e95b4ed85d49d12c26faa8f031cd",
+                "reference": "9fa62cc12d89e95b4ed85d49d12c26faa8f031cd",
+                "shasum": ""
+            },
+            "require": {
+                "hostnet/form-handler-component": "^1.2.0",
+                "php": "^5.5|^7.0",
+                "sensio/framework-extra-bundle": "3.*",
+                "symfony/expression-language": "^2.7|^3.0",
+                "symfony/http-foundation": "^2.7|^3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.7|^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hostnet\\Bundle\\FormHandlerBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Iltar van der Berg",
+                    "email": "ivanderberg@hostnet.nl"
+                },
+                {
+                    "name": "Yannick de Lange",
+                    "email": "ydelange@hostnet.nl"
+                }
+            ],
+            "description": "Hostnet form handler to provide an easier way of handling forms in actions",
+            "time": "2016-01-14 07:15:15"
+        },
+        {
+            "name": "hostnet/form-handler-component",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hostnet/form-handler-component.git",
+                "reference": "8050bc62366744757305fc48bcf352511d2f52bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hostnet/form-handler-component/zipball/8050bc62366744757305fc48bcf352511d2f52bb",
+                "reference": "8050bc62366744757305fc48bcf352511d2f52bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6||^7.0",
+                "symfony/form": "^2.7||^3.0",
+                "symfony/http-foundation": "^2.7||^3.0"
+            },
+            "require-dev": {
+                "hostnet/phpcs-tool": "^4.0.8",
+                "phpunit/phpunit": "^5.4",
+                "symfony/debug": "^2.7||^3.0",
+                "symfony/phpunit-bridge": "^2.7||^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hostnet\\Component\\Form\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Iltar van der Berg",
+                    "email": "ivanderberg@hostnet.nl"
+                },
+                {
+                    "name": "Yannick de Lange",
+                    "email": "ydelange@hostnet.nl"
+                }
+            ],
+            "description": "Hostnet form handler to provide an easier way of handling forms",
+            "time": "2016-06-16 14:45:26"
+        },
+        {
             "name": "imagine/imagine",
             "version": "v0.6.3",
             "source": {
@@ -1828,16 +1923,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.20.0",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037"
+                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/55841909e2bcde01b5318c35f2b74f8ecc86e037",
-                "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f42fbdfd53e306bda545845e4dbfd3e72edb4952",
+                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952",
                 "shasum": ""
             },
             "require": {
@@ -1902,7 +1997,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-07-02 14:02:10"
+            "time": "2016-07-29 03:23:52"
         },
         {
             "name": "ocramius/package-versions",

@@ -26,7 +26,10 @@ class Slugger
      */
     public function slugify($string)
     {
-        return strtolower(StringTransform::toAlphanumericAndDashes($string));
+        $string = StringTransform::spacesToDashes($string);
+        $string = StringTransform::toAlphanumericAndDashes($string);
+
+        return strtolower($string);
     }
 
     /**

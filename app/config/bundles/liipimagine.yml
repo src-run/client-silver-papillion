@@ -3,26 +3,50 @@
 liip_imagine :
   resolvers :
     default :
-      web_path : ~
+      web_path :
+        cache_prefix: '%public_cache_dir%'
 
   filter_sets :
     cache         : ~
-    product_thumb :
+    product_thumbs :
       quality : 88
       filters :
         auto_rotate : ~
         strip       : ~
-        thumbnail   : { size : [480, 480], mode : outbound }
+        thumbnail   : { size : [480, 480], mode : outbound, allow_upscale : true }
+        background  : { size : [484, 484], position : center, color : '#fff' }
       post_processors :
         jpegoptim   : { strip_all : true, max : 88, progressive : true }
 
-    feed_photo_thumb :
+    product_view_thumbs :
       quality : 88
       filters :
         auto_rotate : ~
         strip       : ~
-        upscale     : { min: [620, 480] }
-        thumbnail   : { size : [620, 480], mode : outbound }
+        thumbnail   : { size : [800, 800], mode : outbound, allow_upscale : true }
+        background  : { size : [840, 840], position : center, color : '#fff' }
+      post_processors :
+        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+
+    feed_photo_thumbs :
+      quality : 88
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min: [520, 380] }
+        thumbnail   : { size : [520, 380], mode : outbound, allow_upscale : true }
+        background  : { size : [560, 420], position : center, color : '#f2f1f3' }
+      post_processors :
+        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+
+    feed_social_thumbs :
+      quality : 88
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min: [680, 460] }
+        thumbnail   : { size : [680, 460], mode : outbound, allow_upscale : true }
+        background  : { size : [700, 480], position : center, color : '#f2f1f3' }
       post_processors :
         jpegoptim   : { strip_all : true, max : 88, progressive : true }
 

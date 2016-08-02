@@ -6,6 +6,7 @@
     "jquery"              : "~2.2",
     "twbs/bootstrap-sass" : "~3.3",
     "jquery-waypoints"    : "~4.0",
-    "font-awesome"        : "~4.6"
+    "font-awesome"        : "~4.6",
+    "jsonlylightbox"      : "~0.5"
   }
 }

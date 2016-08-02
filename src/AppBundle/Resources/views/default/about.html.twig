@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block bread %}{{ parent() }} <li>About</li>{% endblock %}
+
+{% block body %}
+
+    <div class="container container-sr">
+
+        <h2 class="primary-hr-i">{{ block_title('about.description') }}</em></h2>
+
+        <div class="about-text">
+            {{ block_content('about.description') }}
+        </div>
+
+    </div>
+
+    <div class="container-sr-odd">
+        <div class="container">
+
+            <div class="about-location">
+                <div class="about-address">
+
+                    <h3 class="primary-hr-i">{{ block_title('about.address') }}</em></h3>
+
+                    {{ block_content('about.address') }}
+
+                    <h3 class="primary-hr-i">Our <em>Hours</em></h3>
+                    <ul class="list-unstyled info-hours">
+                        {% for hour in hours %}
+                            <li {% if hour.dowToday %}class="today"{% endif %}>
+                                {% if hour.isClosed %}
+                                    <strong>closed</strong>
+                                {% else %}
+                                    {{ hour.getTimeOpen.format('h:ia') }} - {{ hour.getTimeClose.format('h:ia') }}
+                                {% endif %}
+                                <em>{{ hour.getDow }}</em>
+                                {% if hour.dowToday %}<span class="today">(today's hours)</span>{% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="about-map">
+
+                    <h3 class="primary-hr-i">Get <em>Directions</em></h3>
+
+                    <div class="card is-linkable is-animated" data-href="{{ directionsUri }}">
+                        <div class="card-section-head is-overlay is-toggleable">
+                            <p>Get direction from Google <i class="fa fa-map-marker"></i></p>
+                        </div>
+                        <div class="card-section-body">
+                            <img src="{{ staticMaps }}" alt="{{ block_content('about.address') }}" />
+                        </div>
+                        <div class="card-section-foot is-overlay is-toggleable">
+                            <img src="{{ streetView }}" alt="{{ block_content('about.address') }}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

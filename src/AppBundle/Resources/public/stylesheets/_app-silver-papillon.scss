@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
 */
 
-@import "variables-bootstrap";
-
 .container-sr {
   padding-top    : $container-padding-top;
   padding-bottom : $container-padding-bot;
@@ -61,8 +59,6 @@
   padding-top      : $container-padding-base * 1.1;
   padding-bottom   : $container-padding-base;
 
-
-
   h2 {
     color   : $color-accent;
     padding : 3px 0 0 0;
@@ -87,8 +83,10 @@
         padding-left : 6px;
       }
 
-      &:last-child &:after {
-        content : '';
+      &:last-child {
+        &:after {
+          content : '';
+        }
       }
 
       a {
@@ -131,103 +129,103 @@
   }
 }
 
-.card-listing {
-  @include make-row();
+.card {
+  border           : $card-border;
+  background-color : $card-bg;
+  overflow         : hidden;
+  position         : relative;
+  box-shadow       : 0 3px 12px rgba(0,0,0,0.05);
+  margin-bottom    : $container-padding-bot;
 
-  .card {
-    border           : $card-border;
-    background-color : $card-bg;
-    overflow         : hidden;
-    position         : relative;
-    box-shadow       : 0 3px 12px rgba(0,0,0,0.05);
-    margin-bottom    : $container-padding-bot;
+  > .card-section-head,
+  > .card-section-body,
+  > .card-section-foot {
+    position : relative;
+    overflow : hidden;
+    z-index  : 1;
+
+    .abs-right {
+      position : absolute;
+      right    : 21px;
+      top      : 30px;
+    }
+  }
+
+  > .card-section-head,
+  > .card-section-foot {
+    background-color : $card-section-bg;
+  }
+
+  &.is-linkable {
+    cursor           : pointer;
+    border           : $card-linkable-border;
+    background-color : $card-linkable-bg;
+
+    &:hover {
+      border           : $card-linkable-border-active;
+      background-color : $card-linkable-bg-active;
+      box-shadow       : 0 6px 27px rgba(0, 0, 0, .5);
+
+      > .card-section-head,
+      > .card-section-foot {
+        background-color : $card-section-bg-active;
+      }
+    }
+  }
+
+  &.is-animated {
+    will-change : auto;
+    transition  : border $transition-time-x08, background-color $transition-time-x08, box-shadow $transition-time-x04;
 
     > .card-section-head,
     > .card-section-body,
     > .card-section-foot {
-      position : relative;
-      overflow : hidden;
-      z-index  : 1;
-
-      .abs-right {
-        position : absolute;
-        right    : 21px;
-        top      : 30px;
-      }
-    }
-
-    > .card-section-head,
-    > .card-section-foot {
-      background-color : $card-section-bg;
-    }
-
-    &.is-linkable {
-      cursor           : pointer;
-      border           : $card-linkable-border;
-      background-color : $card-linkable-bg;
-
-      &:hover {
-        border           : $card-linkable-border-active;
-        background-color : $card-linkable-bg-active;
-        box-shadow       : 0 6px 27px rgba(0, 0, 0, .5);
-
-        > .card-section-head,
-        > .card-section-foot {
-          background-color : $card-section-bg-active;
-        }
-      }
-    }
-
-    &.is-animated {
-      will-change : auto;
-      transition  : border $transition-time-x08, background-color $transition-time-x08, box-shadow $transition-time-x04;
-
-      > .card-section-head,
-      > .card-section-body,
-      > .card-section-foot {
-        will-change                : auto;
-        transition                 : transform $transition-time-x03, background-color $transition-time-x02;
-        transition-timing-function : $transition-func-transform;
-      }
-    }
-
-    > .is-overlay {
-      background-color : $card-overlay-bg;
-      position         : absolute;
-      left             : 0;
-      right            : 0;
-
-      &.card-section-head {
-        z-index : 9;
-        top     : 0;
-      }
-
-      &.card-section-foot {
-        z-index : 9;
-        bottom  : 0;
-      }
-    }
-
-    > .is-overlay.is-toggleable {
-      background-color : $card-toggleable-bg;
-
-      &.card-section-head {
-        transform : $card-toggleable-transform-head;
-      }
-      &.card-section-foot {
-        transform : $card-toggleable-transform-foot;
-      }
-    }
-
-    &:hover > .is-overlay.is-toggleable {
-      background-color : $card-toggleable-bg-active;
-
-      &.card-section-head,
-      &.card-section-foot {
-        transform : $card-toggleable-transform;
-      }
+      will-change                : auto;
+      transition                 : transform $transition-time-x03, background-color $transition-time-x02;
+      transition-timing-function : $transition-func-transform;
     }
   }
+
+  > .is-overlay {
+    background-color : $card-overlay-bg;
+    position         : absolute;
+    left             : 0;
+    right            : 0;
+
+    &.card-section-head {
+      z-index : 9;
+      top     : 0;
+    }
+
+    &.card-section-foot {
+      z-index : 9;
+      bottom  : 0;
+    }
+  }
+
+  > .is-overlay.is-toggleable {
+    background-color : $card-toggleable-bg;
+
+    &.card-section-head {
+      transform : $card-toggleable-transform-head;
+    }
+    &.card-section-foot {
+      transform : $card-toggleable-transform-foot;
+    }
+  }
+
+  &:hover > .is-overlay.is-toggleable {
+    background-color : $card-toggleable-bg-active;
+
+    &.card-section-head,
+    &.card-section-foot {
+      transform : $card-toggleable-transform;
+    }
+  }
+}
+
+.card-listing {
+  @include make-row();
 }
 
 .card-listing .card-product {
@@ -307,6 +305,137 @@
       }
     }
   }
+}
+
+.product-view-image {
+  @include make-sm-column(5);
+
+  padding-top : $container-padding-top;
+  padding-bottom : $container-padding-bot;
+
+  img {
+      @include img-responsive();
+  }
+}
+
+.product-view-info {
+  @include make-sm-column(7);
+
+  padding-top : $container-padding-top;
+  padding-bottom : $container-padding-bot;
+}
+
+.product-price {
+  color     : $color-primary;
+  font-size : $font-size-h3;
+}
+
+.about-location {
+  @include make-row();
+
+  .about-address {
+    @include make-sm-column(4);
+  }
+
+  .about-map {
+    @include make-sm-column(8);
+
+    .card {
+      > * {
+        pointer-events : none;
+      }
+    }
+
+    .card-section-head {
+      z-index : 10;
+      background-color : rgba($color-white, 0.96) !important;
+
+      p {
+        padding   : 21px;
+        margin    : 12px;
+        text-align: center;
+        font-size : 21px;
+      }
+    }
+
+    img {
+      @include img-responsive();
+
+      width : 100%;
+    }
+  }
+}
+
+.feed-social {
+  @include make-row();
+
+  .feed-social-listing {
+    @include make-sm-column(6);
+  }
+
+  .feed-social-link {
+    @include make-sm-column(4);
+    @include make-sm-column-offset(2);
+  }
+}
+
+.card-feed-social {
+  .card-section-head {
+    padding          : 12px 21px 14px 21px;
+    text-align       : right;
+    background-color : #f3f3f7;
+
+    .feed-info-type {
+      float: left;
+      margin-right: 15px;
+      font-size: 15px;
+      color: #2194ef;
+    }
+
+    .feed-info-date time {
+      display: block;
+      padding-top: 3px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #2194ef;
+      text-transform: uppercase;
+    }
+  }
+
+  .card-section-body {
+    padding: 21px 21px 9px 21px;
+
+    p {
+      color: #505050;
+      margin: 0;
+      font-weight: 300;
+      font-size: 16px;
+    }
+  }
+
+  .card-section-foot {
+    .card-feed-attachment {
+      margin : 12px 21px 21px 21px;
+
+      .card {
+        margin-bottom : 21px;
+
+        img {
+          @include img-responsive();
+        }
+      }
+    }
+  }
+}
+
+.about-text p {
+  font-size   : 21px;
+  font-weight : 300;
+  line-height : 45px;
+}
+
+.jslghtbx {
+  z-index : 9999;
 }
 
 // OLD

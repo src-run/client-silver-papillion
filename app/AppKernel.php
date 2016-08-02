@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new Hostnet\Bundle\FormHandlerBundle\FormHandlerBundle(),
             new AppBundle\AppBundle(),
         ];
 

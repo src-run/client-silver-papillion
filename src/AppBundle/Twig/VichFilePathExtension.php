@@ -36,7 +36,7 @@ class VichFilePathExtension extends \Twig_Extension
     {
         return [
             new \Twig_Function('asset_uploaded', [$this, 'assetUploaded']),
-            new \Twig_Function('asset_product', [$this, 'assetProduct']),
+            new \Twig_Function('asset_product',  [$this, 'assetProduct']),
             new \Twig_Function('asset_category', [$this, 'assetCategory']),
         ];
     }

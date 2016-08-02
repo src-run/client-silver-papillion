@@ -21,3 +21,10 @@ parameters:
     facebook_app_id:        ~
     facebook_app_secret:    ~
     facebook_graph_version: v2.6
+
+    # Google API key
+    google_api_key_static_maps: ~
+    google_api_key_street_view: ~
+
+    # Public file cache
+    public_cache_dir: assets/cache
