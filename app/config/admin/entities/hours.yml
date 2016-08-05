@@ -26,13 +26,38 @@ easy_admin:
         fields:
 
           - id
+          - dow
           - weight
+          - closed
+          - timeOpen
+          - timeClose
+
+      form:
+        fields:
+
+          - label     : 'General Information'
+            type      : 'group'
+            icon      : 'pencil'
+            css_class : 'col-sm-8 new-row'
+
           - property  : 'dow'
             label     : 'Day of the Week'
-          - closed
+            css_class : 'col-sm-12'
+
+          - property  : closed
+
           - property  : timeOpen
             label     : 'Opening Time'
+            css_class : 'col-sm-12'
+
           - property  : timeClose
             label     : 'Closing Time'
+            css_class : 'col-sm-12'
 
+          - label     : 'Attributes'
+            type      : 'group'
+            icon      : 'tags'
+            css_class : 'col-sm-4'
+
+          - property  : weight
 ...

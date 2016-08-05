@@ -11,23 +11,23 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Category;
+use AppBundle\Entity\CarouselSlide;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class CategoryRepository.
+ * Class CarouselSlideRepository.
  */
-class CategoryRepository extends AbstractRepository
+class CarouselSlideRepository extends AbstractRepository
 {
     /**
-     * @return Category[]
+     * @return CarouselSlide[]
      */
-    public function findAll()
+    public function findAllEnabledOrderedByWeight()
     {
         return $this->getResult(function (QueryBuilder $b) {
             $b
-                ->andWhere('c.enabled = 1')
-                ->orderBy('c.name');
+                ->where('c.enabled = 1')
+                ->orderBy('c.weight');
         });
     }
 }

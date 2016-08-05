@@ -26,12 +26,9 @@ easy_admin:
         fields:
 
           - id
-          - name
           - enabled
-
-          - property  : 'image'
-            type      : 'image'
-            base_path : '%app.path.category_images%'
+          - name
+          - description
 
       show:
         fields:
@@ -40,16 +37,10 @@ easy_admin:
             label     : 'Label'
             css_class : 'large'
 
-          - property  : 'image'
-            type      : 'image'
-            base_path : '%app.path.product_images%'
-
-          - property  : 'image'
-            type      : 'image'
-            base_path : %app.path.category_images%
-
           - property  : 'enabled'
             label     : 'Published'
+
+          - property  : 'description'
 
           - property  : 'products'
 
@@ -74,14 +65,5 @@ easy_admin:
 
           - property  : 'enabled'
             label     : 'Published'
-
-          - label     : 'Attachments'
-            type      : 'group'
-            icon      : 'paperclip'
-            css_class : 'col-sm-4'
-
-          - property  : 'imageFile'
-            label     : 'Image'
-            type      : 'vich_image'
 
 ...

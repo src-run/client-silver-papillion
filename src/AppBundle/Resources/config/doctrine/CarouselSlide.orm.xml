@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+  <entity repository-class="AppBundle\Repository\CarouselSlideRepository" name="AppBundle\Entity\CarouselSlide" table="carousel_slide">
+
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+
+    <field name="enabled" type="boolean" column="enabled"/>
+
+    <field name="weight" type="integer" column="weight"/>
+
+    <field name="caption" type="text" column="description" nullable="true"/>
+
+    <field name="image" type="string" column="image" length="1020" />
+
+  </entity>
+
+</doctrine-mapping>

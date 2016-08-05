@@ -38,6 +38,7 @@ class VichFilePathExtension extends \Twig_Extension
             new \Twig_Function('asset_uploaded', [$this, 'assetUploaded']),
             new \Twig_Function('asset_product',  [$this, 'assetProduct']),
             new \Twig_Function('asset_category', [$this, 'assetCategory']),
+            new \Twig_Function('asset_carousel', [$this, 'assetCarousel']),
         ];
     }
 
@@ -69,6 +70,16 @@ class VichFilePathExtension extends \Twig_Extension
     public function assetCategory($file)
     {
         return $this->assetUploaded($file, 'category');
+    }
+
+    /**
+     * @param string $file
+     *
+     * @return string
+     */
+    public function assetCarousel($file)
+    {
+        return $this->assetUploaded($file, 'carousel');
     }
 
     /**

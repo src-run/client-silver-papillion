@@ -28,6 +28,7 @@ class ProductRepository extends AbstractRepository
         return $this->getResult(function (QueryBuilder $b) {
             $b
                 ->where('p.featured = 1')
+                ->andWhere('p.enabled = 1')
                 ->orderBy('p.name')
                 ->setMaxResults(3);
         });
@@ -43,6 +44,7 @@ class ProductRepository extends AbstractRepository
         return $this->getResult(function (QueryBuilder $b) use ($category) {
             $b
                 ->where('p.category = :category')
+                ->andWhere('p.enabled = 1')
                 ->setParameter('category', $category)
                 ->orderBy('p.name');
         });

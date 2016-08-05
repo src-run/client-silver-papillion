@@ -17,10 +17,11 @@ easy_admin:
           - { entity: 'Category', icon: 'plus-circle', label: 'menu.category.add', params: { action: 'new' } }
 
       - label: 'menu.meta'
-        icon: 'bookmark-o'
+        icon: 'sticky-note-o'
         children:
           - { entity: 'Hours', icon: 'building-o', label: 'menu.hours.list' }
-          - { entity: 'ContentBlock', icon: 'sticky-note-o', label: 'menu.blocks.list' }
+          - { entity: 'ContentBlock', icon: 'th-large', label: 'menu.blocks.list' }
+          - { entity: 'CarouselSlide', icon: 'image', label: 'menu.carousel.list' }
 
       - label: 'menu.store'
         icon: 'money'

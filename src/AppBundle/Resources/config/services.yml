@@ -19,6 +19,14 @@ services :
     tags   :
       - { name : twig.extension }
 
+  app.twig_extension.carousel_slide:
+    class  : AppBundle\Twig\CarouselSlideExtension
+    public : false
+    calls  :
+      - [setCarouselSlideManager, ["@app.manager.carousel_slide"]]
+    tags   :
+      - { name : twig.extension }
+
   app.twig_extension.url_to_file:
     class  : AppBundle\Twig\UrlToFileExtension
     public : false
@@ -38,7 +46,7 @@ services :
     class  : AppBundle\Twig\VichFilePathExtension
     public : false
     calls  :
-      - [setPaths, [{product: '%app.path.product_images%', category: '%app.path.category_images%'}]]
+      - [setPaths, [{product: '%app.path.product_images%', category: '%app.path.category_images%', carousel: '%app.path.carousel_images%'}]]
     tags   :
       - { name : twig.extension }
 
@@ -59,6 +67,11 @@ services :
 
   app.manager.content_block :
     class : AppBundle\Manager\ContentBlockManager
+    calls :
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.manager.carousel_slide :
+    class : AppBundle\Manager\CarouselSlideManager
     calls :
       - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
 

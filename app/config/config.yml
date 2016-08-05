@@ -12,6 +12,7 @@ parameters:
   locale: en
   app.path.product_images  : /uploads/images/products
   app.path.category_images : /uploads/images/categories
+  app.path.carousel_images : /uploads/images/carousel
   app.sys_path.root        : "%kernel.root_dir%/../web"
   app.web_path.root        : ""
   app.sys_path.upload      : "%app.sys_path.root%/uploads"
@@ -88,6 +89,9 @@ vich_uploader:
     product_images:
       uri_prefix: %app.path.product_images%
       upload_destination: %kernel.root_dir%/../web/uploads/images/products
+    carousel_images:
+      uri_prefix: %app.path.carousel_images%
+      upload_destination: %kernel.root_dir%/../web/uploads/images/carousel
 
 swiftmailer:
   transport: "%mailer_transport%"

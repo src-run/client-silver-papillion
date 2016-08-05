@@ -1,0 +1,77 @@
+---
+
+easy_admin:
+  entities:
+    CarouselSlide:
+      class: AppBundle\Entity\CarouselSlide
+      label: 'Carousel'
+
+      list:
+        title: '%%entity_label%%'
+
+        actions:
+
+          - name  : 'show'
+            label : 'Show'
+            icon  : 'search'
+
+          - name  : 'edit'
+            label : 'Edit'
+            icon  : 'edit'
+
+          - name  : 'delete'
+            label : 'Delete'
+            icon  : 'trash'
+
+        fields:
+
+          - id
+          - enabled
+          - weight
+          - caption
+          - property  : 'image'
+            type      : 'image'
+            base_path : '%app.path.carousel_images%'
+
+      show:
+        fields:
+
+          - id
+          - enabled
+          - weight
+          - caption
+          - property  : 'image'
+            type      : 'image'
+            base_path : '%app.path.carousel_images%'
+
+      form:
+        fields:
+
+          - label     : 'Attachments'
+            type      : 'group'
+            icon      : 'paperclip'
+            css_class : 'col-sm-6'
+
+          - property  : 'imageFile'
+            label     : 'Image'
+            type      : 'vich_image'
+
+          - label     : 'Published State'
+            type      : 'group'
+            icon      : 'floppy-o'
+            css_class : 'col-sm-6'
+
+          - property  : 'enabled'
+            label     : 'Published'
+
+          - label     : 'Extended Information'
+            type      : 'group'
+            icon      : 'pencil'
+            css_class : 'col-sm-12 new-row'
+
+          - weight
+
+          - property  : 'caption'
+            type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
+
+...

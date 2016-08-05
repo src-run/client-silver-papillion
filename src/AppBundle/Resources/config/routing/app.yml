@@ -48,7 +48,7 @@ app_cart_view:
 app_about:
   path     : /about
   defaults :
-    _controller : AppBundle:Default:about
+    _controller : AppBundle:About:index
 
 app_orders_list:
   path     : /store/orders
@@ -68,6 +68,6 @@ app_account_view:
 app_contact_view:
   path     : /contact
   defaults :
-    _controller : AppBundle:Contact:view
+    _controller : AppBundle:Contact:index
 
 # EOF
