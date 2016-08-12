@@ -28,9 +28,23 @@
         </div>
         <div class="product-action">
             <div class="product-add">
-                <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-primary">
-                    <i class="fa fa-plus"></i> Add to cart
-                </a>
+                <div class="btn-group">
+                    {% if cart_has(product) != true %}
+                        <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-primary">
+                            <i class="fa fa-plus fa-fw"></i> Add to cart
+                        </a>
+                    {% else %}
+                        <a href="{{ url('app_cart_rm', {product: product.getId, quantity: 1}) }}" class="btn btn-warning">
+                            <i class="fa fa-minus fa-fw"></i>
+                        </a>
+                        <a href="#" class="btn btn-default btn-disabled">
+                            <strong>{{ cart_count(product) }} in cart</strong>
+                        </a>
+                        <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-success">
+                            <i class="fa fa-plus fa-fw"></i>
+                        </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

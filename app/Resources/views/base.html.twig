@@ -40,21 +40,17 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="{% if 'Default' in _c %}active{% endif %}">
-                        <a href="/">Home</a>
-                    </li>
-
-                    <li class="{% if 'About' in _c %}active{% endif %}">
-                        <a href="{{ url('app_about') }}">About</a>
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
                     </li>
 
                     <li class="{% if 'Feed' in _c %}active{% endif %}">
-                        <a href="{{ url('app_feed_view') }}">News</a>
+                        <a href="{{ url('app_feed_view') }}"><i class="fa fa-newspaper-o"></i> News</a>
                     </li>
 
                     <li class="{% if 'Category' in _c %}active{% endif %} dropdown">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Products <span class="caret"></span>
+                            <i class="fa fa-shopping-bag"></i> Products <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
@@ -62,7 +58,7 @@
                                 <a href="{{ path('app_category_list') }}">Show All</a>
                             </li>
 
-                            {% for c in categories %}
+                            {% for c in get_categories() %}
                                 <li class="{% if category is defined and category.getId == c.getId %}active{% endif %}">
                                     <a
                                         href="{{ path('app_category_view', {'categoryName': c.name|replace({' ': '-'})|lower, 'category': c.id}) }}">
@@ -74,27 +70,19 @@
 
                     </li>
 
-                    <!--
-                    <li class="{% if 'Cart' in _c %}active{% endif %} dropdown">
+                    {% if cart_count() > 0 %}
+                        <li class="{% if 'Cart' in _c %}active{% endif %}">
+                            <a href="{{ url('app_cart_view') }}"><i class="fa fa-shopping-cart"></i> Cart ({{ cart_count() }} item{% if cart_count() > 1 %}s{% endif %})</a>
+                        </li>
+                    {% endif %}
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Your Cart <span class="caret"></span>
-                        </a>
 
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="{{ path('app_cart_view') }}">View Cart</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('app_orders_list') }}">Order History</a>
-                            </li>
-                        </ul>
-
+                    <li class="{% if 'About' in _c %}active{% endif %}">
+                        <a href="{{ url('app_about') }}"><i class="fa fa-map-marker"></i> Location</a>
                     </li>
-                    -->
 
                     <li class="{% if 'Contact' in _c %}active{% endif %}">
-                        <a href="{{ url('app_contact_view') }}">Contact</a>
+                        <a href="{{ url('app_contact_view') }}"><i class="fa fa-envelope"></i> Contact</a>
                     </li>
                 </ul>
             </div>

@@ -41,7 +41,6 @@ class ProductController extends Controller
         return $this->render('AppBundle:product:view.html.twig', [
             '_c' => static::class,
             'product' => $product,
-            'categories' => $this->get('app.manager.category')->getAll(),
         ]);
     }
 }

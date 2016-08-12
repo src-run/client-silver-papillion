@@ -268,12 +268,31 @@ $(document).ready(function () {
 
 
   /**
+   * LIGHTBOX SETUP
+   */
+
+  var lightBoxSetup = (function ($) {
+
+    function initLightBox() {
+      var lightBox = new Lightbox();
+      lightBox.load();
+    }
+
+    // expose class with methods to internal functions
+    return {
+      init: initLightBox
+    };
+  })(jQuery);
+
+
+  /**
    * SILVER PAPILLON APP
    */
 
   (function () {
 
     carouselSetup.init('.carousel-index', 6000);
+    lightBoxSetup.init();
 
     registerEvent.onClick('.card-product .card', function (event) {
       helpers.followLink(linkResolver.resolve(event.target));
@@ -299,8 +318,13 @@ $(document).ready(function () {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 
-    var lightBox = new Lightbox();
-    lightBox.load();
+    registerEvent.on('show.bs.dropdown', '.dropdown', function(event) {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+
+    registerEvent.on('hide.bs.dropdown', '.dropdown', function(event) {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
 
   })();
 });

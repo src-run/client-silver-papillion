@@ -1,7 +1,32 @@
 services :
 
+  app.cart:
+    class   : AppBundle\Model\Cart
+    factory :
+      - AppBundle\Model\Cart
+      - create
+    arguments :
+      - "@session"
+      - "@doctrine.orm.default_entity_manager"
+
   app.slugger :
     class : AppBundle\Util\Slugger
+
+  app.twig_extension.cart:
+    class  : AppBundle\Twig\CartExtension
+    public : false
+    calls  :
+      - [setCart, ["@app.cart"]]
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.category_manager:
+    class  : AppBundle\Twig\CategoryManagerExtension
+    public : false
+    calls  :
+      - [setCategoryManager, ["@app.manager.category"]]
+    tags   :
+      - { name : twig.extension }
 
   app.twig_extension.slugger:
     class  : AppBundle\Twig\SluggerExtension

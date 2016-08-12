@@ -37,13 +37,34 @@ app_product_view:
 
 app_cart_add:
   path     : /store/_/add/{product}/{quantity}
+  requirements:
+    quantity: '\d+'
   defaults :
     _controller : AppBundle:Cart:add
+    quantity: 1
+
+app_cart_rm:
+  path     : /store/_/rm/{product}/{quantity}
+  requirements:
+    quantity: '\d+'
+  defaults :
+    _controller : AppBundle:Cart:remove
+    quantity: 1
 
 app_cart_view:
   path     : /store/cart
   defaults :
     _controller : AppBundle:Cart:view
+
+app_cart_clear:
+  path     : /store/cart/clear
+  defaults :
+    _controller : AppBundle:Cart:clear
+
+app_cart_checkout:
+  path     : /store/cart/check-out
+  defaults :
+    _controller : AppBundle:Cart:checkout
 
 app_about:
   path     : /about

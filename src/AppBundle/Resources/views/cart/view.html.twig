@@ -1,0 +1,72 @@
+{% extends 'AppBundle:product:base.html.twig' %}
+
+{% block bread %}
+    {{ parent() }}
+    <li>Your Cart</li>
+{% endblock %}
+
+{% block body %}
+
+<div class="container container-sr">
+
+    {% if cart_count() == 0 %}
+        <div class="card cart-empty text-center">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-ban fa-stack-2x"></i>
+                <i class="fa fa-shopping-bag fa-stack-1x"></i>
+            </span>
+            <p>Your shopping cart is currently empty.</p>
+        </div>
+    {% else %}
+        <div class="cart-listing">
+            {% for g in cart_items_grouped() %}
+                <div class="card cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-image">
+                            <img alt="{{ g.getProduct.getName }}" src="{{ asset_product(g.getProduct.getImage) | imagine_filter('cart_product_thumb') }}" />
+                        </div>
+                        <h4><a href="{{ path('app_product_view', {'productName': g.getProduct.getName|slugify, 'product': g.getProduct.getId}) }}">{{ g.getProduct.getName }}</a></h4>
+                        <h6>Category:
+                            <a href="{{ url('app_category_view', {'categoryName': g.getProduct.getCategory.getName|lower|replace({' ': '-'}), 'category': g.getProduct.getCategory.getId}) }}">
+                                {{ g.getProduct.getCategory.getName }}
+                            </a>
+                        </h6>
+                    </div>
+                    <div class="cart-item-actions">
+                        <p>
+                            <span class="cart-item-actions-count label label-default"><em>{{ g.count() }}</em> units at <em>{{ g.getProduct.getPrice() }}</em> each</span>
+                            <span class="label label-primary cart-item-actions-total">${{ g.total() }}</span>
+                        </p>
+                        <div class="btn-group">
+                            <a href="{{ url('app_cart_rm', {product: g.getProduct.getId, quantity: 1}) }}" class="btn btn-sm btn-warning">
+                                <i class="fa fa-minus fa-fw"></i>
+                            </a>
+                            <a href="{{ url('app_cart_add', {product: g.getProduct.getId, quantity: 1}) }}" class="btn btn-sm btn-success">
+                                <i class="fa fa-plus fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="cart-actions">
+            <div class="cart-btns">
+                <div class="btn-group">
+                    <a href="{{ url('app_cart_clear') }}" class="btn btn-danger">
+                        <i class="fa fa-trash"></i> Remove All
+                    </a>
+                    <a href="{{ url('app_cart_checkout') }}" class="btn btn-primary">
+                        <i class="fa fa-shopping-cart"></i> Check Out
+                    </a>
+                </div>
+            </div>
+            <div class="cart-total pull-right">
+                <h4>Total: <strong>${{ cart_total()|number_format(2, '.', ',') }}</strong></h4>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}
