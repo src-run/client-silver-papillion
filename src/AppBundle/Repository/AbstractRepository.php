@@ -24,6 +24,11 @@ use SR\Utility\StringTransform;
 abstract class AbstractRepository extends EntityRepository
 {
     /**
+     * @var bool
+     */
+    const CACHE_ENABLED = true;
+
+    /**
      * @param callable|null $config
      * @param string|null   $alias
      *
@@ -54,15 +59,15 @@ abstract class AbstractRepository extends EntityRepository
     protected function getResult(callable $build = null, $single = false, $ttl = null)
     {
         $query = $this->getQuery($build);
-        $index = $this->getCacheKey($query);
-        $cache = $this->getCacheDriver();
 
-        if ($cache->contains($index)) {
-            return $cache->fetch($index);
+        if (self::CACHE_ENABLED) {
+            $index = $this->getCacheKey($query);
+            $cache = $this->getCacheDriver();
+
+            if ($cache->contains($index)) {
+                return $cache->fetch($index);
+            }
         }
-
-        dump($query);
-        dump($index);
 
         if ($single === true) {
             $result = $query->getSingleResult();
@@ -70,9 +75,9 @@ abstract class AbstractRepository extends EntityRepository
             $result = $query->getResult();
         }
 
-        dump($result);
-
-        $cache->save($index, $result, $ttl ?: 300);
+        if (isset($cache) && isset($index)) {
+            $cache->save($index, $result, $ttl ?: 300);
+        }
 
         return $result;
     }

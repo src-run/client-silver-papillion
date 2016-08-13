@@ -12,6 +12,28 @@ services :
   app.slugger :
     class : AppBundle\Util\Slugger
 
+  app.mapper.static :
+    class : AppBundle\Util\Mapper
+    calls :
+      - [setBlockManager, ["@app.manager.content_block"]]
+      - [setUri, ["%google_static_maps_uri%"]]
+      - [setApi, ["%google_api_key_static_maps%"]]
+      - [setCachePaths, ["%app.sys_path.cache%", "%app.web_path.cache%"]]
+
+  app.mapper.street :
+    class : AppBundle\Util\Mapper
+    calls :
+      - [setBlockManager, ["@app.manager.content_block"]]
+      - [setUri, ["%google_street_view_uri%"]]
+      - [setApi, ["%google_api_key_street_view%"]]
+      - [setCachePaths, ["%app.sys_path.cache%", "%app.web_path.cache%"]]
+
+  app.directions :
+    class : AppBundle\Util\Directions
+    calls :
+      - [setBlockManager, ["@app.manager.content_block"]]
+      - [setUri, ["%google_directions_uri%"]]
+
   app.twig_extension.cart:
     class  : AppBundle\Twig\CartExtension
     public : false

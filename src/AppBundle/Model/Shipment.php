@@ -16,24 +16,107 @@ namespace AppBundle\Model;
  */
 class Shipment
 {
-    protected $address;
-    protected $cost;
-    protected $transporter;
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
-     * Set the shipping address.
-     *
-     * @param mixed $address
+     * @var string
      */
-    public function setAddress($address)
+    private $email;
+
+    /**
+     * @var string
+     */
+    private $phone;
+
+    /**
+     * @var string
+     */
+    private $address;
+
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $state;
+
+    /**
+     * @var string
+     */
+    private $zip;
+
+    /**
+     * @var string
+     */
+    private $country;
+
+    /**
+     * @var Cart
+     */
+    private $cart;
+
+    /**
+     * @return string
+     */
+    public function getName()
     {
-        $this->address = $address;
+        return $this->name;
     }
 
     /**
-     * Get the shipping address.
-     *
-     * @return mixed
+     * @param string $name
+     * @return Shipment
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return Shipment
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     * @return Shipment
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * @return string
      */
     public function getAddress()
     {
@@ -41,49 +124,103 @@ class Shipment
     }
 
     /**
-     * Set the delivery cost of the order.
-     *
-     * @param mixed $cost
+     * @param string $address
+     * @return Shipment
      */
-    public function setCost($cost)
+    public function setAddress($address)
     {
-        $this->cost = $cost;
+        $this->address = $address;
+        return $this;
     }
 
     /**
-     * Get the delivery cost.
-     *
-     * @return mixed
+     * @return string
      */
-    public function getCost()
+    public function getCity()
     {
-        return $this->cost;
+        return $this->city;
     }
 
     /**
-     * Set the transporter that handle the delivery.
-     *
-     * @param mixed $transporter
+     * @param string $city
+     * @return Shipment
      */
-    public function setTransporter($transporter)
+    public function setCity($city)
     {
-        $this->transporter = $transporter;
+        $this->city = $city;
+        return $this;
     }
 
     /**
-     * Get the order's transporter.
-     *
-     * @return mixed
+     * @return string
      */
-    public function getTransporter()
+    public function getState()
     {
-        return $this->transporter;
+        return $this->state;
     }
 
-    /** {@inheritdoc} */
-    public function __toString()
+    /**
+     * @param string $state
+     * @return Shipment
+     */
+    public function setState($state)
     {
-        return $this->getTransporter().': '.$this->getCost();
+        $this->state = $state;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * @param string $zip
+     * @return Shipment
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     * @return Shipment
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * @return Cart
+     */
+    public function getCart()
+    {
+        return $this->cart;
+    }
+
+    /**
+     * @param Cart $cart
+     * @return Shipment
+     */
+    public function setCart($cart)
+    {
+        $this->cart = $cart;
+        return $this;
     }
 }
 

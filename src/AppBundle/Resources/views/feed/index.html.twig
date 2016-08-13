@@ -15,9 +15,9 @@
                             <div class="card-section-head">
                                 <div class="feed-info-type">
                                     {% if item.isVideo %}
-                                        <i class="fa fa-file-video-o"></i>
+                                        <i class="fa fa-video-camera"></i>
                                     {% elseif item.isPhoto %}
-                                        <i class="fa fa-file-image-o"></i>
+                                        <i class="fa fa-photo"></i>
                                     {% else %}
                                         <i class="fa fa-file-text-o"></i>
                                     {% endif %}
@@ -44,7 +44,7 @@
                                     {% endfor %}
                                     {% for a in attachments %}
                                         <div class="card-feed-attachment">
-                                            <div class="card is-linkable is-animated">
+                                            <div class="card is-linkable is-animated {% if item.isVideo %}card-feed-attachment-video{% endif %}" {% if item.isVideo %}data-href="{{ item.getAttachments()|first.getLink }}"{% endif %}>
                                                 <img src="{{ a.getLink() | url_to_file | imagine_filter('feed_social_thumbs') }}" alt="{{ item.getMessage() }}" data-jslghtbx="{{ a.getLink() | url_to_file }}" data-jslghtbx-group="feed-attachment-group-{{ i }}" />
                                             </div>
                                         </div>

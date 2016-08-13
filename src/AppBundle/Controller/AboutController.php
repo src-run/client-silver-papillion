@@ -23,53 +23,14 @@ class AboutController extends Controller
      */
     public function indexAction()
     {
-        list($staticMapsUrl, $streetViewUrl, $directionsUri) = $this->getMapUrls();
-
-        return $this->render('AppBundle:default:about.html.twig', [
+        return $this->render('AppBundle:about:index.html.twig', [
             '_c' => static::class,
             'hours' => $this->get('app.manager.hours')->getAll(),
             'categories' => $this->get('app.manager.category')->getAll(),
-            'staticMaps' => $staticMapsUrl,
-            'streetView' => $streetViewUrl,
-            'directionsUri' => $directionsUri,
+            'staticMaps' => $this->get('app.mapper.static')->generate(),
+            'streetView' => $this->get('app.mapper.street')->generate(),
+            'directionsUri' => $this->get('app.directions')->generate(),
         ]);
-    }
-
-    private function getMapUrls()
-    {
-        $blockManager = $this->get('app.manager.content_block');
-        $address = urlencode(strip_tags(str_replace("\r\n", '+', $blockManager->get('about.address')->getContent())));
-
-        $staticMapsUri = $this->getParameter('google_static_maps_uri');
-        $staticMapsApi = $this->getParameter('google_api_key_static_maps');
-        $streetViewUri = $this->getParameter('google_street_view_uri');
-        $streetViewApi = $this->getParameter('google_api_key_street_view');
-        $directionUri = $this->getParameter('google_directions_uri');
-
-        $staticMapsUri = str_replace('${api_key}', $staticMapsApi, $staticMapsUri);
-        $staticMapsUri = str_replace('${address}', $address, $staticMapsUri);
-        $staticMapsFile = md5($staticMapsUri);
-
-        $streetViewUri = str_replace('${api_key}', $streetViewApi, $streetViewUri);
-        $streetViewUri = str_replace('${address}', $address, $streetViewUri);
-        $streetViewFile = md5($streetViewUri);
-
-        $dirPathBase = $this->getParameter('app.sys_path.cache');
-        $webPathBase = $this->getParameter('app.web_path.cache');
-
-        foreach ([$staticMapsFile => $staticMapsUri, $streetViewFile => $streetViewUri] as $file => $uri) {
-            $filePath = $dirPathBase.DIRECTORY_SEPARATOR.$file.'.png';
-
-            if (!file_exists($filePath) || time() - filemtime($filePath) > 6000) {
-                file_put_contents($filePath, file_get_contents($uri));
-            }
-        }
-
-        return [
-            $webPathBase.'/'.$staticMapsFile.'.png',
-            $webPathBase.'/'.$streetViewFile.'.png',
-            str_replace('${address}', $address, $directionUri)
-        ];
     }
 }
 

@@ -1,0 +1,22 @@
+{% extends 'AppBundle:product:base.html.twig' %}
+
+{% block bread %}
+    {{ parent() }}
+    <li>Your Cart</li>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container container-sr">
+
+        <div class="card message-sent text-center">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-envelope fa-stack-1x"></i>
+            </span>
+            <p>Your message has been sent.</p>
+        </div>
+
+    </div>
+
+{% endblock %}

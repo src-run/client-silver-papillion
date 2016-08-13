@@ -34,7 +34,7 @@
 
     <div class="container container-sr">
 
-        <h2 class="primary-hr-i">Featured <em>Products</em></h2>
+        <h2 class="primary-hr-i"><i class="fa fa-star"></i> Featured <em>Products</em></h2>
         <div class="card-listing">
 
             {% for feature in featured %}
@@ -64,11 +64,12 @@
             {% endfor %}
 
         </div>
+        <a href="{{ path('app_category_list') }}" class="pull-right btn btn-primary">View All Products <i class="fa fa-long-arrow-right"></i></a>
     </div>
 
     <div class="container-sr-odd">
         <div class="container">
-            <h2 class="primary-hr-i">Shared <em>Photos</em></h2>
+            <h2 class="primary-hr-i"><i class="fa fa-facebook-official"></i> Shared <em>Photos</em></h2>
             <div class="card-listing">
 
                 {% for i, f in feed if i < 12 %}
@@ -109,23 +110,9 @@
     <div class="container container-sr">
 
         <div class="row">
-            <div class="col-sm-4">
-                <h2 class="primary-hr-i">{{ block_title('about.address') }}</h2>
-                <div class="info-address">
-                    {{ block_content('about.address') }}
-                </div>
-                <a href="{{ url('app_about') }}" class="btn btn-default">More About Us <i class="fa fa-long-arrow-right"></i></a>
-            </div>
 
             <div class="col-sm-4">
-                <h2 class="primary-hr-i">{{ block_title('about.phone') }}</h2>
-                <div class="info-phone">
-                    {{ block_content('about.phone') }}
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <h2 class="primary-hr-i">Our <em>Hours</em></h2>
+                <h3 class="primary-hr-i"><i class="fa fa-clock-o"></i> Our <em>Hours</em></h3>
                 <ul class="list-unstyled info-hours">
                     {% for hour in hours %}
                         <li {% if hour.dowToday %}class="today"{% endif %}>
@@ -141,20 +128,22 @@
                 </ul>
             </div>
 
-        </div>
+            <div class="col-sm-4">
+                <h3 class="primary-hr-i"><i class="fa fa-phone"></i> {{ block_title('about.phone') }}</h3>
+                <div class="info-phone">
+                    {{ block_content('about.phone') }}
+                </div>
+            </div>
 
-        <!--
-        <h2>Contact Us</h2>
-        <div class="row">
-            <div class="col-sm-9">
-                {{ form_start(form) }}
-                {{  form_end(form) }}
+            <div class="col-sm-4">
+                <h3 class="primary-hr-i"><i class="fa fa-map"></i> {{ block_title('about.address') }}</h3>
+                <div class="info-address">
+                    <img class="img-responsive" src="{{ staticMaps }}" alt="{{ block_content('about.address') }}" />
+                </div>
+                <a style="margin-top:30px;" href="{{ url('app_about') }}" class="btn btn-default">Info and Directions <i class="fa fa-long-arrow-right"></i></a>
             </div>
-            <div class="col-sm-3">
-                <p>Need to contact us?</p>
-            </div>
+
         </div>
-        -->
 
     </div>
 {% endblock %}

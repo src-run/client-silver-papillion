@@ -13,6 +13,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
+use AppBundle\Form\ShipmentType;
+use AppBundle\Model\Shipment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +31,28 @@ class CartController extends Controller
     {
         return $this->render('AppBundle:cart:view.html.twig', [
             '_c' => static::class,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function checkoutAction(Request $request)
+    {
+        $shipment = new Shipment();
+        $form = $this->createForm(ShipmentType::class, $shipment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($form);
+        }
+
+        return $this->render('AppBundle:cart:checkout.html.twig', [
+            '_c' => static::class,
+            'f' => $form->createView(),
         ]);
     }
 

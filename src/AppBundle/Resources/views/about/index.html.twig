@@ -20,11 +20,11 @@
             <div class="about-location">
                 <div class="about-address">
 
-                    <h3 class="primary-hr-i">{{ block_title('about.address') }}</em></h3>
+                    <h3 class="primary-hr-i"><i class="fa fa-map"></i> {{ block_title('about.address') }}</em></h3>
 
                     {{ block_content('about.address') }}
 
-                    <h3 class="primary-hr-i">Our <em>Hours</em></h3>
+                    <h3 class="primary-hr-i"><i class="fa fa-clock-o"></i> Our <em>Hours</em></h3>
                     <ul class="list-unstyled info-hours">
                         {% for hour in hours %}
                             <li {% if hour.dowToday %}class="today"{% endif %}>
@@ -42,7 +42,7 @@
 
                 <div class="about-map">
 
-                    <h3 class="primary-hr-i">Get <em>Directions</em></h3>
+                    <h3 class="primary-hr-i"><i class="fa fa-location-arrow"></i> Get <em>Directions</em></h3>
 
                     <div class="card is-linkable is-animated" data-href="{{ directionsUri }}">
                         <div class="card-section-head is-overlay is-toggleable">

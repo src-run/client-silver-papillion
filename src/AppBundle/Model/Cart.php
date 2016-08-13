@@ -72,7 +72,7 @@ class Cart implements \Serializable
      *
      * @return static
      */
-    public function create(Session $session, EntityManager $entityManager)
+    public static function create(Session $session, EntityManager $entityManager)
     {
         if ($session->has(static::SESSION_KEY)) {
             $instance = unserialize($session->get(static::SESSION_KEY));

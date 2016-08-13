@@ -318,6 +318,10 @@ $(document).ready(function () {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 
+    registerEvent.onClick('.card-feed-attachment .card', function (event) {
+      helpers.followLink(linkResolver.resolve(event.target));
+    });
+
     registerEvent.on('show.bs.dropdown', '.dropdown', function(event) {
       $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
     });

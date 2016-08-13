@@ -366,6 +366,26 @@
   }
 }
 
+
+.message-sent {
+  p {
+    margin:15px 30px 30px 30px;
+  }
+
+  .fa-stack {
+    font-size: 800%;
+    margin: 15px;
+
+    .fa-circle {
+      color: $color-primary;
+    }
+
+    .fa-envelope {
+      color: rgba($color-white, 0.9);
+    }
+  }
+}
+
 .cart-item {
   @include make-row();
 
@@ -410,6 +430,61 @@
 
     .btn-group {
       margin: 6px 6px 18px 6px;
+    }
+  }
+}
+
+.contact-form {
+  .contact-form-fields {
+    @include make-row();
+    margin-bottom: 15px;
+
+    .contact-form-name-label {
+      @include make-sm-column(1);
+
+      text-align: right;
+
+      label {
+        margin: 15px;
+      }
+    }
+
+    .contact-form-name-field {
+      @include make-sm-column(5);
+    }
+
+    .contact-form-email-label {
+      @include make-sm-column(1);
+
+      text-align: right;
+
+      label {
+        margin: 15px;
+      }
+    }
+
+    .contact-form-email-field {
+      @include make-sm-column(5);
+    }
+
+    .contact-form-message-label {
+      @include make-sm-column(1);
+
+      text-align: right;
+
+      label {
+        margin: 15px;
+      }
+    }
+
+    .contact-form-message-field {
+      @include make-sm-column(11);
+    }
+
+    .contact-form-submit {
+      margin-top: 30px;
+      @include make-sm-column(4);
+      @include make-sm-column-offset(4);
     }
   }
 }
@@ -474,6 +549,12 @@
       margin-right: 15px;
       font-size: 15px;
       color: #2194ef;
+
+      .fa {
+        font-size: 22px;
+        position: absolute;
+        top: 16px;
+      }
     }
 
     .feed-info-date time {
@@ -500,6 +581,10 @@
   .card-section-foot {
     .card-feed-attachment {
       margin : 12px 21px 21px 21px;
+
+      .card-feed-attachment-video img {
+        pointer-events: none;
+      }
 
       .card {
         margin-bottom : 21px;

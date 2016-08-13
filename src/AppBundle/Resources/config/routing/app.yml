@@ -62,7 +62,7 @@ app_cart_clear:
     _controller : AppBundle:Cart:clear
 
 app_cart_checkout:
-  path     : /store/cart/check-out
+  path     : /store/checkout
   defaults :
     _controller : AppBundle:Cart:checkout
 
