@@ -16,11 +16,7 @@
 
     {% block stylesheets %}
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto+Slab|Roboto:100,300,400,500" rel="stylesheet">
-        {% if app.environment == 'prod' %}
-            <link rel="stylesheet" href="{{  asset('assets/css/app.min.css') }}" />
-        {% else %}
-            <link rel="stylesheet" href="{{  asset('assets/css/app.css') }}" />
-        {% endif %}
+        <link rel="stylesheet" href="{{  asset('assets/css/app.css') }}" />
     {% endblock %}
 
 </head>
@@ -120,11 +116,7 @@
     </footer>
 
     {% block javascripts %}
-        {% if app.environment == 'prod' %}
-            <script src="{{  asset('assets/scr/app.min.js') }}"></script>
-        {% else %}
-            <script src="{{  asset('assets/scr/app.js') }}"></script>
-        {% endif %}
+        <script src="{{  asset('assets/scr/app.js') }}"></script>
     {% endblock %}
 
 </body>
