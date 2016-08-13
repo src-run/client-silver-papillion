@@ -5,8 +5,12 @@
 {% block body %}
     <div class="container container-sr">
 
+        <div class="navigation-right">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
         <h2 class="primary-hr-i"><em>{{ category.getName }}</em></h2>
-        
+
         <div class="card-listing">
         {% for product in pagination %}
             <div class="card-product">

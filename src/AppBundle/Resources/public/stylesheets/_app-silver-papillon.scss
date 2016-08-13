@@ -283,6 +283,12 @@
   text-align: center;
 }
 
+.navigation-right {
+  text-align: center;
+  float: right;
+  padding-top: 15px;
+}
+
 .card-listing .card-product {
   @include make-sm-column(4);
 
