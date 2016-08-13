@@ -14,19 +14,18 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Class AboutController.
+ * Class LocationController.
  */
-class AboutController extends Controller
+class LocationController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:about:index.html.twig', [
+        return $this->render('AppBundle:location:index.html.twig', [
             '_c' => static::class,
             'hours' => $this->get('app.manager.hours')->getAll(),
-            'categories' => $this->get('app.manager.category')->getAll(),
             'staticMaps' => $this->get('app.mapper.static')->generate(),
             'streetView' => $this->get('app.mapper.street')->generate(),
             'directionsUri' => $this->get('app.directions')->generate(),

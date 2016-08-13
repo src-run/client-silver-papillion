@@ -34,11 +34,14 @@
                             <i class="fa fa-plus fa-fw"></i> Add to cart
                         </a>
                     {% else %}
+                        <a href="{{ url('app_cart_view') }}" class="btn btn-default">
+                            {{ cart_count(product) }} units in cart
+                        </a>
+                        <a href="{{ url('app_cart_rm', {product: product.getId, quantity: 100000}) }}" class="btn btn-danger">
+                            <i class="fa fa-trash fa-fw"></i>
+                        </a>
                         <a href="{{ url('app_cart_rm', {product: product.getId, quantity: 1}) }}" class="btn btn-warning">
                             <i class="fa fa-minus fa-fw"></i>
-                        </a>
-                        <a href="#" class="btn btn-default btn-disabled">
-                            <strong>{{ cart_count(product) }} in cart</strong>
                         </a>
                         <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-success">
                             <i class="fa fa-plus fa-fw"></i>

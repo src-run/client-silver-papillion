@@ -39,6 +39,9 @@
                             <span class="label label-primary cart-item-actions-total">${{ g.total() }}</span>
                         </p>
                         <div class="btn-group">
+                            <a href="{{ url('app_cart_rm', {product: g.getProduct.getId, quantity: 100000}) }}" class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash fa-fw"></i>
+                            </a>
                             <a href="{{ url('app_cart_rm', {product: g.getProduct.getId, quantity: 1}) }}" class="btn btn-sm btn-warning">
                                 <i class="fa fa-minus fa-fw"></i>
                             </a>
