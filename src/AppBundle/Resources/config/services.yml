@@ -105,6 +105,7 @@ services :
   app.manager.product :
     class : AppBundle\Manager\ProductManager
     calls :
+      - [setPaginator, ["@knp_paginator"]]
       - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
 
   app.manager.hours :

@@ -127,4 +127,12 @@ fos_user:
   firewall_name: main
   user_class: AppBundle\Entity\User
 
+knp_paginator:
+  page_range: 5
+  default_options:
+    page_name: page
+    distinct: true
+  template:
+    pagination: paginator.html.twig
+
 ...

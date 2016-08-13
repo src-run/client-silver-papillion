@@ -6,8 +6,9 @@
     <div class="container container-sr">
 
         <h2 class="primary-hr-i"><em>{{ category.getName }}</em></h2>
+        
         <div class="card-listing">
-        {% for product in products %}
+        {% for product in pagination %}
             <div class="card-product">
                 <div class="card is-linkable is-animated" data-href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId}) }}">
                     <div class="card-section-head is-overlay is-toggleable">
@@ -33,5 +34,10 @@
             </div>
         {% endfor %}
         </div>
+
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
     </div>
 {% endblock %}

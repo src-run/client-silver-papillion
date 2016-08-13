@@ -14,6 +14,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Category;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Category CategoryController.
@@ -36,13 +37,13 @@ class CategoryController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($categoryName, Category $category)
+    public function viewAction(Request $request, $categoryName, Category $category)
     {
         return $this->render('AppBundle:category:view.html.twig', [
             '_c' => static::class,
             'category' => $category,
             'categories' => $this->get('app.manager.category')->getAll(),
-            'products' => $this->get('app.manager.product')->getAllFromCategory($category),
+            'pagination' => $this->get('app.manager.product')->getAllFromCategoryPaginated($category, $request->query->getInt('page', 1)),
         ]);
     }
 }

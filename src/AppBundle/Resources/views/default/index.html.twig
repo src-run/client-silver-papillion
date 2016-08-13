@@ -38,7 +38,7 @@
         <div class="card-listing">
 
             {% for feature in featured %}
-                <div class="card-product">
+                <div class="card-index-product">
                     <div class="card is-linkable is-animated" data-href="{{ path('app_product_view', {'productName': feature.getName|slugify, 'product': feature.getId}) }}">
                         <div class="card-section-head is-overlay is-toggleable">
                             <div class="product-price abs-right">

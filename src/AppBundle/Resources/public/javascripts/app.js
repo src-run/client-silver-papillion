@@ -298,6 +298,10 @@ $(document).ready(function () {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 
+    registerEvent.onClick('.card-index-product .card', function (event) {
+      helpers.followLink(linkResolver.resolve(event.target));
+    });
+
     registerEvent.onClick('.card-category .card', function (event) {
       helpers.followLink(linkResolver.resolve(event.target));
     });

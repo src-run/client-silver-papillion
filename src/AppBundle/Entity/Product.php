@@ -27,6 +27,11 @@ class Product
     protected $id;
 
     /**
+     * @var string
+     */
+    protected $sku;
+
+    /**
      * @var \DateTime
      */
     protected $createdOn;
@@ -109,6 +114,22 @@ class Product
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @param string $sku
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
     }
 
     /**

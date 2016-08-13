@@ -14,6 +14,7 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use Doctrine\ORM\QueryBuilder;
+use Knp\Component\Pager\Paginator;
 
 /**
  * Class ProductRepository.
@@ -48,6 +49,27 @@ class ProductRepository extends AbstractRepository
                 ->setParameter('category', $category)
                 ->orderBy('p.name');
         });
+    }
+
+    /**
+     * @param Category  $category
+     * @param Paginator $paginator
+     * @param int       $page
+     * @param int       $limit
+     *
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
+    public function findInCategoryPaginated(Category $category, Paginator $paginator, $page, $limit = 12)
+    {
+        $query = $this->getQuery(function (QueryBuilder $b) use ($category) {
+            $b
+                ->where('p.category = :category')
+                ->andWhere('p.enabled = 1')
+                ->setParameter('category', $category)
+                ->orderBy('p.name');
+        });
+
+        return $paginator->paginate($query, $page, $limit);
     }
 }
 
