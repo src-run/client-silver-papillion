@@ -36,7 +36,7 @@
                 {% endif %}
                 <div class="product-price">
                     <p class="product-price-main">${{ product.getPrice|number_format(2, '.', ',') }}</p>
-                    <p class="product-price-extra">Plus ${{ shipping_rate|number_format(2, '.', ',') }} per unit shipping and {{ tax_rate|number_format(3, '.', ',') }}% sales tax.</p>
+                    <p class="product-price-extra">Plus ${{ shipping_rate|number_format(2, '.', ',') }} shipping per unit, and {{ tax_rate|number_format(3, '.', ',') }}% sales tax.</p>
                 </div>
                 <div class="product-action">
                     <div class="product-add">
