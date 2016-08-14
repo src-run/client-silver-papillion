@@ -28,7 +28,7 @@
                         </div>
                         <h4><a href="{{ path('app_product_view', {'productName': g.getProduct.getName|slugify, 'product': g.getProduct.getId}) }}">{{ g.getProduct.getName }}</a></h4>
                         <h6>Category:
-                            <a href="{{ url('app_category_view', {'categoryName': g.getProduct.getCategory.getName|lower|replace({' ': '-'}), 'category': g.getProduct.getCategory.getId}) }}">
+                            <a href="{{ url('app_category_view', {'categoryName': g.getProduct.getCategory.getName|slugify, 'category': g.getProduct.getCategory.getId}) }}">
                                 {{ g.getProduct.getCategory.getName }}
                             </a>
                         </h6>

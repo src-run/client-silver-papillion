@@ -71,7 +71,8 @@
     li {
       color         : $color-accent;
       font-size     : $font-size-h3;
-      font-weight   : 300;
+      font-weight   : 500;
+      font-family   : "Roboto Condensed", "Roboto", sans-serif;
       float         : left;
       padding-right : 6px;
       padding-top   : 6px;
@@ -91,6 +92,7 @@
 
       a {
         font-weight : 100;
+        font-family : "Roboto Condensed", "Roboto", sans-serif;
         color       : rgba($color-accent, 0.65);
 
         &:hover {
@@ -279,6 +281,57 @@
   }
 }
 
+.card-listing .card-similar-product {
+  @include make-sm-column(3);
+
+  .card {
+    > * {
+      pointer-events : none;
+    }
+
+    > .card-section-head {
+      .product-price {
+        font-size     : 12px;
+        color         : $color-accent;
+        font-weight   : 500;
+
+        p {
+          margin-bottom : 0;
+        }
+      }
+
+      .product-name {
+        margin : 27px 21px 24px 21px;
+
+        h4 {
+          color : $color-primary-alt;
+        }
+      }
+    }
+
+    > .card-section-body img {
+      @include img-responsive();
+    }
+
+    > .card-section-foot {
+      margin           : 0;
+      background-color : rgba($color-accent-alt, 0.9) !important;
+
+      .product-link {
+        display          : block;
+        margin           : 15px 9px 12px 9px;
+        text-align       : center;
+        font-weight      : 300;
+        text-transform   : uppercase;
+
+        a {
+          color : $color-white;
+        }
+      }
+    }
+  }
+}
+
 .navigation {
   text-align: right;
 }
@@ -291,10 +344,6 @@
 
 .pagination-text {
   display : none;
-}
-
-.card-product-info {
-  padding: 6px 30px 30px 30px;
 }
 
 .product-action .btn-default {
@@ -398,9 +447,32 @@
   padding-bottom : $container-padding-bot;
 }
 
-.product-price {
-  color     : $color-primary;
-  font-size : $font-size-h3;
+.card-product-info {
+  padding: 6px 30px 30px 30px;
+
+  hr {
+    border-top: 1px solid rgb(223, 55, 142);
+  }
+
+  .product-price {
+    .product-price-main {
+      color: $color-primary;
+      font-size: $font-size-h3;
+      margin:0;
+    }
+
+    .product-price-extra {
+      font-size: 12px;
+      margin-bottom: 30px;
+      color: #bbb;
+      font-style: italic;
+    }
+  }
+}
+
+.product-price-main {
+  color: $color-primary;
+  font-size: $font-size-h3;
 }
 
 .cart-actions {
@@ -933,10 +1005,10 @@
   }
 
   .navbar-nav > li > a {
-    font-size: 16px;
+    font-size: 14px;
 
     > .fa {
-      font-size: 19px;
+      font-size: 17px;
       padding-right: 6px;
     }
   }

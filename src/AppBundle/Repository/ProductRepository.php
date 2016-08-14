@@ -30,8 +30,7 @@ class ProductRepository extends AbstractRepository
             $b
                 ->where('p.featured = 1')
                 ->andWhere('p.enabled = 1')
-                ->orderBy('p.name')
-                ->setMaxResults(3);
+                ->orderBy('p.name');
         });
     }
 

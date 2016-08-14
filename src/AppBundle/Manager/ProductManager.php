@@ -50,9 +50,12 @@ class ProductManager extends AbstractManager
     /**
      * @return Product[]
      */
-    public function getFeatured()
+    public function getFeatured($limit = 3)
     {
-        return $this->getRepository()->findFeatured();
+        $featured = $this->getRepository()->findFeatured();
+        shuffle($featured);
+
+        return array_slice($featured, 0, $limit);
     }
 
     /**
@@ -63,6 +66,20 @@ class ProductManager extends AbstractManager
     public function getAllFromCategory(Category $category)
     {
         return $this->getRepository()->findInCategory($category);
+    }
+
+    /**
+     * @param Category $category
+     * @param int      $limit
+     *
+     * @return \AppBundle\Entity\Product[]
+     */
+    public function getRandomFromCategory(Category $category, $limit)
+    {
+        $products = $this->getRepository()->findInCategory($category);
+        shuffle($products);
+
+        return array_splice($products, 0, $limit);
     }
 
     /**

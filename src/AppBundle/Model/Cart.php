@@ -28,6 +28,16 @@ class Cart implements \Serializable
     const SESSION_KEY = 'app.cart';
 
     /**
+     * @var float
+     */
+    const RATE_SHIPPING = 6.40;
+
+    /**
+     * @var float
+     */
+    const RATE_TAX_PERCENTAGE = 0.069;
+
+    /**
      * @var Product[]
      */
     private $items = [];
@@ -225,7 +235,7 @@ class Cart implements \Serializable
     public function tax()
     {
         return array_reduce($this->items, function ($carry, Product $p) {
-            return $carry + ($p->getPrice() * 0.0699);
+            return $carry + ($p->getPrice() * self::RATE_TAX_PERCENTAGE);
         }, 0);
     }
 
@@ -235,7 +245,7 @@ class Cart implements \Serializable
     public function shipping()
     {
         return array_reduce($this->items, function ($carry, Product $p) {
-            return $carry + 4;
+            return $carry + self::RATE_SHIPPING;
         }, 0);
     }
 

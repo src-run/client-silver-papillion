@@ -302,6 +302,10 @@ $(document).ready(function () {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 
+    registerEvent.onClick('.card-similar-product .card', function (event) {
+      helpers.followLink(linkResolver.resolve(event.target));
+    });
+
     registerEvent.onClick('.card-category .card', function (event) {
       helpers.followLink(linkResolver.resolve(event.target));
     });

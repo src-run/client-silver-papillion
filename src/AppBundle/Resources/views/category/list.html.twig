@@ -9,10 +9,10 @@
     <div class="card-listing">
         {% for c in categories %}
         <div class="col-md-12 card-category">
-            <div class="card" data-href="{{ url('app_category_view', {'categoryName': c.getName|lower|replace({' ': '-'}), 'category': c.getId}) }}">
+            <div class="card" data-href="{{ url('app_category_view', {'categoryName': c.getName|slugify, 'category': c.getId}) }}">
                 <div class="category">
                     <div class="category-name">
-                        <a href="{{ url('app_category_view', {'categoryName': c.getName|lower|replace({' ': '-'}), 'category': c.getId}) }}">{{ c.getName }}</a>
+                        <a href="{{ url('app_category_view', {'categoryName': c.getName|slugify, 'category': c.getId}) }}">{{ c.getName }}</a>
                     </div>
                     <div class="category-products">
                         {% for p in c.getProducts|slice(0, 5) %}

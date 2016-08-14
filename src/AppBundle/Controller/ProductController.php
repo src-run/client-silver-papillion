@@ -12,6 +12,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
+use AppBundle\Model\Cart;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -41,6 +42,10 @@ class ProductController extends Controller
         return $this->render('AppBundle:product:view.html.twig', [
             '_c' => static::class,
             'product' => $product,
+            'similar' => $this->get('app.manager.product')->getRandomFromCategory($product->getCategory(), 4),
+            'category' => $product->getCategory(),
+            'shipping_rate' => Cart::RATE_SHIPPING,
+            'tax_rate' => Cart::RATE_TAX_PERCENTAGE,
         ]);
     }
 }
