@@ -24,6 +24,11 @@
                     <h1>{{ product.getName }}</h1>
                 </div>
                 <hr />
+                {% if product.hasSku %}
+                    <div class="product-sku">
+                        <span class="label label-default">SKU: {{ product.getSku }}</span>
+                    </div>
+                {% endif %}
                 {% if product.hasDescription %}
                     <div class="product-desc">
                         {{ product.getDescription }}

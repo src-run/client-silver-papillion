@@ -324,6 +324,16 @@
   background-color : #f8f8f9;
 }
 
+.product-sku {
+  margin :  1em 0;
+
+  .label {
+    font-size   : 90%;
+    font-weight : 300;
+    padding     : .4em .6em;
+  }
+}
+
 .card-listing .card-product {
   @include make-sm-column(4);
 
