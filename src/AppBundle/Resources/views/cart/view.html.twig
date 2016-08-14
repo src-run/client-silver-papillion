@@ -65,7 +65,10 @@
                 </div>
             </div>
             <div class="cart-total pull-right">
-                <h4>Total: <strong>${{ cart_total()|number_format(2, '.', ',') }}</strong></h4>
+                <h6>
+                    Sub-Total: ${{ cart_subTotal()|number_format(2, '.', ',') }} / Tax: ${{ cart_tax()|number_format(2, '.', ',') }} / Shipping: ${{ cart_shipping()|number_format(2, '.', ',') }}
+                </h6>
+                <h4><strong>Total: ${{ cart_total()|number_format(2, '.', ',') }}</strong></h4>
             </div>
         </div>
     {% endif %}

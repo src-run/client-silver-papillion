@@ -212,11 +212,39 @@ class Cart implements \Serializable
     /**
      * @return float
      */
-    public function total()
+    public function subTotal()
     {
         return array_reduce($this->items, function ($carry, Product $p) {
             return $carry + $p->getPrice();
         }, 0);
+    }
+
+    /**
+     * @return float
+     */
+    public function tax()
+    {
+        return array_reduce($this->items, function ($carry, Product $p) {
+            return $carry + ($p->getPrice() * 0.0699);
+        }, 0);
+    }
+
+    /**
+     * @return float
+     */
+    public function shipping()
+    {
+        return array_reduce($this->items, function ($carry, Product $p) {
+            return $carry + 4;
+        }, 0);
+    }
+
+    /**
+     * @return float
+     */
+    public function total()
+    {
+        return $this->subTotal() + $this->tax() + $this->shipping();
     }
 
     /**

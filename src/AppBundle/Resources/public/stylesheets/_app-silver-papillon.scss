@@ -293,6 +293,14 @@
   display : none;
 }
 
+.card-product-info {
+  padding: 6px 30px 30px 30px;
+}
+
+.product-action .btn-default {
+  background-color: #f8f8f9;
+}
+
 .card-listing .card-product {
   @include make-sm-column(4);
 

@@ -133,6 +133,14 @@ class Product
     }
 
     /**
+     * @return bool
+     */
+    public function hasSku()
+    {
+        return $this->sku !== null;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getCreatedOn()

@@ -42,6 +42,9 @@ class CartExtension extends \Twig_Extension
             new \Twig_Function('cart_has', [$this, 'cartHas']),
             new \Twig_Function('cart_count', [$this, 'cartCount']),
             new \Twig_Function('cart_total', [$this, 'cartTotal']),
+            new \Twig_Function('cart_subTotal', [$this, 'cartSubTotal']),
+            new \Twig_Function('cart_tax', [$this, 'cartTax']),
+            new \Twig_Function('cart_shipping', [$this, 'cartShipping']),
             new \Twig_Function('cart_items', [$this, 'cartItems']),
             new \Twig_Function('cart_items_grouped', [$this, 'cartItemsGrouped']),
         );
@@ -81,6 +84,30 @@ class CartExtension extends \Twig_Extension
     public function cartTotal()
     {
         return $this->cart->total();
+    }
+
+    /**
+     * @return int
+     */
+    public function cartSubTotal()
+    {
+        return $this->cart->subTotal();
+    }
+
+    /**
+     * @return int
+     */
+    public function cartTax()
+    {
+        return $this->cart->tax();
+    }
+
+    /**
+     * @return int
+     */
+    public function cartShipping()
+    {
+        return $this->cart->shipping();
     }
 
     /**

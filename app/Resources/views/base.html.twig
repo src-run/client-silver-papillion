@@ -68,7 +68,7 @@
 
                     {% if cart_count() > 0 %}
                         <li class="{% if 'Cart' in _c %}active{% endif %}">
-                            <a href="{{ url('app_cart_view') }}"><i class="fa fa-shopping-cart"></i> Cart ({{ cart_count() }} item{% if cart_count() > 1 %}s{% endif %})</a>
+                            <a href="{{ url('app_cart_view') }}"><i class="fa fa-shopping-cart"></i> Cart (${{ cart_total()|number_format(2, '.', ',') }})</a>
                         </li>
                     {% endif %}
 

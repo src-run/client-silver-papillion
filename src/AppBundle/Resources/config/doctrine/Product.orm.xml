@@ -14,7 +14,7 @@
 
     <field name="name" type="string" column="name" precision="0" scale="0" nullable="false" />
 
-    <field name="sku" type="string" column="sku" nullable="true" />
+    <field name="sku" type="string" column="sku" precision="0" scale="0" nullable="true" />
 
     <field name="description" type="text" column="description" nullable="true" />
 
