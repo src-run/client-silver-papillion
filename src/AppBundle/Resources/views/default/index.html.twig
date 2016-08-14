@@ -75,7 +75,21 @@
                 {% for i, f in feed if i < 12 %}
                     <div class="card-feed-photo">
                         <div class="card is-linkable is-animated" data-href="{{ url('app_feed_view', {_fragment: f.getId}) }}">
-
+                            {% if f.isVideo %}
+                                <div class="card-section-head is-overlay">
+                                    <span class="fa-stack fa-lg">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </div>
+                            {% else %}
+                                <div class="card-section-head is-overlay">
+                                    <span class="fa-stack fa-lg">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-expand fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </div>
+                            {% endif %}
                             <div class="card-section-body">
                                 {% if f.getAttachments|first.getMedia|first %}
                                     {% set media = f.getAttachments|first.getMedia|first %}
@@ -114,19 +128,21 @@
             <div class="index-about-section">
                 <h3 class="primary-hr-i"><i class="fa fa-clock-o"></i> Our <em>Hours</em></h3>
 
-                <ul class="list-unstyled info-hours">
+                <dl class="info-hours">
                     {% for hour in hours %}
-                        <li {% if hour.dowToday %}class="today"{% endif %}>
+                        <dt {% if hour.dowToday %}class="today"{% endif %}>
+                            {{ hour.getDow }}
+                            {% if hour.dowToday %}<span class="today">(today)</span>{% endif %}
+                        </dt>
+                        <dd {% if hour.dowToday %}class="today"{% endif %}>
                             {% if hour.isClosed %}
-                                <strong>closed</strong>
+                                Closed
                             {% else %}
                                 {{ hour.getTimeOpen.format('h:ia') }} - {{ hour.getTimeClose.format('h:ia') }}
                             {% endif %}
-                            <em>{{ hour.getDow }}</em>
-                            {% if hour.dowToday %}<span class="today">(today's hours)</span>{% endif %}
-                        </li>
+                        </dd>
                     {% endfor %}
-                </ul>
+                </dl>
             </div>
 
             <div class="index-about-section index-about-section-phone">
