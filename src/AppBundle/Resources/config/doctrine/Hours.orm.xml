@@ -5,7 +5,7 @@
       <generator strategy="AUTO"/>
     </id>
     <field name="dow" type="string" column="dow" length="255"/>
-    <field name="weight" type="integer" column="weight"/>
+    <field name="weight" type="integer" column="weight" nullable="false" />
     <field name="closed" type="boolean" column="closed" nullable="true"/>
     <field name="timeOpen" type="time" column="timeOpen" nullable="true"/>
     <field name="timeClose" type="time" column="timeClose" nullable="true"/>

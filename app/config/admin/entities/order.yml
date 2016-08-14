@@ -4,20 +4,5 @@ easy_admin:
   entities:
     Order:
       class: AppBundle\Entity\Order
-      disabled_actions: ['delete']
-      list:
-        actions: [ { name: 'show', icon: 'shopping-basket' } ]
-        fields:
-          - shippedOn
-          - billingAddress
-          - shippingAddress
-          - purchasedItems
-          - total
-      form:
-        fields:
-          - { property: 'user', type: 'easyadmin_autocomplete' }
-          - shippedOn
-          - { property: 'billingAddress', type_options: { expanded: true, multiple: true } }
-          - shippingAddress
 
 ...

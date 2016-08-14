@@ -29,6 +29,10 @@ easy_admin:
           - enabled
           - featured
           - name
+
+          - property : sku
+            label    : SKU
+
           - category
 
           - property  : 'updatedOn'
@@ -46,6 +50,9 @@ easy_admin:
         fields:
 
           - name
+
+          - property : sku
+            label    : SKU
 
           - property  : 'createdOn'
             format    : 'M j Y'
@@ -80,6 +87,9 @@ easy_admin:
 
           - property  : name
 
+          - property : sku
+            label    : SKU
+
           - property  : 'price'
             type      : 'number'
 
@@ -99,14 +109,6 @@ easy_admin:
             label     : 'Published'
 
           - property  : featured
-
-          - label     : 'Attributes'
-            type      : 'group'
-            icon      : 'tags'
-            css_class : 'col-sm-4'
-
-          - property  : tags
-            label     : 'Features'
 
           - label     : 'Attachments'
             type      : 'group'

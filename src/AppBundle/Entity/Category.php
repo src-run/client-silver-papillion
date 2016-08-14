@@ -33,31 +33,9 @@ class Category
     protected $enabled;
 
     /**
-     * @var bool
-     */
-    protected $featured;
-
-    /**
      * @var string
      */
     protected $name;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var string
-     */
-    protected $image;
-
-    /**
-     * @var File|null
-     *
-     * @Vich\UploadableField(mapping="category_images", fileNameProperty="image")
-     */
-    protected $imageFile;
 
     /**
      * @var Product[]|ArrayCollection
@@ -65,24 +43,11 @@ class Category
     protected $products;
 
     /**
-     * @var Category|null
-     **/
-    protected $parent;
-
-    /**
-     * @var Category[]|ArrayCollection
-     */
-    protected $children;
-
-    /**
      * Setup default property values.
      */
     public function __construct()
     {
         $this->enabled = true;
-        $this->featured = false;
-        $this->products = new ArrayCollection();
-        $this->children = new ArrayCollection();
     }
 
     /**
@@ -122,26 +87,6 @@ class Category
     }
 
     /**
-     * @param bool $featured
-     *
-     * @return $this
-     */
-    public function setFeatured($featured)
-    {
-        $this->featured = (bool) $featured;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isFeatured()
-    {
-        return $this->featured;
-    }
-
-    /**
      * @param string $name
      *
      * @return $this
@@ -159,146 +104,6 @@ class Category
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return $this
-     */
-    public function setDescription($description)
-    {
-        $this->description = (string) $description;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasDescription()
-    {
-        return $this->description !== null;
-    }
-
-    /**
-     * @param string $image
-     *
-     * @return $this
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasImage()
-    {
-        return $this->image !== null;
-    }
-
-    /**
-     * @return $this
-     */
-    public function clearImage()
-    {
-        $this->image = null;
-
-        return $this;
-    }
-
-    /**
-     * @param \Symfony\Component\HttpFoundation\File\File|null $image
-     *
-     * @return $this
-     */
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
-
-        return $this;
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\File\File
-     */
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * @return $this
-     */
-    public function clearImageFile()
-    {
-        $this->imageFile = null;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasImageFile()
-    {
-        return $this->imageFile !== null;
-    }
-
-    /**
-     * @param \AppBundle\Entity\Category|null $parent
-     *
-     * @return $this
-     */
-    public function setParent(Category $parent = null)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * @return \AppBundle\Entity\Category
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasParent()
-    {
-        return $this->parent !== null;
-    }
-
-    /**
-     * @return \AppBundle\Entity\Category[]|\Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getChildren()
-    {
-        return $this->children;
     }
 
     /**

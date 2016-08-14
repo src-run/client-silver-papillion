@@ -27,11 +27,6 @@ class Product
     protected $id;
 
     /**
-     * @var string
-     */
-    protected $sku;
-
-    /**
      * @var \DateTime
      */
     protected $createdOn;
@@ -42,9 +37,14 @@ class Product
     protected $updatedOn;
 
     /**
-     * @var string[]
+     * @var string
      */
-    protected $tags;
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $sku;
 
     /**
      * @var bool
@@ -55,11 +55,6 @@ class Product
      * @var bool
      */
     protected $featured;
-
-    /**
-     * @var string
-     */
-    protected $name;
 
     /**
      * @var string|null
@@ -95,7 +90,6 @@ class Product
     {
         $this->createdOn = new \DateTime();
         $this->updatedOn = new \DateTime();
-        $this->tags = [];
         $this->enabled = true;
         $this->featured = false;
     }
@@ -114,30 +108,6 @@ class Product
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSku()
-    {
-        return $this->sku;
-    }
-
-    /**
-     * @param string $sku
-     */
-    public function setSku($sku)
-    {
-        $this->sku = $sku;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasSku()
-    {
-        return $this->sku !== null;
     }
 
     /**
@@ -181,47 +151,47 @@ class Product
     }
 
     /**
-     * @return array|\string[]
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * @param array $tags
+     * @param string $name
      *
      * @return $this
      */
-    public function setTags(array $tags = [])
+    public function setName($name)
     {
-        $this->tags = array_filter($tags, function ($t) {
-            return is_string($t);
-        });
+        $this->name = (string) $name;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @param string $sku
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
     }
 
     /**
      * @return bool
      */
-    public function hasTags()
+    public function hasSku()
     {
-        return $this->tags !== null && count($this->tags) > 0;
-    }
-
-    /**
-     * @param string $tag
-     *
-     * @return $this
-     */
-    public function addTag($tag)
-    {
-        if (!in_array($tag, $this->tags)) {
-            $this->tags[] = (string) $tag;
-        }
-
-        return $this;
+        return $this->sku !== null;
     }
 
     /**
@@ -262,26 +232,6 @@ class Product
     public function isFeatured()
     {
         return $this->featured;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->name = (string) $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**

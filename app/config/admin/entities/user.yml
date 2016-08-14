@@ -10,14 +10,3 @@ easy_admin:
     entities:
         User:
             class: AppBundle\Entity\User
-            list:
-                title: 'Customers'
-                actions: ['-new']
-                fields: ['id', 'username', 'email', 'orders']
-            show:
-                fields: ['id', 'username', 'email', 'orders']
-            form:
-                fields:
-                    - { property: 'username', css_class: 'col-sm-4' }
-                    - { property: 'email', css_class: 'col-sm-6' }
-                    - { property: 'orders', css_class: 'col-sm-12' }

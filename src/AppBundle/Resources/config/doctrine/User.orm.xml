@@ -8,16 +8,6 @@
       <generator strategy="IDENTITY"/>
     </id>
 
-    <one-to-one field="address" target-entity="AppBundle\Entity\Address" fetch="EAGER">
-      <join-column name="address_id" />
-    </one-to-one>
-
-    <one-to-many field="orders" target-entity="AppBundle\Entity\Order" mapped-by="user" fetch="LAZY">
-      <cascade>
-        <cascade-remove/>
-      </cascade>
-    </one-to-many>
-
   </entity>
 
 </doctrine-mapping>

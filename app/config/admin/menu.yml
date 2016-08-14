@@ -26,10 +26,6 @@ easy_admin:
       - label: 'menu.store'
         icon: 'money'
         children:
-          - label: 'menu.customer'
-            entity: 'User'
-            icon: 'users'
-
           - label: 'menu.purchase'
             entity: 'Order'
             icon: 'credit-card'

@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Yaml\Yaml;
 
 class WineCaddyCommand extends ContainerAwareCommand
 {
@@ -56,6 +57,40 @@ class WineCaddyCommand extends ContainerAwareCommand
         }
 
         $this->io->table(['Product', 'SKU', 'Image URL', 'Local Image Path'], $this->products);
+
+
+        $this->cleanUpDetails();
+    }
+
+    protected function cleanUpDetails()
+    {
+        $this->io->section('Cleaning up product details');
+        $contents = file_get_contents(__DIR__.'/../../../products.yml');
+        $details = Yaml::parse($contents);
+
+        $this->io->progressStart(count($details));
+        foreach ($details as $d) {
+            $this->cleanUpProduct($d);
+            $this->io->progressAdvance(1);
+        }
+        $this->io->progressFinish();
+
+        $this->em->flush();
+    }
+
+    protected function cleanUpProduct($d)
+    {
+        $repo = $this->em->getRepository(Product::class);
+        $p = $repo->findOneByName($d['name']);
+
+        if (!$p) {
+            return;
+        }
+
+        $p->setEnabled((bool)$d['enabled']);
+        $p->setFeatured((bool)$d['featured']);
+        $p->setPrice($d['price']);
+        $this->em->persist($p);
     }
 
     protected function removeProducts()
@@ -96,7 +131,7 @@ class WineCaddyCommand extends ContainerAwareCommand
         $product[] = preg_replace('{[^a-z0-9- ]}i', '-', ucwords(strtolower($name)));
         $contents = file_get_contents($url);
 
-        preg_match('{SKU: ([a-z0-9]+)}i', $contents, $matches);
+        preg_match('{<span class="sku" itemprop="sku">([0-9]+)</span>}i', $contents, $matches);
 
         if (!count($matches) > 0) {
             return;
@@ -135,7 +170,7 @@ class WineCaddyCommand extends ContainerAwareCommand
         $p->setImage($image);
         $p->setPrice(45);
         $p->setCategory($cat);
-        $p->setEnabled(false);
+        $p->setEnabled(true);
 
         $this->em->persist($p);
 

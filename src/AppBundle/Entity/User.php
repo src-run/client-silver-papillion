@@ -19,61 +19,6 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser
 {
-    /**
-     * @var \AppBundle\Entity\Address
-     */
-    protected $address;
-
-    /**
-     * @var Order[]|ArrayCollection
-     */
-    protected $orders;
-
-    /**
-     * Assign entity property default values.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->orders = new ArrayCollection();
-    }
-
-    /**
-     * @param \Doctrine\Common\Collections\ArrayCollection|Order[] $orders
-     *
-     * @return $this
-     */
-    public function setOrders(ArrayCollection $orders)
-    {
-        $this->orders = $orders->filter(function ($order) {
-            return $order instanceof Order;
-        });
-
-        return $this;
-    }
-
-    /**
-     * @return Order[]|\Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getOrders()
-    {
-        return $this->orders;
-    }
-
-    /**
-     * @param Order $order
-     *
-     * @return $this
-     */
-    public function addOrder(Order $order)
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders->add($order);
-        }
-
-        return $this;
-    }
 }
 
 /* EOF */

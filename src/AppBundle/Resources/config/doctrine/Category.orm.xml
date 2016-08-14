@@ -10,13 +10,7 @@
 
     <field name="enabled" type="boolean" column="enabled"/>
 
-    <field name="featured" type="boolean" column="featured"/>
-
     <field name="name" type="string" column="name" length="510"/>
-
-    <field name="description" type="text" column="description" nullable="true"/>
-
-    <field name="image" type="string" column="image" length="510" nullable="true"/>
 
     <one-to-many field="products" target-entity="AppBundle\Entity\Product" mapped-by="category" fetch="EAGER">
       <order-by>

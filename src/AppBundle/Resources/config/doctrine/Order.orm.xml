@@ -4,23 +4,9 @@
 
   <entity name="AppBundle\Entity\Order" table="customer_order">
 
-    <id name="id" type="string" column="id" />
-
-    <field name="createdOn" type="datetime" column="created_on" nullable="true" />
-
-    <field name="updatedOn" type="datetime" column="updated_on" nullable="true" />
-
-    <field name="shippedOn" type="datetime" column="shipped_on" nullable="true" />
-
-    <field name="shipping" type="object" column="shipping" nullable="true" />
-
-    <one-to-many field="orderItems" target-entity="AppBundle\Entity\OrderItem" mapped-by="order" fetch="LAZY" />
-
-    <many-to-one field="user" target-entity="AppBundle\Entity\User" inversed-by="orders" fetch="LAZY">
-      <join-columns>
-        <join-column name="user_id" referenced-column-name="id" />
-      </join-columns>
-    </many-to-one>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
 
   </entity>
 

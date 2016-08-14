@@ -40,8 +40,6 @@ easy_admin:
           - property  : 'enabled'
             label     : 'Published'
 
-          - property  : 'description'
-
           - property  : 'products'
 
       form:
@@ -54,9 +52,6 @@ easy_admin:
 
           - name
           - products
-
-          - property  : 'description'
-            type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
 
           - type      : 'group'
             icon      : 'floppy-o'
