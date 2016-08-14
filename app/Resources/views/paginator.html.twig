@@ -3,11 +3,11 @@
 
         {% if previous is defined %}
             <li>
-                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="fa fa-long-arrow-left"></i>&nbsp;{{ 'Previous'|trans }}</a>
+                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="fa fa-long-arrow-left"></i><span class="pagination-text"> {{ 'Previous'|trans }}</span></a>
             </li>
         {% else %}
             <li class="disabled">
-                <span><i class="fa fa-long-arrow-left"></i>&nbsp;{{ 'Previous'|trans }}</span>
+                <span><i class="fa fa-long-arrow-left"></i><span class="pagination-text"> {{ 'Previous'|trans }}</span></span>
             </li>
         {% endif %}
 
@@ -58,11 +58,11 @@
 
         {% if next is defined %}
             <li>
-                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'Next'|trans }}&nbsp;<i class="fa fa-long-arrow-right"></i></a>
+                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}"><span class="pagination-text">{{ 'Next'|trans }} </span><i class="fa fa-long-arrow-right"></i></a>
             </li>
         {% else %}
             <li class="disabled">
-                <span>{{ 'Next'|trans }}&nbsp;<i class="fa fa-long-arrow-right"></span>
+                <span><span class="pagination-text">{{ 'Next'|trans }} </span><i class="fa fa-long-arrow-right"></i></span>
             </li>
         {% endif %}
     </ul>

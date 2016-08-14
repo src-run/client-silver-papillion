@@ -289,6 +289,10 @@
   padding-top: 15px;
 }
 
+.pagination-text {
+  display : none;
+}
+
 .card-listing .card-product {
   @include make-sm-column(4);
 
