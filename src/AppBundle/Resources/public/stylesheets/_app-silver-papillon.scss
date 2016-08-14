@@ -214,9 +214,9 @@
 
     > .card-section-head {
       .product-price {
-        font-size     : 12px;
-        color         : $color-accent;
-        font-weight   : 500;
+        font-size   : 12px;
+        color       : $color-accent;
+        font-weight : 500;
 
         p {
           margin-bottom : 0;
@@ -241,11 +241,11 @@
       background-color : rgba($color-accent-alt, 0.9) !important;
 
       .product-link {
-        display          : block;
-        margin           : 15px 9px 12px 9px;
-        text-align       : center;
-        font-weight      : 300;
-        text-transform   : uppercase;
+        display        : block;
+        margin         : 15px 9px 12px 9px;
+        text-align     : center;
+        font-weight    : 300;
+        text-transform : uppercase;
 
         a {
           color : $color-white;
@@ -265,9 +265,9 @@
 
     > .card-section-head {
       .product-price {
-        font-size     : 12px;
-        color         : $color-accent;
-        font-weight   : 500;
+        font-size   : 12px;
+        color       : $color-accent;
+        font-weight : 500;
 
         p {
           margin-bottom : 0;
@@ -292,11 +292,11 @@
       background-color : rgba($color-accent-alt, 0.9) !important;
 
       .product-link {
-        display          : block;
-        margin           : 15px 9px 12px 9px;
-        text-align       : center;
-        font-weight      : 300;
-        text-transform   : uppercase;
+        display        : block;
+        margin         : 15px 9px 12px 9px;
+        text-align     : center;
+        font-weight    : 300;
+        text-transform : uppercase;
 
         a {
           color : $color-white;
@@ -307,13 +307,13 @@
 }
 
 .navigation {
-  text-align: right;
+  text-align : right;
 }
 
 .navigation-right {
-  text-align: center;
-  float: right;
-  padding-top: 15px;
+  text-align  : center;
+  float       : right;
+  padding-top : 15px;
 }
 
 .pagination-text {
@@ -321,7 +321,7 @@
 }
 
 .product-action .btn-default {
-  background-color: #f8f8f9;
+  background-color : #f8f8f9;
 }
 
 .card-listing .card-product {
@@ -334,9 +334,9 @@
 
     > .card-section-head {
       .product-price {
-        font-size     : 12px;
-        color         : $color-accent;
-        font-weight   : 500;
+        font-size   : 12px;
+        color       : $color-accent;
+        font-weight : 500;
 
         p {
           margin-bottom : 0;
@@ -361,11 +361,11 @@
       background-color : rgba($color-accent-alt, 0.9) !important;
 
       .product-link {
-        display          : block;
-        margin           : 15px 9px 12px 9px;
-        text-align       : center;
-        font-weight      : 300;
-        text-transform   : uppercase;
+        display        : block;
+        margin         : 15px 9px 12px 9px;
+        text-align     : center;
+        font-weight    : 300;
+        text-transform : uppercase;
 
         a {
           color : $color-white;
@@ -448,7 +448,7 @@
 .product-view-image {
   @include make-sm-column(5);
 
-  padding-top : $container-padding-top;
+  padding-top    : $container-padding-top;
   padding-bottom : $container-padding-bot;
 
   img {
@@ -459,36 +459,36 @@
 .product-view-info {
   @include make-sm-column(7);
 
-  padding-top : $container-padding-top;
+  padding-top    : $container-padding-top;
   padding-bottom : $container-padding-bot;
 }
 
 .card-product-info {
-  padding: 6px 30px 30px 30px;
+  padding : 6px 30px 30px 30px;
 
   hr {
-    border-top: 1px solid rgba($color-accent, .5);
+    border-top : 1px solid rgba($color-accent, .5);
   }
 
   .product-price {
     .product-price-main {
-      color: $color-primary;
-      font-size: $font-size-h3;
-      margin:0;
+      color     : $color-primary;
+      font-size : $font-size-h3;
+      margin    : 0;
     }
 
     .product-price-extra {
-      font-size: 12px;
-      margin-bottom: 30px;
-      color: #bbb;
-      font-style: italic;
+      font-size     : 12px;
+      margin-bottom : 30px;
+      color         : #bbb;
+      font-style    : italic;
     }
   }
 }
 
 .product-price-main {
-  color: $color-primary;
-  font-size: $font-size-h3;
+  color     : $color-primary;
+  font-size : $font-size-h3;
 }
 
 .cart-actions {
@@ -500,11 +500,11 @@
   }
 
   .cart-btns {
-    margin-top: 18px;
+    margin-top : 18px;
   }
 
   .cart-total {
-    text-align: right;
+    text-align : right;
   }
 }
 
@@ -515,8 +515,8 @@
     @include make-sm-column(4);
 
     .btn {
-      margin-top: 30px;
-      margin-bottom: 20px;
+      margin-top    : 30px;
+      margin-bottom : 20px;
     }
 
     .info-phone,
@@ -553,23 +553,23 @@
 
 .cart-empty {
   p {
-    margin:15px 30px 30px 30px;
+    margin :15px 30px 30px 30px;
   }
 
   .fa-stack {
-    font-size: 800%;
-    margin: 15px;
+    font-size : 800%;
+    margin    : 15px;
 
     .fa-circle {
-      color: $color-danger;
+      color : $color-danger;
     }
 
     .fa-ban {
-      color: $color-warning;
+      color : $color-warning;
     }
 
     .fa-shopping-bag {
-      color: rgba($color-white, 0.9);
+      color : rgba($color-white, 0.9);
     }
   }
 }
@@ -577,19 +577,19 @@
 
 .message-sent {
   p {
-    margin:15px 30px 30px 30px;
+    margin : 15px 30px 30px 30px;
   }
 
   .fa-stack {
-    font-size: 800%;
-    margin: 15px;
+    font-size : 800%;
+    margin    : 15px;
 
     .fa-circle {
-      color: $color-primary;
+      color : $color-primary;
     }
 
     .fa-envelope {
-      color: rgba($color-white, 0.9);
+      color : rgba($color-white, 0.9);
     }
   }
 }
@@ -601,43 +601,47 @@
     @include make-sm-column(7);
 
     .cart-item-image {
-      float: left;
-      margin: 15px 30px 15px 0;
+      float  : left;
+      margin : 15px 30px 15px 0;
     }
 
     p {
-      margin-top: 28px;
+      margin-top : 28px;
+    }
+
+    h4 {
+      margin-top : 29px;
     }
   }
 
   .cart-item-actions {
     @include make-sm-column(5);
 
-    text-align: right;
+    text-align : right;
 
     em {
-      font-style: normal;
-      font-weight: 500;
+      font-style  : normal;
+      font-weight : 500;
     }
 
     .cart-item-actions-count,
     .cart-item-actions-total{
-      margin: 18px 6px 0 6px;
-      padding: 8px 12px 6px 12px;
-      display:inline-block;
-      font-size: 14px;
+      margin    : 18px 6px 0 6px;
+      padding   : 8px 12px 6px 12px;
+      display   :inline-block;
+      font-size : 14px;
     }
 
     .cart-item-actions-count {
-      font-weight: 400;
+      font-weight : 400;
     }
 
     .cart-item-actions-total {
-      font-weight: 600;
+      font-weight : 600;
     }
 
     .btn-group {
-      margin: 6px 6px 18px 6px;
+      margin : 6px 6px 18px 6px;
     }
   }
 }
@@ -645,15 +649,16 @@
 .contact-form {
   .contact-form-fields {
     @include make-row();
-    margin-bottom: 15px;
+
+    margin-bottom : 15px;
 
     .contact-form-name-label {
       @include make-sm-column(1);
 
-      text-align: right;
+      text-align : right;
 
       label {
-        margin: 15px;
+        margin : 15px;
       }
     }
 
@@ -664,10 +669,10 @@
     .contact-form-email-label {
       @include make-sm-column(1);
 
-      text-align: right;
+      text-align : right;
 
       label {
-        margin: 15px;
+        margin : 15px;
       }
     }
 
@@ -678,10 +683,10 @@
     .contact-form-message-label {
       @include make-sm-column(1);
 
-      text-align: right;
+      text-align : right;
 
       label {
-        margin: 15px;
+        margin : 15px;
       }
     }
 
@@ -690,15 +695,16 @@
     }
 
     .contact-form-submit {
-      margin-top: 30px;
       @include make-sm-column(4);
       @include make-sm-column-offset(4);
+
+      margin-top : 30px;
     }
   }
 }
 
 .hr-extra-top {
-  margin-top: 60px !important;
+  margin-top : 60px !important;
 }
 
 .about-location {
@@ -708,8 +714,8 @@
     @include make-sm-column(4);
 
     p {
-      font-size: 14px;
-      font-weight: 300;
+      font-size   : 14px;
+      font-weight : 300;
     }
 
     .info-phone p {
@@ -890,10 +896,10 @@
         pointer-events : none;
 
         &.card-feed-attachment-video {
-          pointer-events: auto;
+          pointer-events : auto;
 
           .card-section-body img {
-            pointer-events: none;
+            pointer-events : none;
           }
         }
 
