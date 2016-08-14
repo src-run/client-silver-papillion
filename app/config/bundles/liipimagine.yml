@@ -53,9 +53,9 @@ liip_imagine :
       filters :
         auto_rotate : ~
         strip       : ~
-        upscale     : { min: [680, 460] }
-        thumbnail   : { size : [680, 460], mode : outbound, allow_upscale : true }
-        background  : { size : [700, 480], position : center, color : '#f2f1f3' }
+        upscale     : { min: [700, 380] }
+        thumbnail   : { size : [700, 380], mode : outbound, allow_upscale : true }
+        background  : { size : [704, 384], position : center, color : '#f2f1f3' }
       post_processors :
         jpegoptim   : { strip_all : true, max : 88, progressive : true }
 

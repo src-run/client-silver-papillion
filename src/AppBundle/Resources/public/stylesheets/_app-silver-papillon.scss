@@ -425,7 +425,7 @@
   padding: 6px 30px 30px 30px;
 
   hr {
-    border-top: 1px solid rgb(223, 55, 142);
+    border-top: 1px solid rgba($color-accent, .5);
   }
 
   .product-price {
@@ -740,68 +740,146 @@
   @include make-row();
 
   .feed-social-listing {
-    @include make-sm-column(6);
+    @include make-sm-column(7);
   }
 
   .feed-social-link {
     @include make-sm-column(4);
-    @include make-sm-column-offset(2);
+    @include make-sm-column-offset(1);
+
+    .card {
+      padding : 0 29px 29px 29px;
+
+      .btn {
+        margin-top : 29px;
+      }
+    }
   }
 }
 
 .card-feed-social {
-  .card-section-head {
-    padding          : 12px 21px 14px 21px;
-    text-align       : right;
-    background-color : #f3f3f7;
+  > .card {
+    .card-section-head {
+      padding          : 21px 29px 21px 21px;
+      text-align       : right;
+      background-color : rgba(#f3f3f7, .4);
+      border-bottom    : 1px solid rgba($color-accent, .2);
 
-    .feed-info-type {
-      float: left;
-      margin-right: 15px;
-      font-size: 15px;
-      color: #2194ef;
+      .feed-info-type {
+        color : rgba($color-accent, .8);
 
-      .fa {
-        position: absolute;
-        top: 9px;
-        font-size: 36px;
+        .fa {
+          position  : absolute;
+          top       : 15px;
+          left      : 29px;
+          font-size : 39px;
+        }
+      }
+
+      .feed-info-date time {
+        display        : block;
+        padding-top    : 3px;
+        font-size      : 13px;
+        font-weight    : 300;
+        color          : $color-primary-alt;
+        text-transform : uppercase;
+        font-family    : "Roboto Condensed", $font-family-sans-serif;
       }
     }
 
-    .feed-info-date time {
-      display: block;
-      padding-top: 3px;
-      font-size: 13px;
-      font-weight: 300;
-      color: #2194ef;
-      text-transform: uppercase;
+    .card-section-body {
+      padding: 21px 21px 9px 21px;
+
+      .feed-post-message p {
+        color       : #505050;
+        margin      : 3px 0 0 0;
+        font-weight : 300;
+        font-size   : 14px;
+        text-align  : center;
+      }
     }
-  }
 
-  .card-section-body {
-    padding: 21px 21px 9px 21px;
-
-    p {
-      color: #505050;
-      margin: 0;
-      font-weight: 300;
-      font-size: 16px;
-    }
-  }
-
-  .card-section-foot {
-    .card-feed-attachment {
+    > .card-section-foot .card-feed-attachment {
       margin : 12px 21px 21px 21px;
 
-      .card-feed-attachment-video img {
-        pointer-events: none;
-      }
-
       .card {
-        margin-bottom : 21px;
+        margin-bottom  : 21px;
+        pointer-events : none;
 
-        img {
-          @include img-responsive();
+        &.card-feed-attachment-video {
+          pointer-events: auto;
+
+          .card-section-body img {
+            pointer-events: none;
+          }
+        }
+
+        .card-section-head {
+          pointer-events             : none;
+          display                    : block;
+          background-color           : transparent;
+          border-bottom              : none;
+          font-size                  : 680%;
+          text-align                 : center;
+          margin-top                 : 30px;
+          will-change                : auto;
+          transition                 : margin-top $transition-time-x03;
+          transition-timing-function : $transition-func-transform;
+
+          .fa {
+            will-change                : auto;
+            transition                 : color $transition-time-x03, margin $transition-time-x03;
+            transition-timing-function : $transition-func-transform;
+          }
+
+          .fa-circle {
+            color : rgba($color-black, 0.2);
+          }
+
+          .fa-play,
+          .fa-expand{
+            color : rgba($color-white, 0.6);
+          }
+        }
+
+        &:hover .card-section-head {
+          margin-top : 6px;
+
+          .fa-circle {
+            color : rgba($color-black, 0.8);
+          }
+
+          .fa-play,
+          .fa-expand {
+            color : rgba($color-white, 0.9);
+          }
+        }
+
+        .card-section-body {
+          pointer-events : none;
+          margin         : 0;
+          padding        : 0;
+
+          img {
+            @include img-responsive();
+
+            pointer-events : auto;
+          }
+        }
+
+        .card-section-foot {
+          pointer-events   : none;
+          margin           : 0;
+          background-color : rgba($color-accent-alt, 0.9) !important;
+
+          .feed-type {
+            display          : block;
+            margin           : 15px 9px 12px 9px;
+            text-align       : center;
+            font-weight      : 300;
+            text-transform   : uppercase;
+            color            : $color-white;
+          }
         }
       }
     }
