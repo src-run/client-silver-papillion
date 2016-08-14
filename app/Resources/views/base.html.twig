@@ -111,7 +111,10 @@
 
     <footer>
         <div class="container">
-            {{ block_content('about.copyright') }}
+            <div class="footer-more">
+                <p>{{ block_prop('footer', 'address') }}, {{ block_prop('footer', 'city') }}, {{ block_prop('footer', 'state') }} | {{ block_prop('footer', 'phone') }}</p>
+            </div>
+            {{ block_content('footer') }}
         </div>
     </footer>
 
