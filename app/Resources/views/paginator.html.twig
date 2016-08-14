@@ -3,7 +3,7 @@
 
         {% if previous is defined %}
             <li>
-                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;{{ 'Previous'|trans }}</a>
+                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="fa fa-long-arrow-left"></i>&nbsp;{{ 'Previous'|trans }}</a>
             </li>
         {% else %}
             <li class="disabled">
@@ -62,7 +62,7 @@
             </li>
         {% else %}
             <li class="disabled">
-                <span>{{ 'Next'|trans }}&nbsp;&raquo;</span>
+                <span>{{ 'Next'|trans }}&nbsp;<i class="fa fa-long-arrow-right"></span>
             </li>
         {% endif %}
     </ul>
