@@ -35,7 +35,7 @@
                     </div>
                     <div class="cart-item-actions">
                         <p>
-                            <span class="cart-item-actions-count label label-default"><em>{{ g.count() }}</em> units at <em>{{ g.getProduct.getPrice() }}</em> each</span>
+                            <span class="cart-item-actions-count label label-default"><em>{{ g.count() }}</em> units at <em>${{ g.getProduct.getPrice() }}</em> each</span>
                             <span class="label label-primary cart-item-actions-total">${{ g.total() }}</span>
                         </p>
                         <div class="btn-group">
