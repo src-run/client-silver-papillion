@@ -25,7 +25,7 @@ class Mapper implements ContainerAwareInterface
     /**
      * @var string
      */
-    const SIZE_DEFAULT = '640x320';
+    const SIZE_DEFAULT = '640x480';
 
     /**
      * @var int

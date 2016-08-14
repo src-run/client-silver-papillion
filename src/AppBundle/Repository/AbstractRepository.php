@@ -29,6 +29,11 @@ abstract class AbstractRepository extends EntityRepository
     const CACHE_ENABLED = true;
 
     /**
+     * @var int
+     */
+    const DEFAULT_TTL = 300;
+
+    /**
      * @param callable|null $config
      * @param string|null   $alias
      *
@@ -76,7 +81,7 @@ abstract class AbstractRepository extends EntityRepository
         }
 
         if (isset($cache) && isset($index)) {
-            $cache->save($index, $result, $ttl ?: 300);
+            $cache->save($index, $result, $ttl ?: self::DEFAULT_TTL);
         }
 
         return $result;

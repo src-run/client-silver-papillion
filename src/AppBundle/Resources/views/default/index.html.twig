@@ -109,10 +109,11 @@
 
     <div class="container container-sr">
 
-        <div class="row">
+        <div class="index-about">
 
-            <div class="col-sm-4">
+            <div class="index-about-section">
                 <h3 class="primary-hr-i"><i class="fa fa-clock-o"></i> Our <em>Hours</em></h3>
+
                 <ul class="list-unstyled info-hours">
                     {% for hour in hours %}
                         <li {% if hour.dowToday %}class="today"{% endif %}>
@@ -128,19 +129,22 @@
                 </ul>
             </div>
 
-            <div class="col-sm-4">
+            <div class="index-about-section index-about-section-phone">
                 <h3 class="primary-hr-i"><i class="fa fa-phone"></i> {{ block_title('about.phone') }}</h3>
+
                 <div class="info-phone">
                     {{ block_content('about.phone') }}
                 </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="index-about-section">
                 <h3 class="primary-hr-i"><i class="fa fa-map"></i> {{ block_title('about.address') }}</h3>
+
                 <div class="info-address">
                     <img class="img-responsive" src="{{ staticMaps }}" alt="{{ block_content('about.address') }}" />
                 </div>
-                <a style="margin-top:30px;" href="{{ url('app_location') }}" class="btn btn-default">Info and Directions <i class="fa fa-long-arrow-right"></i></a>
+
+                <a href="{{ url('app_location') }}" class="btn btn-default">Info and Directions <i class="fa fa-long-arrow-right"></i></a>
             </div>
 
         </div>

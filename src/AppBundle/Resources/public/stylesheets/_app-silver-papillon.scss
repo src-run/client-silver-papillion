@@ -105,32 +105,6 @@
   }
 }
 
-.info-hours {
-  margin-bottom : $font-margin-base*3;
-
-  li {
-    font-weight : 300;
-
-    em {
-      font-style  : normal;
-      font-weight : 400;
-    }
-
-    &.today {
-      font-weight : 500;
-
-      span.today {
-        font-style  : italic;
-        font-weight : 400;
-      }
-
-      em {
-        font-weight : 500;
-      }
-    }
-  }
-}
-
 .card {
   border           : $card-border;
   background-color : $card-bg;
@@ -492,6 +466,52 @@
   }
 }
 
+.index-about {
+  @include make-row();
+
+  .index-about-section {
+    @include make-sm-column(4);
+
+    .btn {
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .info-phone {
+      font-size   : 16px;
+      font-weight : 400;
+    }
+
+    .info-hours {
+      margin-bottom : $font-margin-base*3;
+
+      li {
+        font-weight : 300;
+        font-size   : 14px;
+
+        em {
+          font-style  : normal;
+          font-weight : 400;
+        }
+
+        &.today {
+          font-weight : 500;
+
+          span.today {
+            font-style  : italic;
+            font-weight : 400;
+            opacity     : 0.75;
+          }
+
+          em {
+            font-weight : 500;
+          }
+        }
+      }
+    }
+  }
+}
+
 .cart-empty {
   p {
     margin:15px 30px 30px 30px;
@@ -638,11 +658,53 @@
   }
 }
 
+.hr-extra-top {
+  margin-top: 60px !important;
+}
+
 .about-location {
   @include make-row();
 
   .about-address {
     @include make-sm-column(4);
+
+    p {
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    .info-phone p {
+      font-size   : 16px;
+      font-weight : 400;
+    }
+
+    .info-hours {
+      margin-bottom : $font-margin-base*3;
+
+      li {
+        font-weight : 300;
+        font-size   : 14px;
+
+        em {
+          font-style  : normal;
+          font-weight : 400;
+        }
+
+        &.today {
+          font-weight : 500;
+
+          span.today {
+            font-style  : italic;
+            font-weight : 400;
+            opacity     : 0.75;
+          }
+
+          em {
+            font-weight : 500;
+          }
+        }
+      }
+    }
   }
 
   .about-map {

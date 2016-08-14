@@ -24,7 +24,13 @@
 
                     {{ block_content('about.address') }}
 
-                    <h3 class="primary-hr-i"><i class="fa fa-clock-o"></i> Our <em>Hours</em></h3>
+                    <h3 class="primary-hr-i hr-extra-top"><i class="fa fa-phone"></i> {{ block_title('about.phone') }}</h3>
+
+                    <div class="info-phone">
+                        {{ block_content('about.phone') }}
+                    </div>
+
+                    <h3 class="primary-hr-i hr-extra-top"><i class="fa fa-clock-o"></i> Our <em>Hours</em></h3>
                     <ul class="list-unstyled info-hours">
                         {% for hour in hours %}
                             <li {% if hour.dowToday %}class="today"{% endif %}>
