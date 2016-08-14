@@ -1044,7 +1044,7 @@
 footer {
   background-color: rgba(255,255,255,0.5);
   padding: 27px 0 10px 0;
-  border-top:1px solid rgba(59, 160, 240, 0.5);
+  border-top: 1px solid #ddd;
 
   .footer-more {
     float:right;
@@ -1052,6 +1052,8 @@ footer {
 
   p {
     margin: 1em 0 2.4em 0;
+    color: #bbb;
+    font-family: "Roboto Condensed", sans-serif;
   }
 }
 
