@@ -9,8 +9,10 @@
         <h4>{{ product.getName }}</h4>
     </div>
 
-    <div class="product-price{{ class_price|default(' abs-right') }}">
-        <p>${{ product.getPrice|number_format(2, '.', ',') }}</p>
-    </div>
+    {% if price|default('show') == 'show' %}
+        <div class="product-price">
+            <p>${{ product.getPrice|number_format(2, '.', ',') }}</p>
+        </div>
+    {% endif %}
 
 </div>

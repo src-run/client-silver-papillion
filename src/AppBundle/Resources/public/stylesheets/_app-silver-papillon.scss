@@ -309,9 +309,10 @@ footer {
 
     > .card-section-head {
       .product-price {
-        font-size   : 14px;
-        color       : $color-accent;
+        font-size   : 12px;
         font-weight : 400;
+        color       : $color-accent;
+        margin      : -15px 18px 12px 18px;
 
         p {
           margin-bottom : 0;
@@ -319,11 +320,12 @@ footer {
       }
 
       .product-name {
-        margin : 27px 21px 24px 21px;
+        margin : 18px;
 
         h4 {
           color       : $color-primary-alt;
           font-family : $font-family-condensed;
+          font-size   : 18px;
         }
       }
     }
@@ -362,22 +364,13 @@ footer {
     }
 
     > .card-section-head {
-      .product-price {
-        font-size   : 12px;
-        color       : $color-accent;
-        font-weight : 500;
-
-        p {
-          margin-bottom : 0;
-        }
-      }
-
       .product-name {
-        margin : 27px 21px 24px 21px;
+        margin : 18px;
 
         h4 {
           color       : $color-primary-alt;
           font-family : $font-family-condensed;
+          font-size   : 18px;
         }
       }
     }
