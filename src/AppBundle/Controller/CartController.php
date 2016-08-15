@@ -73,10 +73,7 @@ class CartController extends Controller
             return $this->redirect($this->generateUrl($r['_route']));
         }
 
-        return $this->redirect($this->generateUrl($r['_route'], [
-            'product' => $r['product'],
-            'productName' => $r['productName'],
-        ]));
+        return $this->redirectBack($r);
     }
 
     /**
@@ -102,10 +99,7 @@ class CartController extends Controller
             return $this->redirect($this->generateUrl($r['_route']));
         }
 
-        return $this->redirect($this->generateUrl($r['_route'], [
-            'product' => $r['product'],
-            'productName' => $r['productName'],
-        ]));
+        return $this->redirectBack($r);
     }
 
     /**
@@ -131,7 +125,41 @@ class CartController extends Controller
             return $this->redirect($this->generateUrl($r['_route']));
         }
 
+        return $this->redirectBack($r);
+    }
+
+    /**
+     * @ParamConverter("product")
+     *
+     * @param Product $product
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeGroupAction(Product $product, Request $request)
+    {
+        $cart = $this->get('app.cart');
+        $cart->rm($product);
+        $cart->save();
+
+        $r = $this->getLastRoute($request);
+
+        if (!isset($r['product'])) {
+            return $this->redirect($this->generateUrl($r['_route']));
+        }
+
+        return $this->redirectBack($r);
+    }
+
+    /**
+     * @param string[] $r
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    protected function redirectBack($r)
+    {
         return $this->redirect($this->generateUrl($r['_route'], [
+            'category' => $r['category'],
             'product' => $r['product'],
             'productName' => $r['productName'],
         ]));

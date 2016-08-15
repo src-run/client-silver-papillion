@@ -11,6 +11,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Util\Slugger;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -36,6 +37,11 @@ class Category
      * @var string
      */
     protected $name;
+
+    /**
+     * @var string
+     */
+    protected $slug;
 
     /**
      * @var Product[]|ArrayCollection
@@ -104,6 +110,26 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = (string) $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

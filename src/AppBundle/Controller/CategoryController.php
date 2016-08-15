@@ -33,11 +33,11 @@ class CategoryController extends Controller
     }
 
     /**
-     * @ParamConverter("category")
+     * @ParamConverter("category", options={"mapping": {"category": "slug"}})
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction(Request $request, $categoryName, Category $category)
+    public function viewAction(Request $request, Category $category)
     {
         return $this->render('AppBundle:category:view.html.twig', [
             '_c' => static::class,

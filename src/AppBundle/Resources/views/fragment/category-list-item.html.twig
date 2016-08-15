@@ -4,10 +4,10 @@
  #}
 
 <div class="card-product-category">
-    <div class="card is-linkable is-animated" data-href="{{ url('app_category_view', {'categoryName': category.getName|slugify, 'category': category.getId}) }}">
+    <div class="card is-linkable is-animated" data-href="{{ url('app_category_view', {'category': category.getSlug}) }}">
 
         <div class="card-section-head">
-            <h4><a href="{{ url('app_category_view', {'categoryName': category.getName|slugify, 'category': category.getId}) }}">{{ category.getName }}</a></h4>
+            <h4><a href="{{ url('app_category_view', {'category': category.getSlug}) }}">{{ category.getName }}</a></h4>
             <p class="category-info"><em>{{ category.getProducts|length }}</em> products</p>
         </div>
 

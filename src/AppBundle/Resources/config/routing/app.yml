@@ -16,50 +16,52 @@ app_root:
     permanent   : true
 
 app_category_list:
-  path     : /store/categories
+  path     : /store/list
   defaults :
     _controller : AppBundle:Category:list
 
 app_category_view:
-  path     : /store/category/{categoryName}/{category}
+  path     : /store/view/{category}
   defaults :
     _controller : AppBundle:Category:view
 
-app_product_list:
-  path     : /store/products
-  defaults :
-    _controller : AppBundle:Product:list
-
 app_product_view:
-  path     : /store/product/{productName}/{product}
+  path     : /store/view/{category}/{productName}/{product}
   defaults :
     _controller : AppBundle:Product:view
 
 app_cart_add:
-  path     : /store/_/add/{product}/{quantity}
+  path     : /store/cart/add/{product}/{quantity}
   requirements:
     quantity: '\d+'
   defaults :
     _controller : AppBundle:Cart:add
     quantity: 1
 
-app_cart_rm:
-  path     : /store/_/rm/{product}/{quantity}
+app_cart_remove:
+  path     : /store/cart/remove/select/{product}/{quantity}
   requirements:
     quantity: '\d+'
   defaults :
     _controller : AppBundle:Cart:remove
     quantity: 1
 
-app_cart_view:
-  path     : /store/cart
+app_cart_remove_group:
+  path     : /store/cart/remove/group/{product}
+  requirements:
+    quantity: '\d+'
   defaults :
-    _controller : AppBundle:Cart:view
+    _controller : AppBundle:Cart:removeGroup
 
 app_cart_clear:
   path     : /store/cart/clear
   defaults :
     _controller : AppBundle:Cart:clear
+
+app_cart_view:
+  path     : /store/cart
+  defaults :
+    _controller : AppBundle:Cart:view
 
 app_cart_checkout:
   path     : /store/checkout

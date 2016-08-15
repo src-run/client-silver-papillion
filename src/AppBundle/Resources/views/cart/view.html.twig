@@ -26,9 +26,9 @@
                         <div class="cart-item-image">
                             <img alt="{{ g.getProduct.getName }}" src="{{ asset_product(g.getProduct.getImage) | imagine_filter('cart_product_thumb') }}" />
                         </div>
-                        <h4><a href="{{ path('app_product_view', {'productName': g.getProduct.getName|slugify, 'product': g.getProduct.getId}) }}">{{ g.getProduct.getName }}</a></h4>
+                        <h4><a href="{{ path('app_product_view', {'productName': g.getProduct.getName|slugify, 'product': g.getProduct.getId, 'category': g.getProduct.getCategory.getSlug}) }}">{{ g.getProduct.getName }}</a></h4>
                         <h6>Category:
-                            <a href="{{ url('app_category_view', {'categoryName': g.getProduct.getCategory.getName|slugify, 'category': g.getProduct.getCategory.getId}) }}">
+                            <a href="{{ url('app_category_view', {'category': g.getProduct.getCategory.getSlug}) }}">
                                 {{ g.getProduct.getCategory.getName }}
                             </a>
                         </h6>
@@ -46,10 +46,10 @@
                             </span>
                         </p>
                         <div class="btn-group">
-                            <a href="{{ url('app_cart_rm', {product: g.getProduct.getId, quantity: 100000}) }}" class="btn btn-sm btn-danger">
+                            <a href="{{ url('app_cart_remove_group', {product: g.getProduct.getId}) }}" class="btn btn-sm btn-danger">
                                 <i class="fa fa-trash fa-fw"></i>
                             </a>
-                            <a href="{{ url('app_cart_rm', {product: g.getProduct.getId, quantity: 1}) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ url('app_cart_remove', {product: g.getProduct.getId, quantity: 1}) }}" class="btn btn-sm btn-warning">
                                 <i class="fa fa-minus fa-fw"></i>
                             </a>
                             <a href="{{ url('app_cart_add', {product: g.getProduct.getId, quantity: 1}) }}" class="btn btn-sm btn-success">

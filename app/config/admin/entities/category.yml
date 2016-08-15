@@ -27,6 +27,7 @@ easy_admin:
 
           - enabled
           - name
+          - slug
 
       show:
         fields:
@@ -34,6 +35,8 @@ easy_admin:
           - property  : 'name'
             label     : 'Label'
             css_class : 'large'
+
+          - slug
 
           - property  : 'enabled'
             label     : 'Published'
@@ -49,6 +52,7 @@ easy_admin:
             css_class : 'col-sm-8'
 
           - name
+          - slug
           - products
 
           - type      : 'group'

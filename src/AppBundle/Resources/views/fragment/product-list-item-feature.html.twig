@@ -4,7 +4,7 @@
  #}
 
 <div class="card-product-featured">
-    <div class="card is-linkable is-animated" data-href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId}) }}">
+    <div class="card is-linkable is-animated" data-href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId, 'category': product.getCategory.getSlug}) }}">
 
         {% include 'AppBundle:fragment:product-section-head.html.twig' with {
             'product' : product

@@ -179,14 +179,14 @@ class Cart implements \Serializable
     {
         $removed = false;
 
-        for($i = 0; $i < count($this->items); $i++) {
-            if ($product->getName() === $this->items[$i]->getName() && $removed === false) {
-                unset($this->items[$i]);
+        $this->items = array_values(array_filter($this->items, function (Product $p) use ($product, &$removed) {
+            if ($p->getName() === $product->getName() && !$removed) {
                 $removed = true;
+                return false;
             }
-        }
 
-        $this->items = array_values($this->items);
+            return true;
+        }));
     }
 
     /**
@@ -194,9 +194,9 @@ class Cart implements \Serializable
      */
     public function rm(Product $product)
     {
-        $this->items = array_filter($this->items, function (Product $p) use ($product) {
+        $this->items = array_values(array_filter($this->items, function (Product $p) use ($product) {
             return $p->getName() !== $product->getName();
-        });
+        }));
     }
 
     /**

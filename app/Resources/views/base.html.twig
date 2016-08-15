@@ -57,7 +57,7 @@
                             {% for c in get_categories() %}
                                 <li class="{% if category is defined and category.getId == c.getId %}active{% endif %}">
                                     <a
-                                        href="{{ path('app_category_view', {'categoryName': c.name|replace({' ': '-'})|lower, 'category': c.id}) }}">
+                                        href="{{ path('app_category_view', {'category': c.getSlug}) }}">
                                         {{ c.name }}
                                     </a>
                                 </li>

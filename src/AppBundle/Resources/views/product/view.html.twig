@@ -2,7 +2,7 @@
 
 {% block bread %}
     {{ parent() }}
-    <li><a href="{{ url('app_category_view', {categoryName: product.getCategory.getName|slugify, category: product.getCategory.getId}) }}">{{ product.getCategory.getName }}</a></li>
+    <li><a href="{{ url('app_category_view', {'category': product.getCategory.getSlug}) }}">{{ product.getCategory.getName }}</a></li>
     <li>{{ product.getName }}</li>
 {% endblock %}
 
@@ -53,10 +53,10 @@
                                     <a href="{{ url('app_cart_view') }}" class="btn btn-primary">
                                         <i class="fa fa-shopping-cart"></i> {{ cart_count(product) }} in cart
                                     </a>
-                                    <a href="{{ url('app_cart_rm', {product: product.getId, quantity: 100000}) }}" class="btn btn-danger">
+                                    <a href="{{ url('app_cart_remove_group', {product: product.getId}) }}" class="btn btn-danger">
                                         <i class="fa fa-trash fa-fw"></i>
                                     </a>
-                                    <a href="{{ url('app_cart_rm', {product: product.getId, quantity: 1}) }}" class="btn btn-warning">
+                                    <a href="{{ url('app_cart_remove', {product: product.getId, quantity: 1}) }}" class="btn btn-warning">
                                         <i class="fa fa-minus fa-fw"></i>
                                     </a>
                                     <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-success">
@@ -85,7 +85,7 @@
                 {% endfor %}
             </div>
 
-            <a href="{{ url('app_category_view', {'categoryName': category.getName|slugify, 'category': category.getId}) }}" class="pull-right btn btn-primary">View More {{ category.getName }} <i class="fa fa-long-arrow-right"></i></a>
+            <a href="{{ url('app_category_view', {'category': category.getSlug}) }}" class="pull-right btn btn-primary">View More {{ category.getName }} <i class="fa fa-long-arrow-right"></i></a>
 
         </div>
     </div>
