@@ -1,0 +1,73 @@
+
+{#
+ # complete fb feed listing
+ #}
+
+{% for f in feed|slice(0, 12) %}
+    <div class="card-feed-social" id="{{ f.getId }}">
+        <div class="card is-animated">
+
+            <div class="card-section-head">
+
+                <div class="feed-info-type">
+                    {% if f.isVideo %}
+                        <i class="fa fa-video-camera"></i>
+                    {% elseif f.isPhoto %}
+                        <i class="fa fa-photo"></i>
+                    {% else %}
+                        <i class="fa fa-file-text-o"></i>
+                    {% endif %}
+                </div>
+
+                <div class="feed-info-date">
+                    <time datetime="{{ f.getDate().format('c') }}">{{ f.getDate().format('F j Y') }} @ {{ f.getDate().format('g:ia') }}</time>
+                </div>
+
+            </div>
+
+            <div class="card-section-body">
+
+                <div class="feed-post-message">
+                    <p>{{ f.getMessage() }}</p>
+                </div>
+
+            </div>
+
+            <div class="card-section-foot">
+                <div class="feed-post-attachments">
+
+                    {% set attachments = [] %}
+                    {% for attachment in f.getAttachments() if attachment.hasMedia or attachment.hasSubAttachments %}
+                        {% for media in attachment.getMedia %}{% set attachments = attachments|merge([media]) %}{% endfor %}
+                        {% for subAttachment in attachment.getSubAttachments if attachment.hasSubAttachments %}
+                            {% for media in subAttachment.getMedia %}{% set attachments = attachments|merge([media]) %}{% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% for a in attachments %}
+                        <div class="card-feed-attachment">
+                            <div class="card is-linkable is-animated {% if f.isVideo %}card-feed-attachment-video{% endif %}" {% if f.isVideo %}data-href="{{ f.getAttachments()|first.getLink }}"{% endif %}>
+
+                                {% include 'AppBundle:fragment:feed-type-head.html.twig' with {
+                                    'is_video' : f.isVideo
+                                } only %}
+
+                                <div class="card-section-body">
+                                    <img src="{{ a.getLink() | url_to_file | imagine_filter('feed_social_thumbs') }}" alt="{{ f.getMessage() }}" data-jslghtbx="{{ a.getLink() | url_to_file }}" data-jslghtbx-group="feed-attachment-group-{{ f.getId }}" />
+                                </div>
+
+                                {% include 'AppBundle:fragment:feed-type-foot.html.twig' with {
+                                    'is_video'   : f.isVideo,
+                                    'photo_text' : 'Enlarge Photo'
+                                } only %}
+
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endfor %}

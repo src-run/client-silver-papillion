@@ -81,7 +81,7 @@
 
             <div class="card-listing">
                 {% for p in similar %}
-                    {% include 'AppBundle:fragment:product-simple.html.twig' with { 'product': p } only %}
+                    {% include 'AppBundle:fragment:product-list-item-simple.html.twig' with { 'product': p } only %}
                 {% endfor %}
             </div>
 

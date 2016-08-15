@@ -1,0 +1,21 @@
+
+{#
+ # action status icon card
+ #}
+
+<div class="card action-status-icon {{ class|default('') }}">
+
+    <span class="action-status-icon-stack fa-stack fa-lg">
+
+        <i class="action-status-icon-bg fa fa-stack-2x {{ icon_bg|default('fa-circle') }}"></i>
+
+        {% if icon_mg is defined %}
+            <i class="action-status-icon-mg fa fa-stack-2x {{ icon_mg }}"></i>
+        {% endif %}
+
+        <i class="action-status-icon-fg fa fa-stack-1x {{ icon|default('fa-check') }}"></i>
+
+    </span>
+
+    <p>{{ text|default('Action completed successfully!') }}</p>
+</div>

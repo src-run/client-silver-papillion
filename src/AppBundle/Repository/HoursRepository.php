@@ -25,7 +25,7 @@ class HoursRepository extends AbstractRepository
     public function findAll()
     {
         return $this->getResult(function (QueryBuilder $b) {
-            $b->orderBy('h.weight');
+            $b->orderBy('h.iso8601');
         });
     }
 }

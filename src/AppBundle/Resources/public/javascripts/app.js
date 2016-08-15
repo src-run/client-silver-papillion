@@ -291,18 +291,18 @@ $(document).ready(function () {
 
   (function () {
 
-    carouselSetup.init('.carousel-index', 6000);
+    carouselSetup.init('.carousel', 6000);
     lightBoxSetup.init();
 
     registerEvent.onClick('.card-product .card', function (event) {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 
-    registerEvent.onClick('.card-index-product .card', function (event) {
+    registerEvent.onClick('.card-product-featured .card', function (event) {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 
-    registerEvent.onClick('.card-similar-product .card', function (event) {
+    registerEvent.onClick('.card-product-similar .card', function (event) {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 

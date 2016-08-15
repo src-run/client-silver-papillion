@@ -15,7 +15,7 @@ class Hours
     /**
      * @var int
      */
-    private $weight;
+    private $iso8601;
 
     /**
      * @var string
@@ -67,19 +67,27 @@ class Hours
     }
 
     /**
-     * @param int $weight
+     * @return bool
      */
-    public function setWeight($weight)
+    public function isToday()
     {
-        $this->weight = $weight;
+        return date('N') == $this->iso8601;
+    }
+
+    /**
+     * @param int $iso8601
+     */
+    public function setIso8601($iso8601)
+    {
+        $this->iso8601 = $iso8601;
     }
 
     /**
      * @return int
 o     */
-    public function getWeight()
+    public function getIso8601()
     {
-        return $this->weight;
+        return $this->iso8601;
     }
 
     /**
@@ -108,14 +116,6 @@ o     */
     public function isClosed()
     {
         return $this->closed === true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDowToday()
-    {
-        return date('N') == $this->weight;
     }
 
     /**

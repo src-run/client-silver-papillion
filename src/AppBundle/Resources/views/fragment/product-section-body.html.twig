@@ -1,0 +1,8 @@
+
+{#
+ # product section body
+ #}
+
+<div class="card-section-body">
+    <img alt="{{ product.getName }}" src="{{ asset_product(product.getImage) | imagine_filter('product_thumbs') }}"/>
+</div>

@@ -19,7 +19,7 @@
 
         <div class="card-listing">
             {% for p in pagination %}
-                {% include 'AppBundle:fragment:product.html.twig' with { 'product': p } only %}
+                {% include 'AppBundle:fragment:product-list-item-default.html.twig' with { 'product': p } only %}
             {% endfor %}
         </div>
 

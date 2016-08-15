@@ -1,0 +1,26 @@
+
+{#
+ # feed type footer
+ #}
+
+<div class="card-section-foot is-overlay is-toggleable">
+
+    <p class="feed-type">
+
+        {% if is_video %}
+
+            <i class="fa-youtube-play fa"></i>
+            {{ video_text|default('View Video') }}
+
+        {% else %}
+
+            <i class="fa-picture-o fa"></i>
+            {{ photo_text|default('View album') }}
+
+        {% endif %}
+
+        <i class="fa fa-long-arrow-right"></i>
+
+    </p>
+
+</div>

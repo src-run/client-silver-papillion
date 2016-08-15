@@ -124,6 +124,14 @@ class CarouselSlide
     }
 
     /**
+     * @return bool
+     */
+    public function hasCaption()
+    {
+        return $this->caption !== null && !empty($this->caption);
+    }
+
+    /**
      * @param string $image
      *
      * @return $this

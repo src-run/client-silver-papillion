@@ -10,15 +10,15 @@
 <div class="container container-sr">
 
     {% if cart_count() == 0 %}
-        <div class="card cart-empty text-center">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-ban fa-stack-2x"></i>
-                <i class="fa fa-shopping-bag fa-stack-1x"></i>
-            </span>
-            <p>Your shopping cart is currently empty.</p>
-        </div>
+
+        {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
+            'icon_mg' : 'fa-ban',
+            'icon'    : 'fa-shopping-bag',
+            'text'    : 'Your shopping cart is currently empty.'
+        } only %}
+
     {% else %}
+
         <div class="cart-listing">
             {% for g in cart_items_grouped() %}
                 <div class="card cart-item">
@@ -86,6 +86,7 @@
                 </dl>
             </div>
         </div>
+
     {% endif %}
 
 </div>

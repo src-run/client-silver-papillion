@@ -25,39 +25,64 @@ easy_admin:
 
         fields:
 
-          - id
-          - dow
-          - weight
+          - property  : 'dow'
+            label     : 'Day'
+
+          - property : iso8601
+            label    : 'ISO 8601'
+
           - closed
-          - timeOpen
-          - timeClose
+
+          - property  : timeOpen
+            label     : 'Opening'
+
+          - property  : timeClose
+            label     : 'Closing'
+
+      show:
+        fields:
+
+          - property  : 'dow'
+            label     : 'Day'
+
+          - property : iso8601
+            label    : 'ISO 8601'
+
+          - closed
+
+          - property  : timeOpen
+            label     : 'Opening Time'
+
+          - property  : timeClose
+            label     : 'Closing Time'
 
       form:
         fields:
 
-          - label     : 'General Information'
+          - label     : 'Day'
             type      : 'group'
-            icon      : 'pencil'
-            css_class : 'col-sm-8 new-row'
+            icon      : 'calendar-o'
+            css_class : 'col-sm-6'
 
           - property  : 'dow'
-            label     : 'Day of the Week'
-            css_class : 'col-sm-12'
+            label     : 'Day'
 
-          - property  : closed
+          - property : iso8601
+            label    : 'ISO-8601'
+
+          - type      : 'divider'
+
+          - closed
+
+          - label     : 'Time'
+            type      : 'group'
+            icon      : 'clock-o'
+            css_class : 'col-sm-6'
 
           - property  : timeOpen
-            label     : 'Opening Time'
-            css_class : 'col-sm-12'
+            label     : 'Opening'
 
           - property  : timeClose
-            label     : 'Closing Time'
-            css_class : 'col-sm-12'
+            label     : 'Closing'
 
-          - label     : 'Attributes'
-            type      : 'group'
-            icon      : 'tags'
-            css_class : 'col-sm-4'
-
-          - property  : weight
 ...

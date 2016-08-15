@@ -1,0 +1,24 @@
+
+{#
+ # feed type header
+ #}
+
+<div class="card-section-head is-overlay">
+
+    {% if is_video|default(false) %}
+
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+        </span>
+
+    {% else %}
+
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-expand fa-stack-1x fa-inverse"></i>
+        </span>
+
+    {% endif %}
+
+</div>

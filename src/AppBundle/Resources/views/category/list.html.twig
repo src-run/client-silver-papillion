@@ -14,7 +14,7 @@
 
         <div class="card-listing">
             {% for c in categories %}
-                {% include 'AppBundle:fragment:category.html.twig' with { 'category': c } only %}
+                {% include 'AppBundle:fragment:category-list-item.html.twig' with { 'category': c } only %}
             {% endfor %}
         </div>
 
