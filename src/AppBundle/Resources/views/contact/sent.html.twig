@@ -1,8 +1,9 @@
-{% extends 'AppBundle:product:base.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block bread %}
     {{ parent() }}
-    <li>Your Cart</li>
+    <li><a href="{{ url('app_contact_view') }}">Contact</a></li>
+    <li>Sent</li>
 {% endblock %}
 
 {% block body %}

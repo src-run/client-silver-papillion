@@ -8,6 +8,7 @@
     "jquery-waypoints"    : "~4.0",
     "font-awesome"        : "~4.6",
     "jsonlylightbox"      : "~0.5",
-    "webfontloader"       : "~1.6"
+    "webfontloader"       : "~1.6",
+    "bootstrapvalidator"  : "~0.5"
   }
 }

@@ -1,6 +1,9 @@
 {% extends '::base.html.twig' %}
 
-{% block bread %}{{ parent() }} <li>Contact</li>{% endblock %}
+{% block bread %}
+    {{ parent() }}
+    <li>Contact</li>
+{% endblock %}
 
 {% block body %}
     {% form_theme form 'bootstrap_3_layout.html.twig' %}
@@ -8,7 +11,10 @@
     <div class="container container-sr">
 
 
-        <h2 class="primary-hr-i"><i class="fa fa-envelope"></i> Send Us a <em>Message</em></h2>
+        <h2 class="primary-hr-i">
+            <i class="fa fa-envelope"></i> Send Us a <em>Message</em>
+        </h2>
+
         <div class="about-text">
             {{ block_content('about.contact') }}
         </div>
@@ -17,8 +23,11 @@
 
     <div class="container-sr-odd">
         <div class="container">
+
             <div class="contact-form">
+
                 {{ form_start(form) }}
+
                 <div class="contact-form-fields">
                     <div class="contact-form-name-label">
                         {{  form_label(form.name) }}
@@ -33,6 +42,7 @@
                         {{  form_widget(form.email) }}
                     </div>
                 </div>
+
                 <div class="contact-form-fields">
                     <div class="contact-form-message-label">
                         {{  form_label(form.message) }}
@@ -41,12 +51,15 @@
                         {{  form_widget(form.message) }}
                     </div>
                 </div>
+
                 <div class="contact-form-fields">
                     <div class="contact-form-submit">
                         {{ form_widget(form.submit, { 'attr': {'class': 'btn-primary btn-block'} }) }}
                     </div>
                 </div>
+
                 {{ form_end(form) }}
+
             </div>
 
         </div>

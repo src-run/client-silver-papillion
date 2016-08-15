@@ -1,95 +1,92 @@
-{% extends 'AppBundle:product:base.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block bread %}
     {{ parent() }}
-    <li>
-        <a href="{{ url('app_category_view', {categoryName: product.getCategory.getName|slugify, category: product.getCategory.getId}) }}">
-            {{ product.getCategory.getName }}
-        </a>
-    </li>
+    <li><a href="{{ url('app_category_view', {categoryName: product.getCategory.getName|slugify, category: product.getCategory.getId}) }}">{{ product.getCategory.getName }}</a></li>
     <li>{{ product.getName }}</li>
 {% endblock %}
 
 {% block body %}
-<div class="container container-sr">
-    <div class="row">
-        <div class="product-view-image">
-            <div class="card is-linkable is-animated">
-                <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" data-jslghtbx="{{ asset_product(product.getImage) }}" />
-            </div>
-        </div>
-        <div class="product-view-info">
-            <div class="card card-product-info">
-                <div class="product-name">
-                    <h1>{{ product.getName }}</h1>
-                </div>
-                <hr />
-                {% if product.hasSku %}
-                    <div class="product-sku">
-                        <span class="label label-default">SKU: {{ product.getSku }}</span>
-                    </div>
-                {% endif %}
-                {% if product.hasDescription %}
-                    <div class="product-desc">
-                        {{ product.getDescription }}
-                    </div>
-                {% endif %}
-                <div class="product-price">
-                    <p class="product-price-main">${{ product.getPrice|number_format(2, '.', ',') }}</p>
-                    <p class="product-price-extra">Plus ${{ product.getShippingRate|number_format(2, '.', ',') }} shipping per unit{% if product.isTaxable %}, and {{ product.getTaxableRate|number_format(3, '.', ',') }}% sales tax{% endif %}.</p>
-                </div>
-                <div class="product-action">
-                    <div class="product-add">
-                        <div class="btn-group">
-                            {% if cart_has(product) != true %}
-                                <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-primary">
-                                    <i class="fa fa-plus fa-fw"></i> Add to cart
-                                </a>
-                            {% else %}
-                                <a href="{{ url('app_cart_view') }}" class="btn btn-primary">
-                                    <i class="fa fa-shopping-cart"></i> {{ cart_count(product) }} in cart
-                                </a>
-                                <a href="{{ url('app_cart_rm', {product: product.getId, quantity: 100000}) }}" class="btn btn-danger">
-                                    <i class="fa fa-trash fa-fw"></i>
-                                </a>
-                                <a href="{{ url('app_cart_rm', {product: product.getId, quantity: 1}) }}" class="btn btn-warning">
-                                    <i class="fa fa-minus fa-fw"></i>
-                                </a>
-                                <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-success">
-                                    <i class="fa fa-plus fa-fw"></i>
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
+    <div class="container container-sr">
+        <div class="row">
+
+            <div class="product-view-image">
+                <div class="card is-linkable is-animated">
+                    <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" data-jslghtbx="{{ asset_product(product.getImage) }}" />
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="container-sr-odd">
-    <div class="container">
-        <h3 class="primary-hr-i"><i class="fa fa-th"></i> Similar <em>Products</em></h3>
-        <div class="card-listing">
 
-            {% for p in similar %}
-                <div class="card-similar-product">
-                    <div class="card is-linkable is-animated" data-href="{{ path('app_product_view', {'productName': p.getName|slugify, 'product': p.getId}) }}">
-                        <div class="card-section-body">
-                            <img alt="{{ p.getName }}" src="{{ asset_product(p.getImage) | imagine_filter('product_thumbs') }}"/>
+            <div class="product-view-info">
+                <div class="card card-product-info">
+
+                    <div class="product-name">
+                        <h1>{{ product.getName }}</h1>
+                    </div>
+
+                    <hr />
+
+                    {% if product.hasSku %}
+                        <div class="product-sku">
+                            <span class="label label-default">SKU: {{ product.getSku }}</span>
                         </div>
+                    {% endif %}
 
-                        <div class="card-section-foot is-overlay is-toggleable">
-                            <div class="product-link">
-                                <a href="{{ path('app_product_view', {'productName': p.getName|slugify, 'product': p.getId}) }}">
-                                    View Item <i class="fa fa-long-arrow-right"></i>
-                                </a>
+                    {% if product.hasDescription %}
+                        <div class="product-desc">
+                            {{ product.getDescription }}
+                        </div>
+                    {% endif %}
+
+                    <div class="product-price">
+                        <p class="product-price-main">${{ product.getPrice|number_format(2, '.', ',') }}</p>
+                        <p class="product-price-extra">Plus ${{ product.getShippingRate|number_format(2, '.', ',') }} shipping per unit{% if product.isTaxable %}, and {{ product.getTaxableRate|number_format(3, '.', ',') }}% sales tax{% endif %}.</p>
+                    </div>
+
+                    <div class="product-action">
+                        <div class="product-add">
+                            <div class="btn-group">
+                                {% if cart_has(product) != true %}
+                                    <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-primary">
+                                        <i class="fa fa-plus fa-fw"></i> Add to cart
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url('app_cart_view') }}" class="btn btn-primary">
+                                        <i class="fa fa-shopping-cart"></i> {{ cart_count(product) }} in cart
+                                    </a>
+                                    <a href="{{ url('app_cart_rm', {product: product.getId, quantity: 100000}) }}" class="btn btn-danger">
+                                        <i class="fa fa-trash fa-fw"></i>
+                                    </a>
+                                    <a href="{{ url('app_cart_rm', {product: product.getId, quantity: 1}) }}" class="btn btn-warning">
+                                        <i class="fa fa-minus fa-fw"></i>
+                                    </a>
+                                    <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-success">
+                                        <i class="fa fa-plus fa-fw"></i>
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
+
                 </div>
-            {% endfor %}
+            </div>
         </div>
-        <a href="{{ url('app_category_view', {'categoryName': category.getName|slugify, 'category': category.getId}) }}" class="pull-right btn btn-primary">View More {{ category.getName }} <i class="fa fa-long-arrow-right"></i></a>
     </div>
-</div>
+
+    <div class="container-sr-odd">
+        <div class="container">
+
+            <h3 class="primary-hr-i">
+                <i class="fa fa-th"></i> Similar <em>Products</em>
+            </h3>
+
+            <div class="card-listing">
+                {% for p in similar %}
+                    {% include 'AppBundle:fragment:product-simple.html.twig' with { 'product': p } only %}
+                {% endfor %}
+            </div>
+
+            <a href="{{ url('app_category_view', {'categoryName': category.getName|slugify, 'category': category.getId}) }}" class="pull-right btn btn-primary">View More {{ category.getName }} <i class="fa fa-long-arrow-right"></i></a>
+
+        </div>
+    </div>
 {% endblock %}

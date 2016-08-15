@@ -1,28 +1,22 @@
 {% extends '::base.html.twig' %}
 
-{% block bread %}{{ parent() }} <li>Products</li>{% endblock %}
+{% block bread %}
+    {{ parent() }}
+    <li>Products</li>
+{% endblock %}
 
 {% block body %}
-<div class="container container-sr">
+    <div class="container container-sr">
 
-    <h2 class="primary-hr-i"><i class="fa fa-bookmark"></i> Product <em>Categories</em></h2>
-    <div class="card-listing">
-        {% for c in categories %}
-        <div class="col-md-12 card-category">
-            <div class="card" data-href="{{ url('app_category_view', {'categoryName': c.getName|slugify, 'category': c.getId}) }}">
-                <div class="category">
-                    <div class="category-name">
-                        <a href="{{ url('app_category_view', {'categoryName': c.getName|slugify, 'category': c.getId}) }}">{{ c.getName }}</a>
-                    </div>
-                    <div class="category-products">
-                        {% for p in c.getProducts|slice(0, 5) %}
-                            <img src="/uploads/images/products/{{ p.getImage }}" alt="{{ p.getName }} Product Image" />
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+        <h2 class="primary-hr-i">
+            <i class="fa fa-bookmark"></i> Product <em>Categories</em>
+        </h2>
+
+        <div class="card-listing">
+            {% for c in categories %}
+                {% include 'AppBundle:fragment:category.html.twig' with { 'category': c } only %}
+            {% endfor %}
         </div>
-        {% endfor %}
+
     </div>
-</div>
 {% endblock %}

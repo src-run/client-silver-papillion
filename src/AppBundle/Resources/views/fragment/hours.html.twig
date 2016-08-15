@@ -1,0 +1,15 @@
+<dl class="info-hours">
+    {% for hour in hours %}
+        <dt {% if hour.dowToday %}class="today"{% endif %}>
+            {{ hour.getDow }}
+            {% if hour.dowToday %}<span class="today">(today)</span>{% endif %}
+        </dt>
+        <dd {% if hour.dowToday %}class="today"{% endif %}>
+            {% if hour.isClosed %}
+                Closed
+            {% else %}
+                {{ hour.getTimeOpen.format('h:ia') }} - {{ hour.getTimeClose.format('h:ia') }}
+            {% endif %}
+        </dd>
+    {% endfor %}
+</dl>

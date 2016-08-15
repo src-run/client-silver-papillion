@@ -1,0 +1,23 @@
+<div class="card-product">
+    <div class="card is-linkable is-animated" data-href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId}) }}">
+        <div class="card-section-head is-overlay is-toggleable">
+            <div class="product-price abs-right">
+                <p>${{ product.getPrice|number_format(2, '.', ',') }}</p>
+            </div>
+            <div class="product-name">
+                <h4>{{ product.getName }}</h4>
+            </div>
+        </div>
+        <div class="card-section-body">
+            <img alt="{{ product.getName }}" src="{{ asset_product(product.getImage) | imagine_filter('product_thumbs') }}"/>
+        </div>
+
+        <div class="card-section-foot is-overlay is-toggleable">
+            <div class="product-link">
+                <a href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId}) }}">
+                    View Item <i class="fa fa-long-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
