@@ -43,7 +43,7 @@ class CategoryController extends Controller
             '_c' => static::class,
             'category' => $category,
             'categories' => $this->get('app.manager.category')->getAll(),
-            'pagination' => $this->get('app.manager.product')->getAllFromCategoryPaginated($category, $request->query->getInt('page', 1)),
+            'pagination' => $this->get('app.manager.product')->getAllFromCategoryPaginated($category, $request->query->getInt('p', 1)),
         ]);
     }
 }

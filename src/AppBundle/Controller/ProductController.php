@@ -22,17 +22,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ProductController extends Controller
 {
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function listAction()
-    {
-        return $this->render('AppBundle:product:list.html.twig', [
-            '_c' => static::class,
-            'products' => $this->get('app.manager.product')->getAll()
-        ]);
-    }
-
-    /**
      * @ParamConverter("product")
      *
      * @return \Symfony\Component\HttpFoundation\Response

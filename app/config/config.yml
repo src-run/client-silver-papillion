@@ -128,10 +128,8 @@ fos_user:
   user_class: AppBundle\Entity\User
 
 knp_paginator:
-  page_range: 5
   default_options:
-    page_name: page
-    distinct: true
+    page_name: p
   template:
     pagination: paginator.html.twig
 
