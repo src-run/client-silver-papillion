@@ -25,10 +25,13 @@ easy_admin:
 
         fields:
 
-          - id
           - enabled
-          - weight
+
+          - property : 'weight'
+            label    : 'Ordering'
+
           - caption
+
           - property  : 'image'
             type      : 'image'
             base_path : '%app.path.carousel_images%'
@@ -36,10 +39,13 @@ easy_admin:
       show:
         fields:
 
-          - id
           - enabled
-          - weight
+
+          - property : 'weight'
+            label    : 'Ordering'
+
           - caption
+
           - property  : 'image'
             type      : 'image'
             base_path : '%app.path.carousel_images%'
@@ -47,7 +53,7 @@ easy_admin:
       form:
         fields:
 
-          - label     : 'Attachments'
+          - label     : 'Media'
             type      : 'group'
             icon      : 'paperclip'
             css_class : 'col-sm-6'
@@ -56,7 +62,7 @@ easy_admin:
             label     : 'Image'
             type      : 'vich_image'
 
-          - label     : 'Published State'
+          - label     : 'Extended Information'
             type      : 'group'
             icon      : 'floppy-o'
             css_class : 'col-sm-6'
@@ -64,14 +70,16 @@ easy_admin:
           - property  : 'enabled'
             label     : 'Published'
 
-          - label     : 'Extended Information'
+          - property  : 'weight'
+            label     : 'Orderling'
+
+          - label     : 'Description'
             type      : 'group'
             icon      : 'pencil'
-            css_class : 'col-sm-12 new-row'
-
-          - weight
+            css_class : 'col-sm-12'
 
           - property  : 'caption'
+            label     : 'Image Caption'
             type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
 
 ...

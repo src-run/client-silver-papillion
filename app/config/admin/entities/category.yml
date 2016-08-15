@@ -25,10 +25,8 @@ easy_admin:
 
         fields:
 
-          - id
           - enabled
           - name
-          - description
 
       show:
         fields:
