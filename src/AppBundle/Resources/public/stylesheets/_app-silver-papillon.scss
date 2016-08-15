@@ -234,6 +234,8 @@
 
     > .card-section-body img {
       @include img-responsive();
+
+      width : 100%;
     }
 
     > .card-section-foot {
@@ -285,6 +287,8 @@
 
     > .card-section-body img {
       @include img-responsive();
+
+      width : 100%;
     }
 
     > .card-section-foot {
@@ -364,6 +368,8 @@
 
     > .card-section-body img {
       @include img-responsive();
+
+      width : 100%;
     }
 
     > .card-section-foot {
@@ -394,13 +400,27 @@
     }
 
     .card-section-head {
+      font-size  : 860%;
+      margin-top : 160px;
+
+      @media (min-width: $screen-sm-min) {
+        font-size : 140%;
+        margin-top : 40px;
+      }
+      @media (min-width: $screen-md-min) {
+        font-size : 200%;
+        margin-top : 40px;
+      }
+      @media (min-width: $screen-lg-min) {
+        font-size  : 320%;
+        margin-top : 40px;
+      }
+
       pointer-events             : none;
       display                    : block;
       background-color           : transparent;
       border-bottom              : none;
-      font-size                  : 320%;
       text-align                 : center;
-      margin-top                 : 40px;
       will-change                : auto;
       transition                 : margin-top $transition-time-x03;
       transition-timing-function : $transition-func-transform;
@@ -422,7 +442,17 @@
     }
 
     &:hover .card-section-head {
-      margin-top : 23px;
+      margin-top : 100px;
+
+      @media (min-width: $screen-sm-min) {
+        margin-top : 12px;
+      }
+      @media (min-width: $screen-md-min) {
+        margin-top : 23px;
+      }
+      @media (min-width: $screen-lg-min) {
+        margin-top : 23px;
+      }
 
       .fa-circle {
         color : rgba($color-black, 0.8);
@@ -435,8 +465,14 @@
       }
     }
 
-    > .card-section-body .feed-attachment {
-      @include img-responsive();
+    > .card-section-body {
+      img {
+        width : 100%;
+      }
+
+      .feed-attachment {
+        @include img-responsive();
+      }
     }
 
     > .card-section-foot {
@@ -814,12 +850,23 @@
       }
 
       .card-section-head {
+        font-size : 700%;
+
+        @media (min-width: $screen-sm-min) {
+          font-size : 400%;
+        }
+        @media (min-width: $screen-md-min) {
+          font-size : 600%;
+        }
+        @media (min-width: $screen-lg-min) {
+          font-size : 800%;
+        }
+
         z-index                    : 10;
         pointer-events             : none;
         display                    : block;
         background-color           : transparent;
         border-bottom              : none;
-        font-size                  : 800%;
         text-align                 : center;
         margin-top                 : 60px;
         will-change                : auto;
@@ -961,13 +1008,27 @@
         }
 
         .card-section-head {
+          font-size  : 400%;
+          margin-top : 12px;
+
+          @media (min-width: $screen-sm-min) {
+            font-size  : 400%;
+            margin-top : 12px;
+          }
+          @media (min-width: $screen-md-min) {
+            font-size  : 500%;
+            margin-top : 25px;
+          }
+          @media (min-width: $screen-lg-min) {
+            font-size  : 700%;
+            margin-top : 25px;
+          }
+
           pointer-events             : none;
           display                    : block;
           background-color           : transparent;
           border-bottom              : none;
-          font-size                  : 680%;
           text-align                 : center;
-          margin-top                 : 30px;
           will-change                : auto;
           transition                 : margin-top $transition-time-x03;
           transition-timing-function : $transition-func-transform;
@@ -990,6 +1051,16 @@
 
         &:hover .card-section-head {
           margin-top : 6px;
+
+          @media (min-width: $screen-sm-min) {
+            margin-top : -15px;
+          }
+          @media (min-width: $screen-md-min) {
+            margin-top : 0;
+          }
+          @media (min-width: $screen-lg-min) {
+            margin-top : 0;
+          }
 
           .fa-circle {
             color : rgba($color-black, 0.8);
