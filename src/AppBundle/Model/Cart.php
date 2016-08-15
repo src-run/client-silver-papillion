@@ -235,7 +235,7 @@ class Cart implements \Serializable
     public function tax()
     {
         return array_reduce($this->items, function ($carry, Product $p) {
-            return $carry + ($p->getPrice() * self::RATE_TAX_PERCENTAGE);
+            return $p->isTaxable() ? $carry + ($p->getPrice() * $p->getTaxableRate()) : $carry;
         }, 0);
     }
 
@@ -245,7 +245,7 @@ class Cart implements \Serializable
     public function shipping()
     {
         return array_reduce($this->items, function ($carry, Product $p) {
-            return $carry + self::RATE_SHIPPING;
+            return $carry + $p->getShippingRate();
         }, 0);
     }
 

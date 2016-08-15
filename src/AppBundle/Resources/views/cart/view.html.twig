@@ -35,8 +35,15 @@
                     </div>
                     <div class="cart-item-actions">
                         <p>
-                            <span class="cart-item-actions-count label label-default"><em>{{ g.count() }}</em> units at <em>${{ g.getProduct.getPrice()|number_format(2, '.', ',') }}</em> each</span>
-                            <span class="label label-primary cart-item-actions-total">${{ g.total()|number_format(2, '.', ',') }}</span>
+                            <span class="cart-item-actions-count label label-default">
+                                <em>${{ (g.getProduct.getShippingRate*g.count)|number_format(2, '.', ',') }}</em> shipping
+                            </span>
+                            <span class="label label-primary cart-item-actions-total">
+                                {% if g.count != 1 %}
+                                    ${{ g.getProduct.getPrice()|number_format(2, '.', ',') }} x {{ g.count() }} =
+                                {% endif %}
+                                <em>${{ g.total()|number_format(2, '.', ',') }}</em>
+                            </span>
                         </p>
                         <div class="btn-group">
                             <a href="{{ url('app_cart_rm', {product: g.getProduct.getId, quantity: 100000}) }}" class="btn btn-sm btn-danger">
@@ -65,10 +72,18 @@
                 </div>
             </div>
             <div class="cart-total pull-right">
-                <h6>
-                    Sub-Total: ${{ cart_subTotal()|number_format(2, '.', ',') }} / Tax: ${{ cart_tax()|number_format(2, '.', ',') }} / Shipping: ${{ cart_shipping()|number_format(2, '.', ',') }}
-                </h6>
-                <h4><strong>Total: ${{ cart_total()|number_format(2, '.', ',') }}</strong></h4>
+                <dl class="cart-total-breakdown">
+                    <dt>Sub-Total</dt>
+                    <dd>${{ cart_subTotal()|number_format(2, '.', ',') }}</dd>
+                    <dt>Tax</dt>
+                    <dd>${{ cart_tax()|number_format(2, '.', ',') }}</dd>
+                    <dt>Shipping</dt>
+                    <dd>${{ cart_shipping()|number_format(2, '.', ',') }}</dd>
+                </dl>
+                <dl class="cart-total-total">
+                    <dt>Total</dt>
+                    <dd>${{ cart_total()|number_format(2, '.', ',') }}</dd>
+                </dl>
             </div>
         </div>
     {% endif %}

@@ -515,6 +515,64 @@
 
   .cart-total {
     text-align : right;
+
+    .cart-total-breakdown {
+      overflow      : auto;
+      float         : right;
+      margin-bottom : 6px;
+
+      > * {
+        float : left;
+      }
+
+      dt {
+        font-weight : 500;
+        padding     : 0 6px;
+
+        &:after {
+          content : ": ";
+        }
+      }
+
+      dd {
+        font-weight : 400;
+
+        &:after {
+          content : " / ";
+        }
+
+        &:last-child {
+          &:after {
+            content : "";
+          }
+        }
+      }
+    }
+
+    .cart-total-total {
+      clear         : right;
+      float         : right;
+      font-size     : $font-size-h4;
+      color         : $color-accent;
+      margin-bottom : 0;
+
+      > * {
+        float : left;
+      }
+
+      dt {
+        padding : 0 6px;
+
+        &:after {
+          content : ": ";
+        }
+      }
+
+      dt,
+      dd {
+        font-weight : 500;
+      }
+    }
   }
 }
 
@@ -638,7 +696,7 @@
     .cart-item-actions-total{
       margin    : 18px 6px 0 6px;
       padding   : 8px 12px 6px 12px;
-      display   :inline-block;
+      display   : inline-block;
       font-size : 14px;
     }
 
@@ -647,7 +705,7 @@
     }
 
     .cart-item-actions-total {
-      font-weight : 600;
+      font-weight : 400;
     }
 
     .btn-group {

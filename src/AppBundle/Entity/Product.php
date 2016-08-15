@@ -22,6 +22,16 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Product
 {
     /**
+     * @var float
+     */
+    const RATE_SHIPPING_DEFAULT = 6.40;
+
+    /**
+     * @var float
+     */
+    const RATE_TAX_PERCENTAGE = 0.065;
+
+    /**
      * @var int|null
      */
     protected $id;
@@ -79,6 +89,16 @@ class Product
     protected $price;
 
     /**
+     * @var float
+     */
+    protected $shipping;
+
+    /**
+     * @var boolean
+     */
+    protected $taxable;
+
+    /**
      * @var \AppBundle\Entity\Category
      */
     protected $category;
@@ -92,6 +112,7 @@ class Product
         $this->updatedOn = new \DateTime();
         $this->enabled = true;
         $this->featured = false;
+        $this->taxable = true;
     }
 
     /**
@@ -366,6 +387,78 @@ class Product
         $this->price = (float) $price;
 
         return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getShipping()
+    {
+        return $this->shipping;
+    }
+
+    /**
+     * @param float $shipping
+     *
+     * @return $this
+     */
+    public function setShipping($shipping)
+    {
+        if (empty($shipping)) {
+            $this->shipping = null;
+        } else {
+            $this->shipping = (float) $shipping;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasShipping()
+    {
+        return $this->shipping !== null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getShippingRate()
+    {
+        return $this->hasShipping() ? $this->getShipping() : self::RATE_SHIPPING_DEFAULT;
+    }
+
+    /**
+     * @param bool $taxable
+     *
+     * @return $this
+     */
+    public function setTaxable($taxable)
+    {
+        $this->taxable = (bool) $taxable;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTaxable()
+    {
+        return $this->taxable;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxableRate()
+    {
+        if ($this->isTaxable()) {
+            return self::RATE_TAX_PERCENTAGE;
+        }
+
+        return 0.0;
     }
 
     /**

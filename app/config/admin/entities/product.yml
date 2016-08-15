@@ -33,18 +33,22 @@ easy_admin:
           - property : sku
             label    : SKU
 
-          - category
-
-          - property  : 'updatedOn'
-            label     : 'Updated'
-            format    : 'M j Y'
-
           - property  : 'price'
+            label     : 'Unit Price'
             format    : '%.2f'
+
+          - property  : 'shipping'
+            label     : 'Shipping'
+            format    : '%.2f'
+
+          - property  : taxable
+            label     : 'Is Taxable?'
 
           - property  : 'image'
             type      : 'image'
             base_path : '%app.path.product_images%'
+
+          - category
 
       show:
         fields:
@@ -54,14 +58,16 @@ easy_admin:
           - property : sku
             label    : SKU
 
-          - property  : 'createdOn'
-            format    : 'M j Y'
-
-          - property  : 'updatedOn'
-            format    : 'M j Y'
-
           - property  : 'price'
+            label     : 'Unit Price'
             format    : '$%.2f'
+
+          - property  : 'shipping'
+            label     : 'Shipping Rate'
+            format    : '%.2f'
+
+          - property  : taxable
+            label     : 'Sales Tax'
 
           - description
 
@@ -90,9 +96,6 @@ easy_admin:
           - property : sku
             label    : SKU
 
-          - property  : 'price'
-            type      : 'number'
-
           - property  : 'description'
             type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
 
@@ -109,6 +112,7 @@ easy_admin:
             label     : 'Published'
 
           - property  : featured
+            label     : 'Feature on Home Page'
 
           - label     : 'Attachments'
             type      : 'group'
@@ -118,5 +122,20 @@ easy_admin:
           - property  : 'imageFile'
             label     : 'Image'
             type      : 'vich_image'
+
+          - label     : 'Pricing'
+            type      : 'group'
+            icon      : 'dollar'
+            css_class : 'col-sm-8'
+
+          - property  : 'price'
+            type      : 'number'
+
+          - property  : 'shipping'
+            label     : 'Shipping Rate'
+            type      : 'number'
+
+          - property  : taxable
+            label     : 'Enable Sales Tax'
 
 ...
