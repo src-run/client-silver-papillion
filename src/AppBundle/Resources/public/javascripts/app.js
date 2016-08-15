@@ -306,7 +306,7 @@ $(document).ready(function () {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 
-    registerEvent.onClick('.card-category .card', function (event) {
+    registerEvent.onClick('.card-product-category .card', function (event) {
       helpers.followLink(linkResolver.resolve(event.target));
     });
 

@@ -72,19 +72,44 @@
 footer {
   background-color : rgba($color-white, 0.5);
   padding          : 27px 0 10px 0;
-  border-top       : 1px solid #ddd;
+  border-top       : 1px solid rgba($color-gray-light-m, 0.5);
+  will-change      : border-color;
+  transition       : border-color $transition-time-border-color;
 
-  .footer-more {
-    float : right;
+  .footer-copy {
+    @include make-row();
+
+    .footer-copy-copyright {
+      @include make-sm-column(6);
+
+      text-align: left;
+    }
+
+    .footer-copy-contact {
+      @include make-sm-column(6);
+
+      text-align: right;
+    }
+
+    p {
+      margin      : 1em 0 2.4em 0;
+      color       : $color-gray-dark;
+      font-family : $font-family-condensed;
+      opacity     : 0.5;
+      will-change : opacity;
+      transition  : opacity $transition-time-opacity;
+
+      a {
+        color : darken($color-primary, 25%);
+      }
+    }
   }
 
-  p {
-    margin      : 1em 0 2.4em 0;
-    color       : #bbb;
-    font-family : "Roboto Condensed", sans-serif;
+  &:hover {
+    border-color : $color-gray-light-m;
 
-    a {
-      opacity : 0.5;
+    .footer-copy p {
+      opacity : 1;
     }
   }
 }
@@ -142,7 +167,7 @@ footer {
       color         : $color-accent;
       font-size     : $font-size-h3;
       font-weight   : 500;
-      font-family   : "Roboto Condensed", $font-family-sans-serif;
+      font-family   : $font-family-condensed;
       float         : left;
       padding-right : 6px;
       padding-top   : 6px;
@@ -162,7 +187,7 @@ footer {
 
       a {
         font-weight : 100;
-        font-family : "Roboto Condensed", $font-family-sans-serif;
+        font-family : $font-family-condensed;
         color       : rgba($color-accent, 0.65);
 
         &:hover {
@@ -193,7 +218,7 @@ footer {
     .abs-right {
       position : absolute;
       right    : 21px;
-      top      : 30px;
+      top      : 27px;
     }
   }
 
@@ -284,9 +309,9 @@ footer {
 
     > .card-section-head {
       .product-price {
-        font-size   : 12px;
+        font-size   : 14px;
         color       : $color-accent;
-        font-weight : 500;
+        font-weight : 400;
 
         p {
           margin-bottom : 0;
@@ -297,7 +322,8 @@ footer {
         margin : 27px 21px 24px 21px;
 
         h4 {
-          color : $color-primary-alt;
+          color       : $color-primary-alt;
+          font-family : $font-family-condensed;
         }
       }
     }
@@ -314,7 +340,7 @@ footer {
 
       .product-link {
         display        : block;
-        margin         : 15px 9px 12px 9px;
+        margin         : 9px 6px 9px 6px;
         text-align     : center;
         font-weight    : 300;
         text-transform : uppercase;
@@ -350,7 +376,8 @@ footer {
         margin : 27px 21px 24px 21px;
 
         h4 {
-          color : $color-primary-alt;
+          color       : $color-primary-alt;
+          font-family : $font-family-condensed;
         }
       }
     }
@@ -367,7 +394,7 @@ footer {
 
       .product-link {
         display        : block;
-        margin         : 15px 9px 12px 9px;
+        margin         : 9px 6px 9px 6px;
         text-align     : center;
         font-weight    : 300;
         text-transform : uppercase;
@@ -409,7 +436,7 @@ footer {
 }
 
 .card-listing .card-product {
-  @include make-sm-column(4);
+  @include make-sm-column(3);
 
   .card {
     > * {
@@ -419,8 +446,9 @@ footer {
     > .card-section-head {
       .product-price {
         font-size   : 12px;
+        font-weight : 400;
         color       : $color-accent;
-        font-weight : 500;
+        margin      : -15px 18px 12px 18px;
 
         p {
           margin-bottom : 0;
@@ -428,10 +456,12 @@ footer {
       }
 
       .product-name {
-        margin : 27px 21px 24px 21px;
+        margin : 18px;
 
         h4 {
-          color : $color-primary-alt;
+          color       : $color-primary-alt;
+          font-family : $font-family-condensed;
+          font-size   : 18px;
         }
       }
     }
@@ -448,7 +478,7 @@ footer {
 
       .product-link {
         display        : block;
-        margin         : 15px 9px 12px 9px;
+        margin         : 9px 6px 9px 6px;
         text-align     : center;
         font-weight    : 300;
         text-transform : uppercase;
@@ -551,7 +581,7 @@ footer {
 
       .feed-type {
         display          : block;
-        margin           : 15px 9px 12px 9px;
+        margin           : 9px 6px 9px 6px;
         text-align       : center;
         font-weight      : 300;
         text-transform   : uppercase;
@@ -1025,7 +1055,7 @@ footer {
     .card-section-head {
       padding          : 21px 29px 21px 21px;
       text-align       : right;
-      background-color : rgba(#f3f3f7, .4);
+      background-color : rgba($color-gray-bg-alt, .4);
       border-bottom    : 1px solid rgba($color-accent, .2);
 
       .feed-info-type {
@@ -1046,7 +1076,7 @@ footer {
         font-weight    : 300;
         color          : $color-primary-alt;
         text-transform : uppercase;
-        font-family    : "Roboto Condensed", $font-family-sans-serif;
+        font-family    : $font-family-condensed;
       }
     }
 
@@ -1162,7 +1192,7 @@ footer {
 
           .feed-type {
             display          : block;
-            margin           : 15px 9px 12px 9px;
+            margin           : 9px 6px 9px 6px;
             text-align       : center;
             font-weight      : 300;
             text-transform   : uppercase;
@@ -1372,65 +1402,75 @@ footer {
   }
 }
 
-.category {
-  position       : relative;
-  cursor         : pointer;
-  overflow       : hidden;
-  padding-bottom : 60px;
-  border         : 1px solid $color-white;
-  transition     : border-color $transition-time-border-color;
+.card-product-category {
+  @include make-sm-column(12);
 
-  &:hover {
-    border-color : $color-accent;
-  }
+  .card {
+    .card-section-head {
+      pointer-events   : none;
+      background-color : rgba($color-gray-bg-alt, .4);
+      will-change      : background-color;
+      transition       : background-color $transition-time;
 
-  .category-products {
-    pointer-events : none;
-    padding-bottom : 62px;
+      h4 {
+        margin  : 0;
+        padding : 6px 0 9px 0;
 
-    img {
-      width          : 20%;
-      pointer-events : none;
-      float          : left;
+        a {
+          font-family : $font-family-condensed;
+          color       : $color-primary;
+          padding     : 15px 0 12px 18px;
+          display     : block;
+          will-change : color;
+          transition  : color $transition-time-color;
+
+          &:hover {
+            text-decoration : none;
+          }
+        }
+      }
+
+      .category-info {
+        position       : absolute;
+        right          : 18px;
+        top            : 23px;
+        font-size      : 13px;
+        font-weight    : 200;
+        text-transform : uppercase;
+        will-change    : color;
+        transition     : color $transition-time-color;
+
+        em {
+          font-style  : normal;
+          font-weight : 300;
+        }
+      }
     }
-  }
 
-  .category-name {
-    pointer-events   : none;
-    position         : absolute;
-    background-color : rgba($color-white, 0.9);
-    bottom           : 0;
-    left             : 0;
-    right            : 0;
-    font-size        : 18px;
-    transition       : background-color $transition-time;
+    .card-section-body {
+      overflow       : hidden;
+      pointer-events : none;
 
-    a {
-      font-size   : 18px;
-      font-weight : 300;
-      color       : $color-primary;
-      padding     : 15px 0 12px 18px;
-      display     : block;
-      transition  : color $transition-time-color;
+      img {
+        width          : 20%;
+        pointer-events : none;
+        float          : left;
+      }
+    }
 
-      &:hover {
-        text-decoration : none;
+    &:hover .card-section-head {
+      a {
+        color : $color-white;
+      }
+
+      background-color : $color-accent;
+
+      .category-info {
+        color : $color-white;
       }
     }
   }
-
-  &:hover .category-name {
-    a {
-      color : #fff;
-    }
-
-    background-color : rgb(218, 0, 117);
-  }
 }
-
-
-
-
 
 // Navbar =====================================================================
 

@@ -3,22 +3,21 @@
  # category list item
  #}
 
-<div class="card-category">
-    <div class="card" data-href="{{ url('app_category_view', {'categoryName': category.getName|slugify, 'category': category.getId}) }}">
-        <div class="category">
+<div class="card-product-category">
+    <div class="card is-linkable is-animated" data-href="{{ url('app_category_view', {'categoryName': category.getName|slugify, 'category': category.getId}) }}">
 
-            <div class="category-name">
-                <a href="{{ url('app_category_view', {'categoryName': category.getName|slugify, 'category': category.getId}) }}">{{ category.getName }}</a>
-            </div>
-
-            <div class="category-products">
-
-                {% for p in category.getProducts|slice(0, 5) %}
-                    <img src="/uploads/images/products/{{ p.getImage }}" alt="{{ p.getName }} Product Image" />
-                {% endfor %}
-
-            </div>
-
+        <div class="card-section-head">
+            <h4><a href="{{ url('app_category_view', {'categoryName': category.getName|slugify, 'category': category.getId}) }}">{{ category.getName }}</a></h4>
+            <p class="category-info"><em>{{ category.getProducts|length }}</em> products</p>
         </div>
+
+        <div class="card-section-body">
+            {% for p in category.getProducts|slice(0, 5) %}
+
+                <img src="{{ asset_product(p.getImage) | imagine_filter('product_category_thumbs') }}" alt="{{ p.getName }} Product Image" />
+
+            {% endfor %}
+        </div>
+
     </div>
 </div>

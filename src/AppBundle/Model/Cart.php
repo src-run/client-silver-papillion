@@ -13,7 +13,6 @@ namespace AppBundle\Model;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
-
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -99,6 +98,9 @@ class Cart implements \Serializable
         return new static($session, $entityManager);
     }
 
+    /**
+     * init
+     */
     public function initialize()
     {
         array_map(function (Product $p) {
@@ -145,7 +147,7 @@ class Cart implements \Serializable
      */
     public function getItemsGrouped()
     {
-        return array_reduce($this->items, function ($carry, Product $p) {
+        $grouped = array_reduce($this->items, function ($carry, Product $p) {
             if (!isset($carry[$p->getId()])) {
                 $carry[$p->getId()] = new CartGroup();
             }
@@ -154,6 +156,12 @@ class Cart implements \Serializable
 
             return $carry;
         }, []);
+
+        uasort($grouped, function (CartGroup $a, CartGroup $b) {
+            return $a->getProduct()->getName() > $b->getProduct()->getName();
+        });
+
+        return $grouped;
     }
 
     /**
@@ -164,6 +172,9 @@ class Cart implements \Serializable
         $this->items = $items;
     }
 
+    /**
+     * @param Product $product
+     */
     public function rmOne(Product $product)
     {
         $removed = false;

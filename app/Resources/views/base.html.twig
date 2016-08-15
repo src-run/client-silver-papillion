@@ -111,10 +111,18 @@
 
     <footer>
         <div class="container">
-            <div class="footer-more">
-                <p>{{ block_prop('footer', 'address') }}, {{ block_prop('footer', 'city') }}, {{ block_prop('footer', 'state') }} | {{ block_prop('footer', 'phone') }}</p>
+            <div class="footer-copy">
+
+                <div class="footer-copy-copyright">
+                    {{ block_content('footer') }}
+                </div>
+
+                <div class="footer-copy-contact">
+                    <p>{{ block_prop('footer', 'address') }}, {{ block_prop('footer', 'city') }}, {{ block_prop('footer', 'state') }} | {{ block_prop('footer', 'phone') }}</p>
+                </div>
+
             </div>
-            {{ block_content('footer') }}
+
         </div>
     </footer>
 

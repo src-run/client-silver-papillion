@@ -7,7 +7,9 @@
     <div class="card is-linkable is-animated" data-href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId}) }}">
 
         {% include 'AppBundle:fragment:product-section-head.html.twig' with {
-            'product' : product
+            'product'     : product,
+            'class_cards' : ' ',
+            'class_price' : ' '
         } only %}
 
         {% include 'AppBundle:fragment:product-section-body.html.twig' with {

@@ -3,14 +3,14 @@
  # product section header
  #}
 
-<div class="card-section-head is-overlay is-toggleable">
-
-    <div class="product-price abs-right">
-        <p>${{ product.getPrice|number_format(2, '.', ',') }}</p>
-    </div>
+<div class="card-section-head{{ class_cards|default(' is-overlay is-toggleable') }}">
 
     <div class="product-name">
         <h4>{{ product.getName }}</h4>
+    </div>
+
+    <div class="product-price{{ class_price|default(' abs-right') }}">
+        <p>${{ product.getPrice|number_format(2, '.', ',') }}</p>
     </div>
 
 </div>

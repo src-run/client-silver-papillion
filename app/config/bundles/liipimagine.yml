@@ -18,6 +18,16 @@ liip_imagine :
       post_processors :
         jpegoptim   : { strip_all : true, max : 88, progressive : true }
 
+    product_category_thumbs :
+      quality : 88
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        thumbnail   : { size : [320, 320], mode : outbound, allow_upscale : true }
+        background  : { size : [322, 322], position : center, color : '#fff' }
+      post_processors :
+        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+
     cart_product_thumb :
       quality : 88
       filters :

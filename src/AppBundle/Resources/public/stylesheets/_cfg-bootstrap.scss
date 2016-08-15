@@ -23,6 +23,7 @@ $color-gray-darker  : lighten(#000000, 14%);
 $color-gray-dark    : #212121;
 $color-gray         : #666666;
 $color-gray-light   : #bbbbbb;
+$color-gray-light-m : #dddddd;
 $color-gray-lighter : rgba(242, 241, 243, .5);
 $color-gray-bg      : #eaeaf1;
 $color-gray-bg-alt  : #f3f3f7;
@@ -113,6 +114,7 @@ $link-hover-decoration : underline;
 // fonts: family definitions
 
 $font-family-sans-serif : "Roboto",  "Helvetica Neue",  "Helvetica", sans-serif;
+$font-family-condensed  : "Roboto Condensed", $font-family-sans-serif;
 $font-family-serif      : "Georgia", "Times New Roman", "Times",     serif;
 $font-family-monospace  : "Menlo",   "Courier New"      "Monaco",    monospace;
 $font-family-base       : $font-family-sans-serif;
