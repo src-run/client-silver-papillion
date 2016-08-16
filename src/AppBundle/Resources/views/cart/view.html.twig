@@ -36,7 +36,7 @@
                     <div class="cart-item-actions">
                         <p>
                             <span class="cart-item-actions-count label label-default">
-                                <em>${{ (g.getProduct.getShippingRate*g.count)|number_format(2, '.', ',') }}</em> shipping
+                                <em>${{ (g.getProduct.getShippingRate(config('rate.shipping', constant('AppBundle\\Entity\\Product::RATE_SHIPPING_DEFAULT')))*g.count)|number_format(2, '.', ',') }}</em> shipping
                             </span>
                             <span class="label label-primary cart-item-actions-total">
                                 {% if g.count != 1 %}
