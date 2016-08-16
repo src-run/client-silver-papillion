@@ -15,7 +15,7 @@ services :
   app.mapper.static :
     class : AppBundle\Util\Mapper
     calls :
-      - [setBlockManager, ["@app.manager.content_block"]]
+      - [setConfigurationManager, ["@app.manager.configuration"]]
       - [setUri, ["%google_static_maps_uri%"]]
       - [setApi, ["%google_api_key_static_maps%"]]
       - [setCachePaths, ["%app.sys_path.cache%", "%app.web_path.cache%"]]
@@ -23,7 +23,7 @@ services :
   app.mapper.street :
     class : AppBundle\Util\Mapper
     calls :
-      - [setBlockManager, ["@app.manager.content_block"]]
+      - [setConfigurationManager, ["@app.manager.configuration"]]
       - [setUri, ["%google_street_view_uri%"]]
       - [setApi, ["%google_api_key_street_view%"]]
       - [setCachePaths, ["%app.sys_path.cache%", "%app.web_path.cache%"]]
@@ -74,6 +74,14 @@ services :
     tags   :
       - { name : twig.extension }
 
+  app.twig_extension.configuration:
+    class  : AppBundle\Twig\ConfigurationExtension
+    public : false
+    calls  :
+      - [setConfigurationManager, ["@app.manager.configuration"]]
+    tags   :
+      - { name : twig.extension }
+
   app.twig_extension.url_to_file:
     class  : AppBundle\Twig\UrlToFileExtension
     public : false
@@ -120,6 +128,11 @@ services :
 
   app.manager.carousel_slide :
     class : AppBundle\Manager\CarouselSlideManager
+    calls :
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.manager.configuration :
+    class : AppBundle\Manager\ConfigurationManager
     calls :
       - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
 

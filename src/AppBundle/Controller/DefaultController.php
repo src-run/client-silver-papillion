@@ -23,10 +23,12 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $count = $this->get('app.manager.configuration')->value('product.count.featured', 3);
+
         return $this->render('AppBundle:default:index.html.twig', [
             '_c' => static::class,
             'hours' => $this->get('app.manager.hours')->getAll(),
-            'featured' => $this->get('app.manager.product')->getFeatured(),
+            'featured' => $this->get('app.manager.product')->getFeatured($count),
             'feed' => $this->get('app.fb.provider.page_feed')->getFeed(),
             'staticMaps' => $this->get('app.mapper.static')->generate('420x220'),
         ]);

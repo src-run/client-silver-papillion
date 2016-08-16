@@ -3,7 +3,7 @@
  # complete fb feed listing
  #}
 
-{% for f in feed|slice(0, 12) %}
+{% for f in feed|slice(0, count) %}
     <div class="card-feed-social" id="{{ f.getId }}">
         <div class="card is-animated">
 

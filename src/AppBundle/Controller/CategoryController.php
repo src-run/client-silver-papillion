@@ -39,11 +39,14 @@ class CategoryController extends Controller
      */
     public function viewAction(Request $request, Category $category)
     {
+        $page = $request->query->getInt('p', 1);
+        $count = $this->get('app.manager.configuration')->value('product.count', 12);
+
         return $this->render('AppBundle:category:view.html.twig', [
             '_c' => static::class,
             'category' => $category,
             'categories' => $this->get('app.manager.category')->getAll(),
-            'pagination' => $this->get('app.manager.product')->getAllFromCategoryPaginated($category, $request->query->getInt('p', 1)),
+            'pagination' => $this->get('app.manager.product')->getAllFromCategoryPaginated($category, $page, $count),
         ]);
     }
 }

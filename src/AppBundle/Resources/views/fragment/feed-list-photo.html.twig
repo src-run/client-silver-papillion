@@ -3,7 +3,7 @@
  # simplified feed listing showing only media photos
  #}
 
-{% for f in feed|slice(0, 12) %}
+{% for f in feed|slice(0, count) %}
 
     <div class="card-feed-photo">
         <div class="card is-linkable is-animated" data-href="{{ url('app_feed_view', {_fragment: f.getId}) }}">

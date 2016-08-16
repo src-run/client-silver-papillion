@@ -28,13 +28,13 @@ class ProductController extends Controller
      */
     public function viewAction($productName, Product $product)
     {
+        $count = $this->get('app.manager.configuration')->value('product.count.similar', 4);
+
         return $this->render('AppBundle:product:view.html.twig', [
             '_c' => static::class,
             'product' => $product,
-            'similar' => $this->get('app.manager.product')->getRandomFromCategory($product->getCategory(), 4),
+            'similar' => $this->get('app.manager.product')->getRandomFromCategory($product->getCategory(), $count),
             'category' => $product->getCategory(),
-            'shipping_rate' => Cart::RATE_SHIPPING,
-            'tax_rate' => Cart::RATE_TAX_PERCENTAGE,
         ]);
     }
 }

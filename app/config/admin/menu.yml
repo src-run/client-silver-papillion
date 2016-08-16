@@ -19,9 +19,10 @@ easy_admin:
       - label: 'menu.meta'
         icon: 'sticky-note-o'
         children:
-          - { entity: 'Hours', icon: 'building-o', label: 'menu.hours.list' }
-          - { entity: 'ContentBlock', icon: 'th-large', label: 'menu.blocks.list' }
           - { entity: 'CarouselSlide', icon: 'image', label: 'menu.carousel.list' }
+          - { entity: 'Configuration', icon: 'cog', label: 'menu.configuration' }
+          - { entity: 'ContentBlock', icon: 'th-large', label: 'menu.blocks.list' }
+          - { entity: 'Hours', icon: 'building-o', label: 'menu.hours.list' }
 
       - label: 'menu.store'
         icon: 'money'

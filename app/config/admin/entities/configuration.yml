@@ -1,0 +1,43 @@
+---
+
+easy_admin:
+  entities:
+    Configuration:
+      class: AppBundle\Entity\Configuration
+      label: 'Configuration'
+
+      list:
+        title: '%%entity_label%%'
+
+        actions:
+
+          - name  : 'show'
+            label : 'Show'
+            icon  : 'search'
+
+          - name  : 'edit'
+            label : 'Edit'
+            icon  : 'edit'
+
+          - name  : 'delete'
+            label : 'Delete'
+            icon  : 'trash'
+
+        fields:
+
+          - index
+          - value
+
+      show:
+        fields:
+
+          - index
+          - value
+
+      form:
+        fields:
+
+          - index
+          - value
+
+...

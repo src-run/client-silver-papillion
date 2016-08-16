@@ -1025,7 +1025,7 @@ footer {
 .feed-social {
   @include make-row();
 
-  .feed-social-listing {
+  .card-feed-listing {
     @include make-sm-column(7);
   }
 

@@ -9,9 +9,10 @@
     <div class="container container-sr">
         <div class="feed-social">
 
-            <div class="feed-social-listing">
+            <div class="card-feed-listing">
                 {% include 'AppBundle:fragment:feed-list-whole.html.twig' with {
-                    'feed': feed
+                    'feed'  : feed,
+                    'count' : config('feed.news.count', 12)
                 } only %}
             </div>
 

@@ -51,7 +51,7 @@ class ContactController extends Controller
         $message = \Swift_Message::newInstance()
             ->setSubject('Website message from '.$message->getName())
             ->setFrom('no-reply@src.run')
-            ->setTo('robfrawley@gmail.com')
+            ->setTo($this->get('app.manager.configuration')->value('contact.email', 'No Email'))
             ->setReplyTo($message->getEmail())
             ->setBody(
                 $this->renderView(

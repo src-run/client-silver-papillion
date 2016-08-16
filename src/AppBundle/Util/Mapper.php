@@ -11,7 +11,7 @@
 
 namespace AppBundle\Util;
 
-use AppBundle\Manager\ContentBlockManager;
+use AppBundle\Manager\ConfigurationManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -33,9 +33,9 @@ class Mapper implements ContainerAwareInterface
     const MAX_AGE = 6000;
 
     /**
-     * @var ContentBlockManager
+     * @var ConfigurationManager
      */
-    protected $blockManager;
+    protected $configurationManager;
 
     /**
      * @var string
@@ -58,11 +58,11 @@ class Mapper implements ContainerAwareInterface
     protected $cacheWebPath;
 
     /**
-     * @param ContentBlockManager $manager
+     * @param ConfigurationManager $manager
      */
-    public function setBlockManager(ContentBlockManager $manager)
+    public function setConfigurationManager(ConfigurationManager $manager)
     {
-        $this->blockManager = $manager;
+        $this->configurationManager = $manager;
     }
 
     /**
@@ -108,7 +108,7 @@ class Mapper implements ContainerAwareInterface
      */
     protected function getAddress()
     {
-        return urlencode(strip_tags(str_replace("\r\n", '+', $this->blockManager->get('about.address')->getContent())));
+        return urlencode($this->configurationManager->value('address'));
     }
 
     /**
