@@ -5,23 +5,16 @@ easy_admin:
     Hours:
       class: AppBundle\Entity\Hours
       label: 'Hours'
+      disabled_actions: ['new', 'delete']
 
       list:
         title: '%%entity_label%%'
 
         actions:
 
-          - name  : 'show'
-            label : 'Show'
-            icon  : 'search'
-
           - name  : 'edit'
             label : 'Edit'
             icon  : 'edit'
-
-          - name  : 'delete'
-            label : 'Delete'
-            icon  : 'trash'
 
         fields:
 
@@ -38,23 +31,6 @@ easy_admin:
 
           - property  : timeClose
             label     : 'Closing'
-
-      show:
-        fields:
-
-          - property  : 'dow'
-            label     : 'Day'
-
-          - property : iso8601
-            label    : 'ISO 8601'
-
-          - closed
-
-          - property  : timeOpen
-            label     : 'Opening Time'
-
-          - property  : timeClose
-            label     : 'Closing Time'
 
       form:
         fields:

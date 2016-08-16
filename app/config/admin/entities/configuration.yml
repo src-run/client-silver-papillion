@@ -5,23 +5,16 @@ easy_admin:
     Configuration:
       class: AppBundle\Entity\Configuration
       label: 'Configuration'
+      disabled_actions: ['new', 'delete']
 
       list:
         title: '%%entity_label%%'
 
         actions:
 
-          - name  : 'show'
-            label : 'Show'
-            icon  : 'search'
-
           - name  : 'edit'
             label : 'Edit'
             icon  : 'edit'
-
-          - name  : 'delete'
-            label : 'Delete'
-            icon  : 'trash'
 
         fields:
 

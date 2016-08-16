@@ -11,10 +11,6 @@ easy_admin:
 
         actions:
 
-          - name  : 'show'
-            label : 'Show'
-            icon  : 'search'
-
           - name  : 'edit'
             label : 'Edit'
             icon  : 'edit'
