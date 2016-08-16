@@ -13,6 +13,7 @@ namespace AppBundle\Model;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
+use AppBundle\Manager\ConfigurationManager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -51,13 +52,47 @@ class Cart implements \Serializable
      */
     private $entityManager;
 
+
     /**
-     * @param Session $session
+     * @var ConfigurationManager
      */
-    public function __construct(Session $session, EntityManager $entityManager)
+    protected $configurationManager;
+
+    /**
+     * @param Session              $session
+     * @param EntityManager        $entityManager
+     * @param ConfigurationManager $configurationManager
+     */
+    public function __construct(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager)
     {
         $this->setSession($session);
         $this->setEntityManager($entityManager);
+        $this->setConfigurationManager($configurationManager);
+    }
+
+    /**
+     * @param Session              $session
+     * @param EntityManager        $entityManager
+     * @param ConfigurationManager $configurationManager
+     *on
+     * @return mixed|static
+     */
+    public static function create(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager)
+    {
+        if ($session->has(static::SESSION_KEY)) {
+            $instance = unserialize($session->get(static::SESSION_KEY));
+
+            if ($instance instanceof Cart) {
+                $instance->setSession($session);
+                $instance->setEntityManager($entityManager);
+                $instance->setConfigurationManager($configurationManager);
+                $instance->initialize();
+
+                return $instance;
+            }
+        }
+
+        return new static($session, $entityManager, $configurationManager);
     }
 
     /**
@@ -77,25 +112,11 @@ class Cart implements \Serializable
     }
 
     /**
-     * @param Session $session
-     *
-     * @return static
+     * @param ConfigurationManager $configurationManager
      */
-    public static function create(Session $session, EntityManager $entityManager)
+    public function setConfigurationManager(ConfigurationManager $configurationManager)
     {
-        if ($session->has(static::SESSION_KEY)) {
-            $instance = unserialize($session->get(static::SESSION_KEY));
-
-            if ($instance instanceof Cart) {
-                $instance->setSession($session);
-                $instance->setEntityManager($entityManager);
-                $instance->initialize();
-
-                return $instance;
-            }
-        }
-
-        return new static($session, $entityManager);
+        $this->configurationManager = $configurationManager;
     }
 
     /**
@@ -105,8 +126,7 @@ class Cart implements \Serializable
     {
         array_map(function (Product $p) {
             try {
-                $c = $this->entityManager->merge($p->getCategory());
-                if ($c instanceof Category) {
+                if (($c = $this->entityManager->merge($p->getCategory())) instanceof Category) {
                     $p->setCategory($c);
                 }
             }
@@ -245,8 +265,10 @@ class Cart implements \Serializable
      */
     public function tax()
     {
-        return array_reduce($this->items, function ($carry, Product $p) {
-            return $p->isTaxable() ? $carry + ($p->getPrice() * $p->getTaxableRate()) : $carry;
+        $taxableRate = $this->configurationManager->value('rate.taxable', Product::RATE_TAX_PERCENTAGE);
+
+        return array_reduce($this->items, function ($carry, Product $p) use ($taxableRate) {
+            return $p->isTaxable() ? $carry + ($p->getPrice() * $p->getTaxableRate($taxableRate)) : $carry;
         }, 0);
     }
 
@@ -255,8 +277,10 @@ class Cart implements \Serializable
      */
     public function shipping()
     {
-        return array_reduce($this->items, function ($carry, Product $p) {
-            return $carry + $p->getShippingRate();
+        $shippingRate = $this->configurationManager->value('rate.shipping', Product::RATE_SHIPPING_DEFAULT);
+
+        return array_reduce($this->items, function ($carry, Product $p) use ($shippingRate) {
+            return $carry + $p->getShippingRate($shippingRate);
         }, 0);
     }
 

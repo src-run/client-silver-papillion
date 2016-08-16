@@ -619,8 +619,12 @@ footer {
     .product-price-extra {
       font-size     : 12px;
       margin-bottom : 30px;
-      color         : #bbb;
+      color         : $color-gray-light;
       font-style    : italic;
+
+      em {
+        font-weight : 500;
+      }
     }
   }
 }

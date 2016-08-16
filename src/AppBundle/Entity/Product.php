@@ -422,11 +422,13 @@ class Product
     }
 
     /**
+     * @param float $default
+     *
      * @return float
      */
-    public function getShippingRate()
+    public function getShippingRate($default = self::RATE_SHIPPING_DEFAULT)
     {
-        return $this->hasShipping() ? $this->getShipping() : self::RATE_SHIPPING_DEFAULT;
+        return $this->hasShipping() ? $this->getShipping() : $default;
     }
 
     /**
@@ -450,15 +452,13 @@ class Product
     }
 
     /**
+     * @param float $default
+     *
      * @return float
      */
-    public function getTaxableRate()
+    public function getTaxableRate($default = self::RATE_TAX_PERCENTAGE)
     {
-        if ($this->isTaxable()) {
-            return self::RATE_TAX_PERCENTAGE;
-        }
-
-        return 0.0;
+        return $this->isTaxable() ? $default : 0.0;
     }
 
     /**

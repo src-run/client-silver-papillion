@@ -8,6 +8,7 @@ services :
     arguments :
       - "@session"
       - "@doctrine.orm.default_entity_manager"
+      - "@app.manager.configuration"
 
   app.slugger :
     class : AppBundle\Util\Slugger
