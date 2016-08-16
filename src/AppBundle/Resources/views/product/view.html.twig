@@ -39,7 +39,7 @@
 
                     <div class="product-price">
                         <p class="product-price-main">${{ product.getPrice|number_format(2, '.', ',') }}</p>
-                        <p class="product-price-extra">Plus ${{ product.getShippingRate|number_format(2, '.', ',') }} shipping per unit{% if product.isTaxable %}, and {{ product.getTaxableRate|number_format(3, '.', ',') }}% sales tax{% endif %}.</p>
+                        <p class="product-price-extra">Plus ${{ product.getShippingRate|number_format(2, '.', ',') }} shipping per unit{% if product.isTaxable %}, and {{ product.getTaxableRate|number_format(4, '.', ',') }}% sales tax{% endif %}.</p>
                     </div>
 
                     <div class="product-action">

@@ -24,12 +24,12 @@ class Product
     /**
      * @var float
      */
-    const RATE_SHIPPING_DEFAULT = 6.40;
+    const RATE_SHIPPING_DEFAULT = 13.45;
 
     /**
      * @var float
      */
-    const RATE_TAX_PERCENTAGE = 0.065;
+    const RATE_TAX_PERCENTAGE = 0.0635;
 
     /**
      * @var int|null
