@@ -17,13 +17,15 @@ $(document).ready(function () {
    * SIMPLE LOGGER
    */
 
-  var logger = (function () {
+  var logger = (function (window) {
     /**
      * @param {string} type
      * @param {string} message
      */
     function log(type, message) {
-      console.log(type.toUpperCase() + ': ' + message); // @todo: write proper implementation for logger!
+      if (window.console) {
+        console.log(type.toUpperCase() + ': ' + message); // @todo: write proper implementation for logger!
+      }
     }
 
     /**
@@ -45,7 +47,7 @@ $(document).ready(function () {
       error: logRuntimeError,
       exception: logCaughtException
     };
-  })();
+  })(window);
 
 
   /**
@@ -271,7 +273,7 @@ $(document).ready(function () {
    * LIGHTBOX SETUP
    */
 
-  var lightBoxSetup = (function ($) {
+  var lightBoxSetup = (function () {
 
     function initLightBox() {
       var lightBox = new Lightbox();
@@ -282,7 +284,45 @@ $(document).ready(function () {
     return {
       init: initLightBox
     };
-  })(jQuery);
+  })();
+
+
+  /**
+   * SMOOTH SCROLL SETUP
+   */
+
+  var smoothScrollSetup = (function (window, document, $) {
+
+    var options = {
+      offset: 400
+    };
+
+    function initSmoothScroll() {
+
+      $(document)
+          .on('click', 'a[href*="#"]', function () {
+            if (this.hash && this.pathname === location.pathname) {
+              $.bbq.pushState('#/' + this.hash.slice(1));
+              return false;
+            }
+          })
+          .ready(function () {
+            $(window).bind('hashchange', function (event) {
+              var tgt = location.hash.replace(/^#\/?/,'');
+              if (document.getElementById(tgt)) {
+                $.smoothScroll({scrollTarget: '#' + tgt, offset: -100});
+              }
+            });
+
+            $(window).trigger('hashchange');
+          });
+    }
+
+    // expose class with methods to internal functions
+    return {
+      init: initSmoothScroll
+    };
+  })(window, document, jQuery);
 
 
   /**
@@ -292,7 +332,10 @@ $(document).ready(function () {
   (function () {
 
     carouselSetup.init('.carousel', 6000);
+
     lightBoxSetup.init();
+
+    smoothScrollSetup.init();
 
     registerEvent.onClick('.card-product .card', function (event) {
       helpers.followLink(linkResolver.resolve(event.target));

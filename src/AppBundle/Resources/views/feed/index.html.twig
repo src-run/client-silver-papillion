@@ -12,7 +12,7 @@
             <div class="card-feed-listing">
                 {% include 'AppBundle:fragment:feed-list-whole.html.twig' with {
                     'feed'  : feed,
-                    'count' : config('feed.news.count', 12)
+                    'count' : config('feed.count.news', 12)
                 } only %}
             </div>
 

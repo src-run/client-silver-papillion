@@ -43,7 +43,7 @@
             <div class="card-listing">
                 {% include 'AppBundle:fragment:feed-list-photo.html.twig' with {
                     'feed'  : feed,
-                    'count' : config('feed.photos.count', 12)
+                    'count' : config('feed.count.photos', 12)
                 } only %}
             </div>
 

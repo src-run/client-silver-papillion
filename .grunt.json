@@ -64,6 +64,12 @@
         "img": "${paths.plug-jslghtbx.root}img/"
       }
     },
+    "plug-smooth-scroll": {
+      "root": "web/components/jquery-smooth-scroll/",
+      "in"  : {
+        "scr": "${paths.plug-smooth-scroll.root}"
+      }
+    },
     "plug-all": {
       "to": {
         "scr": "${paths.app.to.scr}plugins.js"
@@ -127,6 +133,11 @@
       "in": {
         "scr": "${paths.plug-jslghtbx.in.scr}lightbox.js",
         "css": "${paths.plug-jslghtbx.in.css}lightbox.scss"
+      }
+    },
+    "plug-smooth-scroll" : {
+      "in": {
+        "scr": "${paths.plug-smooth-scroll.in.scr}jquery.smooth-scroll.js"
       }
     }
   },
