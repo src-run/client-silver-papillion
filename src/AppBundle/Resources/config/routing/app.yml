@@ -9,11 +9,16 @@
 #
 
 app_root:
-  path     : /
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /home
+        permanent: true
+
+app_home:
+  path     : /home
   defaults :
     _controller : AppBundle:Default:index
-    route       : easyadmin
-    permanent   : true
 
 app_category_list:
   path     : /store/list
