@@ -10,10 +10,14 @@
         <div class="feed-social">
 
             <div class="card-feed-listing">
-                {% include 'AppBundle:fragment:feed-list-whole.html.twig' with {
-                    'feed'  : feed,
-                    'count' : config('feed.count.news', 12)
-                } only %}
+                {% if has_fb_feed() %}
+                    {% include 'AppBundle:fragment:feed-list-whole.html.twig' with {
+                        'feed'  : get_fb_feed(),
+                        'count' : config('feed.count.news', 12)
+                    } only %}
+                {% else %}
+                    <p>Could not get news feed from Facebook API at this time.</p>
+                {% endif %}
             </div>
 
             <div class="feed-social-link">

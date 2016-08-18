@@ -98,6 +98,14 @@ services :
     tags   :
       - { name : twig.extension }
 
+  app.twig_extension.fb:
+    class  : AppBundle\Twig\FacebookExtension
+    public : false
+    calls  :
+      - [setProvider, ["@app.fb.provider.page_feed"]]
+    tags   :
+      - { name : twig.extension }
+
   app.twig_extension.vich_file_path:
     class  : AppBundle\Twig\VichFilePathExtension
     public : false

@@ -129,11 +129,26 @@ class PageFeedProvider implements FeedProviderInterface
     }
 
     /**
+     * @return bool
+     */
+    public function hasFeed()
+    {
+        try {
+            $this->getFeed();
+        }
+        catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @return PageFeed
      */
     public function getFeed()
     {
-        $response = $this->cache->getItem('facebook.sdk.response.feed');
+        $response = $this->cache->getItem('facebook.feed');
 
         if (!$response->isHit()) {
             $response->set($this->getFacebookSdkEndpointRequest());
@@ -193,8 +208,8 @@ class PageFeedProvider implements FeedProviderInterface
         }
         catch(FacebookSDKException $exception) {
             throw FacebookException::create()
-                ->setMessage('An error occured while requesting a Facebook API endpoint "%s"')
-                ->with($this->getFeedUrl(), $exception);
+                ->setMessage('An error occured while requesting a Facebook API endpoint "%s": "%s"')
+                ->with($this->getFeedUrl(), $exception->getMessage(), $exception);
         }
 
         if ($response !== null) {

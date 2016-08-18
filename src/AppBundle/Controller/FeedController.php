@@ -26,8 +26,6 @@ class FeedController extends Controller
     {
         return $this->render('AppBundle:feed:index.html.twig', [
             '_c' => static::class,
-            'categories' => $this->get('app.manager.category')->getAll(),
-            'feed' => $this->get('app.fb.provider.page_feed')->getFeed(),
         ]);
     }
 }

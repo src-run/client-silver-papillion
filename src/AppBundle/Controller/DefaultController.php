@@ -29,7 +29,6 @@ class DefaultController extends Controller
             '_c' => static::class,
             'hours' => $this->get('app.manager.hours')->getAll(),
             'featured' => $this->get('app.manager.product')->getFeatured($count),
-            'feed' => $this->get('app.fb.provider.page_feed')->getFeed(),
             'staticMaps' => $this->get('app.mapper.static')->generate('420x220'),
         ]);
     }

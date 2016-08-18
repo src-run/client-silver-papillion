@@ -39,9 +39,11 @@
                         <a href="/"><i class="fa fa-home"></i> Home</a>
                     </li>
 
-                    <li class="{% if 'Feed' in _c %}active{% endif %}">
-                        <a href="{{ url('app_feed_view') }}"><i class="fa fa-newspaper-o"></i> News</a>
-                    </li>
+                    {% if has_fb_feed() %}
+                        <li class="{% if 'Feed' in _c %}active{% endif %}">
+                            <a href="{{ url('app_feed_view') }}"><i class="fa fa-newspaper-o"></i> News</a>
+                        </li>
+                    {% endif %}
 
                     <li class="{% if 'Category' in _c %}active{% endif %} dropdown">
 

@@ -11,12 +11,22 @@
 
 namespace AppBundle\Component\Facebook\Provider;
 
+use AppBundle\Component\Facebook\Model\Feed\Page\PageFeed;
+
 /**
  * Category FeedProviderInterface
  */
 interface FeedProviderInterface
 {
+    /**
+     * @return PageFeed
+     */
     public function getFeed();
+
+    /**
+     * @return bool
+     */
+    public function hasFeed();
 }
 
 /* EOF */

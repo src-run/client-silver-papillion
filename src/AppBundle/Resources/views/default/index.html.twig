@@ -33,24 +33,28 @@
 
     </div>
 
-    <div class="container-sr-odd">
-        <div class="container">
+    {% if has_fb_feed() %}
 
-            <h2 class="primary-hr-i">
-                <i class="fa fa-facebook-official"></i> Shared <em>Photos</em>
-            </h2>
+        <div class="container-sr-odd">
+            <div class="container">
 
-            <div class="card-listing">
-                {% include 'AppBundle:fragment:feed-list-photo.html.twig' with {
-                    'feed'  : feed,
-                    'count' : config('feed.count.photos', 12)
-                } only %}
+                <h2 class="primary-hr-i">
+                    <i class="fa fa-facebook-official"></i> Shared <em>Photos</em>
+                </h2>
+
+                <div class="card-listing">
+                    {% include 'AppBundle:fragment:feed-list-photo.html.twig' with {
+                        'feed'  : get_fb_feed(),
+                        'count' : config('feed.count.photos', 12)
+                    } only %}
+                </div>
+
+                <a href="{{ path('app_feed_view') }}" class="pull-right btn btn-primary">View All Shared Items <i class="fa fa-long-arrow-right"></i></a>
+
             </div>
-
-            <a href="{{ path('app_feed_view') }}" class="pull-right btn btn-primary">View All Shared Items <i class="fa fa-long-arrow-right"></i></a>
-
         </div>
-    </div>
+
+    {% endif %}
 
     <div class="container container-sr">
         <div class="index-about">
