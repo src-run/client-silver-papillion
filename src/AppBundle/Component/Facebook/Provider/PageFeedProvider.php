@@ -21,6 +21,7 @@ use Facebook\FacebookApp;
 use Facebook\FacebookClient;
 use Facebook\FacebookResponse;
 use Symfony\Component\Cache\Adapter\AbstractAdapter;
+use Symfony\Component\Cache\CacheItem;
 
 /**
  * Category PageFeedProvider
@@ -55,9 +56,9 @@ class PageFeedProvider implements FeedProviderInterface
     ];
 
     /**
-     * @var Facebook
+     * @var PageFeed|null
      */
-    private $fb;
+    private static $feed;
 
     /**
      * @var int
@@ -133,30 +134,44 @@ class PageFeedProvider implements FeedProviderInterface
      */
     public function hasFeed()
     {
-        try {
-            $this->getFeed();
-        }
-        catch (\Exception $e) {
-            return false;
-        }
-
-        return true;
+        return $this->getFeed() === false ? false : true;
     }
 
     /**
-     * @return PageFeed
+     * @return PageFeed|bool
      */
     public function getFeed()
     {
-        $response = $this->cache->getItem('facebook.feed');
+        $response = $this->cache->getItem('facebook.feed.'.md5($this->getFeedUrl()));
 
         if (!$response->isHit()) {
-            $response->set($this->getFacebookSdkEndpointRequest());
-            $response->expiresAfter(new \DateInterval('P1D'));
-            $this->cache->save($response);
+            $this->fetchFeed($response);
+        }
+
+        if ($response->get() === null) {
+            return false;
         }
 
         return $this->hydrateResponse($response->get());
+    }
+
+    /**
+     * @param CacheItem $response
+     *
+     * @return bool
+     */
+    private function fetchFeed(CacheItem $response)
+    {
+        try {
+            $response->set($this->getFacebookSdkEndpointRequest());
+            $response->expiresAfter(new \DateInterval('P1D'));
+        }
+        catch (\Exception $e) {
+            $response->set(null);
+            $response->expiresAfter(new \DateInterval('PT1H'));
+        }
+
+        return $this->cache->save($response);
     }
 
     /**
