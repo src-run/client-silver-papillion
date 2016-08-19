@@ -709,6 +709,69 @@ footer {
   }
 }
 
+.legal {
+  &.legal-tos, &.legal-privacy {
+    @include make-row();
+
+    .section-tos-body, .section-privacy-body {
+      @include make-sm-column(7);
+
+      .legal-modified h4 {
+        margin    : -9px 0 36px 0;
+        font-size : 14px;
+        color     : $color-gray-light;
+
+        em {
+          font-style  : normal;
+          font-weight : 400;
+        }
+      }
+
+      .legal-body {
+        p {
+          font-size   : 14px;
+          line-height : 29px;
+          font-weight : 300;
+        }
+
+        h5 {
+          margin         : 29px 0 18px 0;
+          font-weight    : 100;
+          font-size      : $font-size-h3;
+          color          : $color-primary;
+
+          em {
+            display        : block;
+            margin-top     : 6px;
+            font-style     : normal;
+            font-weight    : 400;
+            font-size      : $font-size-h6;
+            color          : $color-accent;
+            text-transform : uppercase;
+          }
+        }
+
+        ul li {
+          font-weight : 300;
+        }
+      }
+    }
+
+    .section-tos-more, .section-privacy-more {
+      @include make-sm-column(4);
+      @include make-sm-column-offset(1);
+
+      .card {
+        padding : 0 29px 29px 29px;
+
+        .btn {
+          margin-top : 29px;
+        }
+      }
+    }
+  }
+}
+
 .index-about {
   @include make-row();
 

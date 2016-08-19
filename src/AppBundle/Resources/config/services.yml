@@ -92,6 +92,19 @@ services :
     tags   :
       - { name : twig.extension }
 
+  app.twig_extension.modified:
+    class     : AppBundle\Twig\ModifiedExtension
+    public    : false
+    arguments :
+      - '@app.twig_locator'
+    tags      :
+      - { name : twig.extension }
+
+  app.twig_locator:
+    class     : AppBundle\Twig\Locator\TemplateLocator
+    arguments :
+      - '@twig.loader'
+
   app.twig_extension.moment:
     class  : SR\WonkaBundle\Twig\MomentTwigExtension
     public : false
@@ -147,6 +160,13 @@ services :
 
   app.fb.provider.page_feed :
     class     : AppBundle\Component\Facebook\Provider\PageFeedProvider
+    arguments :
+      - '@app.fb.auth'
+    calls :
+      - [setCache, ['@cache.app']]
+
+  app.fb.auth :
+    class     : AppBundle\Component\Facebook\Authentication\AuthenticationServerSide
     arguments :
       - '%facebook_page_id%'
       - '%facebook_app_id%'
