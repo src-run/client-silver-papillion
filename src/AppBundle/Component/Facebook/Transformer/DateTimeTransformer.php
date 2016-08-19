@@ -38,10 +38,6 @@ class DateTimeTransformer implements TransformerInterface
             return $dateTime;
         }
 
-        dump($dateTime);
-        dump($dateTime->format(static::DATE_FORMAT));
-        dump($data);
-
         throw FacebookException::create()
             ->setMessage('Could not transform data value (%s) to \DateTime object instance.')
             ->with($data);
