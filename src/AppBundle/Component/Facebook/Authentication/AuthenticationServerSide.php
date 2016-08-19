@@ -9,56 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Component\Facebook\Provider;
+namespace AppBundle\Component\Facebook\Authentication;
 
-use AppBundle\Component\Facebook\Exception\FacebookException;
-use AppBundle\Component\Facebook\Model\Feed\Page\PageFeed;
-use Facebook\Authentication\AccessToken;
-use Facebook\Authentication\OAuth2Client;
-use Facebook\Exceptions\FacebookSDKException;
+use AppBundle\Component\Facebook\Factory\FacebookFactory;
 use Facebook\Facebook;
-use Facebook\FacebookApp;
-use Facebook\FacebookClient;
-use Facebook\FacebookResponse;
 use Symfony\Component\Cache\Adapter\AbstractAdapter;
-use Symfony\Component\Cache\CacheItem;
 
 /**
- * Category PageFeedProvider
+ * Category AuthenticationServerSide
  */
-class PageFeedProvider implements FeedProviderInterface
+class AuthenticationServerSide implements AuthenticationInterface
 {
-    const REQUEST_ROOT = '/%PAGEID%';
-    const REQUEST_FIELDS = [
-        'feed' => [
-            'id',
-            'permalink_url',
-            'created_time',
-            'is_published',
-            'admin_creator',
-            'message',
-            'caption',
-            'description',
-            'from',
-            'icon',
-            'link',
-            'name',
-            'picture',
-            'source',
-            'status_type',
-            'type',
-            'sharedposts',
-            'story',
-            'attachments',
-            'comments',
-            'reactions',
-        ]
-    ];
-
     /**
-     * @var PageFeed|null
+     * @var string
      */
-    private static $feed;
+    const OAUTH_ENDPOINT = '/oauth/access_token';
 
     /**
      * @var int
@@ -81,31 +46,6 @@ class PageFeedProvider implements FeedProviderInterface
     private $graphVersion;
 
     /**
-     * @var Facebook
-     */
-    private $facebook;
-
-    /**
-     * @var FacebookApp
-     */
-    private $app;
-
-    /**
-     * @var FacebookClient
-     */
-    private $client;
-
-    /**
-     * @var OAuth2Client|null
-     */
-    private $oAuthClient;
-
-    /**
-     * @var AccessToken|null
-     */
-    private $accessToken;
-
-    /**
      * @var AbstractAdapter
      */
     private $cache;
@@ -118,170 +58,124 @@ class PageFeedProvider implements FeedProviderInterface
      */
     public function __construct($pageId, $appId, $appSecret, $graphVersion = 'v2.6')
     {
+        $this->setPageId($pageId);
+        $this->setAppId($appId);
+        $this->setAppSecret($appSecret);
+        $this->setGraphVersion($graphVersion);
+    }
+
+    /**
+     * @return int
+     */
+    public function getPageId()
+    {
+        return $this->pageId;
+    }
+
+    /**
+     * @param int $pageId
+     */
+    public function setPageId($pageId)
+    {
         $this->pageId = $pageId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAppId()
+    {
+        return $this->appId;
+    }
+
+    /**
+     * @param int $appId
+     */
+    public function setAppId($appId)
+    {
         $this->appId = $appId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppSecret()
+    {
+        return $this->appSecret;
+    }
+
+    /**
+     * @param string $appSecret
+     */
+    public function setAppSecret($appSecret)
+    {
         $this->appSecret = $appSecret;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGraphVersion()
+    {
+        return $this->graphVersion;
+    }
+
+    /**
+     * @param string $graphVersion
+     */
+    public function setGraphVersion($graphVersion)
+    {
         $this->graphVersion = $graphVersion;
     }
 
+    /**
+     * @param AbstractAdapter $cache
+     */
     public function setCache(AbstractAdapter $cache)
     {
         $this->cache = $cache;
     }
 
     /**
-     * @return bool
+     * @return TokenInterface
      */
-    public function hasFeed()
-    {
-        return $this->getFeed() === false ? false : true;
-    }
-
-    /**
-     * @return PageFeed|bool
-     */
-    public function getFeed()
-    {
-        $response = $this->cache->getItem('facebook.feed.'.md5($this->getFeedUrl()));
-
-        if (!$response->isHit()) {
-            $this->fetchFeed($response);
-        }
-
-        if ($response->get() === null) {
-            return false;
-        }
-
-        return $this->hydrateResponse($response->get());
-    }
-
-    /**
-     * @param CacheItem $response
-     *
-     * @return bool
-     */
-    private function fetchFeed(CacheItem $response)
+    public function getAuthorization()
     {
         try {
-            $response->set($this->getFacebookSdkEndpointRequest());
-            $response->expiresAfter(new \DateInterval('P1D'));
+            $facebook = FacebookFactory::create($this->getAppId(), $this->getAppSecret(), $this->getGraphVersion());
+
+            return Token::create($this->getTokenRequest($facebook));
         }
         catch (\Exception $e) {
-            $response->set(null);
-            $response->expiresAfter(new \DateInterval('PT1H'));
-        }
-
-        return $this->cache->save($response);
-    }
-
-    /**
-     * @return string
-     */
-    public function getFeedUrl()
-    {
-        return str_replace('%PAGEID%', $this->pageId, static::REQUEST_ROOT).$this->getFeedArgs();
-    }
-
-    /**
-     * @param FacebookResponse $response
-     *
-     * @return PageFeed
-     */
-    private function hydrateResponse(FacebookResponse $response)
-    {
-        $feed = PageFeed::create($response->getDecodedBody(), $this->pageId);
-
-        return $feed;
-    }
-
-    /**
-     * @return string
-     */
-    private function getFeedArgs()
-    {
-        $argString = '?';
-
-        foreach (static::REQUEST_FIELDS as $field => $args) {
-            $argString .= sprintf('fields=%s{%s}&', $field, implode(',', $args));
-        }
-
-        return $argString;
-    }
-
-    /**
-     * @return \Facebook\FacebookResponse
-     *
-     * @throws FacebookException
-     */
-    private function getFacebookSdkEndpointRequest()
-    {
-        $this->initializeFacebookSdkInstance();
-        $response = null;
-
-        try {
-            $response = $this->facebook->get($this->getFeedUrl(), $this->app->getAccessToken());
-        }
-        catch(FacebookSDKException $exception) {
-            throw FacebookException::create()
-                ->setMessage('An error occured while requesting a Facebook API endpoint "%s": "%s"')
-                ->with($this->getFeedUrl(), $exception->getMessage(), $exception);
-        }
-
-        if ($response !== null) {
-            return $response;
-        }
-
-        throw FacebookException::create()
-            ->setMessage('The Facebook API endpoint request returned a null result for endpoint "%s"')
-            ->with($this->getFeedUrl());
-    }
-
-    /**
-     * @return $this
-     *
-     * @throws FacebookException
-     */
-    private function initializeFacebookSdkInstance()
-    {
-        try {
-            $facebook = (new Facebook([
-                'app_id' => $this->appId,
-                'app_secret' => $this->appSecret,
-                'default_graph_version' => $this->graphVersion,
-            ]));
-
-            return $this->hydratePropertiesFromFacebookObjectInstance($facebook);
-        }
-        catch (FacebookSDKException $exception) {
-            throw FacebookException::create()
-                ->setMessage('Could not instantiate Facebook SDK object instance: %s.')
-                ->with($exception->getMessage(), $exception);
+            return Token::create(null);
         }
     }
 
     /**
      * @param Facebook $facebook
      *
-     * @return $this
-     *
-     * @throws FacebookException
+     * @return string
      */
-    private function hydratePropertiesFromFacebookObjectInstance(Facebook $facebook)
+    private function getTokenRequest(Facebook $facebook)
     {
-        $this->app = $app = $facebook->getApp();
+        $request = $facebook->get($this->getTokenEndpoint(), $facebook->getApp()->getAccessToken());
+        $graph = $request->getGraphNode();
 
-        if ((int) $this->appId === (int) $app->getId()) {
-            $this->facebook = $facebook;
-            $this->client = $facebook->getClient();
-            $this->oAuthClient = $facebook->getOAuth2Client();
-            $this->accessToken = $app->getAccessToken();
+        return $graph->getField('access_token');
+    }
 
-            return $this;
-        }
+    /**
+     * @return string
+     */
+    private function getTokenEndpoint()
+    {
+        $query = http_build_query([
+            'client_id' => $this->appId,
+            'client_secret' => $this->appSecret,
+            'grant_type' => 'client_credentials',
+        ]);
 
-        throw FacebookException::create()
-            ->setMessage('Locally configured app_id (%s), used to send the request, does not match the app_id (%s) that was returned in the response.')
-            ->with($app->getId(), $this->appId);
+        return sprintf('%s?%s', self::OAUTH_ENDPOINT, $query);
     }
 }
 

@@ -12,14 +12,54 @@
 namespace AppBundle\Component\Facebook\Authentication;
 
 /**
- * Category AuthenticationInterface
+ * Interface AuthenticationInterface
  */
 interface AuthenticationInterface
 {
     /**
      * @return TokenInterface
      */
-    public function getToken();
+    public function getAuthorization();
+
+    /**
+     * @return int
+     */
+    public function getPageId();
+
+    /**
+     * @param int $pageId
+     */
+    public function setPageId($pageId);
+
+    /**
+     * @return int
+     */
+    public function getAppId();
+
+    /**
+     * @param int $appId
+     */
+    public function setAppId($appId);
+
+    /**
+     * @return string
+     */
+    public function getAppSecret();
+
+    /**
+     * @param string $appSecret
+     */
+    public function setAppSecret($appSecret);
+
+    /**
+     * @return string
+     */
+    public function getGraphVersion();
+
+    /**
+     * @param string $graphVersion
+     */
+    public function setGraphVersion($graphVersion);
 }
 
 /* EOF */

@@ -28,6 +28,26 @@ class FeedController extends Controller
             '_c' => static::class,
         ]);
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function fragmentAction()
+    {
+        return $this->render('AppBundle:feed:feed.html.twig', [
+            '_c' => static::class,
+        ]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function fragmentPhotosAction()
+    {
+        return $this->render('AppBundle:feed:photos.html.twig', [
+            '_c' => static::class,
+        ]);
+    }
 }
 
 /* EOF */

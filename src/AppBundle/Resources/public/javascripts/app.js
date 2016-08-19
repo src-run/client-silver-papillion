@@ -326,6 +326,150 @@ $(document).ready(function () {
 
 
   /**
+   * EVENTS
+   */
+
+  var events = (function (document, $) {
+
+    function initCardProduct() {
+      registerEvent.onClick('.card-product .card', function (event) {
+        helpers.followLink(linkResolver.resolve(event.target));
+      });
+    }
+
+    function initCardProductFeatured() {
+      registerEvent.onClick('.card-product-featured .card', function (event) {
+        helpers.followLink(linkResolver.resolve(event.target));
+      });
+    }
+
+    function initCardProductSimilar() {
+      registerEvent.onClick('.card-product-similar .card', function (event) {
+        helpers.followLink(linkResolver.resolve(event.target));
+      });
+    }
+
+    function initCardCategory() {
+      registerEvent.onClick('.card-product-category .card', function (event) {
+        helpers.followLink(linkResolver.resolve(event.target));
+      });
+    }
+
+    function initCardFeedPhotos() {
+      registerEvent.onClick('.card-feed-photo .card', function (event) {
+        helpers.followLink(linkResolver.resolve(event.target));
+      });
+    }
+
+    function initCardFeedAttachment() {
+      registerEvent.onClick('.card-feed-attachment .card', function (event) {
+        helpers.followLink(linkResolver.resolve(event.target));
+      });
+    }
+
+    function initCardMap() {
+      registerEvent.onClick('.about-map .card', function (event) {
+        helpers.followLink(linkResolver.resolve(event.target));
+      });
+    }
+
+    function initDeprecated() {
+      registerEvent.onClick('.card-feed-main .card', function (event) {
+        helpers.followLink(linkResolver.resolve(event.target));
+      });
+
+      registerEvent.onClick('.feed-post', function (event) {
+        helpers.followLink(linkResolver.resolve(event.target));
+      });
+    }
+
+    function init() {
+      initCardProduct();
+      initCardProductFeatured();
+      initCardProductSimilar();
+      initCardCategory();
+      initCardFeedPhotos();
+      initCardFeedAttachment();
+      initCardMap();
+    }
+
+    // expose class with methods to internal functions
+    return {
+      init: init,
+      initCardFeedPhotos: initCardFeedPhotos,
+      initCardFeedAttachment: initCardFeedAttachment
+    };
+  })(document, jQuery);
+
+
+  /**
+   * FEED FETCHER
+   */
+
+  var feedFetch = (function (document, $, lightBox, events) {
+
+    var navItem = $('#navbar-nav-feed');
+
+    function init() {
+      initFeedItems();
+      initFeedPhotos();
+    }
+
+    function initFeedItems() {
+      var feed = $('#feed-listing');
+      var href = feed.data('href');
+
+      if (!feed || !href) {
+        return;
+      }
+
+      $.ajax({
+        url: href,
+        context: document.body
+      }).done(function(data) {
+        feed.html(data);
+        navItem.removeClass('hidden');
+        events.initCardFeedAttachment();
+        lightBox.init();
+      }).fail(function() {
+        $(feed.find('.fa-spin')).removeClass('fa-refresh')
+            .removeClass('fa-spin')
+            .addClass('fa-times');
+        $(feed.find('p')).html('An error occured while loading feed.');
+      });
+    }
+
+    function initFeedPhotos() {
+      var feed = $('#feed-photos');
+      var href = feed.data('href');
+
+      if (!feed || !href) {
+        return;
+      }
+
+      $.ajax({
+        url: href,
+        context: document.body
+      }).done(function(data) {
+        feed.html(data);
+        navItem.removeClass('hidden');
+        events.initCardFeedPhotos();
+      }).fail(function() {
+        $(feed.find('.fa-spin')).removeClass('fa-refresh')
+            .removeClass('fa-spin')
+            .addClass('fa-times');
+        $(feed.find('p')).html('An error occured while loading feed photos.');
+      });
+    }
+
+    // expose class with methods to internal functions
+    return {
+      init: init
+    };
+  })(document, jQuery, lightBoxSetup, events);
+
+
+  /**
    * SILVER PAPILLON APP
    */
 
@@ -333,45 +477,15 @@ $(document).ready(function () {
 
     carouselSetup.init('.carousel', 6000);
 
-    lightBoxSetup.init();
-
     smoothScrollSetup.init();
 
-    registerEvent.onClick('.card-product .card', function (event) {
-      helpers.followLink(linkResolver.resolve(event.target));
-    });
+    feedFetch.init();
 
-    registerEvent.onClick('.card-product-featured .card', function (event) {
-      helpers.followLink(linkResolver.resolve(event.target));
-    });
+    events.init();
 
-    registerEvent.onClick('.card-product-similar .card', function (event) {
-      helpers.followLink(linkResolver.resolve(event.target));
-    });
-
-    registerEvent.onClick('.card-product-category .card', function (event) {
-      helpers.followLink(linkResolver.resolve(event.target));
-    });
-
-    registerEvent.onClick('.card-feed-main .card', function (event) {
-      helpers.followLink(linkResolver.resolve(event.target));
-    });
-
-    registerEvent.onClick('.card-feed-photo .card', function (event) {
-      helpers.followLink(linkResolver.resolve(event.target));
-    });
-
-    registerEvent.onClick('.about-map .card', function (event) {
-      helpers.followLink(linkResolver.resolve(event.target));
-    });
-
-    registerEvent.onClick('.feed-post', function (event) {
-      helpers.followLink(linkResolver.resolve(event.target));
-    });
-
-    registerEvent.onClick('.card-feed-attachment .card', function (event) {
-      helpers.followLink(linkResolver.resolve(event.target));
-    });
+    if ($('.feed-post-attachments').length > 0) {
+      lightBoxSetup.init();
+    }
 
     registerEvent.on('show.bs.dropdown', '.dropdown', function(event) {
       $(this).find('.dropdown-menu').first().stop(true, true).slideDown();

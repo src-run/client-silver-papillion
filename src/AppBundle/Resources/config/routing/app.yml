@@ -112,6 +112,16 @@ app_feed_view:
   defaults :
     _controller : AppBundle:Feed:index
 
+app_fragment_feed:
+  path     : /fragment/feed
+  defaults :
+    _controller : AppBundle:Feed:fragment
+
+app_fragment_feed_photos:
+  path     : /fragment/feed/photos
+  defaults :
+    _controller : AppBundle:Feed:fragmentPhotos
+
 app_account_view:
   path     : /account
   defaults :

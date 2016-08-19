@@ -28,9 +28,8 @@ class PageFeed extends AbstractModel implements \IteratorAggregate
      * @var array[]
      */
     const MAPPING_DEFINITION = [
-        'feed' => [
+        'items' => [
             'object_fqcn' => FeedItem::class,
-            'to_property' => 'items',
             'object_coll' => true,
         ],
     ];

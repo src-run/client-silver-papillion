@@ -12,7 +12,7 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Component\Facebook\Model\Feed\Page\PageFeed;
-use AppBundle\Component\Facebook\Provider\FeedProviderInterface;
+use AppBundle\Component\Facebook\Provider\ProviderInterface;
 
 /**
  * Class FacebookExtension
@@ -20,14 +20,14 @@ use AppBundle\Component\Facebook\Provider\FeedProviderInterface;
 class FacebookExtension extends \Twig_Extension
 {
     /**
-     * @var FeedProviderInterface
+     * @var ProviderInterface
      */
     private $provider;
 
     /**
      * @param Slugger $slugger
      */
-    public function setProvider(FeedProviderInterface $provider)
+    public function setProvider(ProviderInterface $provider)
     {
         $this->provider = $provider;
     }
@@ -40,6 +40,8 @@ class FacebookExtension extends \Twig_Extension
         return array(
             new \Twig_Function('has_fb_feed', [$this, 'hasFacebookFeed']),
             new \Twig_Function('get_fb_feed', [$this, 'getFacebookFeed']),
+            new \Twig_Function('has_fb_feed_cached', [$this, 'hasFacebookFeedCached']),
+            new \Twig_Function('get_fb_feed_cached', [$this, 'getFacebookFeedCached']),
         );
     }
 
@@ -48,7 +50,7 @@ class FacebookExtension extends \Twig_Extension
      */
     public function hasFacebookFeed()
     {
-        return $this->provider->hasFeed();
+        return $this->provider->has();
     }
 
     /**
@@ -56,7 +58,23 @@ class FacebookExtension extends \Twig_Extension
      */
     public function getFacebookFeed()
     {
-        return $this->provider->getFeed();
+        return $this->provider->get();
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasFacebookFeedCached()
+    {
+        return $this->provider->hasCached();
+    }
+
+    /**
+     * @return PageFeed
+     */
+    public function getFacebookFeedCached()
+    {
+        return $this->provider->getCached();
     }
 
     /**

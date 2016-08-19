@@ -159,7 +159,7 @@ services :
       - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
 
   app.fb.provider.page_feed :
-    class     : AppBundle\Component\Facebook\Provider\PageFeedProvider
+    class     : AppBundle\Component\Facebook\Provider\FeedProvider
     arguments :
       - '@app.fb.auth'
     calls :

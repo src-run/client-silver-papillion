@@ -1,0 +1,11 @@
+{% if has_fb_feed() %}
+    {% include 'AppBundle:fragment:feed-list-whole.html.twig' with {
+    'feed'  : get_fb_feed(),
+    'count' : config('feed.count.news', 12)
+    } only %}
+{% else %}
+    {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
+    'icon'       : 'fa-times',
+    'text'       : 'Could not load feed.'
+    } only %}
+{% endif %}

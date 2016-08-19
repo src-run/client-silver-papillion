@@ -289,6 +289,30 @@ class FeedItem extends AbstractModel
     {
         return $this->reactions !== null;
     }
+
+    /**
+     * @return string
+     */
+    public function getSourceLink()
+    {
+        return $this->sourceLink;
+    }
+
+    /**
+     * @param string $sourceLink
+     */
+    public function setSourceLink($sourceLink)
+    {
+        $this->sourceLink = $sourceLink;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSourceLink()
+    {
+        return $this->sourceLink !== null;
+    }
 }
 
 /* EOF */

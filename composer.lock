@@ -1057,16 +1057,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.20",
+            "version": "v2.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "24cd861d755282f4c9fb1c8f4634ffd6ca12182b"
+                "reference": "dcaab46a25e1baeb5142c3e25d5b6fd495ced504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/24cd861d755282f4c9fb1c8f4634ffd6ca12182b",
-                "reference": "24cd861d755282f4c9fb1c8f4634ffd6ca12182b",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/dcaab46a25e1baeb5142c3e25d5b6fd495ced504",
+                "reference": "dcaab46a25e1baeb5142c3e25d5b6fd495ced504",
                 "shasum": ""
             },
             "require": {
@@ -1132,7 +1132,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2016-07-30 15:51:52"
+            "time": "2016-08-17 16:52:00"
         },
         {
             "name": "hostnet/form-handler-bundle",
@@ -2597,16 +2597,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.7",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "a9c4723cbdbc6cf7fbfdfde3c639cb1943f0293a"
+                "reference": "f8ace5c71ee309492b027ef71215577f5a52b4ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/a9c4723cbdbc6cf7fbfdfde3c639cb1943f0293a",
-                "reference": "a9c4723cbdbc6cf7fbfdfde3c639cb1943f0293a",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/f8ace5c71ee309492b027ef71215577f5a52b4ea",
+                "reference": "f8ace5c71ee309492b027ef71215577f5a52b4ea",
                 "shasum": ""
             },
             "require": {
@@ -2645,7 +2645,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-06-23 16:11:33"
+            "time": "2016-08-17 18:16:49"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3092,12 +3092,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/src-run/augustus-file-library.git",
-                "reference": "974f5c60555aa6227f42bcf3a376fd0fae1e8551"
+                "reference": "bf3a5d4a0a20ee377fe6ab198cb9bdfc0e31486c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/src-run/augustus-file-library/zipball/974f5c60555aa6227f42bcf3a376fd0fae1e8551",
-                "reference": "974f5c60555aa6227f42bcf3a376fd0fae1e8551",
+                "url": "https://api.github.com/repos/src-run/augustus-file-library/zipball/bf3a5d4a0a20ee377fe6ab198cb9bdfc0e31486c",
+                "reference": "bf3a5d4a0a20ee377fe6ab198cb9bdfc0e31486c",
                 "shasum": ""
             },
             "require": {
@@ -3144,7 +3144,7 @@
                 "rmf",
                 "src-run"
             ],
-            "time": "2016-07-25 03:42:24"
+            "time": "2016-08-19 09:27:39"
         },
         {
             "name": "src-run/augustus-library",
@@ -4566,12 +4566,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "917c956f902fea0d3f68dcfaebf39141e59cebb6"
+                "reference": "1f1e4c7200b4c5fb13d8b85a4a49529bd0bc1267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/917c956f902fea0d3f68dcfaebf39141e59cebb6",
-                "reference": "917c956f902fea0d3f68dcfaebf39141e59cebb6",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/1f1e4c7200b4c5fb13d8b85a4a49529bd0bc1267",
+                "reference": "1f1e4c7200b4c5fb13d8b85a4a49529bd0bc1267",
                 "shasum": ""
             },
             "require": {
@@ -4633,7 +4633,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2016-08-16 16:09:30"
+            "time": "2016-08-18 15:27:21"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -4944,16 +4944,16 @@
         },
         {
             "name": "vich/uploader-bundle",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "0f40b0eabcc50732ec50fb5ce8adc15f8e5b055c"
+                "reference": "667ead816ba05634e225a1f9c9bbc762c73c2e0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/0f40b0eabcc50732ec50fb5ce8adc15f8e5b055c",
-                "reference": "0f40b0eabcc50732ec50fb5ce8adc15f8e5b055c",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/667ead816ba05634e225a1f9c9bbc762c73c2e0c",
+                "reference": "667ead816ba05634e225a1f9c9bbc762c73c2e0c",
                 "shasum": ""
             },
             "require": {
@@ -5021,7 +5021,7 @@
                 "file uploads",
                 "upload"
             ],
-            "time": "2016-07-14 21:22:59"
+            "time": "2016-08-17 11:15:39"
         },
         {
             "name": "zendframework/zend-code",
@@ -5968,16 +5968,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.5.0",
+            "version": "5.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c7b3e1dcc1d183f26d5ba282881fe65c2cbb5b2b"
+                "reference": "46ec2d1522ae8c9a12aca6b7650e0be78bbb0502"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c7b3e1dcc1d183f26d5ba282881fe65c2cbb5b2b",
-                "reference": "c7b3e1dcc1d183f26d5ba282881fe65c2cbb5b2b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/46ec2d1522ae8c9a12aca6b7650e0be78bbb0502",
+                "reference": "46ec2d1522ae8c9a12aca6b7650e0be78bbb0502",
                 "shasum": ""
             },
             "require": {
@@ -6042,20 +6042,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-08-05 04:49:02"
+            "time": "2016-08-18 11:10:44"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.2.3",
+            "version": "3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "b13d0d9426ced06958bd32104653526a6c998a52"
+                "reference": "4e83390f64e7ce04fcaec2ce95cd72823b431d19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/b13d0d9426ced06958bd32104653526a6c998a52",
-                "reference": "b13d0d9426ced06958bd32104653526a6c998a52",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/4e83390f64e7ce04fcaec2ce95cd72823b431d19",
+                "reference": "4e83390f64e7ce04fcaec2ce95cd72823b431d19",
                 "shasum": ""
             },
             "require": {
@@ -6101,7 +6101,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-06-12 07:37:26"
+            "time": "2016-08-17 09:33:51"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -6324,23 +6324,23 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.7",
+            "version": "1.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "4e8f0da10ac5802913afc151413bc8c53b6c2716"
+                "reference": "be2c607e43ce4c89ecd60e75c6a85c126e754aea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/4e8f0da10ac5802913afc151413bc8c53b6c2716",
-                "reference": "4e8f0da10ac5802913afc151413bc8c53b6c2716",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/be2c607e43ce4c89ecd60e75c6a85c126e754aea",
+                "reference": "be2c607e43ce4c89ecd60e75c6a85c126e754aea",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.4"
+                "phpunit/phpunit": "^4.8 || ^5.0"
             },
             "type": "library",
             "extra": {
@@ -6370,7 +6370,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-05-17 03:18:57"
+            "time": "2016-08-18 05:49:44"
         },
         {
             "name": "sebastian/exporter",

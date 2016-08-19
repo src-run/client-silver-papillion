@@ -11,6 +11,7 @@
 
 namespace AppBundle\Controller;
 
+use Facebook\Facebook;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**

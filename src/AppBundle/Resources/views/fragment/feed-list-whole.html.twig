@@ -46,7 +46,7 @@
 
                     {% for a in attachments %}
                         <div class="card-feed-attachment">
-                            <div class="card is-linkable is-animated {% if f.isVideo %}card-feed-attachment-video{% endif %}" {% if f.isVideo %}data-href="{{ f.getAttachments()|first.getLink }}"{% endif %}>
+                            <div class="card is-linkable is-animated {% if f.isVideo %}card-feed-attachment-video{% endif %}" {% if f.isVideo %}data-href="{{ f.getSourceLink }}"{% endif %}>
 
                                 {% include 'AppBundle:fragment:feed-type-head.html.twig' with {
                                     'is_video' : f.isVideo

@@ -52,7 +52,8 @@
     "liip/imagine-bundle": "^1.6",
     "facebook/php-sdk-v4": "~5.0",
     "hostnet/form-handler-bundle": "~1.1",
-    "knplabs/knp-paginator-bundle": "~2.5"
+    "knplabs/knp-paginator-bundle": "~2.5",
+    "src-run/augustus-file-library": "~0.6"
   },
   "require-dev" : {
     "doctrine/doctrine-fixtures-bundle": "^2.3",

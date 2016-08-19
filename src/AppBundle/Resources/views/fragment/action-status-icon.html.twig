@@ -7,13 +7,13 @@
 
     <span class="action-status-icon-stack fa-stack fa-lg">
 
-        <i class="action-status-icon-bg fa fa-stack-2x {{ icon_bg|default('fa-circle') }}"></i>
+        <i class="action-status-icon-bg fa fa-stack-2x {{ icon_bg|default('fa-circle') }} {{ icon_fg_class|default('') }}"></i>
 
         {% if icon_mg is defined %}
-            <i class="action-status-icon-mg fa fa-stack-2x {{ icon_mg }}"></i>
+            <i class="action-status-icon-mg fa fa-stack-2x {{ icon_mg }} {{ icon_mg_class|default('') }}"></i>
         {% endif %}
 
-        <i class="action-status-icon-fg fa fa-stack-1x {{ icon|default('fa-check') }}"></i>
+        <i class="action-status-icon-fg fa fa-stack-1x {{ icon|default('fa-check') }} {{ icon_class|default('') }}"></i>
 
     </span>
 
