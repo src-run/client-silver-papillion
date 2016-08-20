@@ -12,7 +12,6 @@ $(document).ready(function () {
 
   'use strict';
 
-
   /**
    * SIMPLE LOGGER
    */
@@ -64,7 +63,6 @@ $(document).ready(function () {
       }
     }
 
-    // expose class with methods to internal functions
     return {
       followLink: setWindowLocation
     };
@@ -168,7 +166,6 @@ $(document).ready(function () {
       return [linkResolver.strategyFindInAny, linkResolver.strategyFindInDataAttrOfPassedEl, linkResolver.strategyFindInHrefAttrOfChildren];
     }
 
-    // expose class with methods to internal functions
     return {
       strategyFindInHrefAttrOfChildren: hrefResolverStrategyFindInHrefAttrOfChildren,
       strategyFindInDataAttrOfPassedEl: hrefResolverStrategyFindInDataAttrOfPassedEl,
@@ -213,7 +210,6 @@ $(document).ready(function () {
       return registerEventAction('click', selector, func);
     }
 
-    // expose class with methods to internal functions
     return {
       onClick: registerClickEventAction,
       on: registerEventAction
@@ -262,7 +258,6 @@ $(document).ready(function () {
       }
     }
 
-    // expose class with methods to internal functions
     return {
       init: initCarousel
     };
@@ -280,7 +275,6 @@ $(document).ready(function () {
       lightBox.load();
     }
 
-    // expose class with methods to internal functions
     return {
       init: initLightBox
     };
@@ -318,7 +312,6 @@ $(document).ready(function () {
           });
     }
 
-    // expose class with methods to internal functions
     return {
       init: initSmoothScroll
     };
@@ -393,7 +386,6 @@ $(document).ready(function () {
       initCardMap();
     }
 
-    // expose class with methods to internal functions
     return {
       init: init,
       initCardFeedPhotos: initCardFeedPhotos,
@@ -462,11 +454,47 @@ $(document).ready(function () {
       });
     }
 
-    // expose class with methods to internal functions
     return {
       init: init
     };
   })(document, jQuery, lightBoxSetup, events);
+
+
+  /**
+   * TOOLTIPS
+   */
+
+  var tooltip = (function ($) {
+
+    function init() {
+      $('[data-toggle="tooltip"]').tooltip();
+    }
+
+    return {
+      init: init
+    };
+  })(jQuery);
+
+
+  /**
+   * ANALYTICS
+   */
+
+  var analytics = (function ($) {
+
+    function init() {
+      (function (i,s,o,g,r,a,m) {
+        i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-82860705-1', 'auto');
+      ga('send', 'pageview');
+    }
+
+    return {
+      init: init
+    };
+  })(jQuery);
 
 
   /**
@@ -476,12 +504,10 @@ $(document).ready(function () {
   (function () {
 
     carouselSetup.init('.carousel', 6000);
-
     smoothScrollSetup.init();
-
     feedFetch.init();
-
     events.init();
+    tooltip.init();
 
     if ($('.feed-post-attachments').length > 0) {
       lightBoxSetup.init();
@@ -494,6 +520,8 @@ $(document).ready(function () {
     registerEvent.on('hide.bs.dropdown', '.dropdown', function(event) {
       $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
     });
+
+    analytics.init();
 
   })();
 });

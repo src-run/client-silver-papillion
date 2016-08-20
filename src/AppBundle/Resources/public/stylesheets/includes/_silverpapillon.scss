@@ -67,6 +67,32 @@
       opacity : 0.8;
     }
   }
+
+  .dropdown-header {
+    color : $color-gray-light-d;
+
+    .badge {
+      font-size : 10px;
+      padding   : 2px 4px 1px 4px;
+    }
+  }
+}
+
+.contact {
+  @include make-row();
+
+  .card {
+    padding : 0 29px 29px 29px;
+  }
+
+  .contact-form-wrap {
+    @include make-sm-column(7);
+  }
+
+  .contact-from-info {
+    @include make-sm-column(4);
+    @include make-sm-column-offset(1);
+  }
 }
 
 footer {
@@ -75,6 +101,7 @@ footer {
   border-top       : 1px solid rgba($color-gray-light-m, 0.5);
   will-change      : border-color;
   transition       : border-color $transition-time-border-color;
+  font-weight      : 200;
 
   .footer-copy {
     @include make-row();
@@ -166,17 +193,17 @@ footer {
     li {
       color         : $color-accent;
       font-size     : $font-size-h3;
-      font-weight   : 500;
+      font-weight   : 400;
       font-family   : $font-family-condensed;
       float         : left;
-      padding-right : 6px;
-      padding-top   : 6px;
+      padding-right : 12px;
+      padding-top   : 1px;
 
       &:after {
-        color        : rgba($color-accent, 0.4);
-        font-family  : "FontAwesome";
-        content      : '\f105';
-        padding-left : 6px;
+        color         : rgba($color-accent, 0.4);
+        font-family   : "FontAwesome";
+        content       : '\f105';
+        padding-left  : 12px;
       }
 
       &:last-child {
@@ -400,18 +427,91 @@ footer {
   }
 }
 
-.navigation {
+.page-navigation {
   text-align : right;
-}
+  margin     : 30px 0 21px 0;
+  float      : right;
 
-.navigation-right {
-  text-align  : center;
-  float       : right;
-  padding-top : 15px;
-}
+  .page-selector {
+    border-radius    : 0;
+    list-style-type  : none;
+    padding          : 0;
+    margin           : 0;
+    overflow         : hidden;
 
-.pagination-text {
-  display : none;
+    > li {
+      transition  : background-color $transition-time-x08, color $transition-time-x08;
+      will-change : background-color, color;
+      display     : block;
+      float       : left;
+      font-size   : 15px;
+
+      > a {
+        cursor : pointer;
+      }
+
+      > span, > a {
+        display   : block;
+        font-size : 15px;
+        padding   : 6px 17px 5px 17px;
+        color     : rgba($color-black, 0.55);
+
+        .icon-wrap-type-ion {
+          display : block;
+          padding : 2px 1px 0 1px;
+        }
+      }
+
+      &.page-int {
+        > span, > a {
+          font-size   : 13px;
+          line-height : 29px;
+        }
+      }
+
+      &:hover, &:active {
+        > span, > a {
+          color            : $color-white;
+          background-color : $color-primary;
+          text-decoration  : none;
+        }
+      }
+
+      &.active {
+        > a {
+          cursor : not-allowed;
+        }
+
+        > span, > a {
+          color       : $color-primary;
+          font-weight : 600;
+          padding     : 7px 17px 4px 17px;
+        }
+
+        &:hover, &:active {
+          > span, > a {
+            color            : $color-primary;
+            background-color : transparent;
+          }
+        }
+      }
+
+      &.disabled {
+        > span, > a {
+          cursor           : not-allowed;
+          color            : rgba($color-black, 0.2);
+          background-color : rgba($bg-color-normal, 0.4);
+        }
+
+        &:hover, &:active {
+          > span, > a {
+            color            : rgba($color-black, 0.2);
+            background-color : rgba($bg-color-normal, 0.4);
+          }
+        }
+      }
+    }
+  }
 }
 
 .product-action .btn-default {
@@ -775,6 +875,12 @@ footer {
 .index-about {
   @include make-row();
 
+  .info-phone-and-address {
+    font-size   : 21px;
+    font-weight : 200;
+    color       : $color-black;
+  }
+
   .index-about-section {
     @include make-sm-column(4);
 
@@ -783,20 +889,15 @@ footer {
       margin-bottom : 20px;
     }
 
-    .info-phone,
-    .info-address {
-      font-size   : 16px;
-      font-weight : 400;
-    }
-
     .info-hours {
       margin-bottom : $font-margin-base*3;
 
       dt {
-        font-weight : 400;
+        font-weight : 300;
         font-size   : 14px;
         float       : left;
         width       : 124px;
+        opacity     : 0.6;
 
         &.today {
           font-style : italic;
@@ -804,8 +905,9 @@ footer {
       }
 
       dd {
-        font-weight : 300;
+        font-weight : 200;
         font-size   : 14px;
+        color       : $color-black;
 
         &.today {
           font-style : italic;
@@ -899,59 +1001,25 @@ footer {
   @include make-sm-column(12);
 }
 
-.contact-form {
-  .contact-form-fields {
+.form-basic {
+  .form-control {
+    margin : 0;
+  }
+
+  .control-label {
+    font-size   : 16px;
+    font-weight : 300;
+    margin-top  : 29px;
+  }
+
+  .form-submit-wrap {
     @include make-row();
 
-    margin-bottom : 15px;
-
-    .contact-form-name-label {
-      @include make-sm-column(1);
-
-      text-align : right;
-
-      label {
-        margin : 15px;
-      }
-    }
-
-    .contact-form-name-field {
-      @include make-sm-column(5);
-    }
-
-    .contact-form-email-label {
-      @include make-sm-column(1);
-
-      text-align : right;
-
-      label {
-        margin : 15px;
-      }
-    }
-
-    .contact-form-email-field {
-      @include make-sm-column(5);
-    }
-
-    .contact-form-message-label {
-      @include make-sm-column(1);
-
-      text-align : right;
-
-      label {
-        margin : 15px;
-      }
-    }
-
-    .contact-form-message-field {
-      @include make-sm-column(11);
-    }
-
-    .contact-form-submit {
+    .form-submit {
       @include make-sm-column(4);
       @include make-sm-column-offset(4);
 
-      margin-top : 30px;
+      margin-top : 36px;
     }
   }
 }
@@ -963,27 +1031,24 @@ footer {
 .about-location {
   @include make-row();
 
+  .info-phone-and-address p {
+    font-size   : 21px;
+    font-weight : 200;
+    color       : $color-black;
+  }
+
   .about-address {
     @include make-sm-column(4);
-
-    p {
-      font-size   : 14px;
-      font-weight : 300;
-    }
-
-    .info-phone p {
-      font-size   : 16px;
-      font-weight : 400;
-    }
 
     .info-hours {
       margin-bottom : $font-margin-base*3;
 
       dt {
-        font-weight : 400;
+        font-weight : 300;
         font-size   : 14px;
         float       : left;
         width       : 120px;
+        opacity     : 0.6;
 
         &.today {
           font-style : italic;
@@ -991,8 +1056,9 @@ footer {
       }
 
       dd {
-        font-weight : 300;
+        font-weight : 200;
         font-size   : 14px;
+        color       : $color-black;
 
         &.today {
           font-style : italic;
@@ -1110,6 +1176,21 @@ footer {
   }
 }
 
+.btn {
+  .icon-ion {
+    min-width : 12px;
+  }
+
+  &.btn-sm .icon-ion {
+    min-width : 10px;
+  }
+}
+
+.tooltip {
+  text-transform : uppercase;
+  font-size      : 10px;
+}
+
 .card-feed-social {
   > .card {
     .card-section-head {
@@ -1121,11 +1202,11 @@ footer {
       .feed-info-type {
         color : rgba($color-accent, .8);
 
-        .fa {
+        .icon-ion {
           position  : absolute;
-          top       : 15px;
+          top       : 12px;
           left      : 29px;
-          font-size : 39px;
+          font-size : 45px;
         }
       }
 
@@ -1668,11 +1749,11 @@ input[type=number],
 [type=email].form-control,
 [type=tel].form-control,
 [contenteditable].form-control {
-  padding: 0;
   border: none;
   border-radius: 0;
   -webkit-appearance: none;
-  @include box-shadow(inset 0 -1px 0 #ddd);
+  padding: 0 0 4px 0;
+  @include box-shadow(inset 0 -1px 0 rgba($color-gray-light-m, 0.3));
   font-size: 16px;
 
   &:focus {

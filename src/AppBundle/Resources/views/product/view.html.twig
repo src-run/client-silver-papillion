@@ -49,26 +49,44 @@
 
                     <div class="product-action">
                         <div class="product-add">
-                            <div class="btn-group">
-                                {% if cart_has(product) != true %}
-                                    <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-primary">
-                                        <i class="fa fa-plus fa-fw"></i> Add to cart
-                                    </a>
-                                {% else %}
-                                    <a href="{{ url('app_cart_view') }}" class="btn btn-primary">
-                                        <i class="fa fa-shopping-cart"></i> {{ cart_count(product) }} in cart
-                                    </a>
-                                    <a href="{{ url('app_cart_remove_group', {product: product.getId}) }}" class="btn btn-danger">
-                                        <i class="fa fa-trash fa-fw"></i>
-                                    </a>
-                                    <a href="{{ url('app_cart_remove', {product: product.getId, quantity: 1}) }}" class="btn btn-warning">
-                                        <i class="fa fa-minus fa-fw"></i>
-                                    </a>
-                                    <a href="{{ url('app_cart_add', {product: product.getId, quantity: 1}) }}" class="btn btn-success">
-                                        <i class="fa fa-plus fa-fw"></i>
-                                    </a>
-                                {% endif %}
-                            </div>
+                            {% if cart_has(product) != true %}
+                                {% include 'AppBundle:fragment:link-button.html.twig' with {
+                                    'route' : 'app_cart_add',
+                                    'args'  : {product: product.getId, quantity: 1},
+                                    'icon'  : 'plus',
+                                    'text'  : 'Add to cart'
+                                } only %}
+                            {% else %}
+                                <div class="btn-group">
+                                    {% include 'AppBundle:fragment:link-button.html.twig' with {
+                                        'route' : 'app_cart_view',
+                                        'icon'  : 'ios-cart',
+                                        'text'  : cart_count(product) ~ ' in cart',
+                                        'tip'   : 'View your cart'
+                                    } only %}
+                                    {% include 'AppBundle:fragment:link-button.html.twig' with {
+                                        'route' : 'app_cart_remove_group',
+                                        'args'  : {product: product.getId},
+                                        'type'  : 'danger',
+                                        'icon'  : 'trash-b',
+                                        'tip'   : 'remove all'
+                                    } only %}
+                                    {% include 'AppBundle:fragment:link-button.html.twig' with {
+                                        'route' : 'app_cart_remove',
+                                        'args'  : {product: product.getId, quantity: 1},
+                                        'type'  : 'warning',
+                                        'icon'  : 'minus-circled',
+                                        'tip'   : 'remove one'
+                                    } only %}
+                                    {% include 'AppBundle:fragment:link-button.html.twig' with {
+                                        'route' : 'app_cart_add',
+                                        'args'  : {product: product.getId, quantity: 1},
+                                        'type'  : 'success',
+                                        'icon'  : 'plus-circled',
+                                        'tip'   : 'add another'
+                                    } only %}
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -81,7 +99,7 @@
         <div class="container">
 
             <h3 class="primary-hr-i">
-                <i class="fa fa-th"></i> Similar <em>Products</em>
+                {{ ion('grid') }} Similar <em>Products</em>
             </h3>
 
             <div class="card-listing">
@@ -90,7 +108,11 @@
                 {% endfor %}
             </div>
 
-            <a href="{{ url('app_category_view', {'category': category.getSlug}) }}" class="pull-right btn btn-primary">View More {{ category.getName }} <i class="fa fa-long-arrow-right"></i></a>
+            {% include 'AppBundle:fragment:link-button-right.html.twig' with {
+                'route' : 'app_category_view',
+                'args'  : {'category': category.getSlug},
+                'text'  : 'View More ' ~ category.getName
+            } only %}
 
         </div>
     </div>

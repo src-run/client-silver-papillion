@@ -46,15 +46,27 @@
                             </span>
                         </p>
                         <div class="btn-group">
-                            <a href="{{ url('app_cart_remove_group', {product: g.getProduct.getId}) }}" class="btn btn-sm btn-danger">
-                                <i class="fa fa-trash fa-fw"></i>
-                            </a>
-                            <a href="{{ url('app_cart_remove', {product: g.getProduct.getId, quantity: 1}) }}" class="btn btn-sm btn-warning">
-                                <i class="fa fa-minus fa-fw"></i>
-                            </a>
-                            <a href="{{ url('app_cart_add', {product: g.getProduct.getId, quantity: 1}) }}" class="btn btn-sm btn-success">
-                                <i class="fa fa-plus fa-fw"></i>
-                            </a>
+                            {% include 'AppBundle:fragment:link-button-sm.html.twig' with {
+                                'route' : 'app_cart_remove_group',
+                                'args'  : {product: g.getProduct.getId},
+                                'type'  : 'danger',
+                                'icon'  : 'trash-b',
+                                'tip'   : 'remove all'
+                            } only %}
+                            {% include 'AppBundle:fragment:link-button-sm.html.twig' with {
+                                'route' : 'app_cart_remove',
+                                'args'  : {product: g.getProduct.getId, quantity: 1},
+                                'type'  : 'warning',
+                                'icon'  : 'minus-circled',
+                                'tip'   : 'remove one'
+                            } only %}
+                            {% include 'AppBundle:fragment:link-button-sm.html.twig' with {
+                                'route' : 'app_cart_add',
+                                'args'  : {product: g.getProduct.getId, quantity: 1},
+                                'type'  : 'success',
+                                'icon'  : 'plus-circled',
+                                'tip'   : 'add another'
+                            } only %}
                         </div>
                     </div>
                 </div>
@@ -63,12 +75,17 @@
         <div class="cart-actions">
             <div class="cart-btns">
                 <div class="btn-group">
-                    <a href="{{ url('app_cart_clear') }}" class="btn btn-danger">
-                        <i class="fa fa-trash"></i> Remove All
-                    </a>
-                    <a href="{{ url('app_cart_checkout') }}" class="btn btn-primary">
-                        <i class="fa fa-shopping-cart"></i> Check Out
-                    </a>
+                    {% include 'AppBundle:fragment:link-button.html.twig' with {
+                        'route'  : 'app_cart_clear',
+                        'type'   : 'danger',
+                        'icon_l' : 'trash-b',
+                        'text'   : 'Clear Cart'
+                    } only %}
+                    {% include 'AppBundle:fragment:link-button.html.twig' with {
+                        'route'  : 'app_cart_checkout',
+                        'icon'   : 'android-arrow-forward',
+                        'text'   : 'Checkout'
+                    } only %}
                 </div>
             </div>
             <div class="cart-total pull-right">

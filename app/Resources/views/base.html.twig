@@ -15,7 +15,7 @@
     <title>{% block title %}Silver Papillon{% endblock %}</title>
 
     {% block stylesheets %}
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,300,400,700|Roboto+Slab|Roboto:100,300,400,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,300,400,700%7CRoboto+Slab%7CRoboto:100,300,400,500" rel="stylesheet">
         <link rel="stylesheet" href="{{  asset('assets/css/app.css') }}" />
     {% endblock %}
 
@@ -31,31 +31,45 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"><img src="{{ asset('bundles/app/images/logo-small.png') }}" height="58px" /></a>
+                <a class="navbar-brand" href="/"><img src="{{ asset('bundles/app/images/logo-small.png') }}" height="58" alt="Silver Papillon Logo" /></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="{% if 'Default' in _c %}active{% endif %}">
-                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <a href="/">{{ fa('home') }} Home</a>
                     </li>
 
                     <li id="navbar-nav-feed" class="{% if 'Feed' in _c %} active {% endif %}{% if has_fb_feed_cached() != true %} hidden {% endif %}">
-                        <a href="{{ url('app_feed_view') }}"><i class="fa fa-newspaper-o"></i> News</a>
+                        <a href="{{ url('app_feed_view') }}">{{ fa('sticky-note') }} News</a>
                     </li>
 
                     <li class="{% if 'Category' in _c %}active{% endif %} dropdown">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-shopping-bag"></i> Products <span class="caret"></span>
+                            {{ fa('shopping-bag') }} Shop <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
+
+                            {% if cart_count() > 0 %}
+                                <li class="dropdown-header">Your Cart <span class="badge badge-default">{{ cart_count() }}</span></li>
+                                <li>
+                                    <a href="{{ url('app_cart_view') }}">View</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('app_cart_checkout') }}">Checkout</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                            {% endif %}
+
+                            <li class="dropdown-header">Products</li>
+
                             <li>
-                                <a href="{{ path('app_category_list') }}">Show All</a>
+                                <a href="{{ path('app_category_list') }}">View All</a>
                             </li>
 
                             {% for c in get_categories() %}
-                                <li class="{% if category is defined and category.getId == c.getId %}active{% endif %}">
+                                <li>
                                     <a
                                         href="{{ path('app_category_view', {'category': c.getSlug}) }}">
                                         {{ c.name }}
@@ -66,19 +80,12 @@
 
                     </li>
 
-                    {% if cart_count() > 0 %}
-                        <li class="{% if 'Cart' in _c %}active{% endif %}">
-                            <a href="{{ url('app_cart_view') }}"><i class="fa fa-shopping-cart"></i> Cart (${{ cart_total()|number_format(2, '.', ',') }})</a>
-                        </li>
-                    {% endif %}
-
-
                     <li class="{% if 'Loc' in _c %}active{% endif %}">
-                        <a href="{{ url('app_location') }}"><i class="fa fa-map-marker"></i> Location</a>
+                        <a href="{{ url('app_location') }}">{{ fa('map') }} Location</a>
                     </li>
 
                     <li class="{% if 'Contact' in _c %}active{% endif %}">
-                        <a href="{{ url('app_contact_view') }}"><i class="fa fa-envelope"></i> Contact</a>
+                        <a href="{{ url('app_contact_view') }}">{{ fa('comment') }} Contact</a>
                     </li>
                 </ul>
             </div>

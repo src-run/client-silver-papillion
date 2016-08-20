@@ -10,59 +10,48 @@
 
     <div class="container container-sr">
 
+        <div class="contact">
 
-        <h2 class="primary-hr-i">
-            <i class="fa fa-envelope"></i> Send Us a <em>Message</em>
-        </h2>
+            <div class="contact-form-wrap">
 
-        <div class="about-text">
-            {{ block_content('about.contact') }}
-        </div>
+                <div class="contact-form form-basic card">
 
-    </div>
+                    {{ form_start(form) }}
 
-    <div class="container-sr-odd">
-        <div class="container">
+                    <div class="contact-form-fields">
 
-            <div class="contact-form">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.message) }}
 
-                {{ form_start(form) }}
+                        <div class="form-submit-wrap">
+                            <div class="form-submit">
+                                {{ form_row(form.submit, { 'attr': {'class': 'btn-primary btn-block'} }) }}
+                            </div>
+                        </div>
 
-                <div class="contact-form-fields">
-                    <div class="contact-form-name-label">
-                        {{  form_label(form.name) }}
                     </div>
-                    <div class="contact-form-name-field">
-                        {{  form_widget(form.name) }}
-                    </div>
-                    <div class="contact-form-email-label">
-                        {{  form_label(form.email) }}
-                    </div>
-                    <div class="contact-form-email-field">
-                        {{  form_widget(form.email) }}
-                    </div>
+
+                    {{ form_end(form) }}
+
                 </div>
 
-                <div class="contact-form-fields">
-                    <div class="contact-form-message-label">
-                        {{  form_label(form.message) }}
-                    </div>
-                    <div class="contact-form-message-field">
-                        {{  form_widget(form.message) }}
-                    </div>
-                </div>
+            </div>
 
-                <div class="contact-form-fields">
-                    <div class="contact-form-submit">
-                        {{ form_widget(form.submit, { 'attr': {'class': 'btn-primary btn-block'} }) }}
-                    </div>
-                </div>
+            <div class="contact-from-info">
 
-                {{ form_end(form) }}
+                <div class="card">
+                    <h3 class="primary-hr-i">
+                        {{ ion('paper-airplane') }} Send a <em>Message</em>
+                    </h3>
+
+                    {{ block_content('about.contact') }}
+                </div>
 
             </div>
 
         </div>
+
     </div>
 
 {% endblock %}

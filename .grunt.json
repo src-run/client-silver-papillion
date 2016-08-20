@@ -16,7 +16,8 @@
       "to": {
         "scr": "web/assets/scr/",
         "css": "web/assets/css/",
-        "img": "web/assets/img/"
+        "img": "web/assets/img/",
+        "fnt": "web/assets/fnt/"
       },
       "extra": [
         "web/assets/cache"
@@ -47,7 +48,20 @@
     "plug-fa": {
       "root": "web/components/font-awesome/",
       "in": {
-        "css": "${paths.plug-fa.root}scss/"
+        "css": "${paths.plug-fa.root}scss/",
+        "fnt": "${paths.plug-fa.root}fonts/"
+      },
+      "to": {
+        "fnt": "${paths.app.to.fnt}fontawesome/"
+      }
+    },
+    "plug-ionicons": {
+      "root": "web/components/ionicons/",
+      "in"  : {
+        "fnt": "${paths.plug-ionicons.root}fonts/"
+      },
+      "to": {
+        "fnt": "${paths.app.to.fnt}ionicons/"
       }
     },
     "plug-waypoints": {

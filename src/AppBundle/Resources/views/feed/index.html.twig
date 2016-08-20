@@ -28,14 +28,15 @@
                 <div class="card">
 
                     <h3 class="primary-hr-i">
-                        <i class="fa fa-share"></i> {{ block_title('feed.more') }}
+                        {{ ion('forward') }} {{ block_title('feed.more') }}
                     </h3>
 
                     {{ block_content('feed.more') }}
 
-                    <a href="{{ block_prop('feed.more', 'link_href') }}" class="btn btn-block btn-primary">
-                        {{ block_prop('feed.more', 'link_text') }} <i class="fa fa-long-arrow-right"></i>
-                    </a>
+                    {% include 'AppBundle:fragment:link-button-block.html.twig' with {
+                        'url'  : block_prop('feed.more', 'link_href'),
+                        'text' : block_prop('feed.more', 'link_text')
+                    } only %}
 
                 </div>
             </div>

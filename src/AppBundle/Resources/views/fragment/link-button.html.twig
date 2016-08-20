@@ -1,0 +1,20 @@
+{% if icon_l is not defined %}
+    {% set icon = icon|default('android-arrow-forward') %}
+{% endif %}
+<a
+    class="btn btn-{{ type|default('primary') }} {{ classes|default([])|join(' ') }}"
+    href="{% if route is defined %}{{ path(route, args|default([])) }}{% else %}{{ url|default('#') }}{% endif %}"
+    {% if tip is defined %}
+        data-toggle="tooltip" data-placement="top" title="{{ tip }}" data-container="body"
+    {% endif %}
+>
+    {% if icon_l is defined %}
+        {{ ion(icon_l) }}
+    {% endif %}
+    {% if text is defined %}
+        {{ text }}
+    {% endif %}
+    {% if icon is defined %}
+        {{ ion(icon) }}
+    {% endif %}
+</a>

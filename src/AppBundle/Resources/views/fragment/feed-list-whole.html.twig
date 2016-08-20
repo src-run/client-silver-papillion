@@ -11,11 +11,11 @@
 
                 <div class="feed-info-type">
                     {% if f.isVideo %}
-                        <i class="fa fa-video-camera"></i>
+                        {{ ion('videocamera') }}
                     {% elseif f.isPhoto %}
-                        <i class="fa fa-photo"></i>
+                        {{ ion('images') }}
                     {% else %}
-                        <i class="fa fa-file-text-o"></i>
+                        {{ ion('document-text') }}
                     {% endif %}
                 </div>
 

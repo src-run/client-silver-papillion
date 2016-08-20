@@ -10,6 +10,7 @@
     "jsonlylightbox"       : "~0.5",
     "webfontloader"        : "~1.6",
     "bootstrapvalidator"   : "~0.5",
-    "jquery-smooth-scroll" : "~1.7"
+    "jquery-smooth-scroll" : "~1.7",
+    "ionicons"             : "~2.0"
   }
 }

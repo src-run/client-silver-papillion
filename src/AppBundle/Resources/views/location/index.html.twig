@@ -9,7 +9,7 @@
     <div class="container container-sr">
 
         <h2 class="primary-hr-i">
-            {{ block_title('about.description') }}
+            {{ ion('information-circled') }} {{ block_title('about.description') }}
         </h2>
 
         <div class="about-text">
@@ -25,23 +25,15 @@
                 <div class="about-address">
 
                     <h3 class="primary-hr-i">
-                        <i class="fa fa-map"></i> {{ block_title('about.address') }}
+                        {{ ion('android-call') }} {{ block_title('about.phone') }}
                     </h3>
 
-                    <div class="info-phone">
-                        <p>{{ config('address', 'No Address') }}</p>
-                    </div>
-
-                    <h3 class="primary-hr-i hr-extra-top">
-                        <i class="fa fa-phone"></i> {{ block_title('about.phone') }}
-                    </h3>
-
-                    <div class="info-phone">
+                    <div class="info-phone-and-address">
                         <p>{{ config('phone', 'No Phone') }}</p>
                     </div>
 
                     <h3 class="primary-hr-i hr-extra-top">
-                        <i class="fa fa-clock-o"></i> Our <em>Hours</em>
+                        {{ ion('ios-clock') }} Our <em>Hours</em>
                     </h3>
 
                     {% include 'AppBundle:fragment:location-hours.html.twig' with { 'hours': hours } only %}
@@ -51,8 +43,12 @@
                 <div class="about-map">
 
                     <h3 class="primary-hr-i">
-                        <i class="fa fa-location-arrow"></i> Get <em>Directions</em>
+                        {{ ion('navigate') }} Get <em>Directions</em>
                     </h3>
+
+                    <div class="info-phone-and-address">
+                        <p>{{ config('address', 'No Address') }}</p>
+                    </div>
 
                     <div class="card is-linkable is-animated" data-href="{{ directionsUri }}">
 

@@ -119,6 +119,18 @@ services :
     tags   :
       - { name : twig.extension }
 
+  app.twig_extension.icon:
+    class  : AppBundle\Twig\IconExtension
+    public : false
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.session:
+    class  : AppBundle\Twig\SessionExtension
+    public : false
+    tags   :
+      - { name : twig.extension }
+
   app.twig_extension.vich_file_path:
     class  : AppBundle\Twig\VichFilePathExtension
     public : false

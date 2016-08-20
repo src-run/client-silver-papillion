@@ -10,10 +10,30 @@
 
     <div class="container container-sr">
 
-        {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
-            'icon' : 'fa-envelope',
-            'text' : 'Your message has been sent.'
-        } only %}
+        <div class="contact">
+
+            <div class="contact-form-wrap">
+
+                {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
+                    'icon' : 'fa-envelope',
+                    'text' : 'Your message has been sent.'
+                } only %}
+
+            </div>
+
+            <div class="contact-from-info">
+
+                <div class="card">
+                    <h3 class="primary-hr-i">
+                        {{ ion('paper-airplane') }} Send a <em>Message</em>
+                    </h3>
+
+                    {{ block_content('about.contact') }}
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
