@@ -69,6 +69,17 @@ liip_imagine :
       post_processors :
         jpegoptim   : { strip_all : true, max : 88, progressive : true }
 
+    feed_lightbox :
+      quality : 92
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min: [780, 420] }
+        thumbnail   : { size : [780, 420], mode : outbound, allow_upscale : true }
+        background  : { size : [786, 426], position : center, color : '#000' }
+      post_processors :
+        jpegoptim   : { strip_all : true, max : 92, progressive : true }
+
     carousel :
       quality : 90
       filters :

@@ -1,16 +1,18 @@
 {
-  "name"         : "src-app-silver-papillon",
-  "version"      : "0.1.0",
-  "license"      : "MIT",
-  "dependencies" : {
-    "jquery"               : "~2.2",
-    "twbs/bootstrap-sass"  : "~3.3",
-    "jquery-waypoints"     : "~4.0",
-    "font-awesome"         : "~4.6",
-    "jsonlylightbox"       : "~0.5",
-    "webfontloader"        : "~1.6",
-    "bootstrapvalidator"   : "~0.5",
-    "jquery-smooth-scroll" : "~1.7",
-    "ionicons"             : "~2.0"
+  "name": "src-app-silver-papillon",
+  "version": "0.1.0",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.2",
+    "twbs/bootstrap-sass": "~3.3",
+    "jquery-waypoints": "~4.0",
+    "font-awesome": "~4.6",
+    "jsonlylightbox": "~0.5",
+    "fancybox": "~2.1",
+    "webfontloader": "~1.6",
+    "bootstrapvalidator": "~0.5",
+    "jquery-smooth-scroll": "~1.7",
+    "ionicons": "~2.0",
+    "jquery-fancy-box": "git@github.com:robfrawley/jquery-fancy-box.git#~2.1.7"
   }
 }

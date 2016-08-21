@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Component\Facebook\Provider;
+namespace AppBundle\Component\Facebook\NodeFactory;
 
 use AppBundle\Component\Facebook\Authentication\AuthenticationInterface;
 use AppBundle\Component\Facebook\Exception\FacebookException;
@@ -21,10 +21,15 @@ use Psr\Cache\CacheItemInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 /**
- * Class AbstractProvider.
+ * Class AbstractNodeFactory.
  */
-abstract class AbstractProvider implements ProviderInterface
+abstract class AbstractNodeFactory
 {
+    /**
+     * @var EndpointRequest
+     */
+    private $request;
+
     /**
      * @var string
      */
@@ -56,11 +61,18 @@ abstract class AbstractProvider implements ProviderInterface
     private $cacheTtl = 'P1D';
 
     /**
-     * @param AuthenticationInterface $authentication
+     * @param AuthenticationInterface|null $authentication
+     * @param int|null                     $id
      */
-    public function __construct(AuthenticationInterface $authentication = null)
+    public function __construct(AuthenticationInterface $authentication = null, $id = null)
     {
-        $this->authentication = $authentication;
+        if ($authentication) {
+            $this->setAuthentication($authentication);
+        }
+
+        if ($id) {
+            $this->setId($id);
+        }
     }
 
     /**
@@ -222,6 +234,32 @@ abstract class AbstractProvider implements ProviderInterface
     abstract protected function hydrate(FacebookResponse $response);
 
     /**
+     * @param FacebookResponse $response
+     *
+     * @return AbstractModel
+     */
+    protected function hydrateDataList(FacebookResponse $response)
+    {
+        $data = $response->getDecodedBody();
+
+        if (!$this->isDataList($data)) {
+            return null;
+        }
+
+        return $this->hydrateModel($this->resolveDataList($data['data'])) ?: null;
+    }
+
+    /**
+     * @param mixed[] $data
+     *
+     * @return null|AbstractModel
+     */
+    protected function hydrateModel($data)
+    {
+        return null;
+    }
+
+    /**
      * @return CacheItemInterface
      */
     protected function getCachedItem()
@@ -229,7 +267,7 @@ abstract class AbstractProvider implements ProviderInterface
         static $cacheItem;
 
         if ($cacheItem === null) {
-            $cacheItem = $this->getCache()->getItem(sprintf('facebook.feed.%s.%s', $this->getId(), md5($this->getEndpoint())));
+            $cacheItem = $this->getCache()->getItem(sprintf('facebook.feed.%s.%s'.time(), $this->getId(), md5($this->getEndpoint())));
         }
 
         return $cacheItem;
@@ -251,6 +289,73 @@ abstract class AbstractProvider implements ProviderInterface
     protected function getEndpointFields()
     {
         return sprintf('fields=%s', implode(',', static::ENDPOINT_FIELDS));
+    }
+
+    /**
+     * @param mixed $data
+     *
+     * @return bool
+     */
+    protected function isDataList($data)
+    {
+        return (bool) (is_array($data) && isset($data['data']) && is_array($data['data']));
+    }
+
+    /**
+     * @param string  $property
+     * @param mixed[] $data
+     *
+     * @return mixed[]
+     */
+    protected function createDataList($property, array $data)
+    {
+        return [
+            $property => [
+                'data' => $data
+            ]
+        ];
+    }
+
+    /**
+     * @param mixed[] $data
+     *
+     * @return mixed[]
+     */
+    protected function resolveDataList(array $data)
+    {
+        $data = array_map(function ($value) {
+            return isset($value['id']) ? $this->resolveDataListItem($value['id']) : null;
+        }, $data);
+
+        return array_filter($data, function ($value) {
+            return $value !== null;
+        });
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return mixed
+     */
+    protected function resolveDataListItem($id)
+    {
+        if (null === $fqcn = $this->getDataListProviderClass()) {
+            return $id;
+        }
+
+        $reflection = new \ReflectionClass($fqcn);
+        $provider = $reflection->newInstanceArgs([$this->getAuthentication(), $id]);
+        $provider->setCache($this->getCache());
+
+        return $provider->get();
+    }
+
+    /**
+     * @return null|string
+     */
+    protected function getDataListProviderClass()
+    {
+        return null;
     }
 }
 

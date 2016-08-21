@@ -588,25 +588,21 @@ footer {
   @include make-sm-column(3);
 
   .card {
-    > * {
-      pointer-events : none;
-    }
-
     .card-section-head {
       font-size  : 860%;
       margin-top : 160px;
 
       @media (min-width: $screen-sm-min) {
         font-size  : 140%;
-        margin-top : 40px;
+        margin-top : 60px;
       }
       @media (min-width: $screen-md-min) {
         font-size  : 200%;
-        margin-top : 40px;
+        margin-top : 80px;
       }
       @media (min-width: $screen-lg-min) {
         font-size  : 320%;
-        margin-top : 40px;
+        margin-top : 80px;
       }
 
       pointer-events             : none;
@@ -635,16 +631,16 @@ footer {
     }
 
     &:hover .card-section-head {
-      margin-top : 100px;
+      margin-top : 72px;
 
       @media (min-width: $screen-sm-min) {
-        margin-top : 12px;
+        margin-top : 32px;
       }
       @media (min-width: $screen-md-min) {
-        margin-top : 23px;
+        margin-top : 42px;
       }
       @media (min-width: $screen-lg-min) {
-        margin-top : 23px;
+        margin-top : 40px;
       }
 
       .fa-circle {
@@ -663,22 +659,14 @@ footer {
         width : 100%;
       }
 
-      .feed-attachment {
-        @include img-responsive();
+      a {
+        .feed-attachment {
+          @include img-responsive();
+        }
       }
-    }
 
-    > .card-section-foot {
-      margin           : 0;
-      background-color : rgba($color-accent-alt, 0.9) !important;
-
-      .feed-type {
-        display          : block;
-        margin           : 9px 6px 9px 6px;
-        text-align       : center;
-        font-weight      : 300;
-        text-transform   : uppercase;
-        color            : $color-white;
+      .feed-attachment-video {
+        display : none;
       }
     }
   }

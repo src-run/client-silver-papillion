@@ -34,6 +34,8 @@ class FeedController extends Controller
      */
     public function fragmentAction()
     {
+        $this->get('session')->save();
+
         return $this->render('AppBundle:feed:feed.html.twig', [
             '_c' => static::class,
         ]);
@@ -44,6 +46,8 @@ class FeedController extends Controller
      */
     public function fragmentPhotosAction()
     {
+        $this->get('session')->save();
+
         return $this->render('AppBundle:feed:photos.html.twig', [
             '_c' => static::class,
         ]);

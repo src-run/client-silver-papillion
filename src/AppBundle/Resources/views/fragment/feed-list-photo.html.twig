@@ -18,12 +18,20 @@
                 {% else %}
                     {% set media = f.getAttachments|first.getSubattachments|first.getMedia|first %}
                 {% endif %}
-                <img class="feed-attachment" src="{{ media.getLink() | url_to_file | imagine_filter('feed_photo_thumbs')  }}" alt="{{ f.getMessage }}" />
-            </div>
 
-            {% include 'AppBundle:fragment:feed-type-foot.html.twig' with {
-                'is_video': f.isVideo
-            } only %}
+                <a  class="feed-attachment-link"
+                    title="{{ f.getDate | date("m/d/Y") }} - {{ f.getMessage() }}"
+                    data-fancybox-initialized="0"
+                    {% if f.isVideo %}
+                        href="{{ f.getSourceLink() }}"
+                    {% else %}
+                        data-fancybox-group="feed-photos"
+                        href="{{ media.getLink() | url_to_file | imagine_filter('feed_lightbox') }}"
+                    {% endif %}
+                >
+                    <img class="feed-attachment" src="{{ media.getLink() | url_to_file | imagine_filter('feed_photo_thumbs')  }}" alt="{{ f.getMessage }}" />
+                </a>
+            </div>
 
         </div>
     </div>

@@ -112,6 +112,11 @@ app_feed_view:
   defaults :
     _controller : AppBundle:Feed:index
 
+app_fragment_feed_video:
+  path     : /fragment/feed/video/{id}
+  defaults :
+    _controller : AppBundle:Feed:fragmentVideo
+
 app_fragment_feed:
   path     : /fragment/feed
   defaults :

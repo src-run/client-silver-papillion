@@ -16,7 +16,7 @@
 
     {% block stylesheets %}
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,300,400,700%7CRoboto+Slab%7CRoboto:100,300,400,500" rel="stylesheet">
-        <link rel="stylesheet" href="{{  asset('assets/css/app.css') }}" />
+        <link rel="stylesheet" href="{{  asset('assets/sty/app.css') }}" />
     {% endblock %}
 
 </head>
@@ -39,9 +39,11 @@
                         <a href="/">{{ fa('home') }} Home</a>
                     </li>
 
+                    {#
                     <li id="navbar-nav-feed" class="{% if 'Feed' in _c %} active {% endif %}{% if has_fb_feed_cached() != true %} hidden {% endif %}">
                         <a href="{{ url('app_feed_view') }}">{{ fa('sticky-note') }} News</a>
                     </li>
+                    #}
 
                     <li class="{% if 'Category' in _c %}active{% endif %} dropdown">
 
