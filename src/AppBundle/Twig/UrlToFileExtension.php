@@ -50,6 +50,7 @@ class UrlToFileExtension extends \Twig_Extension
     {
         return [
             new \Twig_Filter('url_to_file', [$this, 'urlToFile']),
+            new \Twig_Filter('cache_url', [$this, 'urlToFile'])
         ];
     }
 

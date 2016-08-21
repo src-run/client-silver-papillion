@@ -14,28 +14,12 @@ namespace AppBundle\Component\Facebook\Model;
 use AppBundle\Component\Facebook\Exception\FacebookException;
 use AppBundle\Component\Facebook\Transformer\TransformerInterface;
 use SR\Reflection\Inspect;
-use SR\Utility\ClassInstantiator;
 
 /**
  * Category AbstractModel
  */
 abstract class AbstractModel
 {
-    /**
-     * @var string[]
-     */
-    const DATA_KEYS_REQUIRED = [];
-
-    /**
-     * @var string[]
-     */
-    const DATA_KEYS_EXCLUDED = [];
-
-    /**
-     * @var string[]
-     */
-    const DATA_KEYS_FILTERED = [];
-
     /**
      * @var TransformerInterface[]
      */
@@ -67,17 +51,23 @@ abstract class AbstractModel
     protected $key;
 
     /**
+     * @var mixed[]
+     */
+    protected $parameters;
+
+    /**
      * @param array|null  $data
      * @param string|null $field
+     * @param mixed       $parameters
      *
      * @return static
      */
-    public static function create(array $data = null, $key = null)
+    public static function create(array $data = null, $key = null, ...$parameters)
     {
         $instance = new static();
 
         if ($data) {
-            $instance->hydrate($data, $key);
+            $instance->hydrate($data, $key, ...$parameters);
         }
 
         return $instance;
@@ -86,28 +76,18 @@ abstract class AbstractModel
     /**
      * @param array       $data
      * @param string|null $key
+     * @param mixed       $parameters
      *
      * @throws FacebookException
      *
      * @return $this
      */
-    public function hydrate(array $data = null, $key = null)
+    public function hydrate(array $data = null, $key = null, ...$parameters)
     {
         $this->setKey($key);
         $this->setData($data);
+        $this->setParameters($parameters);
 
-        try {
-            $this->assertNonConflictingModelConfig();
-            $this->removeExtraKeyDepth();
-            $this->assertRequiredFieldsExist();
-        }
-        catch (FacebookException $exception) {
-            throw FacebookException::create()
-                ->setMessage('Model hydration failed in pre-hydration sanity check operations')
-                ->with($exception);
-        }
-
-        $this->removeExcludedFields();
         $this->assignDataToModel();
 
         return $this;
@@ -138,21 +118,15 @@ abstract class AbstractModel
     }
 
     /**
-     * @throws FacebookException
+     * @param mixed[] $parameters
      *
      * @return $this
      */
-    protected function assertNonConflictingModelConfig()
+    public function setParameters($parameters)
     {
-        foreach (static::DATA_KEYS_REQUIRED as $k) {
-            if (!in_array($k, static::DATA_KEYS_EXCLUDED)) {
-                continue;
-            }
+        $this->parameters = $parameters;
 
-            throw FacebookException::create()
-                ->setMessage('Invalid model (%s) config: conflict between "required" (%s) and "excluded" (%s) as both contain "%s" element')
-                ->with(static::class, var_export(static::DATA_KEYS_REQUIRED, true), var_export(static::DATA_KEYS_EXCLUDED, true), $k);
-        }
+        return $this;
     }
 
     /**
@@ -160,41 +134,9 @@ abstract class AbstractModel
      */
     protected function removeExtraKeyDepth()
     {
-        $this->data = array_map(function ($v) {
-            return isset($v['data']) ? $v['data'] : $v;
+        $this->data = array_map(function ($value) {
+            return ($value instanceof AbstractModel || !isset($value['data'])) ? $value : $value['data'];
         }, $this->data);
-
-        return $this;
-    }
-
-    /**
-     * @throws FacebookException
-     *
-     * @return $this
-     */
-    protected function assertRequiredFieldsExist()
-    {
-        foreach (static::DATA_KEYS_REQUIRED as $k) {
-            if ($this->hasField($this->data, $k)) {
-                continue;
-            }
-
-            throw FacebookException::create()
-                ->setMessage('A required data key (%s) does not exit in the response data array.')
-                ->with($k);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    protected function removeExcludedFields()
-    {
-        $this->data = array_filter($this->data, function ($v) {
-            return $this->hasFields($this->data, ...static::DATA_KEYS_FILTERED);
-        });
 
         return $this;
     }
@@ -207,62 +149,59 @@ abstract class AbstractModel
         foreach ($this->data as $key => $data) {
             $this->assignFieldToModel($data, $key);
         }
+        dump($this);
+        die('FUCKIEIEIEIE');
 
         return $this;
     }
 
     /**
-     * @param mixed $data
+     * @param mixed  $data
      * @param string $key
-     *
-     * @return $this
      */
     protected function assignFieldToModel($data, $key)
     {
-        list($property, , ) = $this->buildFieldMappingDefinition($key);
+        $name = $this->buildFieldMappingDefinition($key)[0];
+        dump('NAME:'.$name);
 
-        if (!$this->getInspector()->hasProperty($property)) {
-            return $this;
+        if ($this->getInspector()->hasProperty($name)) {
+            $this->getInspector()->getProperty($name)->setValue($this, $this->transformField($data, $key));
         }
-
-        $this->getInspector()->getProperty($property)
-            ->setValue($this, $this->transformField($data, $key));
-
-        return $this;
     }
 
     /**
      * @param mixed $data
      * @param string $key
      *
-     * @return bool
+     * @return mixed
      */
     protected function transformField($data, $key)
     {
-        list(, $model, $isCollection) = $this->buildFieldMappingDefinition($key);
-
-        if ($isCollection) {
-            return $this->transformFieldToModelAsCollection($model, $data, $key);
+        if (isset($data['data'])) {
+            $data = $data['data'];
         }
 
-        return $this->transformFieldToModelAsScalar($model, $data, $key);
+        if (is_array($data)) {
+            return $this->transformFieldToModelAsCollection($data, $key);
+        }
+
+        return $this->transformFieldToModelAsScalar($data, $key);
     }
 
     /**
-     * @param string  $model
      * @param mixed[] $data
      * @param string  $key
      *
      * @return mixed[]|object[]
      */
-    protected function transformFieldToModelAsCollection($model, $data, $key)
+    protected function transformFieldToModelAsCollection($data, $key)
     {
-        if ($model === null) {
+        if (null === $model = $this->buildFieldMappingDefinition($key)[1]) {
             return $data;
         }
 
-        array_walk($data, function (&$data, $dataKey) use ($model, $key) {
-            $data = $this->transformFieldToModelAsScalar($model, $data, $key, $dataKey);
+        array_walk($data, function (&$d, $k) use ($key) {
+            $d = $this->transformFieldToModelAsScalar($d, $key, $k);
         });
 
         return array_values($data);
@@ -276,14 +215,30 @@ abstract class AbstractModel
      *
      * @return string|int|object
      */
-    protected function transformFieldToModelAsScalar($model, $data, $key, $dataKey = null)
+    protected function transformFieldToModelAsScalar($data, $key, $dataKey = null)
     {
+        if ($data instanceof AbstractModel) {
+            return $data;
+        }
+
         if (array_key_exists($key, static::VALUE_TRANSFORMERS)) {
             $data = call_user_func_array([static::VALUE_TRANSFORMERS[$key], 'transform'], [$data]);
         }
 
-        if ($model !== null) {
+        if (null !== $model = $this->buildFieldMappingDefinition($key)[1]) {
+            if (false !== strpos($model, 'FeedAttachment')) {
+                dump('BAILING FUCKER');
+                dump($data);
+                dump($key);
+                dump($dataKey);
+                dump($model);
+                dump($this);
+            }
             $data = call_user_func_array([static::MODEL_TRANSFORMER, 'transform'], [$data, $model, $key, $dataKey]);
+            if (false !== strpos($model, 'FeedAttachment')) {
+                dump($data);
+                die('BAILING, FUCKER');
+            }
         }
 
         return $data;
@@ -301,10 +256,11 @@ abstract class AbstractModel
             'to_property' => $key,
             'object_fqcn' => null,
             'object_coll' => false,
+            'pre_fetched' => false,
         ];
 
         if (array_key_exists($key, $modelDefinition)) {
-            foreach (['to_property', 'object_fqcn', 'object_coll'] as $k) {
+            foreach (['to_property', 'object_fqcn', 'object_coll', 'pre_fetched'] as $k) {
                 if (isset($modelDefinition[$key][$k])) {
                     $fieldDefinition[$k] = $modelDefinition[$key][$k];
                 }

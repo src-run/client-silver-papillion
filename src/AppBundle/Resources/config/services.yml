@@ -92,6 +92,12 @@ services :
     tags   :
       - { name : twig.extension }
 
+  app.twig_extension.url_transformer:
+    class  : AppBundle\Twig\UrlTransformerExtension
+    public : false
+    tags   :
+      - { name : twig.extension }
+
   app.twig_extension.modified:
     class     : AppBundle\Twig\ModifiedExtension
     public    : false

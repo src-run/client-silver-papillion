@@ -1,91 +1,161 @@
 ---
 
 liip_imagine :
+
+  driver : "gmagick"
+
   resolvers :
+
     default :
-      web_path :
-        cache_prefix: '%public_cache_dir%'
+      web_path : { cache_prefix : "%public_cache_dir%" }
 
   filter_sets :
-    cache         : ~
+
     product_thumbs :
-      quality : 88
+
+      jpeg_quality          : 85
+      png_compression_level : 8
+
       filters :
         auto_rotate : ~
         strip       : ~
         thumbnail   : { size : [480, 480], mode : outbound, allow_upscale : true }
         background  : { size : [484, 484], position : center, color : '#fff' }
+
       post_processors :
-        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+        jpegoptim   : { strip_all : true }
+        optipng     : { strip_all : true }
 
     product_category_thumbs :
-      quality : 88
+
+      jpeg_quality          : 85
+      png_compression_level : 8
+
       filters :
         auto_rotate : ~
         strip       : ~
         thumbnail   : { size : [320, 320], mode : outbound, allow_upscale : true }
         background  : { size : [322, 322], position : center, color : '#fff' }
+
       post_processors :
-        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+        jpegoptim   : { strip_all : true }
+        optipng     : { strip_all : true }
 
     cart_product_thumb :
-      quality : 88
+
+      jpeg_quality          : 85
+      png_compression_level : 8
+
       filters :
         auto_rotate : ~
         strip       : ~
         thumbnail   : { size : [84, 84], mode : outbound, allow_upscale : true }
+
       post_processors :
-        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+        jpegoptim   : { strip_all : true }
+        optipng     : { strip_all : true }
 
     product_view_thumbs :
-      quality : 88
+
+      jpeg_quality          : 85
+      png_compression_level : 8
+
       filters :
         auto_rotate : ~
         strip       : ~
         thumbnail   : { size : [800, 800], mode : outbound, allow_upscale : true }
         background  : { size : [840, 840], position : center, color : '#fff' }
+
       post_processors :
-        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+        jpegoptim   : { strip_all : true }
+        optipng     : { strip_all : true }
 
     feed_photo_thumbs :
-      quality : 88
+
+      jpeg_quality          : 85
+      png_compression_level : 8
+
       filters :
         auto_rotate : ~
         strip       : ~
-        upscale     : { min: [520, 380] }
+        upscale     : { min : [520, 380] }
         thumbnail   : { size : [520, 380], mode : outbound, allow_upscale : true }
         background  : { size : [560, 420], position : center, color : '#f2f1f3' }
+
       post_processors :
-        jpegoptim   : { strip_all : true, max : 88, progressive : true }
+        jpegoptim   : { strip_all : true }
+        optipng     : { strip_all : true }
 
     feed_social_thumbs :
-      quality : 88
+
+      jpeg_quality          : 90
+      png_compression_level : 8
+
       filters :
         auto_rotate : ~
         strip       : ~
-        upscale     : { min: [700, 380] }
+        upscale     : { min : [700, 380] }
         thumbnail   : { size : [700, 380], mode : outbound, allow_upscale : true }
         background  : { size : [704, 384], position : center, color : '#f2f1f3' }
-      post_processors :
-        jpegoptim   : { strip_all : true, max : 88, progressive : true }
 
-    feed_lightbox :
-      quality : 92
+      post_processors :
+        jpegoptim   : { strip_all : true }
+        optipng     : { strip_all : true }
+
+    #
+    # lightbox - thumbnail images
+    #
+    lightbox_thumb :
+
+      jpeg_quality          : 90
+      png_compression_level : 8
+
       filters :
         auto_rotate : ~
         strip       : ~
-        upscale     : { min: [780, 420] }
-        thumbnail   : { size : [780, 420], mode : outbound, allow_upscale : true }
-        background  : { size : [786, 426], position : center, color : '#000' }
-      post_processors :
-        jpegoptim   : { strip_all : true, max : 92, progressive : true }
+        upscale     : { min : [1280, 740] }
+        thumbnail   : { size : [1280, 740], mode : outbound, allow_upscale : true }
+        background  : { size : [1290, 750], position : center, color : '#f2f1f3' }
 
+      post_processors :
+        jpegoptim   : { strip_all : true }
+        optipng     : { strip_all : true }
+
+    #
+    # lightbox - enlarged images
+    #
+    lightbox_focus :
+
+      jpeg_quality          : 90
+      png_compression_level : 8
+
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min : [1980, 1280] }
+        thumbnail   : { size : [1980, 1280], mode : outbound, allow_upscale : true }
+        background  : { size : [2000, 1300], position : center, color : '#000' }
+
+      post_processors :
+        jpegoptim   : { strip_all : true }
+        optipng     : { strip_all : true }
+
+    #
+    # home page carousel images
+    #
     carousel :
-      quality : 90
+
+      jpeg_quality          : 94
+      png_compression_level : 9
+
       filters :
         auto_rotate : ~
         strip       : ~
-        downscale   : { max: [2800, 1200] }
+        upscale     : { max : [2970, 1280] }
+        downscale   : { max : [2970, 1280] }
+
       post_processors :
-        jpegoptim   : { strip_all : true, max : 90, progressive : true }
+        jpegoptim   : { strip_all : true }
+        optipng     : { strip_all : true }
+
 ...

@@ -19,13 +19,19 @@ use AppBundle\Component\Facebook\Model\AbstractModel;
 class FeedMedia extends AbstractModel
 {
     /**
-     * @var array[]
+     * @var string
      */
-    const MAPPING_DEFINITION = [
-        'src' => [
-            'to_property' => 'link',
-        ],
-    ];
+    protected $id;
+
+    /**
+     * @var \DateTime
+     */
+    protected $createdOn;
+
+    /**
+     * @var \DateTime
+     */
+    protected $updatedOn;
 
     /**
      * @var string
@@ -33,14 +39,47 @@ class FeedMedia extends AbstractModel
     protected $link;
 
     /**
-     * @var int
+     * @var FeedMediaVideoFormat[]|FeedMediaPhotoFormat[]
      */
-    protected $width;
+    protected $formats;
 
     /**
-     * @var int
+     * @var string
      */
-    protected $height;
+    protected $description;
+
+    protected function assignDataToModel()
+    {
+        foreach ($this->data as $key => $data) {
+            $this->assignFieldToModel($data, $key);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedOn()
+    {
+        return $this->createdOn;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedOn()
+    {
+        return $this->updatedOn;
+    }
 
     /**
      * @return string
@@ -51,24 +90,19 @@ class FeedMedia extends AbstractModel
     }
 
     /**
-     * @return int
+     * @return FeedMediaVideoFormat[]|FeedMediaPhotoFormat[]
      */
-    public function getWidth()
+    public function getFormats()
     {
-        return $this->width;
+        return $this->formats;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getHeight()
+    public function getDescription()
     {
-        return $this->height;
-    }
-
-    public function isImage()
-    {
-        return $this->key === 'image';
+        return $this->description;
     }
 }
 

@@ -24,6 +24,9 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $fb = $this->get('app.fb.provider.page_feed');
+        dump($fb->get());
+
         $count = $this->get('app.manager.configuration')->value('product.count.featured', 3);
 
         return $this->render('AppBundle:default:index.html.twig', [

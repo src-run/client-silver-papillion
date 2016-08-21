@@ -3,34 +3,37 @@
  # simplified feed listing showing only media photos
  #}
 
-{% for f in feed|slice(0, count) %}
+{% for f in feed|slice(0, count) if f.getAttachments.count() > 0 %}
 
     <div class="card-feed-photo">
         <div class="card is-linkable is-animated" data-href="{{ url('app_feed_view', {_fragment: f.getId}) }}">
 
             {% include 'AppBundle:fragment:feed-type-head.html.twig' with {
-                'is_video' : f.isVideo
+                'is_video' : f.isVideo()
             } only %}
 
             <div class="card-section-body">
-                {% if f.getAttachments|first.getMedia|first %}
-                    {% set media = f.getAttachments|first.getMedia|first %}
-                {% else %}
-                    {% set media = f.getAttachments|first.getSubattachments|first.getMedia|first %}
-                {% endif %}
 
-                <a  class="feed-attachment-link"
-                    title="{{ f.getDate | date("m/d/Y") }} - {{ f.getMessage() }}"
-                    data-fancybox-initialized="0"
-                    {% if f.isVideo %}
-                        href="{{ f.getSourceLink() }}"
-                    {% else %}
-                        data-fancybox-group="feed-photos"
-                        href="{{ media.getLink() | url_to_file | imagine_filter('feed_lightbox') }}"
-                    {% endif %}
-                >
-                    <img class="feed-attachment" src="{{ media.getLink() | url_to_file | imagine_filter('feed_photo_thumbs')  }}" alt="{{ f.getMessage }}" />
-                </a>
+                {% for a in f.getAttachments()|slice(0,1) %}
+                    <a  class="feed-attachment-link"
+                        title="{{ a.getCreatedOn()|date("m/d/Y") }} - {{ a.getDescription() }}"
+                        data-fancybox-initialized="0"
+                        {% if f.isVideo() %}
+                            data-fancybox-type="iframe"
+                            href="{{ path('app_fragment_feed_video', { id : f.getId() }) }}"
+                        {% else %}
+                            data-fancybox-group="feed-photos"
+                            href="{{ a.getSingleFormatLargerThan(1280).getLink() | cache_url | imagine_filter('lightbox_focus') }}"
+                        {% endif %}>
+
+                        <img class="feed-attachment"
+                             src="{{ a.getSingleFormatSmallerThan(720).getLink() | cache_url | imagine_filter('lightbox_thumb')  }}"
+                             alt="{{ a.getDescription() }}"
+                        />
+
+                    </a>
+                {% endfor %}
+
             </div>
 
         </div>

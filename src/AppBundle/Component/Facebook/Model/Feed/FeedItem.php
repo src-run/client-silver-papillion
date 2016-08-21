@@ -26,6 +26,7 @@ class FeedItem extends AbstractModel
      */
     const VALUE_TRANSFORMERS = [
         'created_time' => DateTimeTransformer::class,
+        'updated_time' => DateTimeTransformer::class,
         'from' => AuthorTransformer::class,
     ];
 
@@ -37,16 +38,19 @@ class FeedItem extends AbstractModel
             'to_property' => 'published',
         ],
         'created_time' => [
-            'to_property' => 'date',
+            'to_property' => 'createdOn',
+        ],
+        'updated_time' => [
+            'to_property' => 'updatedOn',
         ],
         'permalink_url' => [
-            'to_property' => 'permaLink',
+            'to_property' => 'permanentLink',
         ],
         'from' => [
             'to_property' => 'author',
         ],
         'attachments' => [
-            'object_fqcn' => FeedAttachment::class,
+            'object_fqcn' => FeedAttachments::class,
             'object_coll' => true,
         ],
         'comments' => [
@@ -60,9 +64,6 @@ class FeedItem extends AbstractModel
         'icon' => [
             'to_property' => 'iconLink',
         ],
-        'source' => [
-            'to_property' => 'sourceLink',
-        ],
     ];
 
     /**
@@ -71,24 +72,29 @@ class FeedItem extends AbstractModel
     protected $id;
 
     /**
-     * @var string
+     * @var \DateTime
      */
-    protected $permaLink;
-
-    /**
-     * @var string
-     */
-    protected $iconLink;
-
-    /**
-     * @var string
-     */
-    protected $sourceLink;
+    protected $createdOn;
 
     /**
      * @var \DateTime
      */
-    protected $date;
+    protected $updatedOn;
+
+    /**
+     * @var string
+     */
+    protected $permanentLink;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
+    /**
+     * @var string[]
+     */
+    protected $properties;
 
     /**
      * @var bool
@@ -101,22 +107,17 @@ class FeedItem extends AbstractModel
     protected $author;
 
     /**
+     * @var string
+     */
+    protected $iconLink;
+
+    /**
      * @var string|null
      */
     protected $message;
 
     /**
-     * @var string|null
-     */
-    protected $story;
-
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @var FeedAttachment[]|null
+     * @var FeedAttachments[]|null
      */
     protected $attachments;
 
@@ -131,6 +132,14 @@ class FeedItem extends AbstractModel
     protected $reactions;
 
     /**
+     * @return bool
+     */
+    public function hasMessage()
+    {
+        return $this->message !== null;
+    }
+
+    /**
      * @return string
      */
     public function getId()
@@ -139,19 +148,27 @@ class FeedItem extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getPermaLink()
+    public function getCreatedOn()
     {
-        return $this->permaLink;
+        return $this->createdOn;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedOn()
+    {
+        return $this->updatedOn;
     }
 
     /**
      * @return string
      */
-    public function getIconLink()
+    public function getPermanentLink()
     {
-        return $this->iconLink;
+        return $this->permanentLink;
     }
 
     /**
@@ -187,11 +204,11 @@ class FeedItem extends AbstractModel
     }
 
     /**
-     * @return \DateTime
+     * @return \string[]
      */
-    public function getDate()
+    public function getProperties()
     {
-        return $this->date;
+        return $this->properties;
     }
 
     /**
@@ -203,11 +220,19 @@ class FeedItem extends AbstractModel
     }
 
     /**
-     * @return null|string
+     * @return boolean
      */
-    public function getAuthor()
+    public function isAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIconLink()
+    {
+        return $this->iconLink;
     }
 
     /**
@@ -219,31 +244,7 @@ class FeedItem extends AbstractModel
     }
 
     /**
-     * @return bool
-     */
-    public function hasMessage()
-    {
-        return $this->message !== null;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getStory()
-    {
-        return $this->story;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasStory()
-    {
-        return $this->story !== null;
-    }
-
-    /**
-     * @return FeedAttachment[]|null
+     * @return FeedAttachments[]|null
      */
     public function getAttachments()
     {
@@ -288,30 +289,6 @@ class FeedItem extends AbstractModel
     public function hasReactions()
     {
         return $this->reactions !== null;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSourceLink()
-    {
-        return $this->sourceLink;
-    }
-
-    /**
-     * @param string $sourceLink
-     */
-    public function setSourceLink($sourceLink)
-    {
-        $this->sourceLink = $sourceLink;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasSourceLink()
-    {
-        return $this->sourceLink !== null;
     }
 }
 

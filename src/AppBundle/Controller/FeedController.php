@@ -35,6 +35,9 @@ class FeedController extends Controller
     public function fragmentAction()
     {
         $this->get('session')->save();
+        $fb = $this->get('app.fb.provider.page_feed');
+
+        dump($fb->get());
 
         return $this->render('AppBundle:feed:feed.html.twig', [
             '_c' => static::class,

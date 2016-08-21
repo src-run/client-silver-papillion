@@ -19,7 +19,7 @@ interface AuthenticationInterface
     /**
      * @return TokenInterface
      */
-    public function getAuthorization();
+    public function getAuth();
 
     /**
      * @return int

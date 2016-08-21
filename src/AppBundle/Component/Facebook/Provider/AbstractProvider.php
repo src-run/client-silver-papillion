@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Component\Facebook\NodeFactory;
+namespace AppBundle\Component\Facebook\Provider;
 
 use AppBundle\Component\Facebook\Authentication\AuthenticationInterface;
 use AppBundle\Component\Facebook\Exception\FacebookException;
@@ -21,15 +21,10 @@ use Psr\Cache\CacheItemInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 /**
- * Class AbstractNodeFactory.
+ * Class AbstractProvider.
  */
-abstract class AbstractNodeFactory
+abstract class AbstractProvider implements ProviderInterface
 {
-    /**
-     * @var EndpointRequest
-     */
-    private $request;
-
     /**
      * @var string
      */
@@ -168,6 +163,11 @@ abstract class AbstractNodeFactory
      */
     public function get()
     {
+        $r = $this->getResponse();
+        dump($r);
+
+        return $r;
+
         if ($this->hasCached()) {
             return $this->getCached();
         }
@@ -214,7 +214,7 @@ abstract class AbstractNodeFactory
 
             $response = $facebook->get(
                 $this->getEndpoint(),
-                $this->getAuthentication()->getAuthorization()->getToken()
+                $this->getAuthentication()->getAuth()->getToken()
             );
 
             return $this->hydrate($response);
@@ -234,14 +234,12 @@ abstract class AbstractNodeFactory
     abstract protected function hydrate(FacebookResponse $response);
 
     /**
-     * @param FacebookResponse $response
+     * @param mixed[] $data
      *
      * @return AbstractModel
      */
-    protected function hydrateDataList(FacebookResponse $response)
+    protected function hydrateDataList($data)
     {
-        $data = $response->getDecodedBody();
-
         if (!$this->isDataList($data)) {
             return null;
         }
@@ -260,14 +258,16 @@ abstract class AbstractNodeFactory
     }
 
     /**
+     * @param bool $forceNew
+     *
      * @return CacheItemInterface
      */
-    protected function getCachedItem()
+    protected function getCachedItem($forceNew = false)
     {
         static $cacheItem;
 
-        if ($cacheItem === null) {
-            $cacheItem = $this->getCache()->getItem(sprintf('facebook.feed.%s.%s'.time(), $this->getId(), md5($this->getEndpoint())));
+        if ($cacheItem === null || $forceNew) {
+            $cacheItem = $this->getCache()->getItem(sprintf('facebook.feed.%s.%s', $this->getId(), md5($this->getEndpoint())));
         }
 
         return $cacheItem;

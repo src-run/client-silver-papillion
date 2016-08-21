@@ -71,14 +71,15 @@ class PageFeed extends AbstractModel implements \IteratorAggregate
     /**
      * @param array|null  $data
      * @param string|null $pageId
+     * @param mixed       $parameters
      *
      * @return $this
      */
-    public function hydrate(array $data = null, $pageId = null)
+    public function hydrate(array $data = null, $pageId = null, ...$parameters)
     {
         $this->id = $pageId;
 
-        parent::hydrate($data);
+        parent::hydrate($data, null, ...$parameters);
 
         return $this;
     }

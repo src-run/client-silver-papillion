@@ -12,6 +12,7 @@
 namespace AppBundle\Component\Facebook\Provider;
 
 use AppBundle\Component\Facebook\Authentication\AuthenticationInterface;
+use AppBundle\Component\Facebook\Model\AbstractModel;
 use AppBundle\Component\Facebook\Model\Feed\Page\PageFeed;
 use Facebook\FacebookResponse;
 
@@ -44,11 +45,11 @@ class FeedProvider extends AbstractProvider
     /**
      * @param FacebookResponse $response
      *
-     * @return PageFeed
+     * @return AbstractModel
      */
     protected function hydrate(FacebookResponse $response)
     {
-        return $this->hydrateDataList($response);
+        return $this->hydrateDataList($response->getDecodedBody());
     }
 
     /**
@@ -66,8 +67,6 @@ class FeedProvider extends AbstractProvider
      */
     protected function hydrateModel($data)
     {
-        dump($this->createDataList('items', $data));
-        die('FUCK');
         return PageFeed::create($this->createDataList('items', $data), $this->getAuthentication()->getPageId());
     }
 }

@@ -139,7 +139,7 @@ class AuthenticationServerSide implements AuthenticationInterface
     /**
      * @return TokenInterface
      */
-    public function getAuthorization()
+    public function getAuth()
     {
         try {
             $facebook = FacebookFactory::create($this->getAppId(), $this->getAppSecret(), $this->getGraphVersion());

@@ -12,9 +12,9 @@
 namespace AppBundle\Component\Facebook\Transformer;
 
 /**
- * Class MediaStatusTransformer.
+ * Class EmbedHtmlTransformer.
  */
-class MediaStatusTransformer implements TransformerInterface
+class EmbedHtmlTransformer implements TransformerInterface
 {
     /**
      * {@inheritdoc}
@@ -23,19 +23,19 @@ class MediaStatusTransformer implements TransformerInterface
      */
     public static function transform($data, ...$parameters)
     {
-        switch (isset($data['video_status']) ?: 'error') {
-            case 'ready':
-                return 200;
-
-            case 'processing':
-                return 300;
-
-            case 'error':
-                return 500;
-
-            default:
-                return 501;
+        if (empty($data) || 1 !== preg_match('{src="([^"]+)"}i', $data, $matches)) {
+            return [];
         }
+
+        $return = [
+            'html' => $data,
+        ];
+
+        if (count($matches) === 2) {
+            $return['url'] = $matches[1];
+        }
+
+        return $return;
     }
 }
 
