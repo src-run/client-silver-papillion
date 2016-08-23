@@ -10,13 +10,10 @@
 
             <a  class="feed-attachment-link"
                 title="{{ a.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ a.getText()|default(f.getMessage()) }}"
-                data-fancybox-initialized="0"
                 rel="photo-group"
+                data-fancybox-initialized="0"
                 {% if a.isVideo() %}
                     href="{{ href }}"
-                    data-fancybox-type="iframe"
-                    data-fancybox-height="720px"
-                    data-fancybox-width="1080px"
                 {% else %}
                     href="{{ href | url_to_file | imagine_filter('lightbox_focus') }}"
                 {% endif %}

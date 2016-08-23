@@ -22,7 +22,7 @@
         {% elseif a.isVideo() %}
             {% set i = i + 1 %}
             {% set thumb = a.getThumbGreaterThan(1200, true) %}
-            {% set href  = path('app_fragment_feed_video', { post : f.getId(), video : a.getId() }) %}
+            {% set href  = 'https://www.facebook.com/video.php?v=' ~ a.getId() %}
             {% include 'AppBundle:fragment:feed-list-photo-card.html.twig' with { 'f' : f, 'a' : a, 'thumb' : thumb, 'href' : href } only %}
         {% endif %}
 

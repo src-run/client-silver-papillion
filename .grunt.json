@@ -76,7 +76,7 @@
     },
     "plugins" : {
       "in" : {
-        "scr": [
+        "scr" : [
           "${paths.plugins.jquery.in.scr}jquery.js",
           "${paths.plugins.bootstrap.in.scr}bootstrap/transition.js",
           "${paths.plugins.bootstrap.in.scr}bootstrap/alert.js",
@@ -96,7 +96,11 @@
           "${paths.plugins.fancybox.in.scr}helpers/jquery.fancybox-thumbs.js",
           "${paths.plugins.smoothscroll.in.scr}jquery.smooth-scroll.js",
           "${paths.plugins.waypoints.in.scr}jquery.waypoints.js",
-          "web/components/jquery-creditcardvalidator/jquery.creditCardValidator.js"
+          "${paths.plugins.root}jquery-creditcardvalidator/jquery.creditCardValidator.js",
+          "${paths.plugins.root}jquery-oembed-all/jquery.oembed.js"
+        ],
+        "sty" : [
+          "${paths.plugins.root}jquery-oembed-all/jquery.oembed.css"
         ]
       }
     },
