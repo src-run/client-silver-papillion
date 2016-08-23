@@ -66,6 +66,7 @@ class FeedController extends Controller
         return $this->render('AppBundle:fragment:feed-attachment-video.html.twig', [
             '_c' => static::class,
             'video' => $this->findVideo($this->get('app.fb.provider.page_feed')->get(), $post, $video),
+            'app_id' => $this->getParameter('facebook_app_id'),
         ]);
     }
 

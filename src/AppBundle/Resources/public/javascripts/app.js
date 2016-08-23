@@ -275,9 +275,6 @@ $(document).ready(function () {
     var selector = '[data-' + dataName + ']';
     var confOpts = {
       padding : 0,
-      helpers : {
-        title : { type : 'over' }
-      },
       beforeLoad : function () {
         var width = this.element.data('fancybox-width');
 
