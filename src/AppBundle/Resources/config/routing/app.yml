@@ -123,7 +123,7 @@ app_feed_view:
     _controller : AppBundle:Feed:index
 
 app_fragment_feed_video:
-  path     : /fragment/feed/video/{post}/{video}.html
+  path     : /fragment/feed/video/{post}/{video}
   defaults :
     _controller : AppBundle:Feed:fragmentVideo
 

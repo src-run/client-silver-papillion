@@ -15,8 +15,8 @@
                 {% if a.isVideo() %}
                     href="{{ href }}"
                     data-fancybox-type="iframe"
-                    data-fancybox-height="480px"
-                    data-fancybox-width="720px"
+                    data-fancybox-height="720px"
+                    data-fancybox-width="1080px"
                 {% else %}
                     href="{{ href | url_to_file | imagine_filter('lightbox_focus') }}"
                 {% endif %}
