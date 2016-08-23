@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20160729153514 extends AbstractMigration
+class Version20160823072133 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -18,7 +18,7 @@ class Version20160729153514 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE hours CHANGE `order` weight INT NOT NULL');
+        $this->addSql('ALTER TABLE customer_order ADD createdOn DATETIME NOT NULL');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20160729153514 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE hours CHANGE weight `order` INT NOT NULL');
+        $this->addSql('ALTER TABLE customer_order DROP createdOn');
     }
 }

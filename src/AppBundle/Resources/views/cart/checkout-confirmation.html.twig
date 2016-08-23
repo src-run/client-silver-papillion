@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block bread %}
+    {{ parent() }}
+    <li><a href="{{ url('app_cart_view') }}">Your Cart</a></li>
+    <li>Checkout</li>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container container-sr">
+
+        {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
+            'icon'    : 'fa-check',
+            'text'    : order.getName() ~ ', your order has been charged and will be on its way shortly!'
+        } only %}
+
+    </div>
+
+{% endblock %}
+

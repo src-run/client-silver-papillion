@@ -7,11 +7,118 @@
 {% endblock %}
 
 {% block body %}
+    {% form_theme f 'bootstrap_3_layout.html.twig' %}
 
     <div class="container container-sr">
 
-        {{ form_start(f) }}
-        {{ form_end(f) }}
+        <div class="checkout">
+
+            <div class="checkout-form-wrap">
+
+                <div class="checkout-form form-basic card">
+
+                    <h2 class="primary-hr-i">Shipping <em>Address</em></h2>
+
+                    {{ form_start(f) }}
+
+                    <div class="checkout-form-fields">
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                {{ form_label(f.name) }}
+                                {{ form_widget(f.name) }}
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                {{ form_label(f.email) }}
+                                {{ form_widget(f.email) }}
+                            </div>
+                        </div>
+
+                        {{ form_row(f.address) }}
+
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                {{ form_label(f.city) }}
+                                {{ form_widget(f.city) }}
+                            </div>
+
+                            <div class="form-group col-sm-5">
+                                {{ form_label(f.state) }}
+                                {{ form_widget(f.state) }}
+                            </div>
+
+                            <div class="form-group col-sm-2">
+                                {{ form_label(f.zip) }}
+                                {{ form_widget(f.zip) }}
+                            </div>
+                        </div>
+
+                        <div class="form-submit-wrap">
+                            <div class="form-submit">
+                                <div class="btn-group btn-block">
+                                    <a href="{{ url('app_cart_view') }}" class="btn btn-warning">Go back</a>
+                                    {{ form_widget(f.submit, { 'attr': {'class': 'btn-primary'}, 'label': 'Continue' }) }}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {{ form_end(f) }}
+
+                </div>
+
+            </div>
+
+            <div class="checkout-info">
+
+                <div class="card">
+                    <h3 class="primary-hr-i">
+                        {{ ion('bag') }} Cart <em>Summary</em>
+                    </h3>
+
+                    <div class="checkout-info-item-group">
+
+                        {% for g in cart_items_grouped() %}
+                            <div class="checkout-info-item">
+                                <div class="cart-item-image">
+                                    <img alt="{{ g.getProduct.getName }}" src="{{ asset_product(g.getProduct.getImage) | imagine_filter('cart_product_thumb') }}" />
+                                </div>
+                                <h4>
+                                    <a href="{{ path('app_product_view', {'productName': g.getProduct.getName|slugify, 'product': g.getProduct.getId, 'category': g.getProduct.getCategory.getSlug}) }}">
+                                        {{ g.getProduct.getName }}
+                                    </a>
+                                </h4>
+                                <h5>
+                                    {% if g.count != 1 %}
+                                        ${{ g.getProduct.getPrice()|number_format(2, '.', ',') }} x {{ g.count() }} =
+                                    {% endif %}
+                                    ${{ g.total()|number_format(2, '.', ',') }}
+                                </h5>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="cart-total">
+                        <dl class="cart-total-breakdown pull-right">
+                            <dt>Tax</dt>
+                            <dd>${{ cart_tax()|number_format(2, '.', ',') }}</dd>
+                            <dt>Shipping</dt>
+                            <dd>${{ cart_shipping()|number_format(2, '.', ',') }}</dd>
+                        </dl>
+                        <dl class="cart-total-total">
+                            <dt>Total</dt>
+                            <dd>${{ cart_total()|number_format(2, '.', ',') }}</dd>
+                        </dl>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 

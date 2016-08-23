@@ -1,0 +1,250 @@
+{% extends 'base.html.twig' %}
+
+{% block bread %}
+    {{ parent() }}
+    <li><a href="{{ url('app_cart_view') }}">Your Cart</a></li>
+    <li>Checkout</li>
+{% endblock %}
+
+{% block body %}
+    {% form_theme f 'bootstrap_3_layout.html.twig' %}
+
+    <div class="container container-sr">
+
+        <div class="checkout">
+
+            <div class="checkout-form-wrap">
+
+                <div class="checkout-form form-basic card">
+
+                    <h2 class="primary-hr-i">Payment <em>Credit Card</em></h2>
+
+                    <div class="checkout-error">
+                    {% for f in flash|default([]) %}
+                            <p><em>Error:</em> {{ f }}</p>
+                    {% endfor %}
+                    </div>
+
+                    {{ form_start(f) }}
+
+                    <div class="checkout-form-fields">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                {{ form_label(f.nameOnCard, 'Name as it appears on card') }}
+                                {{ form_widget(f.nameOnCard) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-8">
+                                {{ form_label(f.creditCardNumber) }}
+                                {{ form_widget(f.creditCardNumber) }}
+                            </div>
+                            <div class="form-group col-sm-4">
+                                {{ form_label(f.securityCode) }}
+                                {{ form_widget(f.securityCode) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                {{ form_label(f.expMonth, 'Experation month') }}
+                                {{ form_widget(f.expMonth) }}
+                            </div>
+                            <div class="form-group col-sm-4">
+                                {{ form_label(f.expYear, 'Experation year') }}
+                                {{ form_widget(f.expYear) }}
+                            </div>
+                            <div class="form-group col-sm-4">
+                                {{ form_label(f.billingZip) }}
+                                {{ form_widget(f.billingZip) }}
+                            </div>
+                        </div>
+
+                        <div class="form-submit-wrap">
+                            <div class="form-submit">
+                                <div class="btn-group btn-block">
+                                    <a href="{{ url('app_cart_checkout') }}" class="btn btn-warning">Go back</a>
+                                    {{ form_widget(f.submit, { 'attr': {'class': 'btn-primary'}, 'label': 'Place Order' }) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        {{ form_widget(f.stripeToken) }}
+
+                    </div>
+
+                    {{ form_end(f) }}
+
+                </div>
+
+            </div>
+
+            <div class="checkout-info">
+
+                <div class="card">
+                    <h3 class="primary-hr-i">
+                        {{ ion('bag') }} Cart <em>Summary</em>
+                    </h3>
+
+                    <div class="checkout-info-item-group">
+
+                        {% for g in cart_items_grouped() %}
+                            <div class="checkout-info-item">
+                                <div class="cart-item-image">
+                                    <img alt="{{ g.getProduct.getName }}" src="{{ asset_product(g.getProduct.getImage) | imagine_filter('cart_product_thumb') }}" />
+                                </div>
+                                <h4>
+                                    <a href="{{ path('app_product_view', {'productName': g.getProduct.getName|slugify, 'product': g.getProduct.getId, 'category': g.getProduct.getCategory.getSlug}) }}">
+                                        {{ g.getProduct.getName }}
+                                    </a>
+                                </h4>
+                                <h5>
+                                    {% if g.count != 1 %}
+                                        ${{ g.getProduct.getPrice()|number_format(2, '.', ',') }} x {{ g.count() }} =
+                                    {% endif %}
+                                    ${{ g.total()|number_format(2, '.', ',') }}
+                                </h5>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="cart-total">
+                        <dl class="cart-total-breakdown pull-right">
+                            <dt>Tax</dt>
+                            <dd>${{ cart_tax()|number_format(2, '.', ',') }}</dd>
+                            <dt>Shipping</dt>
+                            <dd>${{ cart_shipping()|number_format(2, '.', ',') }}</dd>
+                        </dl>
+                        <dl class="cart-total-total">
+                            <dt>Total</dt>
+                            <dd>${{ cart_total()|number_format(2, '.', ',') }}</dd>
+                        </dl>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <style type="text/css">
+        #payment_stripeToken {
+            display : none;
+        }
+        #payment_creditCardNumber {
+            background-image: url(/bundles/app/images/credit-cards.png), url(/bundles/app/images/credit-cards.png);
+            background-position: 0 -121px, 54px -61px;
+            background-size: 120px 361px, 120px 361px;
+            background-repeat: no-repeat;
+            padding-left: 78px;
+        }
+        #payment_creditCardNumber.visa {
+            background-position: 0 -163px, 54px -61px;
+        }
+        #payment_creditCardNumber.visa_electron {
+            background-position: 0 -205px, 54px -61px;
+        }
+        #payment_creditCardNumber.mastercard {
+            background-position: 0 -247px, 54px -61px;
+        }
+        #payment_creditCardNumber.maestro {
+            background-position: 0 -289px, 54px -61px;
+        }
+        #payment_creditCardNumber.discover {
+            background-position: 0 -331px, 54px -61px;
+        }
+        #payment_creditCardNumber.valid.visa {
+            background-position: 0 -163px, 54px -87px;
+        }
+        #payment_creditCardNumber.valid.visa_electron {
+            background-position: 0 -205px, 54px -87px;
+        }
+        #payment_creditCardNumber.valid.mastercard {
+            background-position: 0 -247px, 54px -87px;
+        }
+        #payment_creditCardNumber.valid.maestro {
+            background-position: 0 -289px, 54px -87px;
+        }
+        #payment_creditCardNumber.valid.discover {
+            background-position: 0 -331px, 54px -87px;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    <script>
+        $('#payment_creditCardNumber').validateCreditCard(function (result) {
+            $el = $(this);
+
+            if (result.card_type) {
+                $el.addClass(result.card_type.name);
+
+                if (result.luhn_valid && result.length_valid) {
+                    $el.addClass('valid');
+                } else {
+                    $el.removeClass('valid');
+                }
+            } else {
+                $el.removeClass('visa');
+                $el.removeClass('visa_electron');
+                $el.removeClass('mastercard');
+                $el.removeClass('maestro');
+                $el.removeClass('discover');
+                $el.removeClass('valid');
+            }
+        });
+
+        function stripeResponseHandler(status, response) {
+
+            // Grab the form:
+            var $form = $('form');
+
+            console.log(response);
+
+            if (response.error) { // Problem!
+
+                // Show the errors on the form
+                $('.checkout-error').html('<p><em>Error:</em> '+response.error.message+'</p>');
+                $('#payment_submit').prop('disabled', false); // Re-enable submission
+
+            } else { // Token was created!
+
+                // Get the token ID:
+                var token = response.id;
+
+                // Insert the token into the form so it gets submitted to the server:
+                $form.find('#payment_stripeToken').val(token);
+
+                // Submit the form:
+                $form.get(0).submit();
+
+            }
+        }
+
+        Stripe.setPublishableKey('{{ stripe_key }}');
+
+        $('#payment_submit').on('click', function (e) {
+            e.preventDefault();
+            console.log($('#payment_expMonth').val());
+            Stripe.card.createToken({
+                name: $('#payment_nameOnCard').val(),
+                number: $('#payment_creditCardNumber').val(),
+                cvc: $('#payment_securityCode').val(),
+                exp_month: $('#payment_expMonth').val(),
+                exp_year: $('#payment_expYear').val(),
+                address_zip: $('#payment_billingZip').val(),
+            }, stripeResponseHandler);
+        });
+
+    </script>
+{% endblock %}

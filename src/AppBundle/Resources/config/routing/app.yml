@@ -97,6 +97,16 @@ app_cart_checkout:
   defaults :
     _controller : AppBundle:Cart:checkout
 
+app_cart_checkout_payment:
+  path     : /store/checkout/payment
+  defaults :
+    _controller : AppBundle:Cart:checkoutPayment
+
+app_cart_checkout_process:
+  path     : /store/checkout/process
+  defaults :
+    _controller : AppBundle:Cart:checkoutProcess
+
 app_location:
   path     : /location
   defaults :
@@ -113,7 +123,7 @@ app_feed_view:
     _controller : AppBundle:Feed:index
 
 app_fragment_feed_video:
-  path     : /fragment/feed/video/{id}
+  path     : /fragment/feed/video/{post}/{video}.html
   defaults :
     _controller : AppBundle:Feed:fragmentVideo
 

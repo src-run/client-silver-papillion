@@ -70,6 +70,17 @@ class Cart implements \Serializable
         $this->setConfigurationManager($configurationManager);
     }
 
+    public function toJson()
+    {
+        $items = array_map(function (Product $p) {
+            return [
+                'id' => $p->getId(),
+            ];
+        }, $this->items);
+
+        return json_encode($items);
+    }
+
     /**
      * @param Session              $session
      * @param EntityManager        $entityManager
@@ -163,7 +174,7 @@ class Cart implements \Serializable
     }
 
     /**
-     * @return \AppBundle\Entity\Product[]
+     * @return \AppBundle\Entity\Product[]|CartGroup
      */
     public function getItemsGrouped()
     {

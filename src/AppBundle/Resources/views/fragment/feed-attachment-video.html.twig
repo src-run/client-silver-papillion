@@ -1,5 +1,33 @@
-<div id="feed-attachment-video-{{ f.getId }}" class="feed-attachment-video">
-    <video controls>
-        <source src="{{ f.getSourceLink }}" />
-    </video>
+<html>
+<head>
+    <title>{{ video.getText() }}</title>
+</head>
+<body>
+
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<style type="text/css">
+    body {
+        background : #000;
+    }
+</style>
+
+<!-- Your embedded video player code -->
+<div class="fb-video" data-href="https://www.facebook.com/facebook/videos/{{ video.getId() }}/" data-autoplay="true" data-width="720" data-show-text="false">
+    <div class="fb-xfbml-parse-ignore">
+        <blockquote cite="https://www.facebook.com/facebook/videos/{{ video.getId() }}/">
+            <a href="https://www.facebook.com/facebook/videos/{{ video.getId() }}/">View on Facebook</a>
+        </blockquote>
+    </div>
 </div>
+
+</body>
+</html>

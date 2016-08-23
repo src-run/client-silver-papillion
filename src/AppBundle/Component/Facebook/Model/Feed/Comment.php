@@ -17,9 +17,9 @@ use AppBundle\Component\Facebook\Transformer\DateTimeTransformer;
 use AppBundle\Component\Facebook\Transformer\TransformerInterface;
 
 /**
- * Class FeedComment.
+ * Class Comment.
  */
-class FeedComment extends AbstractModel
+class Comment extends AbstractModel
 {
     /**
      * @var TransformerInterface[]

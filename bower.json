@@ -13,6 +13,8 @@
     "bootstrapvalidator": "~0.5",
     "jquery-smooth-scroll": "~1.7",
     "ionicons": "~2.0",
-    "jquery-fancy-box": "git@github.com:robfrawley/jquery-fancy-box.git#~2.1.7"
+    "jquery-fancy-box": "git@github.com:robfrawley/jquery-fancy-box.git#~2.1.8",
+    "featherlight": "~1.5",
+    "jquery-creditcardvalidator": "~1.0"
   }
 }

@@ -3,8 +3,8 @@
 easy_admin:
   entities:
     Order:
-      class: AppBundle\Entity\Order
-      label: 'Purchase Orders'
+      class: AppBundle\Entity\OrderItem
+      label: 'Order Items'
       disabled_actions: ['new', 'delete']
 
       list:

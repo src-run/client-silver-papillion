@@ -12,7 +12,13 @@
 
             <div class="product-view-image">
                 <div class="card is-linkable is-animated">
-                    <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" data-jslghtbx="{{ asset_product(product.getImage) }}" />
+                    <a  class="feed-attachment-link"
+                        title="{{ product.getName }}"
+                        data-fancybox-initialized="0"
+                        href="{{ asset_product(product.getImage) | imagine_filter('product_focus') }}"
+                    >
+                        <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" />
+                    </a>
                 </div>
             </div>
 

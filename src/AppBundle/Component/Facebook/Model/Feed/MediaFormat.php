@@ -16,17 +16,8 @@ use AppBundle\Component\Facebook\Model\AbstractModel;
 /**
  * Class FeedMedia.
  */
-class FeedMedia extends AbstractModel
+abstract class MediaFormat extends AbstractModel
 {
-    /**
-     * @var array[]
-     */
-    const MAPPING_DEFINITION = [
-        'src' => [
-            'to_property' => 'link',
-        ],
-    ];
-
     /**
      * @var string
      */
@@ -35,12 +26,12 @@ class FeedMedia extends AbstractModel
     /**
      * @var int
      */
-    protected $width;
+    protected $height;
 
     /**
-     * @var int
+     * @var string
      */
-    protected $height;
+    protected $width;
 
     /**
      * @return string
@@ -55,7 +46,7 @@ class FeedMedia extends AbstractModel
      */
     public function getWidth()
     {
-        return $this->width;
+        return $this->width !== 0 ? $this->width : 1280;
     }
 
     /**
@@ -63,12 +54,18 @@ class FeedMedia extends AbstractModel
      */
     public function getHeight()
     {
-        return $this->height;
+        return $this->height !== 0 ? $this->height : 720;
     }
 
-    public function isImage()
+    /**
+     * @return int[]
+     */
+    public function getSize()
     {
-        return $this->key === 'image';
+        return [
+            $this->width,
+            $this->height
+        ];
     }
 }
 

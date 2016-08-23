@@ -1,39 +1,30 @@
 
 {#
- # simplified feed listing showing only media photos
+ # complete fb feed listing
  #}
 
-{% for f in feed|slice(0, count) %}
+{% set i = 0 %}
+{% for f in feed %}
+    {% for a in f.getAttachments if i < count %}
 
-    <div class="card-feed-photo">
-        <div class="card is-linkable is-animated" data-href="{{ url('app_feed_view', {_fragment: f.getId}) }}">
+        {% if a.isAlbum() %}
+            {% for p in a.getPhotos() %}
+                {% set i = i + 1 %}
+                {% set thumb = p.getFormatGreaterThan(1200, true).getLink() %}
+                {% set href  = p.getFormatGreaterThan(2400, true).getLink() %}
+                {% include 'AppBundle:fragment:feed-list-photo-card.html.twig' with { 'f' : f, 'a' : p, 'thumb' : thumb, 'href' : href } only %}
+            {% endfor %}
+        {% elseif a.isPhoto() %}
+            {% set i = i + 1 %}
+            {% set thumb = a.getFormatGreaterThan(1200, true).getLink() %}
+            {% set href  = a.getFormatGreaterThan(2400, true).getLink() %}
+            {% include 'AppBundle:fragment:feed-list-photo-card.html.twig' with { 'f' : f, 'a' : a, 'thumb' : thumb, 'href' : href } only %}
+        {% elseif a.isVideo() %}
+            {% set i = i + 1 %}
+            {% set thumb = a.getThumbGreaterThan(1200, true) %}
+            {% set href  = url('app_fragment_feed_video', { post : f.getId(), video : a.getId() }) %}
+            {% include 'AppBundle:fragment:feed-list-photo-card.html.twig' with { 'f' : f, 'a' : a, 'thumb' : thumb, 'href' : href } only %}
+        {% endif %}
 
-            {% include 'AppBundle:fragment:feed-type-head.html.twig' with {
-                'is_video' : f.isVideo
-            } only %}
-
-            <div class="card-section-body">
-                {% if f.getAttachments|first.getMedia|first %}
-                    {% set media = f.getAttachments|first.getMedia|first %}
-                {% else %}
-                    {% set media = f.getAttachments|first.getSubattachments|first.getMedia|first %}
-                {% endif %}
-
-                <a  class="feed-attachment-link"
-                    title="{{ f.getDate | date("m/d/Y") }} - {{ f.getMessage() }}"
-                    data-fancybox-initialized="0"
-                    {% if f.isVideo %}
-                        href="{{ f.getSourceLink() }}"
-                    {% else %}
-                        data-fancybox-group="feed-photos"
-                        href="{{ media.getLink() | url_to_file | imagine_filter('feed_lightbox') }}"
-                    {% endif %}
-                >
-                    <img class="feed-attachment" src="{{ media.getLink() | url_to_file | imagine_filter('feed_photo_thumbs')  }}" alt="{{ f.getMessage }}" />
-                </a>
-            </div>
-
-        </div>
-    </div>
-
+    {% endfor %}
 {% endfor %}

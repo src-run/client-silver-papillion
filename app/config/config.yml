@@ -43,7 +43,18 @@ framework:
     handler_id:  ~
   fragments: ~
   http_method_override: true
-  assets: ~
+
+  assets:
+    enabled: true
+    version: 1.0.0
+    version_format: "%%s?v=%%s"
+    packages:
+      stylesheets:
+        base_path: '/assets/sty'
+      scripts:
+        base_path: '/assets/scr'
+      images:
+        base_urls: ['//silverpapillon.com/bundles/app/images']
 
 assetic:
   debug: '%kernel.debug%'
@@ -96,10 +107,9 @@ vich_uploader:
 swiftmailer:
   transport: "%mailer_transport%"
   host: "%mailer_host%"
+  port: "%mailer_port%"
   username: "%mailer_user%"
   password:  "%mailer_password%"
-  spool:
-    type: memory
 
 knp_menu:
   providers:

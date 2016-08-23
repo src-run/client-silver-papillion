@@ -272,11 +272,18 @@ $(document).ready(function () {
   var fancyBox = (function ($) {
 
     var dataName = 'fancybox-initialized';
-    var selector = '[data-'+dataName+']';
+    var selector = '[data-' + dataName + ']';
     var confOpts = {
       padding : 0,
       helpers : {
         title : { type : 'over' }
+      },
+      beforeLoad : function () {
+        var width = this.element.data('fancybox-width');
+
+        if (width) {
+          this.width = this.element.data('fancybox-width');
+        }
       }
     };
 
@@ -389,12 +396,6 @@ $(document).ready(function () {
       });
     }
 
-    function initCardFeed() {
-      registerEvent.onClick('.card-feed-attachment .card', function (event) {
-        helpers.followLink(linkResolver.resolve(event.target));
-      });
-    }
-
     function initCardMap() {
       registerEvent.onClick('.about-map .card', function (event) {
         helpers.followLink(linkResolver.resolve(event.target));
@@ -407,13 +408,11 @@ $(document).ready(function () {
       initCardProductFeatured();
       initCardProductSimilar();
       initCardCategory();
-      initCardFeed();
       initCardMap();
     }
 
     return {
-      init: init,
-      initCardFeed: initCardFeed
+      init: init
     };
   })();
 
@@ -422,7 +421,7 @@ $(document).ready(function () {
    * FEED FETCHER
    */
 
-  var feedRequest = (function (document, $, fancyBox, events) {
+  var feedRequest = (function (document, $, fancyBox) {
 
     var $nav = $('#navbar-nav-feed');
 
@@ -438,8 +437,6 @@ $(document).ready(function () {
           .done(function (data) {
             feed.html(data);
             $nav.removeClass('hidden');
-
-            events.initCardFeed();
             fancyBox.initNewElements();
           })
           .fail(function () {

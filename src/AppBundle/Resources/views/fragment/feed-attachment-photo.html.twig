@@ -1,0 +1,47 @@
+<div class="card-feed-social" id="{{ f.getId }}">
+    <div class="card is-animated">
+
+        <div class="card-section-head">
+
+            <div class="feed-info-type">
+                {% if a.isVideo %}{{ ion('videocamera') }}{% elseif a.isPhoto %}{{ ion('images') }}{% else %}{{ ion('document-text') }}{% endif %}
+            </div>
+
+            <div class="feed-info-date">
+                <time datetime="{{ a.getCreatedOn().format('c') }}">
+                    {{ a.getCreatedOn().format('F j Y') }} @ {{ a.getCreatedOn().format('g:ia') }}
+                </time>
+            </div>
+
+        </div>
+
+        <div class="card-section-body">
+
+            <div class="feed-post-message">
+                <p>{{ f.getMessage() }}</p>
+            </div>
+
+        </div>
+
+        <div class="card-section-foot">
+            <div class="feed-post-attachments">
+
+                <div class="card-feed-attachment">
+                    <div class="card is-linkable is-animated {% if a.isVideo %}card-feed-attachment-video{% endif %}">
+
+                        {% include 'AppBundle:fragment:feed-type-head.html.twig' with { 'is_video' : false } only %}
+
+                        <div class="card-section-body">
+                            <img src="{{ a.getFormatGreaterThan(1200, true).getLink() | url_to_file | imagine_filter('feed_social_thumbs') }}" alt="{{ f.getMessage() }}" data-jslghtbx="{{ a.getLink() | url_to_file }}" data-jslghtbx-group="feed-attachment-group-{{ f.getId }}" />
+                        </div>
+
+                        {% include 'AppBundle:fragment:feed-type-foot.html.twig' with { 'is_video' : false, 'photo_text' : 'Enlarge Photo' } only %}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

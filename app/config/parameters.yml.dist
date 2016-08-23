@@ -10,6 +10,7 @@ parameters:
     # The values for mail transport server
     mailer_transport:  smtp
     mailer_host:       smtp.sparkpostmail.com
+    mailer_port:       2525
     mailer_user:       SMTP_Injection
     mailer_password:   ~
 
@@ -28,3 +29,7 @@ parameters:
 
     # Public file cache
     public_cache_dir: assets/cache
+
+    stripe_publishable_key: ~
+    stripe_secret_key: ~
+

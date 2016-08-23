@@ -9,22 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Component\Facebook\Provider;
+namespace AppBundle\Component\Facebook\Provider\Feed;
 
+use AppBundle\Component\Facebook\Provider\AbstractProvider;
 use Facebook\FacebookResponse;
 
 /**
- * Class FeedAttachmentsPhotoProvider.
+ * Class MediaVideoProvider.
  */
-class FeedAttachmentsPhotoProvider extends AbstractProvider
+class MediaVideoProvider extends AbstractProvider
 {
     const ENDPOINT_FIELDS = [
-        'created_time',
+        'id',
         'updated_time',
-        'link',
-        'images',
-        'album',
-        'name',
+        'created_time',
+        'permalink_url',
+        'source',
+        'format',
+        'embeddable',
+        'status',
+        'title',
+        'description',
+        'embed_html'
     ];
 
     /**

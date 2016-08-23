@@ -14,9 +14,9 @@ namespace AppBundle\Component\Facebook\Model\Feed;
 use AppBundle\Component\Facebook\Model\AbstractModel;
 
 /**
- * Class FeedReaction.
+ * Class Reaction.
  */
-class FeedReaction extends AbstractModel
+class Reaction extends AbstractModel
 {
     /**
      * @var array[]

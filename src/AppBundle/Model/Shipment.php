@@ -61,6 +61,15 @@ class Shipment
      */
     private $cart;
 
+    public function toJson()
+    {
+        $properties = [
+            'email' => $this->email,
+        ];
+
+        return json_encode($properties);
+    }
+
     /**
      * @return string
      */

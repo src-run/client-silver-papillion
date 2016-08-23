@@ -1,0 +1,40 @@
+<?php
+
+/*
+ * This file is part of the `src-run/src-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
+namespace AppBundle\Component\Facebook\Provider\Feed;
+
+use AppBundle\Component\Facebook\Provider\AbstractProvider;
+use Facebook\FacebookResponse;
+
+/**
+ * Class MediaAlbumProvider.
+ */
+class MediaAlbumProvider extends AbstractProvider
+{
+    const ENDPOINT_FIELDS = [
+        'id',
+        'updated_time',
+        'created_time',
+        'permalink_url',
+    ];
+
+    /**
+     * @param FacebookResponse $response
+     *
+     * @return mixed[]
+     */
+    protected function hydrate(FacebookResponse $response)
+    {
+        return $response->getDecodedBody();
+    }
+}
+
+/* EOF */

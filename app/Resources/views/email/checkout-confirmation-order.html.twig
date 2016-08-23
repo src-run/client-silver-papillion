@@ -1,0 +1,122 @@
+{% extends 'email/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        #body h2 {
+            font-size   : 48px;
+            font-weight : 200;
+        }
+        #body .order-list-item {
+            overflow   : hidden;
+            background : #fff;
+            padding    : 6px 21px;
+            margin     : 9px 0;
+            border     : 1px solid #d9d6dc;
+        }
+        #body .order-list-item h3 {
+            font-size   : 21px;
+            padding     : 0;
+            margin      : 12px 0 0 0;
+            font-weight : 200;
+            font-family : "Roboto Condensed", Roboto, sans-serif;
+            color       : #2196f3;
+        }
+        #body .order-list-item p {
+            font-size   : 15px;
+            padding     : 0;
+            margin      : 6px 0 12px 0;
+            font-weight : 200;
+        }
+        #body .order-list-item p em {
+            font-style  : normal;
+            font-weight : 300;
+        }
+        #body .order-total {
+            margin-top : 45px;
+        }
+        #body .order-total p {
+            color       : #79797a;
+            padding     : 0;
+            margin      : 12px 0;
+            font-size   : 21px;
+            font-weight : 200;
+        }
+        #body .order-total p em {
+            font-style  : normal;
+            font-weight : 300;
+        }
+        #body .order-total .order-total-em {
+            color       : #da0071;
+            float       : right;
+            font-size   : 30px;
+            font-weight : 400;
+            padding     : 0;
+            margin      : -6px 0 0 0;
+        }
+        #body .order-total .order-total-em em {
+            font-weight : 500;
+        }
+        #body .order-address {
+            font-size   : 21px;
+            background  : #fff;
+            font-weight : 300;
+            line-height : 30px;
+            border      : 1px solid #d9d6dc;
+            padding     : 18px 21px 15px 21px;
+            color       : #595063;
+            font-family : "Roboto Condensed", Roboto, sans-serif;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <h2>Order Summary</h2>
+
+    <p class="lead">
+        Your credit card has been successfully charged and your order will be prepared shortly. Reply to this e-mail
+        directly with any questions, comments, or concerns.
+    </p>
+
+    <div class="order-list">
+        {% for i in order.getItems() %}
+            <div class="order-list-item">
+                <h3>{{ i.getName() }}</h3>
+                <p><em>{{ i.getCount() }}</em>x = <em>${{ i.getTotal() }}</em></p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="order-total">
+        <p class="order-total-em">Total: <em>${{ order.getTotal() }}</em></p>
+        <p>Shipping: <em>${{ order.getShipping() }}</em> / Tax: <em>${{ order.getTax() }}</em></p>
+    </div>
+
+    <hr />
+
+    <h2>Shipping Address</h2>
+
+    <p class="lead">
+        Your order will be shipped to the below postal address. Please allow time for your order to be processed; once
+        a tracking number is available for this shipment you will be notified.
+    </p>
+
+    <p class="order-address">
+        {{ order.getName() }}<br />
+        {{ order.getAddress() }}<br />
+        {{ order.getCity() }} {{ order.getState() }}, {{ order.getZip() }}
+    </p>
+
+    <hr />
+
+    <h2>Contact Us</h2>
+
+    <p class="lead">
+        If you need to contact us for any reason, you may reply directly to this e-mail to reach the orders department.
+        Alternatively, please visit out website's <a href="https://silverpapillon.com/location">about page</a> to locate
+        alternative forms of contact, including our phone number.
+    </p>
+
+{% endblock %}

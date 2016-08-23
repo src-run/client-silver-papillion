@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+  <entity name="AppBundle\Entity\OrderItem" table="customer_order_item">
+
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+
+    <field name="name" type="string" column="name" length="510"/>
+    <field name="sku" type="string" column="sku" length="510" nullable="true"/>
+    <field name="count" type="integer" column="count" />
+    <field name="total" type="float" column="total" />
+
+  </entity>
+
+</doctrine-mapping>

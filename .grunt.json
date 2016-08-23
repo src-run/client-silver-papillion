@@ -95,7 +95,8 @@
           "${paths.plugins.fancybox.in.scr}helpers/jquery.fancybox-media.js",
           "${paths.plugins.fancybox.in.scr}helpers/jquery.fancybox-thumbs.js",
           "${paths.plugins.smoothscroll.in.scr}jquery.smooth-scroll.js",
-          "${paths.plugins.waypoints.in.scr}jquery.waypoints.js"
+          "${paths.plugins.waypoints.in.scr}jquery.waypoints.js",
+          "web/components/jquery-creditcardvalidator/jquery.creditCardValidator.js"
         ]
       }
     },

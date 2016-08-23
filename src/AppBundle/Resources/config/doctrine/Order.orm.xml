@@ -8,6 +8,30 @@
       <generator strategy="IDENTITY"/>
     </id>
 
+    <field name="createdOn" type="datetime" column="createdOn"/>
+    <field name="name" type="string" column="name" length="510"/>
+    <field name="email" type="string" column="email" length="510"/>
+    <field name="address" type="string" column="address" length="510"/>
+    <field name="city" type="string" column="city" length="510"/>
+    <field name="state" type="string" column="state" length="510"/>
+    <field name="zip" type="string" column="zip" length="510"/>
+    <field name="total" type="float" column="total" />
+    <field name="shipping" type="float" column="shipping" />
+    <field name="tax" type="float" column="tax" />
+    <field name="paid" type="boolean" column="paid" length="510" />
+    <field name="reference" type="string" column="reference" length="510" />
+
+    <many-to-many target-entity="AppBundle\Entity\OrderItem" field="items" >
+      <join-table name="customer_order_mapto_item">
+        <join-columns>
+          <join-column name="order_id" referenced-column-name="id" />
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="order_item_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+
   </entity>
 
 </doctrine-mapping>

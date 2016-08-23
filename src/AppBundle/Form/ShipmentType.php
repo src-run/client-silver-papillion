@@ -12,7 +12,6 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -32,12 +31,10 @@ class ShipmentType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('email', EmailType::class)
-            ->add('phone', TextType::class)
             ->add('address', TextType::class)
             ->add('city', TextType::class)
             ->add('state', TextType::class)
             ->add('zip', TextType::class)
-            ->add('country', CountryType::class)
             ->add('submit', SubmitType::class);
     }
 }

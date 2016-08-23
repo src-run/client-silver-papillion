@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Component\Facebook\NodeFactory;
+namespace AppBundle\Component\Facebook\Provider;
 
 use AppBundle\Component\Facebook\Authentication\AuthenticationInterface;
 use AppBundle\Component\Facebook\Exception\FacebookException;
@@ -19,17 +19,13 @@ use Facebook\Exceptions\FacebookSDKException;
 use Facebook\FacebookResponse;
 use Psr\Cache\CacheItemInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\CacheItem;
 
 /**
- * Class AbstractNodeFactory.
+ * Class AbstractProvider.
  */
-abstract class AbstractNodeFactory
+abstract class AbstractProvider implements ProviderInterface
 {
-    /**
-     * @var EndpointRequest
-     */
-    private $request;
-
     /**
      * @var string
      */
@@ -180,20 +176,10 @@ abstract class AbstractNodeFactory
      */
     protected function refresh()
     {
-        $response = null;
         $cache = $this->getCachedItem();
-
-        try {
-            $cache->set($response = $this->getResponse());
-            $cache->expiresAfter(new \DateInterval($this->getCacheTtl()));
-        }
-        catch (\Exception $e) {
-            $cache->set(null);
-            $cache->expiresAfter(new \DateInterval('PT3H'));
-        }
-        finally {
-            $this->getCache()->save($cache);
-        }
+        $cache->set($response = $this->getResponse());
+        $cache->expiresAfter(new \DateInterval($this->getCacheTtl()));
+        $this->getCache()->save($cache);
 
         return $response;
     }
@@ -234,43 +220,11 @@ abstract class AbstractNodeFactory
     abstract protected function hydrate(FacebookResponse $response);
 
     /**
-     * @param FacebookResponse $response
-     *
-     * @return AbstractModel
-     */
-    protected function hydrateDataList(FacebookResponse $response)
-    {
-        $data = $response->getDecodedBody();
-
-        if (!$this->isDataList($data)) {
-            return null;
-        }
-
-        return $this->hydrateModel($this->resolveDataList($data['data'])) ?: null;
-    }
-
-    /**
-     * @param mixed[] $data
-     *
-     * @return null|AbstractModel
-     */
-    protected function hydrateModel($data)
-    {
-        return null;
-    }
-
-    /**
      * @return CacheItemInterface
      */
     protected function getCachedItem()
     {
-        static $cacheItem;
-
-        if ($cacheItem === null) {
-            $cacheItem = $this->getCache()->getItem(sprintf('facebook.feed.%s.%s'.time(), $this->getId(), md5($this->getEndpoint())));
-        }
-
-        return $cacheItem;
+        return new CacheItem();
     }
 
     /**
@@ -299,63 +253,6 @@ abstract class AbstractNodeFactory
     protected function isDataList($data)
     {
         return (bool) (is_array($data) && isset($data['data']) && is_array($data['data']));
-    }
-
-    /**
-     * @param string  $property
-     * @param mixed[] $data
-     *
-     * @return mixed[]
-     */
-    protected function createDataList($property, array $data)
-    {
-        return [
-            $property => [
-                'data' => $data
-            ]
-        ];
-    }
-
-    /**
-     * @param mixed[] $data
-     *
-     * @return mixed[]
-     */
-    protected function resolveDataList(array $data)
-    {
-        $data = array_map(function ($value) {
-            return isset($value['id']) ? $this->resolveDataListItem($value['id']) : null;
-        }, $data);
-
-        return array_filter($data, function ($value) {
-            return $value !== null;
-        });
-    }
-
-    /**
-     * @param string $id
-     *
-     * @return mixed
-     */
-    protected function resolveDataListItem($id)
-    {
-        if (null === $fqcn = $this->getDataListProviderClass()) {
-            return $id;
-        }
-
-        $reflection = new \ReflectionClass($fqcn);
-        $provider = $reflection->newInstanceArgs([$this->getAuthentication(), $id]);
-        $provider->setCache($this->getCache());
-
-        return $provider->get();
-    }
-
-    /**
-     * @return null|string
-     */
-    protected function getDataListProviderClass()
-    {
-        return null;
     }
 }
 

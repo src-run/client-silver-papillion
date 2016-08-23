@@ -17,15 +17,16 @@ use AppBundle\Component\Facebook\Transformer\DateTimeTransformer;
 use AppBundle\Component\Facebook\Transformer\TransformerInterface;
 
 /**
- * Class FeedItem.
+ * Class FeedPost.
  */
-class FeedItem extends AbstractModel
+class FeedPost extends AbstractModel
 {
     /**
      * @var TransformerInterface[]
      */
     const VALUE_TRANSFORMERS = [
         'created_time' => DateTimeTransformer::class,
+        'updated_time' => DateTimeTransformer::class,
         'from' => AuthorTransformer::class,
     ];
 
@@ -37,7 +38,10 @@ class FeedItem extends AbstractModel
             'to_property' => 'published',
         ],
         'created_time' => [
-            'to_property' => 'date',
+            'to_property' => 'createdOn',
+        ],
+        'updated_time' => [
+            'to_property' => 'updatedOn',
         ],
         'permalink_url' => [
             'to_property' => 'permaLink',
@@ -45,16 +49,12 @@ class FeedItem extends AbstractModel
         'from' => [
             'to_property' => 'author',
         ],
-        'attachments' => [
-            'object_fqcn' => FeedAttachment::class,
-            'object_coll' => true,
-        ],
         'comments' => [
-            'object_fqcn' => FeedComment::class,
+            'object_fqcn' => Comment::class,
             'object_coll' => true,
         ],
         'reactions' => [
-            'object_fqcn' => FeedReaction::class,
+            'object_fqcn' => Reaction::class,
             'object_coll' => true,
         ],
         'icon' => [
@@ -71,6 +71,16 @@ class FeedItem extends AbstractModel
     protected $id;
 
     /**
+     * @var \DateTime
+     */
+    protected $createdOn;
+
+    /**
+     * @var \DateTime
+     */
+    protected $updatedOn;
+
+    /**
      * @var string
      */
     protected $permaLink;
@@ -79,16 +89,6 @@ class FeedItem extends AbstractModel
      * @var string
      */
     protected $iconLink;
-
-    /**
-     * @var string
-     */
-    protected $sourceLink;
-
-    /**
-     * @var \DateTime
-     */
-    protected $date;
 
     /**
      * @var bool
@@ -106,11 +106,6 @@ class FeedItem extends AbstractModel
     protected $message;
 
     /**
-     * @var string|null
-     */
-    protected $story;
-
-    /**
      * @var string
      */
     protected $type;
@@ -121,12 +116,12 @@ class FeedItem extends AbstractModel
     protected $attachments;
 
     /**
-     * @var FeedComment[]|null
+     * @var Comment[]|null
      */
     protected $comments;
 
     /**
-     * @var FeedReaction[]|null
+     * @var Reaction[]|null
      */
     protected $reactions;
 
@@ -163,35 +158,19 @@ class FeedItem extends AbstractModel
     }
 
     /**
-     * @return bool
+     * @return \DateTime
      */
-    public function isVideo()
+    public function getCreatedOn()
     {
-        return $this->getType() === 'video';
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPhoto()
-    {
-        return $this->getType() === 'photo';
-    }
-
-    /**
-     * @return bool
-     */
-    public function isStatus()
-    {
-        return $this->getType() === 'status';
+        return $this->createdOn;
     }
 
     /**
      * @return \DateTime
      */
-    public function getDate()
+    public function getUpdatedOn()
     {
-        return $this->date;
+        return $this->updatedOn;
     }
 
     /**
@@ -227,22 +206,6 @@ class FeedItem extends AbstractModel
     }
 
     /**
-     * @return null|string
-     */
-    public function getStory()
-    {
-        return $this->story;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasStory()
-    {
-        return $this->story !== null;
-    }
-
-    /**
      * @return FeedAttachment[]|null
      */
     public function getAttachments()
@@ -255,11 +218,11 @@ class FeedItem extends AbstractModel
      */
     public function hasAttachments()
     {
-        return $this->attachments !== null;
+        return count($this->attachments) > 0;
     }
 
     /**
-     * @return FeedComment[]|null
+     * @return Comment[]|null
      */
     public function getComments()
     {
@@ -275,7 +238,7 @@ class FeedItem extends AbstractModel
     }
 
     /**
-     * @return FeedReaction[]|null
+     * @return Reaction[]|null
      */
     public function getReactions()
     {
@@ -288,30 +251,6 @@ class FeedItem extends AbstractModel
     public function hasReactions()
     {
         return $this->reactions !== null;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSourceLink()
-    {
-        return $this->sourceLink;
-    }
-
-    /**
-     * @param string $sourceLink
-     */
-    public function setSourceLink($sourceLink)
-    {
-        $this->sourceLink = $sourceLink;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasSourceLink()
-    {
-        return $this->sourceLink !== null;
     }
 }
 

@@ -1,0 +1,80 @@
+<div class="card-feed-social" id="{{ f.getId }}">
+    <div class="card is-animated">
+
+        <div class="card-section-head">
+
+            <div class="feed-info-type">
+                {% if a.isVideo %}{{ ion('videocamera') }}{% elseif a.isPhoto %}{{ ion('images') }}{% else %}{{ ion('document-text') }}{% endif %}
+            </div>
+
+            <div class="feed-info-date">
+                <time datetime="{{ a.getCreatedOn().format('c') }}">
+                    {{ a.getCreatedOn().format('F j Y') }} @ {{ a.getCreatedOn().format('g:ia') }}
+                </time>
+            </div>
+
+        </div>
+
+        <div class="card-section-body">
+
+            <div class="feed-post-message">
+                <p>{{ f.getMessage() }}</p>
+            </div>
+
+        </div>
+
+        <div class="card-section-foot">
+            <div class="feed-post-attachments">
+
+                <div class="card-feed-attachment">
+                    <div class="card is-linkable is-animated">
+
+                        {% include 'AppBundle:fragment:feed-type-head.html.twig' with {
+                            'is_video' : a.isVideo()
+                        } only %}
+
+                        <div class="card-section-body">
+                            <a  class="feed-attachment-link"
+                                title="{{ a.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ a.getText()|default(f.getMessage()) }}"
+                                data-fancybox-initialized="0"
+                                rel="photo-group"
+                                {% if a.isVideo() %}
+                                    href="{{ href }}"
+                                    data-fancybox-type="iframe"
+                                    data-fancybox-height="480px"
+                                    data-fancybox-width="720px"
+                                {% else %}
+                                    href="{{ href | url_to_file | imagine_filter('lightbox_focus') }}"
+                                {% endif %}
+                            >
+                                <img class="feed-attachment" src="{{ thumb | url_to_file | imagine_filter('lightbox_thumb')  }}" alt="{{ a.getText()|default(f.getMessage()) }}" />
+                            </a>
+                        </div>
+
+                        <div class="card-section-foot is-overlay is-toggleable">
+
+                            <p class="feed-type">
+
+                                {% if a.isVideo() %}
+
+                                    Watch video
+
+                                {% else %}
+
+                                    Enlarge photo
+
+                                {% endif %}
+
+                                {{ ion('android-arrow-forward') }}
+
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
