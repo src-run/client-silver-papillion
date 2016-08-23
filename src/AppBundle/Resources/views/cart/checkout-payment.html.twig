@@ -20,9 +20,9 @@
                     <h2 class="primary-hr-i">Payment <em>Credit Card</em></h2>
 
                     <div class="checkout-error">
-                    {% for f in flash|default([]) %}
+                        {% for f in flash|default([]) %}
                             <p><em>Error:</em> {{ f }}</p>
-                    {% endfor %}
+                        {% endfor %}
                     </div>
 
                     {{ form_start(f) }}
@@ -134,7 +134,8 @@
 
 {% endblock %}
 
-{% block javascripts %}
+{% block stylesheets %}
+
     {{ parent() }}
 
     <style type="text/css">
@@ -142,47 +143,54 @@
             display : none;
         }
         #payment_creditCardNumber {
-            background-image: url(/bundles/app/images/credit-cards.png), url(/bundles/app/images/credit-cards.png);
-            background-position: 0 -121px, 54px -61px;
-            background-size: 120px 361px, 120px 361px;
-            background-repeat: no-repeat;
-            padding-left: 78px;
+            background-image    : url({{ asset('bundles/app/images/credit-cards.png') }}), url({{ asset('bundles/app/images/credit-cards.png') }});
+            background-position : 0 -121px, 54px -61px;
+            background-size     : 120px 361px, 120px 361px;
+            background-repeat   : no-repeat;
+            padding-left        : 78px;
         }
         #payment_creditCardNumber.visa {
-            background-position: 0 -163px, 54px -61px;
+            background-position : 0 -163px, 54px -61px;
         }
         #payment_creditCardNumber.visa_electron {
-            background-position: 0 -205px, 54px -61px;
+            background-position : 0 -205px, 54px -61px;
         }
         #payment_creditCardNumber.mastercard {
-            background-position: 0 -247px, 54px -61px;
+            background-position : 0 -247px, 54px -61px;
         }
         #payment_creditCardNumber.maestro {
-            background-position: 0 -289px, 54px -61px;
+            background-position : 0 -289px, 54px -61px;
         }
         #payment_creditCardNumber.discover {
-            background-position: 0 -331px, 54px -61px;
+            background-position : 0 -331px, 54px -61px;
         }
         #payment_creditCardNumber.valid.visa {
-            background-position: 0 -163px, 54px -87px;
+            background-position : 0 -163px, 54px -87px;
         }
         #payment_creditCardNumber.valid.visa_electron {
-            background-position: 0 -205px, 54px -87px;
+            background-position : 0 -205px, 54px -87px;
         }
         #payment_creditCardNumber.valid.mastercard {
-            background-position: 0 -247px, 54px -87px;
+            background-position : 0 -247px, 54px -87px;
         }
         #payment_creditCardNumber.valid.maestro {
-            background-position: 0 -289px, 54px -87px;
+            background-position : 0 -289px, 54px -87px;
         }
         #payment_creditCardNumber.valid.discover {
-            background-position: 0 -331px, 54px -87px;
+            background-position : 0 -331px, 54px -87px;
         }
     </style>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
 
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
     <script>
+
         $('#payment_creditCardNumber').validateCreditCard(function (result) {
             $el = $(this);
 
@@ -205,46 +213,31 @@
         });
 
         function stripeResponseHandler(status, response) {
-
-            // Grab the form:
             var $form = $('form');
-
-            console.log(response);
-
-            if (response.error) { // Problem!
-
-                // Show the errors on the form
+            if (response.error) {
                 $('.checkout-error').html('<p><em>Error:</em> '+response.error.message+'</p>');
-                $('#payment_submit').prop('disabled', false); // Re-enable submission
-
-            } else { // Token was created!
-
-                // Get the token ID:
-                var token = response.id;
-
-                // Insert the token into the form so it gets submitted to the server:
-                $form.find('#payment_stripeToken').val(token);
-
-                // Submit the form:
+                $('#payment_submit').prop('disabled', false);
+            } else {
+                $form.find('#payment_stripeToken').val(response.id);
                 $form.get(0).submit();
-
             }
         }
 
-        Stripe.setPublishableKey('{{ stripe_key }}');
-
         $('#payment_submit').on('click', function (e) {
             e.preventDefault();
-            console.log($('#payment_expMonth').val());
+            $('#payment_submit').prop('disabled', true);
+
+            Stripe.setPublishableKey('{{ stripe_key }}');
             Stripe.card.createToken({
-                name: $('#payment_nameOnCard').val(),
-                number: $('#payment_creditCardNumber').val(),
-                cvc: $('#payment_securityCode').val(),
-                exp_month: $('#payment_expMonth').val(),
-                exp_year: $('#payment_expYear').val(),
-                address_zip: $('#payment_billingZip').val(),
+                name        : $('#payment_nameOnCard').val(),
+                number      : $('#payment_creditCardNumber').val(),
+                cvc         : $('#payment_securityCode').val(),
+                exp_month   : $('#payment_expMonth').val(),
+                exp_year    : $('#payment_expYear').val(),
+                address_zip : $('#payment_billingZip').val(),
             }, stripeResponseHandler);
         });
 
     </script>
+
 {% endblock %}
