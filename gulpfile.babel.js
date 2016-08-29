@@ -89,7 +89,7 @@ gulp.task('make-styles', () => {
         .pipe(p.csscomb({config: c.option('css-comb-rc')}))
         .pipe(gulp.dest(c.path('public.styles')))
         .pipe(p.rename({suffix: '.min'}))
-        .pipe(p.minifyCss())
+        .pipe(p.cleanCss())
         .pipe(p.sourcemaps.write('.'))
         .pipe(gulp.dest(c.path('public.styles')))
         .pipe(p.notify({onLast: true}))
