@@ -6,6 +6,8 @@
     <li>{{ product.getName }}</li>
 {% endblock %}
 
+{% block title %}{{ product.getName }} - {{ parent() }}{% endblock %}
+
 {% block body %}
     <div class="container container-sr">
         <div class="row">

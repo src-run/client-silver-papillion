@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}News - {{ parent() }}{% endblock %}
+
 {% if has_fb_feed_cached() %}
     {% block headBeforeEnd %}
         <script type="application/ld+json">

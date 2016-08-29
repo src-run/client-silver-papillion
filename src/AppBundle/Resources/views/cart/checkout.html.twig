@@ -6,6 +6,8 @@
     <li>Checkout</li>
 {% endblock %}
 
+{% block title %}Checkout - {{ parent() }}{% endblock %}
+
 {% block body %}
     {% form_theme f 'bootstrap_3_layout.html.twig' %}
 
