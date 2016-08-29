@@ -68,21 +68,21 @@ class MediaVideo extends Media
     /**
      * @param int $size
      *
-     * @return Media
+     * @return string
      */
-    public function getThumbSmallerThan($size)
+    public function thumbSlrThan($size)
     {
-        return parent::getFormatSmallerThan($size)->getLink();
+        return $this->formatSlrThan($size)->getLink();
     }
 
     /**
      * @param int $size
      *
-     * @return Media
+     * @return string
      */
-    public function getThumbGreaterThan($size)
+    public function thumbLgrThan($size)
     {
-        return parent::getFormatGreaterThan($size)->getLink();
+        return $this->formatLgrThan($size)->getLink();
     }
 }
 

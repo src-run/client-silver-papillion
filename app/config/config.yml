@@ -1,5 +1,9 @@
 ---
 
+#
+# Perforce file resource imports
+#
+
 imports:
   - { resource: parameters.yml }
   - { resource: parameters_platform.php }
@@ -8,139 +12,191 @@ imports:
   - { resource: admin/ }
   - { resource: bundles/ }
 
+#
+#
+#
+
 parameters:
-  locale: en
-  app.path.product_images  : /uploads/images/products
-  app.path.category_images : /uploads/images/categories
-  app.path.carousel_images : /uploads/images/carousel
-  app.sys_path.root        : "%kernel.root_dir%/../web"
-  app.web_path.root        : ""
-  app.sys_path.upload      : "%app.sys_path.root%/uploads"
-  app.web_path.upload      : "%app.web_path.root%/uploads"
-  app.sys_path.cache       : "%app.sys_path.root%/assets/cache"
-  app.web_path.cache       : "%app.web_path.root%/assets/cache"
-  google_static_maps_uri   : "https://maps.googleapis.com/maps/api/staticmap?center=${address}&markers=${address}&zoom=15&size=${size}&scale=2&maptype=roadmap&style=visibility:simplified&format=png32&key=${api_key}"
-  google_street_view_uri   : "https://maps.googleapis.com/maps/api/streetview?location=${address}&size=${size}&fov=80&heading=180&pitch=2&key=${api_key}"
-  google_directions_uri    : "https://www.google.com/maps/dir//${address}"
 
-framework:
-  translator: { fallbacks: ["%locale%"] }
-  secret: "%secret%"
-  router:
-    resource: "%kernel.root_dir%/config/routing.yml"
-    strict_requirements: ~
-  form: ~
-  csrf_protection: ~
-  validation:
-    enable_annotations: true
-  templating:
-    engines:
-    - twig
-  default_locale: "%locale%"
-  trusted_hosts: ~
-  trusted_proxies: ~
-  session:
-    handler_id:  ~
-  fragments: ~
-  http_method_override: true
+  locale : en
 
-  assets:
-    enabled: true
-    version: 1.0.0
-    version_format: "%%s?v=%%s"
-    packages:
-      stylesheets:
-        base_path: '/assets/sty'
-      scripts:
-        base_path: '/assets/scr'
-      images:
-        base_urls: ['//silverpapillon.com/bundles/app/images']
+  srwc.system_path.root : "%kernel.root_dir%/../web/"
+  srwc.public_path.root : "/"
 
-assetic:
-  debug: '%kernel.debug%'
-  use_controller: false
-  bundles:
+  srwc.system_path.upload : "%srwc.system_path.root%assets/uploads"
+  srwc.public_path.upload : "%srwc.public_path.root%assets/uploads"
+  srwc.system_path.cached : "%srwc.system_path.root%assets/cache"
+  srwc.public_path.cached : "%srwc.public_path.root%assets/cache"
+
+  srwc.public_path.image_products : "%srwc.public_path.upload%/products"
+  srwc.system_path.image_products : "%srwc.system_path.upload%/products"
+  srwc.public_path.image_carousel : "%srwc.public_path.upload%/carousel"
+  srwc.system_path.image_carousel : "%srwc.system_path.upload%/carousel"
+
+  srwc.asset_scr.file_name      : "app.js"
+  srwc.asset_scr.file_name.prod : "app.min.js"
+  srwc.asset_scr.package        : "javascripts"
+
+  srwc.asset_css.file_name      : "app.css"
+  srwc.asset_css.file_name.prod : "app.min.css"
+  srwc.asset_css.package        : "stylesheets"
+
+  srwc.google.static_maps_uri.api_endpoint : "https://maps.googleapis.com/maps/api/staticmap?center=${address}&markers=${address}&zoom=15&size=${size}&scale=2&maptype=roadmap&style=visibility:simplified&format=png32&key=${api_key}"
+  srwc.google.street_view_uri.api_endpoint : "https://maps.googleapis.com/maps/api/streetview?location=${address}&size=${size}&fov=80&heading=180&pitch=2&key=${api_key}"
+  srwc.google.simple_directions_href       : "https://www.google.com/maps/dir//${address}"
+
+#
+# main framework config
+#
+
+framework :
+  translator : { fallbacks: ["%locale%"] }
+  secret     : "%secret%"
+
+  router :
+    resource            : "%kernel.root_dir%/config/routing.yml"
+    strict_requirements : ~
+
+  form            : ~
+  csrf_protection : ~
+  validation      : { enable_annotations : true }
+
+  templating : { engines : [ "twig" ] }
+
+  default_locale : "%locale%"
+
+  trusted_hosts   : ~
+  trusted_proxies : ~
+
+  fragments            : ~
+  session              : { handler_id : ~ }
+  http_method_override : true
+
+  assets :
+    enabled        : true
+    version        : 1.2.0
+    version_format : "%%s?v=%%s"
+    packages :
+      images : { base_urls : ['//silverpapillon.com/bundles/app/images'] }
+
+#
+# asset management
+#
+
+assetic :
+  debug          : '%kernel.debug%'
+  use_controller : false
+
+  bundles :
     - FOSUserBundle
     - AppBundle
-  filters:
-    cssrewrite: ~
 
-twig:
-  debug: "%kernel.debug%"
-  strict_variables: "%kernel.debug%"
+  filters :
+    cssrewrite : ~
 
-doctrine:
-  dbal:
-    driver: mysqli
-    host: "%database_host%"
-    port: "%database_port%"
-    dbname: "%database_name%"
-    user: "%database_user%"
-    password: "%database_password%"
-    charset: UTF8
-    server_version: 5.6
-  orm:
-    auto_generate_proxy_classes: "%kernel.debug%"
-    naming_strategy: doctrine.orm.naming_strategy.underscore
-    auto_mapping: true
-    metadata_cache_driver: apc
-    query_cache_driver: apc
-    result_cache_driver: apc
-    filters:
-      softdeleteable:
-        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-        enabled: true
+#
+# twig config
+#
 
-vich_uploader:
-  db_driver: orm
-  mappings:
-    category_images:
-      uri_prefix: %app.path.category_images%
-      upload_destination: %kernel.root_dir%/../web/uploads/images/categories
-    product_images:
-      uri_prefix: %app.path.product_images%
-      upload_destination: %kernel.root_dir%/../web/uploads/images/products
-    carousel_images:
-      uri_prefix: %app.path.carousel_images%
-      upload_destination: %kernel.root_dir%/../web/uploads/images/carousel
+twig :
+  debug            : "%kernel.debug%"
+  strict_variables : "%kernel.debug%"
 
-swiftmailer:
-  transport: "%mailer_transport%"
-  host: "%mailer_host%"
-  port: "%mailer_port%"
-  username: "%mailer_user%"
-  password:  "%mailer_password%"
+#
+# doctrine (db) setup
+#
 
-knp_menu:
-  providers:
-    builder_alias: false
-    builder_service: false
-    container_aware: false
+doctrine :
 
-stof_doctrine_extensions:
-  default_locale: en_US
-  uploadable:
-    default_file_path:       %kernel.root_dir%/../web/uploads
-    mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
-    default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
-  orm:
-    default:
-      timestampable: true
-      blameable: false
-      sluggable: true
-      loggable: false
-      sortable: true
-      softdeleteable: true
+  dbal :
+    server_version : "%database_version%"
 
-fos_user:
-  db_driver: orm
-  firewall_name: main
-  user_class: AppBundle\Entity\User
+    driver   : "%database_driver%"
+    host     : "%database_host%"
+    port     : "%database_port%"
+    dbname   : "%database_name%"
+    user     : "%database_user%"
+    password : "%database_password%"
+    charset  : "%database_charset%"
 
-knp_paginator:
-  default_options:
-    page_name: p
-  template:
-    pagination: paginator.html.twig
+  orm :
+    auto_generate_proxy_classes : "%kernel.debug%"
+
+    naming_strategy : doctrine.orm.naming_strategy.underscore
+    auto_mapping    : true
+
+    metadata_cache_driver : apc
+    query_cache_driver    : apc
+    result_cache_driver   : apc
+
+#
+# file uploader bundle config
+#
+
+vich_uploader :
+
+  db_driver : orm
+  mappings  :
+
+    image_products :
+      uri_prefix         : "%srwc.public_path.image_products%"
+      upload_destination : "%srwc.system_path.image_products%"
+
+    image_carousel :
+      uri_prefix         : "%srwc.public_path.image_carousel%"
+      upload_destination : "%srwc.system_path.image_carousel%"
+
+#
+# email transport
+#
+
+swiftmailer :
+  transport : "%mailer_transport%"
+  host      : "%mailer_host%"
+  port      : "%mailer_port%"
+  username  : "%mailer_user%"
+  password  : "%mailer_password%"
+
+#
+# frields-of-symfony user bundle
+#
+
+fos_user :
+  db_driver     : orm
+  firewall_name : main
+  user_class    : AppBundle\Entity\User
+
+#
+# pagination configuration
+#
+
+knp_paginator :
+  default_options : { page_name  : "p" }
+  template        : { pagination : "paginator.html.twig" }
+
+#
+# disabled third-party bundles
+#
+
+#knp_menu:
+#  providers:
+#    builder_alias: false
+#    builder_service: false
+#    container_aware: false
+#
+#stof_doctrine_extensions:
+#  default_locale: en_US
+#  uploadable:
+#    default_file_path:       %kernel.root_dir%/../web/uploads
+#    mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+#    default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
+#  orm:
+#    default:
+#      timestampable: true
+#      blameable: false
+#      sluggable: true
+#      loggable: false
+#      sortable: true
+#      softdeleteable: true
 
 ...

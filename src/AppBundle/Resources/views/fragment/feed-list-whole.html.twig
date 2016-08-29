@@ -4,27 +4,92 @@
  #}
 
 {% set i = 0 %}
-{% for f in feed %}
-    {% for a in f.getAttachments if i < count %}
 
-        {% if a.isAlbum() %}
-            {% for p in a.getPhotos() %}
-                {% set i = i + 1 %}
-                {% set thumb = p.getFormatGreaterThan(1200, true).getLink() %}
-                {% set href  = p.getFormatGreaterThan(2400, true).getLink() %}
-                {% include 'AppBundle:fragment:feed-attachment.html.twig' with { 'f' : f, 'a' : p, 'thumb' : thumb, 'href' : href } only %}
-            {% endfor %}
-        {% elseif a.isPhoto() %}
-            {% set i = i + 1 %}
-            {% set thumb = a.getFormatGreaterThan(1200, true).getLink() %}
-            {% set href  = a.getFormatGreaterThan(2400, true).getLink() %}
-            {% include 'AppBundle:fragment:feed-attachment.html.twig' with { 'f' : f, 'a' : a, 'thumb' : thumb, 'href' : href } only %}
-        {% elseif a.isVideo() %}
-            {% set i = i + 1 %}
-            {% set thumb = a.getThumbGreaterThan(1200, true) %}
-            {% set href  = 'https://www.facebook.com/video.php?v=' ~ a.getId() %}
-            {% include 'AppBundle:fragment:feed-attachment.html.twig' with { 'f' : f, 'a' : a, 'thumb' : thumb, 'href' : href } only %}
-        {% endif %}
+{% for f in feed if i < count %}
+    <div class="card-feed-social" id="{{ f.getId }}">
+        <div class="card is-animated">
 
-    {% endfor %}
+            <div class="card-section-head">
+
+                <div class="feed-info-type">
+                    {% if f.isVideo() %}{{ ion('videocamera') }}{% elseif f.isPhoto() %}{{ ion('images') }}{% else %}{{ ion('document-text') }}{% endif %}
+                </div>
+
+                <div class="feed-info-date">
+                    <time datetime="{{ f.getCreatedOn().format('c') }}">
+                        {{ f.getCreatedOn().format('F j Y') }} @ {{ f.getCreatedOn().format('g:ia') }}
+                    </time>
+                </div>
+
+            </div>
+
+            <div class="card-section-body">
+
+                <div class="feed-post-message">
+                    <p>{{ f.getMessage() }}</p>
+                </div>
+
+            </div>
+
+            <div class="card-section-foot">
+                <div class="feed-post-attachments">
+
+                    <div class="card-feed-attachment">
+                        <div class="card is-linkable is-animated">
+
+                            <div class="card-section-head is-overlay">
+
+                                {% if f.isVideo()|default(false) %}
+                                    <span class="fa-stack fa-lg">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                {% else %}
+                                    <span class="fa-stack fa-lg">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-expand fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                {% endif %}
+
+                            </div>
+
+                            <div class="card-section-body">
+                                {% for m in f.getMedia() %}
+                                    <a  class="feed-attachment-link"
+                                        title="{{ m.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ m.getText()|default(f.getMessage()) }}"
+                                        data-fancybox-initialized="0"
+                                        rel="photo-group"
+                                        {% if m.isVideo() %}
+                                            href="https://www.facebook.com/video.php?v={{ m.getId() }}"
+                                        {% else %}
+                                            href="{{ m.formatLgrThan(1800).getLink() | url_encode | imagine_filter('feed_attachment_lightbox_focus') }}"
+                                        {% endif %}
+                                    >
+
+                                        <img
+                                            class="feed-attachment"
+                                            src="{{ m.formatSlrThan(1200).getLink() | url_encode | imagine_filter('feed_attachment_thumb')  }}"
+                                            alt="{{ m.getText()|default(f.getMessage()) }}" />
+
+                                    </a>
+                                {% endfor %}
+                            </div>
+
+                            <div class="card-section-foot is-overlay is-toggleable">
+                                <p class="feed-type">
+
+                                    {% if f.getFirstMedia().isVideo() %}Watch video{% else %}Enlarge photo{% endif %}
+                                    {{ ion('android-arrow-forward') }}
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% set i = i + 1 %}
 {% endfor %}

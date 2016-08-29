@@ -7,7 +7,7 @@ liip_imagine :
   resolvers :
 
     default :
-      web_path : { cache_prefix : "%public_cache_dir%" }
+      web_path : { cache_prefix : "assets/cache" }
 
   filter_sets :
 
@@ -70,13 +70,63 @@ liip_imagine :
 
       jpeg_quality          : 85
       png_compression_level : 8
+      data_loader           : remote
+      cache                 : remote
 
       filters :
         auto_rotate : ~
         strip       : ~
-        upscale     : { min : [1024, 800] }
-        thumbnail   : { size : [1004, 800], mode : outbound, allow_upscale : true }
-        background  : { size : [1024, 820], position : center, color : '#f2f1f3' }
+        upscale     : { min : [1004, 748] }
+        thumbnail   : { size : [1004, 748], mode : outbound, allow_upscale : true }
+        background  : { size : [1024, 768], position : center, color : '#f2f1f3' }
+
+    feed_photo_lightbox_focus :
+
+      jpeg_quality          : 90
+      png_compression_level : 8
+      data_loader           : remote
+      cache                 : remote
+
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min : [1980, 1280] }
+        thumbnail   : { size : [1980, 1280], mode : outbound, allow_upscale : true }
+        background  : { size : [2000, 1300], position : center, color : '#000' }
+
+    #
+    # lightbox - thumbnail images
+    #
+    feed_attachment_thumb :
+
+      jpeg_quality          : 90
+      png_compression_level : 8
+      data_loader           : remote
+      cache                 : remote
+
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min : [1280, 940] }
+        thumbnail   : { size : [1280, 940], mode : outbound, allow_upscale : true }
+        background  : { size : [1300, 960], position : center, color : '#f2f1f3' }
+
+    #
+    # lightbox - enlarged images
+    #
+    feed_attachment_lightbox_focus :
+
+      jpeg_quality          : 90
+      png_compression_level : 8
+      data_loader           : remote
+      cache                 : remote
+
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min : [1980, 1280] }
+        thumbnail   : { size : [1980, 1280], mode : outbound, allow_upscale : true }
+        background  : { size : [2000, 1300], position : center, color : '#000' }
 
     feed_social_thumbs :
 

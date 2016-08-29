@@ -35,6 +35,16 @@ class FeedProvider extends AbstractProvider
     ];
 
     /**
+     * @var string[]
+     */
+    static $cleanObjectHashes = [];
+
+    /**
+     * @var int
+     */
+    static $cleanMethodDepth = 0;
+
+    /**
      * @param AuthenticationInterface|null $authentication
      * @param int|null                     $id
      */
@@ -50,7 +60,83 @@ class FeedProvider extends AbstractProvider
      */
     protected function hydrate(FacebookResponse $response)
     {
-        return $this->buildPostModel($response->getDecodedBody());
+        $model = $this->buildPostModel($response->getDecodedBody());
+
+        return $this->cleanProperties($model);
+    }
+
+    /**
+     * @param AbstractModel $model
+     *
+     * @return AbstractModel
+     */
+    final protected function cleanProperties(AbstractModel $model)
+    {
+        static::$cleanMethodDepth++;
+        static::$cleanObjectHashes[] = spl_object_hash($model);
+
+        if (static::$cleanMethodDepth > 100 || in_array(spl_object_hash($model), static::$cleanObjectHashes)) {
+            return $model;
+        }
+
+        $rc = new \ReflectionClass($model);
+
+        foreach (['data', 'dataOriginal'] as $p) {
+            if (!$rc->hasProperty($p)) {
+                continue;
+            }
+
+            $rp = $rc->getProperty($p);
+            $rp->setAccessible(true);
+            $rp->setValue($model, null);
+        }
+
+        $isModel = function ($v) {
+            return $v instanceof AbstractModel;
+        };
+
+        $properties = array_merge(
+            array_filter($rc->getProperties(), function (\ReflectionProperty $p) use ($model, $isModel) {
+                return $p->setAccessible(true) && $isModel($p->getValue($model));
+            }),
+            array_filter($rc->getProperties(), function (\ReflectionProperty $p) use ($model, $isModel) {
+                return $p->setAccessible(true) && is_array($v = $p->getValue($model)) && count(array_filter($v, $isModel)) === count($v);
+            })
+        );
+
+        foreach ($properties as $p) {
+            $this->cleanPropertiesRecurse($p->getValue($model), $model);
+        }
+
+        static::$cleanMethodDepth--;
+
+        return $model;
+    }
+
+    /**
+     * @param AbstractModel|AbstractModel[] $work
+     * @param AbstractModel $parent
+     *
+     * @return null
+     */
+    final private function cleanPropertiesRecurse($work, AbstractModel $parent)
+    {
+        static::$cleanMethodDepth++;
+
+        if (is_array($work)) {
+            foreach ($work as $v) {
+                $this->cleanPropertiesRecurse($v, $parent);
+            }
+        } elseif ($work instanceof AbstractModel) {
+            $this->cleanProperties($work);
+            $rp = (new \ReflectionClass($work))->getProperty('parent');
+            $rp->setAccessible(true);
+            $rp->setValue($work, $parent);
+        }
+
+        static::$cleanMethodDepth--;
+
+        return;
     }
 
     /**

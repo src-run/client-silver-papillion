@@ -40,6 +40,7 @@ class CartExtension extends \Twig_Extension
         return array(
             new \Twig_Function('get_cart', [$this, 'getCart']),
             new \Twig_Function('cart_has', [$this, 'cartHas']),
+            new \Twig_Function('cart_uuid', [$this, 'cartUuid']),
             new \Twig_Function('cart_count', [$this, 'cartCount']),
             new \Twig_Function('cart_total', [$this, 'cartTotal']),
             new \Twig_Function('cart_subTotal', [$this, 'cartSubTotal']),
@@ -66,6 +67,14 @@ class CartExtension extends \Twig_Extension
     public function cartHas(Product $product)
     {
         return $this->cart->has($product);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function cartUuid()
+    {
+        return $this->cart->uuid();
     }
 
     /**

@@ -1,0 +1,42 @@
+{% set i = 0 %}
+[
+{% for i, f in feed if i < count %}
+    {
+        "@context"      : "http://schema.org",
+        "@type"         : "Article",
+        "name"          : "Shared {{ f.getType() }}s Feed",
+        "url"           : "{{ url('app_feed_view', {_fragment: f.getId}) }}",
+        "articleBody"   : "{{ f.getMessage() }}",
+        "datePublished" : "{{ f.getCreatedOn|date("Y\-m\-d\TH\:i") }}",
+        "image"         : [{% for i, p in f.getPhotos() %}
+            "{{ p.formatLgrThan(2400, true).getLink() | url_encode | imagine_filter('feed_attachment_lightbox_focus') }}"{% if i != f.getPhotos()|length - 1 %},{% endif %}
+        {% endfor %}],{% if f.getVideos()|length > 0 %}
+        "video"         : [{% for i, v in f.getVideos() %}
+            "https://www.facebook.com/video.php?v={{ v.getId() }}"{% if i != f.getVideos()|length - 1 %},{% endif %}
+        {% endfor %}],{% endif %}
+        "publisher"     : {
+            "@type" : "Organization",
+            "name"  : "Silver Papillon"
+        },{% if f.getAuthor() != "Silver Papillon" %}
+        "author"        : {
+            "@type" : "Person",
+            "name"  : "{{ f.getAuthor() }}"
+        },{% endif %}
+        "interactionStatistic": [
+            {
+                "@type"                : "InteractionCounter",
+                "interactionType"      : "http://schema.org/CommentAction",
+                "userInteractionCount" : "{{ f.getComments()|length }}"
+            },
+            {
+                "@type"                : "InteractionCounter",
+                "interactionType"      : "http://schema.org/LikeAction",
+                "userInteractionCount" : "{{ f.getReactionLikes()|length }}"
+            }
+        ],
+        "commentCount"  : "{{ f.getComments()|length }}",
+        "discussionUrl" : "{{ f.getPermaLink() }}"
+    }
+    {% if i != feed|length - 1 %},{% endif %}{% set i = i + 1 %}
+{% endfor %}
+]

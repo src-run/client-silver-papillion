@@ -52,14 +52,9 @@ abstract class AbstractModel
     const MAPPING_DEFINITION = [];
 
     /**
-     * @var mixed[]
+     * @var AbstractModel
      */
-    protected $data;
-
-    /**
-     * @var mixed[]
-     */
-    protected $dataOriginal;
+    protected $parent;
 
     /**
      * @var string|null
@@ -94,12 +89,11 @@ abstract class AbstractModel
     public function hydrate(array $data = null, $key = null)
     {
         $this->setKey($key);
-        $this->setData($data);
 
         try {
             $this->assertNonConflictingModelConfig();
-            $this->removeExtraKeyDepth();
-            $this->assertRequiredFieldsExist();
+            $data = $this->removeExtraKeyDepth($data);
+            $this->assertRequiredFieldsExist($data);
         }
         catch (FacebookException $exception) {
             throw FacebookException::create()
@@ -107,20 +101,7 @@ abstract class AbstractModel
                 ->with($exception);
         }
 
-        $this->removeExcludedFields();
-        $this->assignDataToModel();
-
-        return $this;
-    }
-
-    /**
-     * @param mixed[] $data
-     *
-     * @return $this
-     */
-    public function setData($data)
-    {
-        $this->data = $this->dataOriginal = $data;
+        $this->assignDataToModel($this->removeExcludedFields($data));
 
         return $this;
     }
@@ -158,13 +139,11 @@ abstract class AbstractModel
     /**
      * @return $this
      */
-    protected function removeExtraKeyDepth()
+    protected function removeExtraKeyDepth($data)
     {
-        $this->data = array_map(function ($v) {
+        return array_map(function ($v) {
             return isset($v['data']) ? $v['data'] : $v;
-        }, $this->data);
-
-        return $this;
+        }, $data);
     }
 
     /**
@@ -172,10 +151,10 @@ abstract class AbstractModel
      *
      * @return $this
      */
-    protected function assertRequiredFieldsExist()
+    protected function assertRequiredFieldsExist($data)
     {
         foreach (static::DATA_KEYS_REQUIRED as $k) {
-            if ($this->hasField($this->data, $k)) {
+            if ($this->hasField($data, $k)) {
                 continue;
             }
 
@@ -190,22 +169,20 @@ abstract class AbstractModel
     /**
      * @return $this
      */
-    protected function removeExcludedFields()
+    protected function removeExcludedFields($data)
     {
-        $this->data = array_filter($this->data, function ($v) {
-            return $this->hasFields($this->data, ...static::DATA_KEYS_FILTERED);
+        return array_filter($data, function ($v) use ($data) {
+            return $this->hasFields($data, ...static::DATA_KEYS_FILTERED);
         });
-
-        return $this;
     }
 
     /**
      *@return $this
      */
-    protected function assignDataToModel()
+    protected function assignDataToModel($data)
     {
-        foreach ($this->data as $key => $data) {
-            $this->assignFieldToModel($data, $key);
+        foreach ($data as $index => $value) {
+            $this->assignFieldToModel($value, $index);
         }
 
         return $this;

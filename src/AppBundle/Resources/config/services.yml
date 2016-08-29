@@ -16,24 +16,26 @@ services :
   app.mapper.static :
     class : AppBundle\Util\Mapper
     calls :
-      - [setConfigurationManager, ["@app.manager.configuration"]]
-      - [setUri, ["%google_static_maps_uri%"]]
-      - [setApi, ["%google_api_key_static_maps%"]]
-      - [setCachePaths, ["%app.sys_path.cache%", "%app.web_path.cache%"]]
+      - [setCache,         [ "@cache.app" ]]
+      - [setConfigManager, [ "@app.manager.configuration" ]]
+      - [setUri,           [ "%srwc.google.static_maps_uri.api_endpoint%" ]]
+      - [setApi,           [ "%google_api_key_static_maps%" ]]
+      - [setOutputPath,    [ "%srwc.system_path.root%", "%srwc.system_path.cached%" ]]
 
   app.mapper.street :
     class : AppBundle\Util\Mapper
     calls :
-      - [setConfigurationManager, ["@app.manager.configuration"]]
-      - [setUri, ["%google_street_view_uri%"]]
-      - [setApi, ["%google_api_key_street_view%"]]
-      - [setCachePaths, ["%app.sys_path.cache%", "%app.web_path.cache%"]]
+      - [setCache,         [ "@cache.app" ]]
+      - [setConfigManager, [ "@app.manager.configuration" ]]
+      - [setUri,           [ "%srwc.google.street_view_uri.api_endpoint%" ]]
+      - [setApi,           [ "%google_api_key_street_view%" ]]
+      - [setOutputPath,    [ "%srwc.system_path.root%", "%srwc.system_path.cached%" ]]
 
   app.directions :
     class : AppBundle\Util\Directions
     calls :
       - [setBlockManager, ["@app.manager.content_block"]]
-      - [setUri, ["%google_directions_uri%"]]
+      - [setUri, ["%srwc.google.simple_directions_href%"]]
 
   app.twig_extension.cart:
     class  : AppBundle\Twig\CartExtension
@@ -87,8 +89,8 @@ services :
     class  : AppBundle\Twig\UrlToFileExtension
     public : false
     calls  :
-      - [setSysDir, ["%app.sys_path.upload%"]]
-      - [setWebDir, ["%app.web_path.upload%"]]
+      - [setSysDir, ["%srwc.system_path.upload%"]]
+      - [setWebDir, ["%srwc.public_path.upload%"]]
     tags   :
       - { name : twig.extension }
 
@@ -104,6 +106,15 @@ services :
     arguments :
       - '@app.twig_locator'
     tags      :
+      - { name : twig.extension }
+
+  app.twig_extension.framework_reflect:
+    class     : AppBundle\Twig\FrameworkReflectExtension
+    public    : false
+    arguments :
+      - '%kernel.environment%'
+      - '%kernel.debug%'
+    tags :
       - { name : twig.extension }
 
   app.twig_locator:
@@ -141,8 +152,8 @@ services :
     class  : AppBundle\Twig\VichFilePathExtension
     public : false
     calls  :
-      - [setPaths, [{product: '%app.path.product_images%', category: '%app.path.category_images%', carousel: '%app.path.carousel_images%'}]]
-    tags   :
+      - [setPaths, [{ product : '%srwc.public_path.image_products%', carousel : '%srwc.public_path.image_carousel%' }]]
+    tags :
       - { name : twig.extension }
 
   app.manager.category :
@@ -192,3 +203,39 @@ services :
       - '%facebook_graph_version%'
     calls :
       - [setCache, ['@cache.app']]
+
+  #
+  # liip remote loader
+  #
+  app.liip_bundle.remote.loader:
+    class     : AppBundle\Component\Imagine\Loader\RemoteLoader
+    arguments :
+      - "%kernel.cache_dir%/liip/"
+      - "@liip_imagine.binary.mime_type_guesser"
+      - "@liip_imagine.extension_guesser"
+      - "@app.liip_bundle.remote.loader_cache"
+    tags:
+      - { name: liip_imagine.binary.loader, loader: remote }
+
+  #
+  # liip remote loader cache
+  #
+  app.liip_bundle.remote.loader_cache:
+    class     : AppBundle\Component\Imagine\Loader\Cache\RemoteLoaderCache
+    arguments :
+      - "%kernel.cache_dir%/liip-loader-cache"
+      - "remote"
+
+  #
+  # liip remote resolver
+  #
+  app.liip_bundle.remote.resolver:
+    class     : AppBundle\Component\Imagine\Resolver\RemoteResolver
+    arguments :
+      - "@filesystem"
+      - "@router.request_context"
+      - "@app.liip_bundle.remote.loader"
+      - "%kernel.root_dir%/../web"
+      - "%public_cache_dir%"
+    tags:
+      - { name: liip_imagine.cache.resolver, resolver: remote }

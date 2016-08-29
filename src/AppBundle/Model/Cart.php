@@ -15,6 +15,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Manager\ConfigurationManager;
 use Doctrine\ORM\EntityManager;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -154,7 +155,23 @@ class Cart implements \Serializable
      */
     public function save()
     {
+        $this->uuid();
         $this->session->set(static::SESSION_KEY, serialize($this));
+    }
+
+    /**
+     * @return mixed|\Ramsey\Uuid\UuidInterface
+     */
+    public function uuid()
+    {
+        $sessionIdKey = static::SESSION_KEY.'.id';
+
+        if (!$this->session->has($sessionIdKey) || empty($uuid = $this->session->get($sessionIdKey))) {
+            $this->session->set($sessionIdKey, $uuid = Uuid::uuid4()->toString());
+            return $uuid;
+        }
+
+        return $uuid;
     }
 
     /**
@@ -162,6 +179,10 @@ class Cart implements \Serializable
      */
     public function clear()
     {
+        $this->session->remove(static::SESSION_KEY.'.id');
+        $this->session->remove(static::SESSION_KEY);
+        $this->session->save();
+
         $this->items = [];
     }
 

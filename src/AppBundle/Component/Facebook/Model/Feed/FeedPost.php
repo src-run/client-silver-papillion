@@ -111,7 +111,7 @@ class FeedPost extends AbstractModel
     protected $type;
 
     /**
-     * @var FeedAttachment[]|null
+     * @var Media[]
      */
     protected $attachments;
 
@@ -206,7 +206,7 @@ class FeedPost extends AbstractModel
     }
 
     /**
-     * @return FeedAttachment[]|null
+     * @return Media[]
      */
     public function getAttachments()
     {
@@ -219,6 +219,66 @@ class FeedPost extends AbstractModel
     public function hasAttachments()
     {
         return count($this->attachments) > 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVideo()
+    {
+        return count($this->getVideos()) > 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPhoto()
+    {
+        return count($this->getPhotos()) > 0;
+    }
+
+    /**
+     * @return MediaPhoto[]
+     */
+    public function getPhotos()
+    {
+        return array_filter($this->getMedia(), function (Media $m) {
+            return $m->isPhoto();
+        });
+    }
+
+    /**
+     * @return MediaPhoto[]
+     */
+    public function getVideos()
+    {
+        return array_filter($this->getMedia(), function (Media $m) {
+            return $m->isVideo();
+        });
+    }
+
+    /**
+     * @return Media[]
+     */
+    public function getMedia()
+    {
+        return $this->attachments;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasMedia()
+    {
+        return count($this->attachments) > 0;
+    }
+
+    /**
+     * @return Media
+     */
+    public function getFirstMedia()
+    {
+        return $this->attachments[0];
     }
 
     /**
@@ -251,6 +311,20 @@ class FeedPost extends AbstractModel
     public function hasReactions()
     {
         return $this->reactions !== null;
+    }
+
+    /**
+     * @return Reaction[]
+     */
+    public function getReactionLikes()
+    {
+        if (count($this->reactions) === 0) {
+            return [];
+        }
+
+        return array_filter($this->reactions, function (Reaction $r) {
+            return $r->isLike();
+        });
     }
 }
 

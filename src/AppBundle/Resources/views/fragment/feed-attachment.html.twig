@@ -44,10 +44,10 @@
                                     data-fancybox-height="480px"
                                     data-fancybox-width="720px"
                                 {% else %}
-                                    href="{{ href | url_to_file | imagine_filter('lightbox_focus') }}"
+                                    href="{{ href | url_encode | imagine_filter('feed_attachment_lightbox_focus') }}"
                                 {% endif %}
                             >
-                                <img class="feed-attachment" src="{{ thumb | url_to_file | imagine_filter('lightbox_thumb')  }}" alt="{{ a.getText()|default(f.getMessage()) }}" />
+                                <img class="feed-attachment" src="{{ thumb | url_encode | imagine_filter('feed_attachment_thumb')  }}" alt="{{ a.getText()|default(f.getMessage()) }}" />
                             </a>
                         </div>
 

@@ -8,12 +8,6 @@
  * file that was distributed with this source code.
 */
 
-// paths
-
-$path-web-component-root           : "/components/";
-$path-web-component-bootstrap-root : "#{$path-web-component-root}bootstrap-sass/";
-$path-web-component-bootstrap-font : "#{$path-web-component-bootstrap-root}assets/fonts/bootstrap/";
-
 // fg color definitions
 
 $color-white : #ffffff;
@@ -152,7 +146,7 @@ $font-margin-base : 12px;
 
 // iconography
 
-$icon-font-path   : $path-web-component-bootstrap-font;
+$icon-font-path   : "/assets/fonts/";
 $icon-font-name   : "glyphicons-halflings-regular";
 $icon-font-svg-id : "glyphicons_halflingsregular";
 

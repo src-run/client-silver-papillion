@@ -74,9 +74,19 @@ class CartGroup
     }
 
     /**
+     * @deprecated
+     *
      * @return Product|mixed
      */
     public function getProduct()
+    {
+        return $this->items[0];
+    }
+
+    /**
+     * @return Product
+     */
+    public function item()
     {
         return $this->items[0];
     }

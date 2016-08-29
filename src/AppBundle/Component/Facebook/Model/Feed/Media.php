@@ -19,6 +19,11 @@ use AppBundle\Component\Facebook\Model\AbstractModel;
 abstract class Media extends AbstractModel
 {
     /**
+     * @var string
+     */
+    protected $id;
+
+    /**
      * @var \DateTime
      */
     protected $createdOn;
@@ -36,17 +41,12 @@ abstract class Media extends AbstractModel
     /**
      * @var string
      */
-    protected $id;
+    protected $text;
 
     /**
      * @var MediaFormat[]
      */
-    protected $formats;
-
-    /**
-     * @var string
-     */
-    protected $text;
+    protected $formats = [];
 
     /**
      * @return string
@@ -139,57 +139,67 @@ abstract class Media extends AbstractModel
     /**
      * @param int $size
      *
-     * @return Media[]
+     * @return MediaFormat[]
      */
-    public function getFormatsSmallerThan($size)
+    public function formatsLgrThan($size)
     {
-        return $this->orderFormats(array_filter($this->formats, function (MediaFormat $f) use ($size) {
-            return max($f->getSize()) < $size;
-        }));
-    }
-
-    /**
-     * @param int $size
-     *
-     * @return Media
-     */
-    public function getFormatSmallerThan($size)
-    {
-        $formats = $this->getFormatsSmallerThan($size);
-        $formats = count($formats) > 0 ? $formats : $this->orderFormats($this->formats);
-
-        return array_shift($formats);
-    }
-
-    /**
-     * @param int $size
-     *
-     * @return Media[]
-     */
-    public function getFormatsGreaterThan($size)
-    {
-        return $this->orderFormats(array_filter($this->formats, function (MediaFormat $f) use ($size) {
+        $formats = array_filter($this->formats === null ? [] : $this->formats, function (MediaFormat $f) use ($size) {
             return max($f->getSize()) > $size;
-        }));
+        });
+
+        return $this->orderFormats($formats);
     }
 
     /**
      * @param int $size
      *
-     * @return Media
+     * @return MediaFormat
      */
-    public function getFormatGreaterThan($size)
+    public function formatLgrThan($size)
     {
-        $formats = $this->getFormatsGreaterThan($size);
-        $formats = count($formats) > 0 ? $formats : $this->orderFormats($this->formats);
+        $formats = $this->formatsLgrThan($size);
+
+        if (count($formats) === 0) {
+            $formats = $this->orderFormats($this->formats);
+        }
 
         return array_shift($formats);
     }
 
     /**
-     * @param Media[] $formats
+     * @param int $size
      *
-     * @return Media[]
+     * @return MediaFormat[]
+     */
+    public function formatsSlrThan($size)
+    {
+        $formats = array_filter($this->formats === null ? [] : $this->formats, function (MediaFormat $f) use ($size) {
+            return max($f->getSize()) < $size;
+        });
+
+        return $this->orderFormats($formats);
+    }
+
+    /**
+     * @param int $size
+     *
+     * @return MediaFormat
+     */
+    public function formatSlrThan($size)
+    {
+        $formats = $this->formatsSlrThan($size);
+
+        if (count($formats) === 0) {
+            $formats = $this->orderFormats($this->formats);
+        }
+
+        return array_shift($formats);
+    }
+
+    /**
+     * @param MediaFormat[] $formats
+     *
+     * @return MediaFormat[]
      */
     protected function orderFormats(array $formats)
     {

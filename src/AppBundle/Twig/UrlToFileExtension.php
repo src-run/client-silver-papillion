@@ -10,7 +10,6 @@
  */
 
 namespace AppBundle\Twig;
-use SR\Path\PathInfo;
 
 /**
  * Class UrlToFileExtension
@@ -66,8 +65,12 @@ class UrlToFileExtension extends \Twig_Extension
             $fileExt = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
         }
 
-        $sysPath = sprintf('%s/remote-url-contents/%s.%s', $this->sysDir, $md5 = md5($url), $fileExt);
-        $webPath = sprintf('%s/remote-url-contents/%s.%s', $this->webDir, $md5, $fileExt);
+        $sysPath = sprintf('%s/fetched/%s.%s', $this->sysDir, $md5 = md5($url), $fileExt);
+        $webPath = sprintf('%s/fetched/%s.%s', $this->webDir, $md5, $fileExt);
+
+        if (!file_exists(dirname($sysPath))) {
+            @mkdir(dirname($sysPath));
+        }
 
         if (file_exists($sysPath)) {
             return $webPath;

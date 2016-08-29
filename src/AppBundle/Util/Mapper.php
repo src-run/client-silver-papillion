@@ -12,6 +12,8 @@
 namespace AppBundle\Util;
 
 use AppBundle\Manager\ConfigurationManager;
+use Psr\Cache\CacheItemInterface;
+use Symfony\Component\Cache\Adapter\AbstractAdapter;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -48,19 +50,24 @@ class Mapper implements ContainerAwareInterface
     protected $api;
 
     /**
-     * @var string
+     * @var AbstractAdapter
      */
-    protected $cacheSysPath;
+    protected $cache;
 
     /**
      * @var string
      */
-    protected $cacheWebPath;
+    protected $rootPath;
+
+    /**
+     * @var string
+     */
+    protected $outputPath;
 
     /**
      * @param ConfigurationManager $manager
      */
-    public function setConfigurationManager(ConfigurationManager $manager)
+    public function setConfigManager(ConfigurationManager $manager)
     {
         $this->configurationManager = $manager;
     }
@@ -85,10 +92,18 @@ class Mapper implements ContainerAwareInterface
      * @param string $sysPath
      * @param string $webPath
      */
-    public function setCachePaths($sysPath, $webPath)
+    public function setCache(AbstractAdapter $cache)
     {
-        $this->cacheSysPath = $sysPath;
-        $this->cacheWebPath = $webPath;
+        $this->cache = $cache;
+    }
+
+    /**
+     * @param string $output
+     */
+    public function setOutputPath($root, $output)
+    {
+        $this->rootPath = $root;
+        $this->outputPath = $output;
     }
 
     /**
@@ -98,9 +113,30 @@ class Mapper implements ContainerAwareInterface
      */
     public function generate($size = self::SIZE_DEFAULT)
     {
-        $uri = $this->getUriCompiled($size);
+        $link = $this->getUriCompiled($size);
+        $item = $this->getCacheItem($link);
 
-        return $this->fetch($uri);
+        if (file_exists($temp = $this->getTemporaryFilePath($item, $link))) {
+            return str_replace($this->rootPath, '', $this->getTemporaryFilePath($item, $link));
+        }
+
+        if (!$item->isHit()) {
+            $this->refresh($item, $link);
+        }
+
+        file_put_contents($temp, $item->get());
+
+        return str_replace($this->rootPath, '', $temp);
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return CacheItemInterface
+     */
+    protected function getCacheItem($url)
+    {
+        return $this->cache->getItem(preg_replace('{[^a-z0-9]}i', '', $url));
     }
 
     /**
@@ -128,22 +164,35 @@ class Mapper implements ContainerAwareInterface
     }
 
     /**
-     * @param string $uri
+     * @param CacheItemInterface $item
+     * @param string             $link
      *
      * @return string
      */
-    protected function fetch($uri)
+    protected function refresh(CacheItemInterface $item, $link)
     {
-        $fileName = md5($uri).'.png';
+        $item->set($contents = file_get_contents($link));
+        $item->expiresAt(new \DateTime('@'.(time() + self::MAX_AGE)));
+    }
 
-        $sysPath = $this->cacheSysPath.DIRECTORY_SEPARATOR.$fileName;
-        $webPath = $this->cacheWebPath.'/'.$fileName;
+    protected function getTemporaryFilePath(CacheItemInterface $item, $link)
+    {
+        $root = $this->outputPath;
 
-        if (!file_exists($sysPath) || time() - filemtime($sysPath) > self::MAX_AGE) {
-            file_put_contents($sysPath, file_get_contents($uri));
+        if (!file_exists($root)) {
+            @mkdir($root, 0777);
         }
 
-        return $webPath;
+        return $root.DIRECTORY_SEPARATOR.hash('sha256', $item->getKey()).$this->guessExtension($link);
+    }
+
+    protected function guessExtension($link)
+    {
+        if (1 === preg_match('{format=([a-z]+)}i', $link, $matches)) {
+            return '.'.$matches[1];
+        }
+
+        return '';
     }
 }
 

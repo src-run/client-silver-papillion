@@ -1,5 +1,16 @@
 {% extends '::base.html.twig' %}
 
+{% if has_fb_feed_cached() %}
+    {% block headBeforeEnd %}
+        <script type="application/ld+json">
+            {% include 'AppBundle:fragment:feed-structured-markup-json-ld.json.twig' with {
+                'feed'  : get_fb_feed(),
+                'count' : config('feed.count.news', 12)
+            } only %}
+        </script>
+    {% endblock %}
+{% endif %}
+
 {% block bread %}
     {{ parent() }}
     <li>News</li>

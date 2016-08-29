@@ -1,30 +1,41 @@
 
 {#
- # complete fb feed listing
+ # fb photo listing
  #}
 
 {% set i = 0 %}
 {% for f in feed %}
-    {% for a in f.getAttachments if i < count %}
+    {% for a in f.getAttachments if a.isPhoto() and i < count %}
 
-        {% if a.isAlbum() %}
-            {% for p in a.getPhotos() %}
-                {% set i = i + 1 %}
-                {% set thumb = p.getFormatGreaterThan(1200, true).getLink() %}
-                {% set href  = p.getFormatGreaterThan(2400, true).getLink() %}
-                {% include 'AppBundle:fragment:feed-list-photo-card.html.twig' with { 'f' : f, 'a' : p, 'thumb' : thumb, 'href' : href } only %}
-            {% endfor %}
-        {% elseif a.isPhoto() %}
-            {% set i = i + 1 %}
-            {% set thumb = a.getFormatGreaterThan(1200, true).getLink() %}
-            {% set href  = a.getFormatGreaterThan(2400, true).getLink() %}
-            {% include 'AppBundle:fragment:feed-list-photo-card.html.twig' with { 'f' : f, 'a' : a, 'thumb' : thumb, 'href' : href } only %}
-        {% elseif a.isVideo() %}
-            {% set i = i + 1 %}
-            {% set thumb = a.getThumbGreaterThan(1200, true) %}
-            {% set href  = 'https://www.facebook.com/video.php?v=' ~ a.getId() %}
-            {% include 'AppBundle:fragment:feed-list-photo-card.html.twig' with { 'f' : f, 'a' : a, 'thumb' : thumb, 'href' : href } only %}
-        {% endif %}
+        <div class="card-feed-photo">
+            <div class="card is-linkable is-animated">
+
+                <div class="card-section-head is-overlay">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-expand fa-stack-1x fa-inverse"></i>
+                    </span>
+                </div>
+
+                <div class="card-section-body">
+                    <a  class="feed-attachment-link"
+                        title="{{ a.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ a.getText()|default(f.getMessage()) }}"
+                        data-fancybox-initialized="0"
+                        rel="photo-group"
+                        href="{{ a.formatLgrThan(1800).getLink() | url_encode | imagine_filter('feed_attachment_lightbox_focus') }}">
+
+                        <img
+                            class="feed-attachment"
+                            src="{{ a.formatSlrThan(1200, true).getLink() | url_encode | imagine_filter('feed_photo_thumbs')  }}"
+                            alt="{{ a.getText()|default(f.getMessage()) }}"
+                        />
+
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% set i = i + 1 %}
 
     {% endfor %}
 {% endfor %}

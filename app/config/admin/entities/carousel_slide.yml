@@ -30,7 +30,7 @@ easy_admin:
 
           - property  : 'image'
             type      : 'image'
-            base_path : '%app.path.carousel_images%'
+            base_path : '%srwc.public_path.image_carousel%'
 
       show:
         fields:
@@ -44,7 +44,7 @@ easy_admin:
 
           - property  : 'image'
             type      : 'image'
-            base_path : '%app.path.carousel_images%'
+            base_path : '%srwc.public_path.image_carousel%'
 
       form:
         fields:

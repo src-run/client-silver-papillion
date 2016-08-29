@@ -79,7 +79,7 @@ class Product
     /**
      * @var File|null
      *
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="image_productss", fileNameProperty="image")
      */
     protected $imageFile;
 

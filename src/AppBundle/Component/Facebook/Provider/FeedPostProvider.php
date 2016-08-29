@@ -13,6 +13,10 @@ namespace AppBundle\Component\Facebook\Provider;
 
 use AppBundle\Component\Facebook\Exception\FacebookException;
 use AppBundle\Component\Facebook\Model\AbstractModel;
+use AppBundle\Component\Facebook\Model\Feed\Media;
+use AppBundle\Component\Facebook\Model\Feed\MediaAlbum;
+use AppBundle\Component\Facebook\Model\Feed\MediaFormat;
+use AppBundle\Component\Facebook\Model\Feed\MediaPhoto;
 use Facebook\FacebookResponse;
 use Symfony\Component\Cache\CacheItem;
 
@@ -68,7 +72,29 @@ class FeedPostProvider extends AbstractProvider
             return $p !== null;
         });
 
+        $data['attachments']['data'] = $this->flattenAttachments($data['attachments']['data']);
+
         return $data;
+    }
+
+    /**
+     * @param Media[] $attachments
+     *
+     * @return Media[]
+     */
+    protected function flattenAttachments($attachments)
+    {
+        $flat = [];
+
+        foreach ($attachments as $a) {
+            if ($a instanceof MediaAlbum) {
+                $flat = array_merge($flat, $a->getPhotos());
+            } else {
+                $flat[] = $a;
+            }
+        }
+
+        return $flat;
     }
 
     /**

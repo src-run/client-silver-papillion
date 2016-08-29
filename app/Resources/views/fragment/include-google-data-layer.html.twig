@@ -1,0 +1,40 @@
+
+<!-- Google Tag Manager Data Layer 01 -->
+<script>
+    window.dataLayer = window.dataLayer || []
+
+    dataLayer.push({
+        'frameworkPackage' : '{{ framework_name() }}',
+        'frameworkSupport' : '{{ framework_eol() }}',
+        'frameworkVersion' : '{{ framework_version() }}',
+        'frameworkEnv'     : '{{ framework_env() }}',
+        'frameworkDebug'   : '{{ framework_debug() }}'
+    });
+
+{% set i = 0 -%}
+{% if cart_count() > 0 %}
+    dataLayer.push({
+        'transactionId'       : '{{ cart_uuid() }}',
+        'transactionTotal'    : {{ cart_total() }},
+        'transactionTax'      : {{ cart_tax() }},
+        'transactionShipping' : {{ cart_shipping() }},
+        'transactionProducts' : [
+    {%- for g in cart_items_grouped() %}{ {%- set i = i + g.count() %}
+
+        {%- if g.item().hasSku() %}
+
+            'sku'      : '{{ g.item().getSku() }}',
+        {%- endif %}
+
+            'name'     : '{{ g.item().getName() }}',
+            'category' : '{{ g.item().getCategory().getName() }}',
+            'price'    : {{ g.item.getPrice() }},
+            'quantity' : {{ g.count() }}
+        }
+        {%- if i != cart_count() %},{% endif %}
+    {%- endfor %}]
+    });
+{% endif %}
+
+</script>
+<!-- Google Tag Manager Data Layer 01 -->

@@ -181,8 +181,8 @@ class WineCaddyCommand extends ContainerAwareCommand
     {
         list($name, $sku, $imageUrl) = $product;
 
-        $basePath = $this->getContainer()->getParameter('app.sys_path.root');
-        $prodPath = $this->getContainer()->getParameter('app.path.product_images');
+        $basePath = $this->getContainer()->getParameter('srwc.system_path.root');
+        $prodPath = $this->getContainer()->getParameter('srwc.public_path.image_products');
         $prodName = preg_replace('{[^a-z0-9-\.]}i', '-', strtolower($sku.'-'.str_replace(' ', '-', $name)).'.'.pathinfo($imageUrl, PATHINFO_EXTENSION));
 
         $fullPath = $basePath.DIRECTORY_SEPARATOR.$prodPath.DIRECTORY_SEPARATOR.$prodName;

@@ -54,7 +54,7 @@ abstract class AbstractProvider implements ProviderInterface
     /**
      * @var string
      */
-    private $cacheTtl = 'P1D';
+    protected $cacheTtl = 'P1D';
 
     /**
      * @param AuthenticationInterface|null $authentication

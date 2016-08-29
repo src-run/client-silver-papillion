@@ -19,6 +19,11 @@ use AppBundle\Component\Facebook\Model\AbstractModel;
 abstract class MediaFormat extends AbstractModel
 {
     /**
+     * @var Media
+     */
+    protected $mediaReference;
+
+    /**
      * @var string
      */
     protected $link;
@@ -32,6 +37,14 @@ abstract class MediaFormat extends AbstractModel
      * @var string
      */
     protected $width;
+
+    /**
+     * @return Media
+     */
+    public function getMediaParent()
+    {
+        return $this->mediaReference;
+    }
 
     /**
      * @return string
@@ -66,6 +79,11 @@ abstract class MediaFormat extends AbstractModel
             $this->width,
             $this->height
         ];
+    }
+
+    public function getType()
+    {
+
     }
 }
 

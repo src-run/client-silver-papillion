@@ -54,7 +54,8 @@
     "hostnet/form-handler-bundle": "~1.1",
     "knplabs/knp-paginator-bundle": "~2.5",
     "src-run/augustus-file-library": "~0.6",
-    "stripe/stripe-php": "~3.20"
+    "stripe/stripe-php": "~3.20",
+    "ramsey/uuid": "~3.5"
   },
   "require-dev" : {
     "doctrine/doctrine-fixtures-bundle": "^2.3",

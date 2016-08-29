@@ -40,7 +40,7 @@ class CarouselSlide
     /**
      * @var File|null
      *
-     * @Vich\UploadableField(mapping="carousel_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="image_carousels", fileNameProperty="image")
      */
     protected $imageFile;
 

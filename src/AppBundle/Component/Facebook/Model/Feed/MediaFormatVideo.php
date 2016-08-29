@@ -53,7 +53,6 @@ class MediaFormatVideo extends MediaFormat
     public function getEmbeddableIFrameLink()
     {
         if (false !== preg_match('{src="([^"]+)"}i', $this->embeddableIframe, $matches)) {
-            dump($matches);
             return $matches[1];
         }
 

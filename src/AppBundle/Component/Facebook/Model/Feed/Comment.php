@@ -34,7 +34,7 @@ class Comment extends AbstractModel
      */
     const MAPPING_DEFINITION = [
         'created_time' => [
-            'to_property' => 'date',
+            'to_property' => 'createdOn',
         ],
         'from' => [
             'to_property' => 'author',
@@ -44,7 +44,7 @@ class Comment extends AbstractModel
     /**
      * @var \DateTime
      */
-    protected $date;
+    protected $createdOn;
 
     /**
      * @var string
@@ -59,9 +59,9 @@ class Comment extends AbstractModel
     /**
      * @return mixed
      */
-    public function getDate()
+    public function getCreatedOn()
     {
-        return $this->date;
+        return $this->createdOn;
     }
 
     /**

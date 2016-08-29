@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "37da6df462945c01f6ed3691ffcbf7b7",
-    "content-hash": "5ed4ed943055943146856d3f480f476a",
+    "hash": "4a10b4505768acafa0c000f32c29d536",
+    "content-hash": "dca364a4f19033f9fa538983c26afb4b",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -3541,35 +3541,40 @@
         },
         {
             "name": "src-run/wonka-bundle",
-            "version": "dev-master",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/wonka-bundle.git",
+                "reference": "c193156ea671dd443986e9a49a9804412cf41371"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/wonka-bundle",
-                "reference": "9184b59a58503236c5b4547fdb129464c6ed17ff",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/wonka-bundle/zipball/c193156ea671dd443986e9a49a9804412cf41371",
+                "reference": "c193156ea671dd443986e9a49a9804412cf41371",
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6||^7.0",
                 "src-run/arthur-doctrine-library": "^0.6",
                 "src-run/augustus-library": "^0.6",
                 "src-run/wonka-library": "^0.6",
-                "symfony/config": "^3.0",
-                "symfony/dependency-injection": "^3.0",
-                "symfony/http-foundation": "^3.0",
+                "symfony/config": "^2.8||^3.0",
+                "symfony/dependency-injection": "^2.8||^3.0",
+                "symfony/http-foundation": "^2.8||^3.0",
                 "twig/twig": "^2.0@dev"
             },
             "require-dev": {
                 "codacy/coverage": "^1.0",
                 "phpunit/phpunit": "^5.0",
                 "satooshi/php-coveralls": "^1.0",
-                "symfony/debug-bundle": "^3.0",
-                "symfony/framework-bundle": "^3.0",
-                "symfony/monolog-bundle": "^2.11 || ^3.0",
-                "symfony/phpunit-bridge": "^3.0",
-                "symfony/stopwatch": "^3.0",
-                "symfony/symfony": "^3.0",
-                "symfony/twig-bundle": "^3.0",
-                "symfony/var-dumper": "^3.0"
+                "symfony/debug-bundle": "^2.8||^3.0",
+                "symfony/framework-bundle": "^2.8||^3.0",
+                "symfony/monolog-bundle": "^2.8||^3.0",
+                "symfony/phpunit-bridge": "^2.8||^3.0",
+                "symfony/stopwatch": "^2.8||^3.0",
+                "symfony/symfony": "^2.8||^3.0",
+                "symfony/twig-bundle": "^2.8||^3.0",
+                "symfony/var-dumper": "^2.8||^3.0"
             },
             "type": "project",
             "extra": {
@@ -3582,11 +3587,7 @@
                     "SR\\WonkaBundle\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\WonkaBundle\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3607,14 +3608,7 @@
                 "wonka",
                 "wonka-bundle"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "issues": "https://src.run/wonka-bundle/issues",
-                "source": "https://src.run/wonka-bundle/git"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-07-21 13:28:13"
         },
         {
             "name": "src-run/wonka-library",
@@ -3747,16 +3741,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v3.20.0",
+            "version": "v3.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "2ebcac34b287bfc017b13c6fecb6a7dbb96f1e7b"
+                "reference": "0f4f89094b6a1ba9c9c1b5c32358d8d0acc19682"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/2ebcac34b287bfc017b13c6fecb6a7dbb96f1e7b",
-                "reference": "2ebcac34b287bfc017b13c6fecb6a7dbb96f1e7b",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/0f4f89094b6a1ba9c9c1b5c32358d8d0acc19682",
+                "reference": "0f4f89094b6a1ba9c9c1b5c32358d8d0acc19682",
                 "shasum": ""
             },
             "require": {
@@ -3798,7 +3792,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2016-08-08 19:50:55"
+            "time": "2016-08-25 22:58:28"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4622,12 +4616,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "1f1e4c7200b4c5fb13d8b85a4a49529bd0bc1267"
+                "reference": "6009e6ef469d71429e381f2fd89e8d2db74e66ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/1f1e4c7200b4c5fb13d8b85a4a49529bd0bc1267",
-                "reference": "1f1e4c7200b4c5fb13d8b85a4a49529bd0bc1267",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/6009e6ef469d71429e381f2fd89e8d2db74e66ad",
+                "reference": "6009e6ef469d71429e381f2fd89e8d2db74e66ad",
                 "shasum": ""
             },
             "require": {
@@ -4689,7 +4683,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2016-08-18 15:27:21"
+            "time": "2016-08-25 18:15:34"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -4942,12 +4936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "cf96ecf366eb24cfe680b62f9134b5ddc9b86818"
+                "reference": "1f831ae9ba0a8d49bcccc5743ae5823a754f6f56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/cf96ecf366eb24cfe680b62f9134b5ddc9b86818",
-                "reference": "cf96ecf366eb24cfe680b62f9134b5ddc9b86818",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/1f831ae9ba0a8d49bcccc5743ae5823a754f6f56",
+                "reference": "1f831ae9ba0a8d49bcccc5743ae5823a754f6f56",
                 "shasum": ""
             },
             "require": {
@@ -4996,20 +4990,20 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-05-30 09:07:11"
+            "time": "2016-08-25 17:56:11"
         },
         {
             "name": "vich/uploader-bundle",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "667ead816ba05634e225a1f9c9bbc762c73c2e0c"
+                "reference": "9559c29dcee87d99cb96279f03128059ae0bb480"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/667ead816ba05634e225a1f9c9bbc762c73c2e0c",
-                "reference": "667ead816ba05634e225a1f9c9bbc762c73c2e0c",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/9559c29dcee87d99cb96279f03128059ae0bb480",
+                "reference": "9559c29dcee87d99cb96279f03128059ae0bb480",
                 "shasum": ""
             },
             "require": {
@@ -5077,7 +5071,7 @@
                 "file uploads",
                 "upload"
             ],
-            "time": "2016-08-17 11:15:39"
+            "time": "2016-08-24 12:22:08"
         },
         {
             "name": "zendframework/zend-code",
@@ -6024,16 +6018,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.5.2",
+            "version": "5.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "46ec2d1522ae8c9a12aca6b7650e0be78bbb0502"
+                "reference": "3e6e88e56c912133de6e99b87728cca7ed70c5f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/46ec2d1522ae8c9a12aca6b7650e0be78bbb0502",
-                "reference": "46ec2d1522ae8c9a12aca6b7650e0be78bbb0502",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3e6e88e56c912133de6e99b87728cca7ed70c5f5",
+                "reference": "3e6e88e56c912133de6e99b87728cca7ed70c5f5",
                 "shasum": ""
             },
             "require": {
@@ -6098,20 +6092,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-08-18 11:10:44"
+            "time": "2016-08-26 07:11:44"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.2.4",
+            "version": "3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "4e83390f64e7ce04fcaec2ce95cd72823b431d19"
+                "reference": "46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/4e83390f64e7ce04fcaec2ce95cd72823b431d19",
-                "reference": "4e83390f64e7ce04fcaec2ce95cd72823b431d19",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49",
+                "reference": "46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49",
                 "shasum": ""
             },
             "require": {
@@ -6157,7 +6151,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-08-17 09:33:51"
+            "time": "2016-08-26 05:51:59"
         },
         {
             "name": "satooshi/php-coveralls",
