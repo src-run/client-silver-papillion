@@ -1388,19 +1388,19 @@ footer {
 
         .card-section-head {
           font-size  : 400%;
-          margin-top : 12px;
+          margin-top : 60px;
 
           @media (min-width: $screen-sm-min) {
             font-size  : 400%;
-            margin-top : 12px;
+            margin-top : 80px;
           }
           @media (min-width: $screen-md-min) {
             font-size  : 500%;
-            margin-top : 25px;
+            margin-top : 120px;
           }
           @media (min-width: $screen-lg-min) {
             font-size  : 700%;
-            margin-top : 25px;
+            margin-top : 160px;
           }
 
           pointer-events             : none;
@@ -1419,12 +1419,12 @@ footer {
           }
 
           .fa-circle {
-            color : rgba($color-black, 0.2);
+            color : rgba($color-black, 0);
           }
 
           .fa-youtube-play,
           .fa-expand{
-            color : rgba($color-white, 0.6);
+            color : rgba($color-white, 0);
           }
         }
 
@@ -1432,13 +1432,13 @@ footer {
           margin-top : 6px;
 
           @media (min-width: $screen-sm-min) {
-            margin-top : -15px;
+            margin-top : 25px;
           }
           @media (min-width: $screen-md-min) {
-            margin-top : 0;
+            margin-top : 60px;
           }
           @media (min-width: $screen-lg-min) {
-            margin-top : 0;
+            margin-top : 70px;
           }
 
           .fa-circle {
@@ -1457,10 +1457,37 @@ footer {
           margin         : 0;
           padding        : 0;
 
-          img {
-            @include img-responsive();
+          .feed-attachment-link {
+            &:first-child {
+              width : 100%;
+              float : none;
+            }
 
-            pointer-events : auto;
+            width : 50%;
+            float : left;
+
+            img {
+              @include img-responsive();
+
+              pointer-events : auto;
+
+              cursor           : pointer;
+              border           : $card-linkable-border;
+              background-color : $card-linkable-bg;
+              will-change      : auto;
+              transition       : border $transition-time-x08, background-color $transition-time-x08, box-shadow $transition-time-x04;
+
+              &:hover {
+                border           : $card-linkable-border-active;
+                background-color : $card-linkable-bg-active;
+                box-shadow       : 0 6px 27px rgba(0, 0, 0, .5);
+
+                > .card-section-head,
+                > .card-section-foot {
+                  background-color : $card-section-bg-active;
+                }
+              }
+            }
           }
         }
 

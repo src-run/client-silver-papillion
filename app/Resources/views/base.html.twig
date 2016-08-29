@@ -64,10 +64,8 @@
 
     {% block javascripts %}
         {% if app.environment == 'prod' %}
-            <script src="{{ asset('assets/javascripts/plugins.min.js') }}"></script>
             <script src="{{ asset('assets/javascripts/app.min.js') }}"></script>
         {% else %}
-            <script src="{{ asset('assets/javascripts/plugins.js') }}"></script>
             <script src="{{ asset('assets/javascripts/app.js') }}"></script>
         {% endif %}
     {% endblock %}

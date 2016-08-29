@@ -34,7 +34,7 @@ services :
   app.directions :
     class : AppBundle\Util\Directions
     calls :
-      - [setBlockManager, ["@app.manager.content_block"]]
+      - [setConfigManager, [ "@app.manager.configuration" ]]
       - [setUri, ["%srwc.google.simple_directions_href%"]]
 
   app.twig_extension.cart:

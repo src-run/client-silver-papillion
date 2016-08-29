@@ -5,7 +5,7 @@
 
 {% set i = 0 %}
 {% for f in feed %}
-    {% for a in f.getAttachments if a.isPhoto() and i < count %}
+    {% for j, a in f.getAttachments if a.isPhoto() and i < count %}
 
         <div class="card-feed-photo">
             <div class="card is-linkable is-animated">
@@ -19,7 +19,7 @@
 
                 <div class="card-section-body">
                     <a  class="feed-attachment-link"
-                        title="{{ a.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ a.getText()|default(f.getMessage()) }}"
+                        title="{{ a.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ a.getText()|default(f.getMessage()) }} ({{ j+1 }} of {{ f.getAttachments|length }})"
                         data-fancybox-initialized="0"
                         rel="photo-group"
                         href="{{ a.formatLgrThan(1800).getLink() | cache_url | imagine_filter('feed_attachment_lightbox_focus') }}">

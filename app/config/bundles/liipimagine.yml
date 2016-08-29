@@ -101,9 +101,33 @@ liip_imagine :
       filters :
         auto_rotate : ~
         strip       : ~
-        upscale     : { min : [1280, 940] }
-        thumbnail   : { size : [1280, 940], mode : outbound, allow_upscale : true }
-        background  : { size : [1300, 960], position : center, color : '#f2f1f3' }
+        upscale     : { min : [1260, 920] }
+        thumbnail   : { size : [1260, 920], mode : outbound, allow_upscale : true }
+        background  : { size : [1280, 940], position : center, color : '#f2f1f3' }
+
+    feed_attachment_sm_thumb :
+
+      jpeg_quality          : 90
+      png_compression_level : 8
+
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min : [620, 450] }
+        thumbnail   : { size : [620, 450], mode : outbound, allow_upscale : true }
+        background  : { size : [640, 470], position : center, color : '#f2f1f3' }
+
+    feed_attachment_lg_thumb :
+
+      jpeg_quality          : 90
+      png_compression_level : 8
+
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        upscale     : { min : [1260, 920] }
+        thumbnail   : { size : [1260, 920], mode : outbound, allow_upscale : true }
+        background  : { size : [1280, 940], position : center, color : '#f2f1f3' }
 
     #
     # lightbox - enlarged images
@@ -117,8 +141,6 @@ liip_imagine :
         auto_rotate : ~
         strip       : ~
         upscale     : { min : [1980, 1280] }
-        thumbnail   : { size : [1980, 1280], mode : outbound, allow_upscale : true }
-        background  : { size : [2000, 1300], position : center, color : '#000' }
 
     feed_social_thumbs :
 

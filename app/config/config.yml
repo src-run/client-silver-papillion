@@ -74,7 +74,7 @@ framework :
 
   assets :
     enabled        : true
-    version        : 1.2.0
+    version        : 1.2.1
     version_format : "%%s?v=%%s"
     packages :
       images : { base_urls : ['//silverpapillon.com/bundles/app/images'] }

@@ -11,7 +11,7 @@
 
 namespace AppBundle\Util;
 
-use AppBundle\Manager\ContentBlockManager;
+use AppBundle\Manager\ConfigurationManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -23,9 +23,9 @@ class Directions implements ContainerAwareInterface
     use ContainerAwareTrait;
 
     /**
-     * @var ContentBlockManager
+     * @var ConfigurationManager
      */
-    protected $blockManager;
+    protected $configurationManager;
 
     /**
      * @var string
@@ -33,11 +33,11 @@ class Directions implements ContainerAwareInterface
     protected $uri;
 
     /**
-     * @param ContentBlockManager $manager
+     * @param ConfigurationManager $manager
      */
-    public function setBlockManager(ContentBlockManager $manager)
+    public function setConfigManager(ConfigurationManager $manager)
     {
-        $this->blockManager = $manager;
+        $this->configurationManager = $manager;
     }
 
     /**
@@ -63,7 +63,7 @@ class Directions implements ContainerAwareInterface
      */
     protected function getAddress()
     {
-        return urlencode(strip_tags(str_replace("\r\n", '+', $this->blockManager->get('about.address')->getContent())));
+        return urlencode(strip_tags(str_replace("\r\n", '+', $this->configurationManager->value('address'))));
     }
 
     /**

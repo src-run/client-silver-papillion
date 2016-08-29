@@ -96,30 +96,33 @@ gulp.task('make-styles', () => {
         .on("error", p.notify.onError("Error: <%= error.message %>"));
 });
 
-gulp.task('make-scripts-app', () => {
+gulp.task('make-scripts-app-core', () => {
     return browserify({entries: c.file('app.scripts'), debug: true})
         .transform(babelify, {presets: ["es2015"]})
         .bundle()
-        .pipe(source('app.js'))
+        .pipe(source('app-core.js'))
         .pipe(buffer())
-        .pipe(p.sourcemaps.init())
-        .pipe(p.concatSourcemap('app.js', {sourcesContent: true}))
         .pipe(p.decomment())
         .pipe(p.babel({presets: ['es2015']}))
         .pipe(p.banner(c.option('banner-text'), {pkg : pkg}))
         .pipe(gulp.dest(c.path('public.scripts')))
-        .pipe(p.rename({suffix: '.min'}))
-        .pipe(p.uglify())
-        .pipe(p.sourcemaps.write('.'))
-        .pipe(gulp.dest(c.path('public.scripts')))
-        .pipe(p.notify({onLast: true}))
         .on("error", p.notify.onError("Error: <%= error.message %>"));
 });
 
-gulp.task('make-scripts-plugins', () => {
+gulp.task('make-scripts-app-plugins', () => {
     return gulp.src(c.files(['plugins.scripts']))
         .pipe(p.sourcemaps.init())
-        .pipe(p.concatSourcemap('plugins.js', {sourcesContent: true}))
+        .pipe(p.concat('app-plugins.js'))
+        .pipe(p.decomment())
+        .pipe(p.banner(c.option('banner-text'), {pkg : pkg}))
+        .pipe(gulp.dest(c.path('public.scripts')))
+        .on("error", p.notify.onError("Error: <%= error.message %>"));
+});
+
+gulp.task('make-scripts-app', () => {
+    return gulp.src([c.path('public.scripts', {post: 'app-plugins.js'}), c.path('public.scripts', {post: 'app-core.js'})])
+        .pipe(p.sourcemaps.init())
+        .pipe(p.concatSourcemap('app.js', {sourcesContent: true}))
         .pipe(p.decomment())
         .pipe(p.banner(c.option('banner-text'), {pkg : pkg}))
         .pipe(gulp.dest(c.path('public.scripts')))
@@ -131,9 +134,9 @@ gulp.task('make-scripts-plugins', () => {
         .on("error", p.notify.onError("Error: <%= error.message %>"));
 });
 
-gulp.task('make-scripts', gulp.parallel(
-    'make-scripts-app',
-    'make-scripts-plugins'
+gulp.task('make-scripts', gulp.series(
+    gulp.parallel('make-scripts-app-core', 'make-scripts-app-plugins'),
+    'make-scripts-app'
 ));
 
 gulp.task('make', gulp.parallel(

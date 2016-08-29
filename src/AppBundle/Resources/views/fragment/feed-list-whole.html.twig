@@ -35,28 +35,23 @@
                 <div class="feed-post-attachments">
 
                     <div class="card-feed-attachment">
-                        <div class="card is-linkable is-animated">
+                        <div class="card is-animated">
 
-                            <div class="card-section-head is-overlay">
+                            {% if f.isVideo()|default(false) %}
+                                <div class="card-section-head is-overlay">
 
-                                {% if f.isVideo()|default(false) %}
                                     <span class="fa-stack fa-lg">
                                       <i class="fa fa-circle fa-stack-2x"></i>
                                       <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
                                     </span>
-                                {% else %}
-                                    <span class="fa-stack fa-lg">
-                                      <i class="fa fa-circle fa-stack-2x"></i>
-                                      <i class="fa fa-expand fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                {% endif %}
 
-                            </div>
+                                </div>
+                            {% endif %}
 
                             <div class="card-section-body">
-                                {% for m in f.getMedia() %}
+                                {% for j, m in f.getMedia() %}
                                     <a  class="feed-attachment-link"
-                                        title="{{ m.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ m.getText()|default(f.getMessage()) }}"
+                                        title="{{ m.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ m.getText()|default(f.getMessage()) }} ({{ j+1 }} of {{ f.getMedia|length }})"
                                         data-fancybox-initialized="0"
                                         rel="photo-group"
                                         {% if m.isVideo() %}
@@ -68,7 +63,11 @@
 
                                         <img
                                             class="feed-attachment"
-                                            src="{{ m.formatSlrThan(1200).getLink() | cache_url | imagine_filter('feed_attachment_thumb')  }}"
+                                            src="{% if j > 0 -%}
+                                                {{ m.formatSlrThan(1200).getLink() | cache_url | imagine_filter('feed_attachment_sm_thumb')  }}
+                                            {%- else -%}
+                                                {{ m.formatSlrThan(1200).getLink() | cache_url | imagine_filter('feed_attachment_lg_thumb')  }}
+                                            {%- endif %}"
                                             alt="{{ m.getText()|default(f.getMessage()) }}" />
 
                                     </a>
