@@ -68,8 +68,8 @@ class UrlToFileExtension extends \Twig_Extension
         $sysPath = sprintf('%s/fetched/%s.%s', $this->sysDir, $md5 = md5($url), $fileExt);
         $webPath = sprintf('%s/fetched/%s.%s', $this->webDir, $md5, $fileExt);
 
-        if (!file_exists(dirname($sysPath))) {
-            @mkdir(dirname($sysPath));
+        if (!is_dir(pathinfo($sysPath, PATHINFO_DIRNAME))) {
+            mkdir(pathinfo($sysPath, PATHINFO_DIRNAME), 0777, true);
         }
 
         if (file_exists($sysPath)) {

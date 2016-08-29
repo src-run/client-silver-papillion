@@ -70,8 +70,17 @@
       ]
     }
   },
-  "opts" : {
+  "globs" : {
+    "tests": {
+      "scripts" : [ "${paths.app}**/app.js", ".gulp/configuration-parser.js", "gulpfile.babel.js" ],
+      "styles"  : [ "${paths.app}**/*.scss" ],
+      "fonts"   : [],
+      "images"  : []
+    }
+  },
+  "options" : {
     "css-comb-rc"     : "${paths.app}stylesheets/.csscomb.json",
+    "jscs-rc"         : "${paths.app}javascripts/.jscsrc",
     "prefix-rule-set" : [ "Android >= 4", "Chrome >= 28", "Firefox >= 40", "Explorer >= 11", "iOS >= 7", "Opera >= 30", "Safari >= 9" ],
     "banner-text"     : "\n/*!\n * This file is part of the `src-run/<%= pkg.name %>` project.\n *\n * (c) <%= pkg.author %>\n *\n * or the full copyright and license information, please view the LICENSE.md\n * file that was distributed with this source code.\n*/\n"
   }

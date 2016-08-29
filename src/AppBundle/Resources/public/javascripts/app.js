@@ -8,501 +8,263 @@
  * file that was distributed with this source code.
  */
 
-$(document).ready(function () {
+'use strict';
 
-  'use strict';
+class Logger {
+  static log(type, message) {
+    if (!window.console) {
+      return;
+    }
+    console.log(type.toUpperCase() + ': ' + message); // @todo: write proper implementation for logger!
+  }
 
-  /**
-   * SIMPLE LOGGER
-   */
+  static logError(message) {
+    Logger.log('runtime error', message);
+  }
 
-  var logger = (function (window) {
-    /**
-     * @param {string} type
-     * @param {string} message
-     */
-    function log(type, message) {
-      if (window.console) {
-        console.log(type.toUpperCase() + ': ' + message); // @todo: write proper implementation for logger!
+  static logException(exception) {
+    Logger.log('caught exception', exception.message);
+  }
+}
+
+class Link {
+  static follow(href) {
+    if (href) {
+      window.location = href;
+    }
+  }
+}
+
+class LinkResolver {
+  static hrefResolverStrategyFindInDataAttrOfPassedEl(el, dataKeys) {
+    let link = null;
+    let keys = dataKeys !== undefined ? dataKeys : ['href', 'link'];
+
+    for (let i = 0; i < keys.length; i++) {
+      link = jQuery(el).data(keys[i]);
+
+      if (link && link.length > 0) {
+        return link;
       }
     }
 
-    /**
-     * @param {string} message
-     */
-    function logRuntimeError(message) {
-      log('runtime error', message);
+    throw new Error('Link resolve strategy using element data attr failed for: ' + el + ' (found 0)');
+  }
+
+  static hrefResolverStrategyFindInHrefAttrOfChildren(el) {
+    let links = [];
+
+    jQuery(el).find('a').each(function (i, a) {
+      let l = jQuery(a).attr('href');
+
+      if (l && l.length > 0) {
+        links.push(l);
+      }
+    });
+
+    if (links.length > 0 && links.length < 2) {
+      return links.pop();
     }
 
-    /**
-     * @param {Error} exception
-     */
-    function logCaughtException(exception) {
-      log('caught exception', exception.message);
+    throw new Error('Link resolve strategy using child anchor href attr failed due to none or too many results for: ' + el + ' (found ' + links.length + ')');
+  }
+
+  static hrefResolverStrategyFindInAny(el) {
+    try {
+      return LinkResolver.hrefResolverStrategyFindInDataAttrOfPassedEl(jQuery(el));
+    }
+    catch (exception) {}
+
+    try {
+      return LinkResolver.hrefResolverStrategyFindInHrefAttrOfChildren(jQuery(el));
+    }
+    catch (exception) {}
+
+    throw new Error('Link resolve strategy using multi-implementation failed for for: ' + jQuery(el));
+  }
+
+  static resolve(el) {
+    try {
+      return LinkResolver.hrefResolverStrategyFindInAny(el);
+    }
+    catch (exception) {
+      Logger.logException(exception)
     }
 
-    // expose class with methods to internal functions
-    return {
-      error: logRuntimeError,
-      exception: logCaughtException
-    };
-  })(window);
+    return null;
+  }
+}
 
+class RegisterEvent {
+  static on(type, selector, func) {
+    let $els = jQuery(selector);
 
-  /**
-   * GENERAL UTILITY/HELPER FUNCTIONS
-   */
-
-  var helpers = (function (window) {
-    /**
-     * @param {string} to
-     */
-    function setWindowLocation(to) {
-      if (to !== null) {
-        window.location = to;
-      }
-    }
-
-    return {
-      followLink: setWindowLocation
-    };
-  })(window);
-
-
-  /**
-   * HREF RESOLVER STRATEGIES
-   */
-
-  var linkResolver = (function (window, $) {
-    /**
-     * @param   {Element}  el
-     * @param   {string[]} dataKeys
-     * @throws  {Error}
-     * @returns {string}
-     */
-    function hrefResolverStrategyFindInDataAttrOfPassedEl(el, dataKeys) {
-      var link = null;
-      var keys = dataKeys !== undefined ? dataKeys : ['href', 'link'];
-
-      for (var i = 0; i < keys.length; i++) {
-        link = $(el).data(keys[i]);
-
-        if (link && link.length > 0) {
-          return link;
-        }
-      }
-
-      throw new Error('Link resolve strategy using element data attr failed for: ' + el + ' (found 0)');
-    }
-
-    /**
-     * @param   {Element} el
-     * @throws  {Error}
-     * @returns {string}
-     */
-    function hrefResolverStrategyFindInHrefAttrOfChildren(el) {
-      var links = [];
-
-      $(el).find('a').each(function (i, a) {
-        var l = $(a).attr('href');
-
-        if (l && l.length > 0) {
-          links.push(l);
-        }
-      });
-
-      if (links.length > 0 && links.length < 2) {
-        return links.pop();
-      }
-
-      throw new Error('Link resolve strategy using child anchor href attr failed due to none or too many results for: ' + el + ' (found ' + links.length + ')');
-    }
-
-    /**
-     * @param   {Element|string} el
-     * @param   {function[]}     strategies
-     * @throws  {Error}
-     * @returns {string}
-     */
-    function hrefResolverStrategyFindInAny(el, strategies) {
-      var strategy;
-
-      for (var i = 0; i < strategies.length; i++) {
-        strategy = strategies[i];
-
-        try {
-          return strategy($(el));
-        }
-        catch (exception) {
-          logger.exception(exception);
-        }
-      }
-
-      throw new Error('Link resolve strategy using multi-implementation failed for for: ' + $(el));
-    }
-
-    /**
-     * @param   {Element|string} el
-     * @returns {string|null}
-     */
-    function hrefResolver(el) {
-      var strategies = [hrefResolverStrategyFindInDataAttrOfPassedEl, hrefResolverStrategyFindInHrefAttrOfChildren];
-
-      try {
-        console.log(hrefResolverStrategyFindInAny(el, strategies));
-        return hrefResolverStrategyFindInAny(el, strategies);
-      }
-      catch (exception) {
-        logger.exception(exception);
-      }
-
+    if (!$els || $els.length === 0) {
       return null;
     }
 
-    /**
-     * @returns {*[]}
-     */
-    function getAvailableStrategies() {
-      return [linkResolver.strategyFindInAny, linkResolver.strategyFindInDataAttrOfPassedEl, linkResolver.strategyFindInHrefAttrOfChildren];
+    $els.each(function (i, el) {
+      jQuery(el).on(type, func);
+    });
+
+    return true;
+  }
+
+  static onClick(selector, func) {
+    return RegisterEvent.on('click', selector, func);
+  }
+}
+
+class Carousel {
+  constructor() {
+    this.interval = 6000;
+    this.$carousel = jQuery('.carousel');
+    this.$els = this.$carousel.find('.item');
+
+    this.setup();
+  }
+
+  setup() {
+    if (this.$carousel && this.$carousel.length > 0 && this.$els && this.$els.length > 0) {
+      this.$carousel.carousel({ interval : this.interval });
+      this.$els.map(Carousel.setupItem);
+    }
+  }
+
+  static setupItem(i, el) {
+    let $slide = jQuery(el);
+    let image = $slide.children('img');
+
+    if (image.length > 1) {
+      Logger.logError('Invalid number of child images under carousel item: ' + $slide);
     }
 
-    return {
-      strategyFindInHrefAttrOfChildren: hrefResolverStrategyFindInHrefAttrOfChildren,
-      strategyFindInDataAttrOfPassedEl: hrefResolverStrategyFindInDataAttrOfPassedEl,
-      strategyFindInAny: hrefResolverStrategyFindInAny,
-      strategies: getAvailableStrategies,
-      resolve: hrefResolver
-    };
-  })(window, jQuery);
+    $slide.css({
+      'background-image'   : 'url(' + image.attr('src') + ')',
+      'background-size'    : 'cover',
+      'background-position': 'center'
+    });
 
+    image.css({ opacity: 0 });
+  }
+}
 
-  /**
-   * EVENT REGISTRY
-   */
-
-  var registerEvent = (function (window, $) {
-    /**
-     * @param  {string}   type
-     * @param  {string}   selector
-     * @param  {function} func
-     * @return {null|boolean}
-     */
-    function registerEventAction(type, selector, func) {
-      var $els = $(selector);
-
-      if (!$els || $els.length === 0) {
-        return null;
-      }
-
-      $els.each(function (i, el) {
-        $(el).on(type, func);
-      });
-
-      return true;
-    }
-
-    /**
-     * @param {string}   selector
-     * @param {function} func
-     * @return {null|boolean}
-     */
-    function registerClickEventAction(selector, func) {
-      return registerEventAction('click', selector, func);
-    }
-
-    return {
-      onClick: registerClickEventAction,
-      on: registerEventAction
-    };
-  })(window, jQuery);
-
-
-  /**
-   * CAROUSEL SETUP
-   */
-
-  var carousel = (function ($) {
-
-    /**
-     * @param {integer} i
-     * @param {Element} el
-     */
-    function setupCarouselItem(i, el) {
-      var $slide = $(el);
-      var image = $slide.children('img');
-
-      if (image.length > 1) {
-        logger.error('Invalid number of child images under carousel item: ' + $slide);
-      }
-
-      $slide.css({
-        'background-image'   : 'url(' + image.attr('src') + ')',
-        'background-size'    : 'cover',
-        'background-position': 'center'
-      });
-
-      image.css({ opacity: 0 });
-    }
-
-    /**
-     * @param {string} selector
-     * @param {number} interval
-     */
-    function initCarousel() {
-      var interval = 6000;
-      var $carousel = $('.carousel');
-      var els = $carousel.find('.item');
-
-      if ($carousel && $carousel.length > 0 && els && els.length > 0) {
-        $carousel.carousel({ interval : interval });
-        els.map(setupCarouselItem);
-      }
-    }
-
-    return {
-      init: initCarousel
-    };
-  })(jQuery);
-
-
-  /**
-   * FANCY BOX SETUP
-   */
-
-  var fancyBox = (function ($) {
-
-    var dataName = 'fancybox-initialized';
-    var selector = '[data-' + dataName + ']';
-    var confOpts = {
-      padding : 0,
-      beforeLoad : function () {
-        var width = this.element.data('fancybox-width');
-
-        if (width) {
-          this.width = this.element.data('fancybox-width');
-        }
-      }
+class FancyBox {
+  constructor() {
+    this.confOpts = {
+      padding: 0
     };
 
-    function findUnInitialized() {
-      return $(selector).filter(function () {
-        return $(this).data(dataName) === 0;
-      });
-    }
+    this.setup();
+  }
 
-    function performInitialization(elements) {
-      elements.fancybox(confOpts);
-    }
+  setup() {
+    let $elements = jQuery('.feed-attachment-link');
 
-    function assignElAsInitialized(elements) {
-      elements.each(function () {
-        $(this).data(dataName, 1);
-      });
-    }
+    $elements.fancybox(this.confOpts);
+  }
+}
 
+class Events {
+  constructor() {
+    this.initMenuDropDown();
+    this.initCardProduct();
+    this.initCardProductFeatured();
+    this.initCardProductSimilar();
+    this.initCardCategory();
+    this.initCardMap();
+  }
 
-    function initFancyBoxOnNewElements() {
-      var elements = findUnInitialized();
+  initMenuDropDown() {
+    RegisterEvent.on('show.bs.dropdown', '.dropdown', function () {
+      jQuery(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
 
-      performInitialization(elements);
-      assignElAsInitialized(elements);
-    }
+    RegisterEvent.on('hide.bs.dropdown', '.dropdown', function () {
+      jQuery(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  }
 
-    function initFancyBox() {
-      initFancyBoxOnNewElements();
-    }
+  initCardProduct() {
+    RegisterEvent.onClick('.card-product .card', function (event) {
+      Link.follow(LinkResolver.resolve(event.target));
+    });
+  }
 
-    return {
-      init: initFancyBox,
-      initNewElements: initFancyBoxOnNewElements
-    };
-  })(jQuery);
+  initCardProductFeatured() {
+    RegisterEvent.onClick('.card-product-featured .card', function (event) {
+      Link.follow(LinkResolver.resolve(event.target));
+    });
+  }
 
+  initCardProductSimilar() {
+    RegisterEvent.onClick('.card-product-similar .card', function (event) {
+      Link.follow(LinkResolver.resolve(event.target));
+    });
+  }
 
-  /**
-   * SMOOTH SCROLL SETUP
-   */
+  initCardCategory() {
+    RegisterEvent.onClick('.card-product-category .card', function (event) {
+      Link.follow(LinkResolver.resolve(event.target));
+    });
+  }
 
-  var smoothScroll = (function (window, document, $) {
+  initCardMap() {
+    RegisterEvent.onClick('.about-map .card', function (event) {
+      Link.follow(LinkResolver.resolve(event.target));
+    });
+  }
+}
 
-    function initSmoothScroll() {
-      $(document)
-          .on('click', 'a[href*="#"]', function () {
-            if (this.hash && this.pathname === location.pathname) {
-              $.bbq.pushState('#/' + this.hash.slice(1));
+class FeedRequest {
+  constructor() {
+    this.initFeedItems();
+    this.initFeedPhotos();
+  }
 
-              return false;
-            }
-          })
-          .ready(function () {
-            $(window).bind('hashchange', function () {
-              var tgt = location.hash.replace(/^#\/?/, '');
-
-              if (document.getElementById(tgt)) {
-                $.smoothScroll({ scrollTarget: '#' + tgt, offset: -100 });
-              }
-            });
-
-            $(window).trigger('hashchange');
-          });
-    }
-
-    return {
-      init: initSmoothScroll
-    };
-  })(window, document, jQuery);
-
-
-  /**
-   * EVENTS
-   */
-
-  var events = (function () {
-
-    function initMenuDropDown() {
-      registerEvent.on('show.bs.dropdown', '.dropdown', function () {
-        $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
-      });
-
-      registerEvent.on('hide.bs.dropdown', '.dropdown', function () {
-        $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
-      });
-    }
-
-    function initCardProduct() {
-      registerEvent.onClick('.card-product .card', function (event) {
-        helpers.followLink(linkResolver.resolve(event.target));
-      });
-    }
-
-    function initCardProductFeatured() {
-      registerEvent.onClick('.card-product-featured .card', function (event) {
-        helpers.followLink(linkResolver.resolve(event.target));
-      });
-    }
-
-    function initCardProductSimilar() {
-      registerEvent.onClick('.card-product-similar .card', function (event) {
-        helpers.followLink(linkResolver.resolve(event.target));
-      });
-    }
-
-    function initCardCategory() {
-      registerEvent.onClick('.card-product-category .card', function (event) {
-        helpers.followLink(linkResolver.resolve(event.target));
-      });
-    }
-
-    function initCardMap() {
-      registerEvent.onClick('.about-map .card', function (event) {
-        helpers.followLink(linkResolver.resolve(event.target));
-      });
-    }
-
-    function init() {
-      initMenuDropDown();
-      initCardProduct();
-      initCardProductFeatured();
-      initCardProductSimilar();
-      initCardCategory();
-      initCardMap();
-    }
-
-    return {
-      init: init
-    };
-  })();
-
-
-  /**
-   * FEED FETCHER
-   */
-
-  var feedRequest = (function (document, $, fancyBox) {
-
-    var $nav = $('#navbar-nav-feed');
-
-    /**
-     * @param {String} href
-     * @param {Object} feed
-     */
-    function makeRequest(href, feed) {
-      $.ajax({
-        url     : href,
-        context : document.body
+  makeRequest(href, feed) {
+    jQuery.ajax({url: href, context: document.body})
+      .done(function (data) {
+        feed.html(data);
+        jQuery('#navbar-nav-feed').removeClass('hidden');
+        new FancyBox();
       })
-          .done(function (data) {
-            feed.html(data);
-            $nav.removeClass('hidden');
-            fancyBox.initNewElements();
-          })
-          .fail(function () {
-            $(feed.find('.fa-spin')).removeClass('fa-refresh').removeClass('fa-spin').addClass('fa-times');
-            $(feed.find('p')).html('An error occured while loading feed photos.');
-          });
+      .fail(function () {
+        jQuery(feed.find('.fa-spin')).removeClass('fa-refresh').removeClass('fa-spin').addClass('fa-times');
+        jQuery(feed.find('p')).html('An error occured while loading feed photos.');
+      });
+  }
+
+  initFeedFromSelector(selector) {
+    let $feed = jQuery(selector);
+    let href = $feed.data('href');
+
+    if ($feed && href) {
+      this.makeRequest(href, $feed);
     }
+  }
 
-    /**
-     * @param {String} selector
-     */
-    function initFeedFromSelector(selector) {
-      var $feed = $(selector);
-      var href = $feed.data('href');
+  initFeedItems() {
+    this.initFeedFromSelector('#feed-listing');
+  }
 
-      if ($feed && href) {
-        makeRequest(href, $feed);
-      }
-    }
+  initFeedPhotos() {
+    this.initFeedFromSelector('#feed-photos');
+  }
+}
 
-    function initFeedItems() {
-      initFeedFromSelector('#feed-listing');
-    }
+class ToolTips {
+  constructor() {
+    jQuery('[data-toggle="tooltip"]').tooltip();
+  }
+}
 
-    function initFeedPhotos() {
-      initFeedFromSelector('#feed-photos');
-    }
-
-    function init() {
-      initFeedItems();
-      initFeedPhotos();
-    }
-
-    return {
-      init: init
-    };
-  })(document, jQuery, fancyBox, events);
-
-
-  /**
-   * TOOLTIPS
-   */
-
-  var tooltip = (function ($) {
-
-    function init() {
-      $('[data-toggle="tooltip"]').tooltip();
-    }
-
-    return {
-      init: init
-    };
-  })(jQuery);
-
-
-  /**
-   * SILVER PAPILLON APP
-   */
-
-  (function () {
-
-    smoothScroll.init();
-    carousel.init();
-    events.init();
-    fancyBox.init();
-    tooltip.init();
-    feedRequest.init();
-
-  })();
+jQuery(document).ready(() => {
+  new Carousel();
+  new FancyBox();
+  new ToolTips();
+  new FeedRequest();
+  new Events();
 });
 
 /* EOF */

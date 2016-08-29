@@ -70,8 +70,6 @@ liip_imagine :
 
       jpeg_quality          : 85
       png_compression_level : 8
-      data_loader           : remote
-      cache                 : remote
 
       filters :
         auto_rotate : ~
@@ -84,8 +82,6 @@ liip_imagine :
 
       jpeg_quality          : 90
       png_compression_level : 8
-      data_loader           : remote
-      cache                 : remote
 
       filters :
         auto_rotate : ~
@@ -101,8 +97,6 @@ liip_imagine :
 
       jpeg_quality          : 90
       png_compression_level : 8
-      data_loader           : remote
-      cache                 : remote
 
       filters :
         auto_rotate : ~
@@ -118,8 +112,6 @@ liip_imagine :
 
       jpeg_quality          : 90
       png_compression_level : 8
-      data_loader           : remote
-      cache                 : remote
 
       filters :
         auto_rotate : ~

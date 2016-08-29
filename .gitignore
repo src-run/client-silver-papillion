@@ -21,3 +21,5 @@
 /web/components/
 /web/assets/
 /web/uploads/
+**/*-compiled.js
+**/*-compiled.js.map

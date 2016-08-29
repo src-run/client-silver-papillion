@@ -10,157 +10,150 @@
 
 "use strict";
 
-import del from 'del';
+import del  from 'del';
 import gulp from 'gulp';
-import plugins from 'gulp-load-plugins';
-import pkg from './package.json';
+import browserify from 'browserify';
+import babelify from 'babelify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+import pkg  from './package.json';
+import PluginLoader from 'gulp-load-plugins';
 import ConfigParser from './.gulp/configuration-parser.js';
 
-var p = plugins();
-var c = new ConfigParser('./.gulp/config.json');
+let p = PluginLoader();
+let c = new ConfigParser('./.gulp/config.json');
 
-function cleanScripts(done) {
+gulp.task('clean-scripts', () => {
     return del(c.paths(['public.scripts']));
-}
+});
 
-function cleanStyles(done) {
+gulp.task('clean-styles', () => {
     return del(c.paths(['public.styles']));
-}
+});
 
-function cleanImages(done) {
+gulp.task('clean-images', () => {
     return del(c.paths(['public.images']));
-}
+});
 
-function cleanFonts(done) {
+gulp.task('clean-fonts', () => {
     return del(c.paths(['public.fonts']));
-}
+});
 
-function testStyles() {
-    return gulp.src(c.path('app', { post: '**/*.scss'}))
+gulp.task('clean', gulp.parallel(
+    'clean-styles',
+    'clean-scripts',
+    'clean-images',
+    'clean-fonts'
+));
+
+gulp.task('tests-styles', () => {
+    return gulp.src(c.globs(['tests.styles']))
         .pipe(p.sassLint())
         .on("error", p.notify.onError("Error: <%= error.message %>"));
-}
+});
 
-function compileStyles() {
+gulp.task('tests-scripts', () => {
+    return gulp.src(c.globs(['tests.scripts']))
+        .pipe(p.jscs({fix: true, configPath: c.option('jscs-rc')}))
+        .pipe(p.jscs.reporter())
+        .pipe(p.jscs.reporter('fail'));
+});
+
+gulp.task('tests', gulp.parallel(
+    'tests-styles',
+    'tests-scripts'
+));
+
+gulp.task('assets-images', () => {
+    return gulp.src(c.files(['plugins.images', 'app.images']))
+        .pipe(gulp.dest(c.path('public.images')));
+});
+
+gulp.task('assets-fonts', () => {
+    return gulp.src(c.files(['plugins.fonts', 'app.fonts']))
+        .pipe(gulp.dest(c.path('public.fonts')));
+});
+
+gulp.task('assets', gulp.parallel(
+    'assets-images',
+    'assets-fonts'
+));
+
+gulp.task('make-styles', () => {
     return gulp.src(c.file('app.styles'))
         .pipe(p.sourcemaps.init())
-        .pipe(p.sass({
-            includePaths: c.paths(['components'])
-        }))
+        .pipe(p.sass({includePaths: c.paths(['components'])}))
         .pipe(p.decomment.text())
-        .pipe(p.banner(c.option('banner-text'), {
-            pkg : pkg
-        }))
+        .pipe(p.banner(c.option('banner-text'), {pkg : pkg}))
         .pipe(p.autoprefixer(c.option('prefix-rule-set')))
-        .pipe(p.csscomb({
-            config: c.option('css-comb-rc')
-        }))
+        .pipe(p.csscomb({config: c.option('css-comb-rc')}))
         .pipe(gulp.dest(c.path('public.styles')))
-        .pipe(p.rename({
-            suffix: '.min'
-        }))
+        .pipe(p.rename({suffix: '.min'}))
         .pipe(p.minifyCss())
         .pipe(p.sourcemaps.write('.'))
         .pipe(gulp.dest(c.path('public.styles')))
-        .pipe(p.notify({
-            message: "Generated style <%= file.relative %> @ <%= options.date %>",
-            templateOptions: {
-                date: new Date()
-            },
-            onLast: true
-        }))
+        .pipe(p.notify({onLast: true}))
         .on("error", p.notify.onError("Error: <%= error.message %>"));
-}
+});
 
-function watchStyles(){
-    gulp.watch(c.paths(['app'], { post: '**/*.scss'}))
-        .on('change', gulp.series(testStyles, cleanStyles, compileStyles));
-}
-
-function testScripts() {
-    return gulp.src([c.path('app', { post: '**/*.js'}), '.gulp/**/*.js', 'gulpfile.babel.js'])
-        .pipe(p.jslint())
-        .on("error", p.notify.onError("Error: <%= error.message %>"));
-}
-
-function compileScripts() {
-    return gulp.src(c.files(['plugins.scripts', 'app.scripts']))
+gulp.task('make-scripts-app', () => {
+    return browserify({entries: c.file('app.scripts'), debug: true})
+        .transform(babelify, {presets: ["es2015"]})
+        .bundle()
+        .pipe(source('app.js'))
+        .pipe(buffer())
         .pipe(p.sourcemaps.init())
-        .pipe(p.concatSourcemap('app.js', {
-            sourcesContent: true
-        }))
+        .pipe(p.concatSourcemap('app.js', {sourcesContent: true}))
         .pipe(p.decomment())
-        .pipe(p.banner(c.option('banner-text'), {
-            pkg : pkg
-        }))
+        .pipe(p.babel({presets: ['es2015']}))
+        .pipe(p.banner(c.option('banner-text'), {pkg : pkg}))
         .pipe(gulp.dest(c.path('public.scripts')))
-        .pipe(p.rename({
-            suffix: '.min'
-        }))
+        .pipe(p.rename({suffix: '.min'}))
         .pipe(p.uglify())
         .pipe(p.sourcemaps.write('.'))
         .pipe(gulp.dest(c.path('public.scripts')))
-        .pipe(p.notify({
-            message: "Generated script <%= file.relative %> @ <%= options.date %>",
-            templateOptions: {
-                date: new Date()
-            },
-            onLast: true
-        }))
+        .pipe(p.notify({onLast: true}))
         .on("error", p.notify.onError("Error: <%= error.message %>"));
-}
+});
 
-function watchScripts(){
-    gulp.watch(c.paths(['app'], { post: '**/*.js'}))
-        .on('change', gulp.series(testScripts, cleanScripts, compileScripts));
-}
-
-function copyImages() {
-    return gulp.src(c.files(['plugins.images', 'app.images']))
-        .pipe(gulp.dest(c.path('public.images')))
+gulp.task('make-scripts-plugins', () => {
+    return gulp.src(c.files(['plugins.scripts']))
+        .pipe(p.sourcemaps.init())
+        .pipe(p.concatSourcemap('plugins.js', {sourcesContent: true}))
+        .pipe(p.decomment())
+        .pipe(p.banner(c.option('banner-text'), {pkg : pkg}))
+        .pipe(gulp.dest(c.path('public.scripts')))
+        .pipe(p.rename({suffix: '.min'}))
+        .pipe(p.uglify())
+        .pipe(p.sourcemaps.write('.'))
+        .pipe(gulp.dest(c.path('public.scripts')))
+        .pipe(p.notify({onLast: true}))
         .on("error", p.notify.onError("Error: <%= error.message %>"));
-}
+});
 
-function copyFonts() {
-    return gulp.src(c.files(['plugins.fonts', 'app.fonts']))
-        .pipe(gulp.dest(c.path('public.fonts')))
-        .on("error", p.notify.onError("Error: <%= error.message %>"));
-}
+gulp.task('make-scripts', gulp.parallel(
+    'make-scripts-app',
+    'make-scripts-plugins'
+));
 
-gulp.task('clean', gulp.parallel(cleanScripts, cleanStyles, cleanImages, cleanFonts));
-gulp.task('clean').description = 'Remove all files generated from a previous build.';
+gulp.task('make', gulp.parallel(
+    'make-styles',
+    'make-scripts'
+));
 
-gulp.task('scripts', gulp.series(testScripts, cleanScripts, compileScripts));
-gulp.task('scripts').description = 'Compile javascripts into concatenated and minified versions.';
+gulp.task('build', gulp.series(
+    gulp.parallel('tests', 'clean'),
+    gulp.parallel('make', 'assets')
+));
 
-gulp.task('test-scripts', testScripts);
-gulp.task('test-scripts').description = 'Lint all javascripts.';
+gulp.task('watch', () => {
+    gulp.watch(c.globs(['tests.styles']),  gulp.series('tests-styles', 'make-styles'));
+    gulp.watch(c.globs(['tests.scripts']), gulp.series('tests-scripts', 'make-scripts'));
+});
 
-gulp.task('watch-scripts', watchScripts);
-gulp.task('watch-scripts').description = 'Watch all javascripts.';
-
-gulp.task('styles', gulp.series(testStyles, cleanStyles, compileStyles));
-gulp.task('styles').description = 'Compile stylesheets into concatenated and minified versions.';
-
-gulp.task('test-styles', testStyles);
-gulp.task('test-styles').description = 'Lint all stylesheets.';
-
-gulp.task('watch-styles', watchStyles);
-gulp.task('watch-styles').description = 'Watch all stylesheets.';
-
-gulp.task('watch', gulp.parallel(watchStyles, watchScripts));
-gulp.task('watch').description = 'Watch all stylesheets and javascripts.';
-
-gulp.task('test', gulp.parallel(testStyles, testScripts));
-gulp.task('test').description = 'Lint all stylesheets and javascripts.';
-
-gulp.task('images', gulp.series(cleanImages, copyImages));
-gulp.task('images').description = 'Copy plugin images to assets directory.';
-
-gulp.task('fonts', gulp.series(cleanFonts, copyFonts));
-gulp.task('fonts').description = 'Copy plugin fonts to assets directory.';
-
-gulp.task('default', gulp.parallel('scripts', 'styles', 'images', 'fonts'));
-gulp.task('default').description = 'Cleans prior build files, compile styles and scripts, copy required image and font files.';
+gulp.task('default', gulp.series(
+    'build',
+    'watch'
+));
 
 /* EOF */

@@ -62,13 +62,13 @@
                                         {% if m.isVideo() %}
                                             href="https://www.facebook.com/video.php?v={{ m.getId() }}"
                                         {% else %}
-                                            href="{{ m.formatLgrThan(1800).getLink() | url_encode | imagine_filter('feed_attachment_lightbox_focus') }}"
+                                            href="{{ m.formatLgrThan(1800).getLink() | cache_url | imagine_filter('feed_attachment_lightbox_focus') }}"
                                         {% endif %}
                                     >
 
                                         <img
                                             class="feed-attachment"
-                                            src="{{ m.formatSlrThan(1200).getLink() | url_encode | imagine_filter('feed_attachment_thumb')  }}"
+                                            src="{{ m.formatSlrThan(1200).getLink() | cache_url | imagine_filter('feed_attachment_thumb')  }}"
                                             alt="{{ m.getText()|default(f.getMessage()) }}" />
 
                                     </a>

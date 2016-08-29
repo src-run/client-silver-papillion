@@ -22,11 +22,11 @@
                         title="{{ a.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ a.getText()|default(f.getMessage()) }}"
                         data-fancybox-initialized="0"
                         rel="photo-group"
-                        href="{{ a.formatLgrThan(1800).getLink() | url_encode | imagine_filter('feed_attachment_lightbox_focus') }}">
+                        href="{{ a.formatLgrThan(1800).getLink() | cache_url | imagine_filter('feed_attachment_lightbox_focus') }}">
 
                         <img
                             class="feed-attachment"
-                            src="{{ a.formatSlrThan(1200, true).getLink() | url_encode | imagine_filter('feed_photo_thumbs')  }}"
+                            src="{{ a.formatSlrThan(1200, true).getLink() | cache_url | imagine_filter('feed_photo_thumbs')  }}"
                             alt="{{ a.getText()|default(f.getMessage()) }}"
                         />
 

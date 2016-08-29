@@ -10,17 +10,39 @@
 
 'use strict';
 
-class ConfigurationParser {
+import fs from 'fs';
+
+export default class ConfigurationParser {
   /**
    * Construct our configuration object instance.
    *
-   * @param {String} file
+   * @param {String} filePath
+   * @param {Object} fileOpts
    */
-  constructor (file) {
-    this.configFile = file;
-    this.configValues = {};
-    this.configCached = {};
-    this.loadConfig();
+  constructor (filePath, fileOpts) {
+    this.configuration = {};
+    this.configsCached = {};
+    this.filePath = '.gulp.json';
+    this.fileOpts = {encoding: 'utf8'};
+
+    this.assignProperties(filePath, fileOpts);
+    this.loadConfiguration();
+  }
+
+  /**
+   * Assign two passed variables to class properties if they contain a valid value.
+   *
+   * @param {String} filePath
+   * @param {Object} fileOpts
+   */
+  assignProperties(filePath, fileOpts) {
+    if (filePath && fs.statSync(filePath).isFile()) {
+      this.filePath = filePath;
+    }
+
+    if (fileOpts && fileOpts instanceof Object) {
+      this.fileOpts = fileOpts;
+    }
   }
 
   /**
@@ -28,11 +50,39 @@ class ConfigurationParser {
    *
    * @return {Boolean}
    */
-  loadConfig () {
-    var fileSystem  = require('fs');
-    var fileContent = fileSystem.readFileSync(this.configFile, { encoding : 'utf8' });
+  loadConfiguration () {
+    this.configuration = JSON.parse(this.readConfiguration());
+  }
 
-    this.configValues = JSON.parse(fileContent);
+  /**
+   * Read the configuration file.
+   *
+   * @returns {*}
+   */
+  readConfiguration () {
+    return fs.readFileSync(this.filePath, this.fileOpts);
+  }
+
+  /**
+   * Get file globs from config.
+   *
+   * @param {string} idx
+   *
+   * @returns {*}
+   */
+  glob (idx) {
+    return this.value('globs', idx);
+  }
+
+  /**
+   * Get collection of file globs from config.
+   *
+   * @param {Array} idxs
+   *
+   * @returns {Array}
+   */
+  globs (idxs) {
+    return Array.prototype.concat(...idxs.map(this.glob.bind(this)));
   }
 
   /**
@@ -90,7 +140,7 @@ class ConfigurationParser {
    * @returns {*}
    */
   option (idx, opt) {
-    return this.value('opts', idx, opt);
+    return this.value('options', idx, opt);
   }
 
   /**
@@ -131,8 +181,8 @@ class ConfigurationParser {
   lookupCachedValue (idx, opt) {
     var key = ConfigurationParser.buildCacheIndex(idx, opt);
 
-    if (this.configCached[key]) {
-      return this.configCached[key];
+    if (this.configsCached[key]) {
+      return this.configsCached[key];
     }
 
     return null;
@@ -148,7 +198,7 @@ class ConfigurationParser {
   assignCachedValue (idx, opt, val) {
     var key = ConfigurationParser.buildCacheIndex(idx, opt);
 
-    this.configCached[key] = val;
+    this.configsCached[key] = val;
   }
 
   /**
@@ -170,7 +220,7 @@ class ConfigurationParser {
    * @returns {string|Array|Object}
    */
   resolveValue (idx) {
-    var val = this.configValues;
+    var val = this.configuration;
 
     idx.split('.').forEach(function (i) {
       val = val[i];
@@ -361,8 +411,5 @@ class ConfigurationParser {
     return val.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
   }
 }
-
-/* export ConfigurationParser class */
-module.exports = ConfigurationParser;
 
 /* EOF */
