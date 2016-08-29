@@ -10,22 +10,16 @@
 
 'use strict';
 
-class ConfigurationParser
-{
+class ConfigurationParser {
   /**
    * Construct our configuration object instance.
    *
    * @param {String} file
    */
   constructor (file) {
-    this.configFile = './.gulp/config.json';
+    this.configFile = file;
     this.configValues = {};
-    this.configCached   = {};
-
-    if (file) {
-      this.configFile = file;
-    }
-
+    this.configCached = {};
     this.loadConfig();
   }
 

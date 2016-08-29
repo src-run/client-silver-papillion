@@ -10,11 +10,14 @@
 
 "use strict";
 
-var del  = require('del');
-var gulp = require('gulp');
-var p    = require('gulp-load-plugins')();
-var pkg  = require('./package.json');
-var c    = new (require('./.gulp/configuration-parser.js'))();
+import del from 'del';
+import gulp from 'gulp';
+import plugins from 'gulp-load-plugins';
+import pkg from './package.json';
+import ConfigParser from './.gulp/configuration-parser.js';
+
+var p = plugins();
+var c = new ConfigParser('./.gulp/config.json');
 
 function cleanScripts(done) {
     return del(c.paths(['public.scripts']));
@@ -75,7 +78,7 @@ function watchStyles(){
 }
 
 function testScripts() {
-    return gulp.src([c.path('app', { post: '**/*.js'}), '.gulp/**/*.js', 'gulpfile.js'])
+    return gulp.src([c.path('app', { post: '**/*.js'}), '.gulp/**/*.js', 'gulpfile.babel.js'])
         .pipe(p.jslint())
         .on("error", p.notify.onError("Error: <%= error.message %>"));
 }
