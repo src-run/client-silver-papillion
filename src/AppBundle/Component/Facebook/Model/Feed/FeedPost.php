@@ -248,6 +248,14 @@ class FeedPost extends AbstractModel
     }
 
     /**
+     * @return bool
+     */
+    public function hasPhotos()
+    {
+        return $this->isPhoto();
+    }
+
+    /**
      * @return MediaPhoto[]
      */
     public function getVideos()
@@ -255,6 +263,14 @@ class FeedPost extends AbstractModel
         return array_filter($this->getMedia(), function (Media $m) {
             return $m->isVideo();
         });
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasVideos()
+    {
+        return $this->isVideo();
     }
 
     /**
