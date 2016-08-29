@@ -13,16 +13,19 @@
 var del       = require('del');
 var spawn     = require('child_process').spawn;
 var gulp      = require('gulp');
+var cache     = require('gulp-cached');
 var util      = require('gulp-util');
 var debug     = require('gulp-debug');
 var rename    = require('gulp-rename');
-var concat    = require('gulp-concat');
 var notify    = require('gulp-notify');
 var maps      = require('gulp-sourcemaps');
+var concat    = require('gulp-concat-sourcemap');
 var decomment = require('gulp-decomment');
 var banner    = require('gulp-banner');
 var uglify    = require('gulp-uglify');
 var sass      = require('gulp-sass');
+var sasslint  = require('gulp-sass-lint');
+var jslint    = require('gulp-jslint');
 var prefix    = require('gulp-autoprefixer');
 var comb      = require('gulp-csscomb');
 var minify    = require('gulp-minify-css');
@@ -43,6 +46,12 @@ function cleanImages(done) {
 
 function cleanFonts(done) {
     return spawn('rm', ['-fr', config.path('public.fonts')]);
+}
+
+function testStyles() {
+    return gulp.src(config.path('app', { post: '**/*.scss'}))
+        .pipe(sasslint())
+        .on("error", notify.onError("Error: <%= error.message %>"));
 }
 
 function compileStyles() {
@@ -76,10 +85,18 @@ function compileStyles() {
         .on("error", notify.onError("Error: <%= error.message %>"));
 }
 
+function testScripts() {
+    return gulp.src([config.path('app', { post: '**/*.js'}), '.gulp/**/*.js', 'Gulpfile.js'])
+        .pipe(jslint())
+        .on("error", notify.onError("Error: <%= error.message %>"));
+}
+
 function compileScripts() {
     return gulp.src(config.files(['plugins.scripts', 'app.scripts']))
         .pipe(maps.init())
-        .pipe(concat('app.js'))
+        .pipe(concat('app.js', {
+            sourcesContent: true
+        }))
         .pipe(decomment())
         .pipe(banner(config.option('banner-text'), {
             pkg : pkg
@@ -89,9 +106,7 @@ function compileScripts() {
             suffix: '.min'
         }))
         .pipe(uglify())
-        .pipe(maps.write('.', {
-            sourceRoot: config.path('components')
-        }))
+        .pipe(maps.write('.'))
         .pipe(gulp.dest(config.path('public.scripts')))
         .pipe(notify({
             message: "Generated script <%= file.relative %> @ <%= options.date %>",
@@ -118,11 +133,20 @@ function copyFonts() {
 gulp.task('clean', gulp.parallel(cleanScripts, cleanStyles, cleanImages, cleanFonts));
 gulp.task('clean').description = 'Remove all files generated from a previous build.';
 
-gulp.task('scripts', gulp.series(cleanScripts, compileScripts));
+gulp.task('scripts', gulp.series(testScripts, cleanScripts, compileScripts));
 gulp.task('scripts').description = 'Compile javascripts into concatenated and minified versions.';
 
-gulp.task('styles', gulp.series(cleanStyles, compileStyles));
+gulp.task('test-scripts', gulp.series(testScripts));
+gulp.task('test-scripts').description = 'Lint all javascripts.';
+
+gulp.task('styles', gulp.series(testStyles, cleanStyles, compileStyles));
 gulp.task('styles').description = 'Compile stylesheets into concatenated and minified versions.';
+
+gulp.task('test-styles', gulp.series(testStyles));
+gulp.task('test-styles').description = 'Lint all stylesheets.';
+
+gulp.task('test', gulp.parallel(testStyles, testScripts));
+gulp.task('test').description = 'Lint all stylesheets and javascripts.';
 
 gulp.task('images', gulp.series(cleanImages, copyImages));
 gulp.task('images').description = 'Copy plugin images to assets directory.';
