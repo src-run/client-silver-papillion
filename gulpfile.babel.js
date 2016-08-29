@@ -10,8 +10,8 @@
 
 "use strict";
 
-import del from 'del';
-import gulp from 'gulp';
+import 'del';
+import 'gulp';
 import plugins from 'gulp-load-plugins';
 import pkg from './package.json';
 import ConfigParser from './.gulp/configuration-parser.js';
