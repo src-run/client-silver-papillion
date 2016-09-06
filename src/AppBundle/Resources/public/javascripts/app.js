@@ -12,7 +12,7 @@
 
 class Logger {
   static log(type, message) {
-    if (!window.console) {
+    if (!window || !window.console) {
       return;
     }
     console.log(type.toUpperCase() + ': ' + message); // @todo: write proper implementation for logger!

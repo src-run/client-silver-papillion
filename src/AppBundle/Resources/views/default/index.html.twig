@@ -43,31 +43,20 @@
     </div>
 
     <div class="container-sr-odd">
-        <div class="container">
+        <div id="feed-photos" class="container" {% if has_fb_feed_cached() != true %}data-href="{{ url('app_fragment_feed_photos') }}"{% endif %}>
 
-            <h2 class="primary-hr-i">
-                {{ ion('images') }} Shared <em>Photos</em>
-            </h2>
-
-            <div id="feed-photos" class="card-listing" {% if has_fb_feed_cached() != true %}data-href="{{ url('app_fragment_feed_photos') }}"{% endif %}>
-                {% if has_fb_feed_cached() %}
-                    {% include 'AppBundle:fragment:feed-list-photo.html.twig' with {
-                        'feed'  : get_fb_feed_cached(),
-                        'count' : config('feed.count.news', 12)
-                    } only %}
-                {% else %}
-                    {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
-                        'icon'       : 'fa-refresh',
-                        'icon_class' : 'fa-spin',
-                        'text'       : 'Loading...'
-                    } only %}
-                {% endif %}
-            </div>
-
-            {% include 'AppBundle:fragment:link-button-right.html.twig' with {
-                'route' : 'app_feed_view',
-                'text'  : 'View All Shared Items'
-            } only %}
+            {% if has_fb_feed_cached() %}
+                {% include 'AppBundle:fragment:feed-list-photo.html.twig' with {
+                    'feed'  : get_fb_feed_cached(),
+                    'count' : config('feed.count.news', 12)
+                } only %}
+            {% else %}
+                {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
+                    'icon'       : 'fa-refresh',
+                    'icon_class' : 'fa-spin',
+                    'text'       : 'Loading...'
+                } only %}
+            {% endif %}
 
         </div>
     </div>

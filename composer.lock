@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4a10b4505768acafa0c000f32c29d536",
-    "content-hash": "dca364a4f19033f9fa538983c26afb4b",
+    "hash": "1e42afd5f0a1bb833aee3f6a0fc4b634",
+    "content-hash": "efc12addd0640ec6a51d8bcff64e809c",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -990,12 +990,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "07ec96d93f03650e7480e0637fcd51eee6575c12"
+                "reference": "ad099dc0d59652c591d7c099c61c3d18d3a77553"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/07ec96d93f03650e7480e0637fcd51eee6575c12",
-                "reference": "07ec96d93f03650e7480e0637fcd51eee6575c12",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/ad099dc0d59652c591d7c099c61c3d18d3a77553",
+                "reference": "ad099dc0d59652c591d7c099c61c3d18d3a77553",
                 "shasum": ""
             },
             "require": {
@@ -1054,20 +1054,20 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2016-08-04 10:13:39"
+            "time": "2016-09-06 12:16:03"
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.21",
+            "version": "v2.4.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "dcaab46a25e1baeb5142c3e25d5b6fd495ced504"
+                "reference": "b8188801bafc420b86908ee5229a5e92143ce514"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/dcaab46a25e1baeb5142c3e25d5b6fd495ced504",
-                "reference": "dcaab46a25e1baeb5142c3e25d5b6fd495ced504",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/b8188801bafc420b86908ee5229a5e92143ce514",
+                "reference": "b8188801bafc420b86908ee5229a5e92143ce514",
                 "shasum": ""
             },
             "require": {
@@ -1133,7 +1133,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2016-08-17 16:52:00"
+            "time": "2016-08-30 18:42:36"
         },
         {
             "name": "hostnet/form-handler-bundle",
@@ -2598,16 +2598,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.8",
+            "version": "v5.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "f8ace5c71ee309492b027ef71215577f5a52b4ea"
+                "reference": "e5e0d8d06b07864b2752bd865537b0817edf4c5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/f8ace5c71ee309492b027ef71215577f5a52b4ea",
-                "reference": "f8ace5c71ee309492b027ef71215577f5a52b4ea",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/e5e0d8d06b07864b2752bd865537b0817edf4c5a",
+                "reference": "e5e0d8d06b07864b2752bd865537b0817edf4c5a",
                 "shasum": ""
             },
             "require": {
@@ -2646,7 +2646,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-08-17 18:16:49"
+            "time": "2016-09-06 01:05:01"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2756,15 +2756,20 @@
         },
         {
             "name": "src-run/arthur-doctrine-exception-library",
-            "version": "dev-master",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/arthur-doctrine-exception-library.git",
+                "reference": "727cac4b9b4901d30c6d8f74e3c04b8c1339ab7e"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/arthur-doctrine-exception-library",
-                "reference": "28d3641334a458f8975aeec7df52bfeb2c255fff",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/arthur-doctrine-exception-library/zipball/727cac4b9b4901d30c6d8f74e3c04b8c1339ab7e",
+                "reference": "727cac4b9b4901d30c6d8f74e3c04b8c1339ab7e",
+                "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0",
+                "php": "^5.6||^7.0",
                 "src-run/augustus-exception-library": "^0.6"
             },
             "require-dev": {
@@ -2783,11 +2788,7 @@
                     "SR\\Doctrine\\Exception\\": "lib/Exception/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Doctrine\\Exception\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2795,12 +2796,12 @@
                 {
                     "name": "Rob Frawley 2nd",
                     "email": "rmf@src.run",
-                    "homepage": "https://src.run/rmf",
+                    "homepage": "https://get.src.run/rmf",
                     "role": "Project Lead"
                 }
             ],
             "description": "This library contains a collections of common utilities and helpers for use throughout the other arthur-* libraries and bundles.",
-            "homepage": "https://src.run/arthur-doctrine-exception-library",
+            "homepage": "https://get.src.run/arthur-doctrine-exception-library",
             "keywords": [
                 "arthur",
                 "arthur-doctrine-exception-library",
@@ -2810,23 +2811,21 @@
                 "rmf",
                 "src-run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "issues": "https://src.run/arthur-doctrine-exception-library/issues",
-                "source": "https://src.run/arthur-doctrine-exception-library/git"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-04-30 16:28:26"
         },
         {
             "name": "src-run/arthur-doctrine-identity-library",
-            "version": "dev-master",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/arthur-doctrine-identity-library.git",
+                "reference": "470de44e056050d280a2eaf13fd600637d02a1ef"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/arthur-doctrine-identity-library",
-                "reference": "796ac2c29918cbc110a3103229466cda1460c089",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/arthur-doctrine-identity-library/zipball/470de44e056050d280a2eaf13fd600637d02a1ef",
+                "reference": "470de44e056050d280a2eaf13fd600637d02a1ef",
+                "shasum": ""
             },
             "require": {
                 "doctrine/common": "^2.5",
@@ -2855,11 +2854,7 @@
                     "SR\\Doctrine\\ORM\\Mapping\\": "lib/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Doctrine\\ORM\\Mapping\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2882,23 +2877,21 @@
                 "rmf",
                 "src-run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "issues": "https://src.run/arthur-doctrine-identity-library/issues",
-                "source": "https://src.run/arthur-doctrine-identity-library/git"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-05-07 03:54:49"
         },
         {
             "name": "src-run/arthur-doctrine-library",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/arthur-doctrine-library.git",
+                "reference": "ba13aa318033957de132a44a6067b354e9fb596f"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/arthur-doctrine-library",
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/arthur-doctrine-library/zipball/ba13aa318033957de132a44a6067b354e9fb596f",
                 "reference": "ba13aa318033957de132a44a6067b354e9fb596f",
-                "shasum": null
+                "shasum": ""
             },
             "require": {
                 "doctrine/orm": "^2.5",
@@ -2923,11 +2916,7 @@
                     "SR\\Doctrine\\ORM\\Repository\\": "lib/Repository/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Doctrine\\ORM\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2949,23 +2938,21 @@
                 "rmf",
                 "src.run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "issues": "https://src.run/arthur-doctrine-library/issues",
-                "source": "https://src.run/arthur-doctrine-library/git"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-05-07 06:39:13"
         },
         {
             "name": "src-run/augustus-deprecation-library",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/augustus-deprecation-library.git",
+                "reference": "c8cffa0764ce98d846105cf437cf327dbb845eeb"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/augustus-deprecation-library",
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/augustus-deprecation-library/zipball/c8cffa0764ce98d846105cf437cf327dbb845eeb",
                 "reference": "c8cffa0764ce98d846105cf437cf327dbb845eeb",
-                "shasum": null
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -2987,11 +2974,7 @@
                     "SR\\Deprecation\\": "lib/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Tests\\Deprecation\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3013,23 +2996,21 @@
                 "rmf",
                 "src-run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "issues": "https://src.run/augustus-deprecation-library/issues",
-                "source": "https://src.run/augustus-deprecation-library/git"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-06-17 12:03:39"
         },
         {
             "name": "src-run/augustus-exception-library",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/augustus-exception-library.git",
+                "reference": "9a4f82383f3e3f79ed72e6cd8c911c07ef559fa4"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/augustus-exception-library",
-                "reference": "116d6dead085c4d324f56f5cd0bca0b15c4d1ab4",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/augustus-exception-library/zipball/9a4f82383f3e3f79ed72e6cd8c911c07ef559fa4",
+                "reference": "9a4f82383f3e3f79ed72e6cd8c911c07ef559fa4",
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -3052,11 +3033,7 @@
                     "SR\\Exception\\": "lib/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Exception\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3078,18 +3055,11 @@
                 "rmf",
                 "src-run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "issues": "https://src.run/augustus-exception-library/issues",
-                "source": "https://src.run/augustus-exception-library/git"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-09-06 15:39:34"
         },
         {
             "name": "src-run/augustus-file-library",
-            "version": "dev-master",
+            "version": "0.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/src-run/augustus-file-library.git",
@@ -3150,17 +3120,21 @@
         {
             "name": "src-run/augustus-library",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/augustus-library.git",
+                "reference": "070c9462b400f760b9bee0ba79d8f9aed76133f7"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/augustus-library",
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/augustus-library/zipball/070c9462b400f760b9bee0ba79d8f9aed76133f7",
                 "reference": "070c9462b400f760b9bee0ba79d8f9aed76133f7",
-                "shasum": null
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6||^7.0",
                 "src-run/augustus-deprecation-library": "self.version",
                 "src-run/augustus-exception-library": "self.version",
-                "src-run/augustus-file-library": "self.version",
                 "src-run/augustus-polyfill-library": "self.version",
                 "src-run/augustus-primitive-library": "self.version",
                 "src-run/augustus-reflection-library": "self.version",
@@ -3173,6 +3147,7 @@
                     "dev-master": "0.6-dev"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3193,23 +3168,21 @@
                 "rmf",
                 "src-run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "issues": "https://src.run/augustus-library/issues",
-                "source": "https://src.run/augustus-library/git"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-06-17 12:03:04"
         },
         {
             "name": "src-run/augustus-polyfill-library",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/augustus-polyfill-library.git",
+                "reference": "b6086e4e18c6cc7dc1d22ffd8957fc7370c043f2"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/augustus-polyfill-library",
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/augustus-polyfill-library/zipball/b6086e4e18c6cc7dc1d22ffd8957fc7370c043f2",
                 "reference": "b6086e4e18c6cc7dc1d22ffd8957fc7370c043f2",
-                "shasum": null
+                "shasum": ""
             },
             "require": {
                 "paragonie/random_compat": "^2.0",
@@ -3245,11 +3218,7 @@
                     "bootstrap.php"
                 ]
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Polyfill\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3271,23 +3240,21 @@
                 "rmf",
                 "src-run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "issues": "https://src.run/augustus-polyfill-library/issues",
-                "source": "https://src.run/augustus-polyfill-library/git"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-06-17 12:04:15"
         },
         {
             "name": "src-run/augustus-primitive-library",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/augustus-primitive-library.git",
+                "reference": "7f92d5948a50fdf342f7ff317e9f41740d76f6ee"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/augustus-primitive-library",
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/augustus-primitive-library/zipball/7f92d5948a50fdf342f7ff317e9f41740d76f6ee",
                 "reference": "7f92d5948a50fdf342f7ff317e9f41740d76f6ee",
-                "shasum": null
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0",
@@ -3311,11 +3278,7 @@
                     "SR\\Primitive\\": "lib/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Primitive\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3337,23 +3300,21 @@
                 "rmf",
                 "src-run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "source": "https://src.run/augustus-primitive-library/git",
-                "issues": "https://src.run/augustus-primitive-library/issues"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-07-21 09:20:56"
         },
         {
             "name": "src-run/augustus-reflection-library",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/augustus-reflection-library.git",
+                "reference": "104cede9e42f670fb183f89fc5cc46f067673b5f"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/augustus-reflection-library",
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/augustus-reflection-library/zipball/104cede9e42f670fb183f89fc5cc46f067673b5f",
                 "reference": "104cede9e42f670fb183f89fc5cc46f067673b5f",
-                "shasum": null
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -3376,11 +3337,7 @@
                     "SR\\Reflection\\": "lib/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Reflection\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3402,23 +3359,21 @@
                 "rmf",
                 "src-run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "source": "https://src.run/augustus-reflection-library/git",
-                "issues": "https://src.run/augustus-reflection-library/issues"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-06-17 12:04:32"
         },
         {
             "name": "src-run/augustus-serializer-library",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/augustus-serializer-library.git",
+                "reference": "42841b958066a0ccd0dedface327b11b13110e87"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/augustus-serializer-library",
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/augustus-serializer-library/zipball/42841b958066a0ccd0dedface327b11b13110e87",
                 "reference": "42841b958066a0ccd0dedface327b11b13110e87",
-                "shasum": null
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -3440,11 +3395,7 @@
                     "SR\\Serializer\\": "lib/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Serializer\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3466,23 +3417,21 @@
                 "serializer",
                 "src-run"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "issues": "https://src.run/augustus-serializer-library/issues",
-                "source": "https://src.run/augustus-serializer-library/git"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-06-17 12:04:45"
         },
         {
             "name": "src-run/augustus-utility-library",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/augustus-utility-library.git",
+                "reference": "b8095141b26d6227719d5586fd94d0f1c1db3f23"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/augustus-utility-library",
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/augustus-utility-library/zipball/b8095141b26d6227719d5586fd94d0f1c1db3f23",
                 "reference": "b8095141b26d6227719d5586fd94d0f1c1db3f23",
-                "shasum": null
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -3504,11 +3453,7 @@
                     "SR\\Utility\\": "lib/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Utility\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3530,27 +3475,20 @@
                 "src-run",
                 "utility"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "source": "https://src.run/augustus-utility-library/git",
-                "issues": "https://src.run/augustus-utility-library/issues"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-07-27 12:48:29"
         },
         {
             "name": "src-run/wonka-bundle",
-            "version": "0.6.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/src-run/wonka-bundle.git",
-                "reference": "c193156ea671dd443986e9a49a9804412cf41371"
+                "reference": "c3c32353345c3ff78d50f8d2fb5cf0e2fc53bcf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/src-run/wonka-bundle/zipball/c193156ea671dd443986e9a49a9804412cf41371",
-                "reference": "c193156ea671dd443986e9a49a9804412cf41371",
+                "url": "https://api.github.com/repos/src-run/wonka-bundle/zipball/c3c32353345c3ff78d50f8d2fb5cf0e2fc53bcf4",
+                "reference": "c3c32353345c3ff78d50f8d2fb5cf0e2fc53bcf4",
                 "shasum": ""
             },
             "require": {
@@ -3558,28 +3496,28 @@
                 "src-run/arthur-doctrine-library": "^0.6",
                 "src-run/augustus-library": "^0.6",
                 "src-run/wonka-library": "^0.6",
-                "symfony/config": "^2.8||^3.0",
-                "symfony/dependency-injection": "^2.8||^3.0",
-                "symfony/http-foundation": "^2.8||^3.0",
+                "symfony/config": "^3.0",
+                "symfony/dependency-injection": "^3.0",
+                "symfony/http-foundation": "^3.0",
                 "twig/twig": "^2.0@dev"
             },
             "require-dev": {
                 "codacy/coverage": "^1.0",
                 "phpunit/phpunit": "^5.0",
                 "satooshi/php-coveralls": "^1.0",
-                "symfony/debug-bundle": "^2.8||^3.0",
-                "symfony/framework-bundle": "^2.8||^3.0",
-                "symfony/monolog-bundle": "^2.8||^3.0",
-                "symfony/phpunit-bridge": "^2.8||^3.0",
-                "symfony/stopwatch": "^2.8||^3.0",
-                "symfony/symfony": "^2.8||^3.0",
-                "symfony/twig-bundle": "^2.8||^3.0",
-                "symfony/var-dumper": "^2.8||^3.0"
+                "symfony/debug-bundle": "^3.0",
+                "symfony/framework-bundle": "^3.0",
+                "symfony/monolog-bundle": "^2.11 || ^3.0",
+                "symfony/phpunit-bridge": "^3.0",
+                "symfony/stopwatch": "^3.0",
+                "symfony/symfony": "^3.0",
+                "symfony/twig-bundle": "^3.0",
+                "symfony/var-dumper": "^3.0"
             },
             "type": "project",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.6-dev"
+                    "dev-master": "0.7-dev"
                 }
             },
             "autoload": {
@@ -3608,16 +3546,21 @@
                 "wonka",
                 "wonka-bundle"
             ],
-            "time": "2016-07-21 13:28:13"
+            "time": "2016-08-25 13:41:34"
         },
         {
             "name": "src-run/wonka-library",
-            "version": "dev-master",
+            "version": "0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/src-run/wonka-library.git",
+                "reference": "ee8d9922779535af9d47adc6f98f96020193b820"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/rmf/code/composer/wonka-library",
+                "type": "zip",
+                "url": "https://api.github.com/repos/src-run/wonka-library/zipball/ee8d9922779535af9d47adc6f98f96020193b820",
                 "reference": "ee8d9922779535af9d47adc6f98f96020193b820",
-                "shasum": null
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6||^7.0",
@@ -3644,11 +3587,7 @@
                     "lib/stub/functions-collections.php"
                 ]
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "SR\\Wonka\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3669,14 +3608,7 @@
                 "wonka",
                 "wonka-library"
             ],
-            "support": {
-                "email": "rmf@src.run",
-                "source": "https://src.run/wonka-library/git",
-                "issues": "https://src.run/wonka-library/issues"
-            },
-            "transport-options": {
-                "symlink": false
-            }
+            "time": "2016-06-17 12:05:49"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
@@ -4744,16 +4676,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "4478f047409028dc6e3ab320590f1247fec7a850"
+                "reference": "65ca9e4fbdb34f6d463ef77898ca583b101a4162"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/4478f047409028dc6e3ab320590f1247fec7a850",
-                "reference": "4478f047409028dc6e3ab320590f1247fec7a850",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/65ca9e4fbdb34f6d463ef77898ca583b101a4162",
+                "reference": "65ca9e4fbdb34f6d463ef77898ca583b101a4162",
                 "shasum": ""
             },
             "require": {
@@ -4771,6 +4703,9 @@
             "conflict": {
                 "phpdocumentor/reflection-docblock": "<3.0",
                 "phpdocumentor/type-resolver": "<0.2.0"
+            },
+            "provide": {
+                "psr/cache-implementation": "1.0"
             },
             "replace": {
                 "symfony/asset": "self.version",
@@ -4793,6 +4728,7 @@
                 "symfony/framework-bundle": "self.version",
                 "symfony/http-foundation": "self.version",
                 "symfony/http-kernel": "self.version",
+                "symfony/inflector": "self.version",
                 "symfony/intl": "self.version",
                 "symfony/ldap": "self.version",
                 "symfony/monolog-bridge": "self.version",
@@ -4876,7 +4812,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-07-30 09:31:00"
+            "time": "2016-09-03 15:28:43"
         },
         {
             "name": "twig/extensions",
@@ -5072,6 +5008,49 @@
                 "upload"
             ],
             "time": "2016-08-24 12:22:08"
+        },
+        {
+            "name": "whiteoctober/swiftmailerdbbundle",
+            "version": "1.0.4",
+            "target-dir": "WhiteOctober/SwiftMailerDBBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whiteoctober/WhiteOctoberSwiftMailerDBBundle.git",
+                "reference": "5745dec99c5db3ced2d04987c61f43266e3a79cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberSwiftMailerDBBundle/zipball/5745dec99c5db3ced2d04987c61f43266e3a79cf",
+                "reference": "5745dec99c5db3ced2d04987c61f43266e3a79cf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/swiftmailer-bundle": "~2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "WhiteOctober\\SwiftMailerDBBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rich Sage",
+                    "email": "rich.sage@gmail.com"
+                }
+            ],
+            "description": "Database spooling for SwiftMailer",
+            "keywords": [
+                "doctrine",
+                "spool",
+                "swiftmailer"
+            ],
+            "time": "2014-12-15 09:06:07"
         },
         {
             "name": "zendframework/zend-code",
@@ -5300,23 +5279,26 @@
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
-            "version": "1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "303a576e2124efb07ec215e34ea2480b841cf5e4"
+                "reference": "0b89ee55bceb53c60bc4ba32924ac5053e377abb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/303a576e2124efb07ec215e34ea2480b841cf5e4",
-                "reference": "303a576e2124efb07ec215e34ea2480b841cf5e4",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/0b89ee55bceb53c60bc4ba32924ac5053e377abb",
+                "reference": "0b89ee55bceb53c60bc4ba32924ac5053e377abb",
                 "shasum": ""
             },
             "require": {
                 "doctrine/doctrine-bundle": "~1.0",
-                "doctrine/migrations": "~1.0",
-                "php": ">=5.3.2",
+                "doctrine/migrations": "^1.1",
+                "php": ">=5.4.0",
                 "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -5354,7 +5336,7 @@
                 "migrations",
                 "schema"
             ],
-            "time": "2015-11-04 13:45:30"
+            "time": "2016-06-30 19:26:35"
         },
         {
             "name": "doctrine/migrations",
@@ -5524,16 +5506,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "a8773992b362b58498eed24bf85005f363c34771"
+                "reference": "da8529775f14f4fdae33f916eb0cf65f6afbddbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/a8773992b362b58498eed24bf85005f363c34771",
-                "reference": "a8773992b362b58498eed24bf85005f363c34771",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/da8529775f14f4fdae33f916eb0cf65f6afbddbc",
+                "reference": "da8529775f14f4fdae33f916eb0cf65f6afbddbc",
                 "shasum": ""
             },
             "require": {
@@ -5562,7 +5544,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2015-11-20 12:04:31"
+            "time": "2016-09-06 16:07:05"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -6096,16 +6078,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.2.6",
+            "version": "3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49"
+                "reference": "546898a2c0c356ef2891b39dd7d07f5d82c8ed0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49",
-                "reference": "46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/546898a2c0c356ef2891b39dd7d07f5d82c8ed0a",
+                "reference": "546898a2c0c356ef2891b39dd7d07f5d82c8ed0a",
                 "shasum": ""
             },
             "require": {
@@ -6151,7 +6133,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-08-26 05:51:59"
+            "time": "2016-09-06 16:07:45"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -6726,16 +6708,16 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "v3.0.7",
+            "version": "v3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "d1be460925376703a470a3ac6ec034eb7eab3892"
+                "reference": "3c20d16512f37d2be159eca0411b99a141b90fa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/d1be460925376703a470a3ac6ec034eb7eab3892",
-                "reference": "d1be460925376703a470a3ac6ec034eb7eab3892",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/3c20d16512f37d2be159eca0411b99a141b90fa4",
+                "reference": "3c20d16512f37d2be159eca0411b99a141b90fa4",
                 "shasum": ""
             },
             "require": {
@@ -6774,20 +6756,20 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2016-06-20 05:58:05"
+            "time": "2016-09-06 01:30:19"
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "eeb3bf9a195df7552fdda46f4724a9442d157413"
+                "reference": "1f4e2059cf4ecae1053b9c3027b3fc548fd077b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/eeb3bf9a195df7552fdda46f4724a9442d157413",
-                "reference": "eeb3bf9a195df7552fdda46f4724a9442d157413",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/1f4e2059cf4ecae1053b9c3027b3fc548fd077b9",
+                "reference": "1f4e2059cf4ecae1053b9c3027b3fc548fd077b9",
                 "shasum": ""
             },
             "require": {
@@ -6829,7 +6811,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 05:42:25"
+            "time": "2016-08-19 06:48:39"
         },
         {
             "name": "webmozart/assert",
@@ -6888,7 +6870,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0"
+        "php": "~7.0"
     },
     "platform-dev": []
 }

@@ -1,7 +1,7 @@
 ---
 
 #
-# Perforce file resource imports
+# perforce file resource imports
 #
 
 imports:
@@ -12,8 +12,9 @@ imports:
   - { resource: admin/ }
   - { resource: bundles/ }
 
+
 #
-#
+# set parameters
 #
 
 parameters:
@@ -44,6 +45,7 @@ parameters:
   srwc.google.static_maps_uri.api_endpoint : "https://maps.googleapis.com/maps/api/staticmap?center=${address}&markers=${address}&zoom=15&size=${size}&scale=2&maptype=roadmap&style=visibility:simplified&format=png32&key=${api_key}"
   srwc.google.street_view_uri.api_endpoint : "https://maps.googleapis.com/maps/api/streetview?location=${address}&size=${size}&fov=80&heading=180&pitch=2&key=${api_key}"
   srwc.google.simple_directions_href       : "https://www.google.com/maps/dir//${address}"
+
 
 #
 # main framework config
@@ -77,7 +79,8 @@ framework :
     version        : 1.2.1
     version_format : "%%s?v=%%s"
     packages :
-      images : { base_urls : ['//silverpapillon.com/bundles/app/images'] }
+      images : { base_urls : [ "//silverpapillon.com/bundles/app/images" ] }
+
 
 #
 # asset management
@@ -94,6 +97,7 @@ assetic :
   filters :
     cssrewrite : ~
 
+
 #
 # twig config
 #
@@ -101,6 +105,7 @@ assetic :
 twig :
   debug            : "%kernel.debug%"
   strict_variables : "%kernel.debug%"
+
 
 #
 # doctrine (db) setup
@@ -125,9 +130,6 @@ doctrine :
     naming_strategy : doctrine.orm.naming_strategy.underscore
     auto_mapping    : true
 
-    metadata_cache_driver : apc
-    query_cache_driver    : apc
-    result_cache_driver   : apc
 
 #
 # file uploader bundle config
@@ -146,6 +148,7 @@ vich_uploader :
       uri_prefix         : "%srwc.public_path.image_carousel%"
       upload_destination : "%srwc.system_path.image_carousel%"
 
+
 #
 # email transport
 #
@@ -156,6 +159,9 @@ swiftmailer :
   port      : "%mailer_port%"
   username  : "%mailer_user%"
   password  : "%mailer_password%"
+  spool:
+    type: db
+
 
 #
 # frields-of-symfony user bundle
@@ -166,6 +172,7 @@ fos_user :
   firewall_name : main
   user_class    : AppBundle\Entity\User
 
+
 #
 # pagination configuration
 #
@@ -173,6 +180,16 @@ fos_user :
 knp_paginator :
   default_options : { page_name  : "p" }
   template        : { pagination : "paginator.html.twig" }
+
+
+#
+# mail spooler
+#
+
+white_october_swift_mailer_db :
+  entity_class       : AppBundle\Entity\Email
+  keep_sent_messages : true
+
 
 #
 # disabled third-party bundles
@@ -198,5 +215,8 @@ knp_paginator :
 #      loggable: false
 #      sortable: true
 #      softdeleteable: true
+
+
+# EOF
 
 ...

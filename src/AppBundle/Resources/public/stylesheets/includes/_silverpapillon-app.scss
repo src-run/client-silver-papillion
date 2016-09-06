@@ -713,6 +713,11 @@ footer {
   }
 }
 
+#feed-photos .card {
+  &.action-status-icon {
+    box-shadow: none !important;
+  }
+}
 .card-listing .card-feed-photo {
   @include make-sm-column(3);
 
@@ -808,7 +813,7 @@ footer {
   padding-bottom : $container-padding-bot;
 
   img {
-      @include img-responsive();
+    @include img-responsive();
   }
 }
 
@@ -2368,6 +2373,7 @@ input[type="checkbox"],
     }
   }
 }
+
 
 
 /* EOF */

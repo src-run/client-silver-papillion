@@ -278,7 +278,7 @@ class CartController extends Controller
     {
         return \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom(['orders@silverpapillon.com' => 'Silver Papillon'])
+            ->setFrom(['orders@silverpapillon.com' => 'Silver Papillon Orders'])
             ->setTo($to)
             ->setReplyTo($replyTo)
             ->setBody($this->renderView($view, $viewArgs), 'text/html');

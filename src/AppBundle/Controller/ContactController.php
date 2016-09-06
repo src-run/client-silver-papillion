@@ -48,10 +48,12 @@ class ContactController extends Controller
 
     protected function sendMessage(Message $message)
     {
+        $config = $this->get('app.manager.configuration');
+
         $message = \Swift_Message::newInstance()
             ->setSubject('Website message from '.$message->getName())
-            ->setFrom('no-reply@src.run')
-            ->setTo($this->get('app.manager.configuration')->value('contact.email', 'No Email'))
+            ->setFrom(['website@silverpapillon.com' => 'Silver Papillon Website'])
+            ->setTo([$config->value('contact.email', 'rmf@src.run') => 'Silver Papillon'])
             ->setReplyTo($message->getEmail())
             ->setBody(
                 $this->renderView(

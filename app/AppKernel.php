@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             new Vich\UploaderBundle\VichUploaderBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Hostnet\Bundle\FormHandlerBundle\FormHandlerBundle(),
+            new WhiteOctober\SwiftMailerDBBundle\WhiteOctoberSwiftMailerDBBundle(),
             new AppBundle\AppBundle(),
         ];
 

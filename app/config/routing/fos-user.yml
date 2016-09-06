@@ -1,0 +1,33 @@
+---
+
+#
+# fos user bundle routes
+#
+
+fos_user_security :
+  resource : "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_group :
+  resource : "@FOSUserBundle/Resources/config/routing/group.xml"
+  prefix   : /group
+
+fos_user_profile :
+  resource : "@FOSUserBundle/Resources/config/routing/profile.xml"
+  prefix   : /user
+
+fos_user_register :
+  resource : "@FOSUserBundle/Resources/config/routing/registration.xml"
+  prefix   : /user/register
+
+fos_user_resetting :
+  resource : "@FOSUserBundle/Resources/config/routing/resetting.xml"
+  prefix   : /user/password
+
+fos_user_change_password :
+  path     : /user/password/change
+  defaults : { _controller : "FOSUserBundle:ChangePassword:changePassword" }
+  methods  :
+    - GET
+    - POST
+
+...

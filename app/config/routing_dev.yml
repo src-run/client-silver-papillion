@@ -1,16 +1,35 @@
 ---
 
+#
+# web profiler routes
+#
+
 _wdt:
   resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
   prefix:   /_wdt
+
+
+#
+# more web profiler routes
+#
 
 _profiler:
   resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
   prefix:   /_profiler
 
+
+#
+# twig error page routes
+#
+
 _errors:
   resource: "@TwigBundle/Resources/config/routing/errors.xml"
   prefix:   /_error
+
+
+#
+# main routing file
+#
 
 _main:
   resource: routing.yml

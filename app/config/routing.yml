@@ -1,22 +1,49 @@
 ---
 
+#
+# robots.txt route
+#
+
 robots_controller:
   resource : "@AppBundle/Controller/RobotsController.php"
   type     : annotation
   prefix   : /
+
+
+#
+# /admin routes
+#
 
 admin_controller:
   resource : "@AppBundle/Controller/AdminController.php"
   type     : annotation
   prefix   : /admin
 
+
+#
+# user routes
+#
+
 _fos_user:
-  resource : routing_fosuserbundle.yml
+  resource : "routing/fos-user.yml"
+
+
+#
+# image routes
+#
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
+
+#
+# main app routes
+#
+
 _app:
   resource : "@AppBundle/Resources/config/routing/app.yml"
+
+
+# EOF
 
 ...

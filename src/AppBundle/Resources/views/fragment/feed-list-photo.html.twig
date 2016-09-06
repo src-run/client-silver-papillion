@@ -3,39 +3,50 @@
  # fb photo listing
  #}
 
-{% set i = 0 %}
-{% for f in feed %}
-    {% for j, a in f.getAttachments if a.isPhoto() and i < count %}
+<h2 class="primary-hr-i">
+    {{ ion('images') }} Shared <em>Photos</em>
+</h2>
 
-        <div class="card-feed-photo">
-            <div class="card is-linkable is-animated">
+<div class="card-listing" >
+    {% set i = 0 %}
+    {% for f in feed %}
+        {% for j, a in f.getAttachments if a.isPhoto() and i < count %}
 
-                <div class="card-section-head is-overlay">
-                    <span class="fa-stack fa-lg">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-expand fa-stack-1x fa-inverse"></i>
-                    </span>
+            <div class="card-feed-photo">
+                <div class="card is-linkable is-animated">
+
+                    <div class="card-section-head is-overlay">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-expand fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </div>
+
+                    <div class="card-section-body">
+                        <a  class="feed-attachment-link"
+                            title="{{ a.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ a.getText()|default(f.getMessage()) }} ({{ j+1 }} of {{ f.getAttachments|length }})"
+                            data-fancybox-initialized="0"
+                            rel="photo-group"
+                            href="{{ a.formatLgrThan(1800).getLink() | cache_url | imagine_filter('feed_attachment_lightbox_focus') }}">
+
+                            <img
+                                class="feed-attachment"
+                                src="{{ a.formatSlrThan(1200, true).getLink() | cache_url | imagine_filter('feed_photo_thumbs')  }}"
+                                alt="{{ a.getText()|default(f.getMessage()) }}"
+                            />
+
+                        </a>
+                    </div>
+
                 </div>
-
-                <div class="card-section-body">
-                    <a  class="feed-attachment-link"
-                        title="{{ a.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ a.getText()|default(f.getMessage()) }} ({{ j+1 }} of {{ f.getAttachments|length }})"
-                        data-fancybox-initialized="0"
-                        rel="photo-group"
-                        href="{{ a.formatLgrThan(1800).getLink() | cache_url | imagine_filter('feed_attachment_lightbox_focus') }}">
-
-                        <img
-                            class="feed-attachment"
-                            src="{{ a.formatSlrThan(1200, true).getLink() | cache_url | imagine_filter('feed_photo_thumbs')  }}"
-                            alt="{{ a.getText()|default(f.getMessage()) }}"
-                        />
-
-                    </a>
-                </div>
-
             </div>
-        </div>
-        {% set i = i + 1 %}
+            {% set i = i + 1 %}
 
+        {% endfor %}
     {% endfor %}
-{% endfor %}
+</div>
+
+{% include 'AppBundle:fragment:link-button-right.html.twig' with {
+    'route' : 'app_feed_view',
+    'text'  : 'View All Shared Items'
+} only %}
