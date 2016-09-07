@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20160906161935 extends AbstractMigration
+class Version20160906164021 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -18,7 +18,7 @@ class Version20160906161935 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE email ADD sent_to LONGTEXT NOT NULL COMMENT \'(DC2Type:json_array)\', ADD sent_from LONGTEXT NOT NULL COMMENT \'(DC2Type:json_array)\', DROP `to`, DROP `from`');
+        $this->addSql('CREATE TABLE email (id INT AUTO_INCREMENT NOT NULL, created_on DATETIME NOT NULL, send_done TINYINT(1) NOT NULL, sent_to LONGTEXT NOT NULL COMMENT \'(DC2Type:simple_array)\', sent_from LONGTEXT NOT NULL COMMENT \'(DC2Type:simple_array)\', subject VARCHAR(500) NOT NULL, status VARCHAR(255) NOT NULL, environment VARCHAR(40) NOT NULL, message LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20160906161935 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE email ADD `to` LONGTEXT NOT NULL COLLATE utf8_unicode_ci COMMENT \'(DC2Type:json_array)\', ADD `from` LONGTEXT NOT NULL COLLATE utf8_unicode_ci COMMENT \'(DC2Type:json_array)\', DROP sent_to, DROP sent_from');
+        $this->addSql('DROP TABLE email');
     }
 }

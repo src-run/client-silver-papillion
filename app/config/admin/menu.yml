@@ -31,4 +31,9 @@ easy_admin:
             entity: 'Order'
             icon: 'credit-card'
 
+      - label: 'menu.logs'
+        icon: 'terminal'
+        children:
+          - { entity: 'Email', icon: 'envelope', label: 'menu.email.list' }
+
 ...

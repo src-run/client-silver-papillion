@@ -1,0 +1,19 @@
+---
+
+easy_admin:
+  entities:
+    Email:
+      class: AppBundle\Entity\Email
+      label: 'Email Logs'
+      disabled_actions: ['new', 'delete']
+
+      list:
+        title: '%%entity_label%%'
+
+        actions:
+
+          - name  : 'show'
+            label : 'Show'
+            icon  : 'eye'
+
+...

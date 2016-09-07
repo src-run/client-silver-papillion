@@ -36,6 +36,8 @@ menu.blocks.list:   Blocks
 menu.store:         Store
 menu.carousel.list: Carousel
 menu.configuration: Configuration
+menu.logs:          Logs
+menu.email.list:    Emails
 
 # We let EasyAdmin generate the rest of the backend labels
 # (they are translated following the 2) method)

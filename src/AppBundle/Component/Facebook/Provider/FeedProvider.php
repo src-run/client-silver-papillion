@@ -104,9 +104,9 @@ class FeedProvider extends AbstractProvider
             })
         );
 
-        foreach ($properties as $p) {
+        array_walk($properties, function (\ReflectionProperty $p) use ($model) {
             $this->cleanPropertiesRecurse($p->getValue($model), $model);
-        }
+        });
 
         static::$cleanMethodDepth--;
 

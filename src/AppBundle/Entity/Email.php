@@ -20,6 +20,11 @@ class Email implements EmailInterface
     private $message;
 
     /**
+     * @var boolean
+     */
+    private $sendDone;
+
+    /**
      * @var string
      */
     private $status;
@@ -48,6 +53,11 @@ class Email implements EmailInterface
      * @var \DateTime
      */
     private $createdOn;
+
+    public function __construct()
+    {
+        $this->sendDone = false;
+    }
 
     /**
      * @return int
@@ -101,6 +111,10 @@ class Email implements EmailInterface
      */
     public function setStatus($status)
     {
+        if ($status == "3") {
+            $this->sendDone = true;
+        }
+
         $this->status = $status;
 
         return $this;
@@ -151,13 +165,36 @@ class Email implements EmailInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isSendDone(): bool
+    {
+        return $this->sendDone;
+    }
+
+    /**
      * @param $message
      */
     private function assignExtraFields($message)
     {
         $sm = $this->getSwiftMailerInstance($message);
-        $this->sentTo = (array) $sm->getTo();
-        $this->sentFrom = (array) $sm->getFrom();
+
+        $sentTo = $sm->getTo();
+        if (is_array($sentTo)) {
+            $this->sentTo[] = current($sentTo);
+            $this->sentTo[] = key($sentTo);
+        } else {
+            $this->sentTo[] = $sentTo;
+        }
+
+        $sendFrom = $sm->getFrom();
+        if (is_array($sendFrom)) {
+            $this->sentFrom[] = current($sendFrom);
+            $this->sentFrom[] = key($sendFrom);
+        } else {
+            $this->sentFrom[] = $sendFrom;
+        }
+
         $this->subject = $sm->getSubject();
         $this->createdOn = new \DateTime('@'.$sm->getDate());
     }

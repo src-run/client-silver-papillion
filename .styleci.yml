@@ -1,0 +1,29 @@
+---
+
+preset: symfony
+
+enabled:
+  - align_double_arrow
+  - combine_consecutive_unsets
+  - dir_constant
+  - ereg_to_preg
+  - linebreak_after_opening_tag
+  - no_short_echo_tag
+  - ordered_imports
+  - phpdoc_order
+  - php_unit_construct
+  - php_unit_dedicate_assert
+  - php_unit_strict
+  - short_array_syntax
+
+disabled:
+  - simplified_null_return
+  - unalign_double_arrow
+  - unalign_equals
+
+finder :
+  exclude : [ "tests" ]
+  name    : [ "*.php" ]
+  path    : [ "lib", "src" ]
+
+...

@@ -8,13 +8,14 @@
       <generator strategy="AUTO"/>
     </id>
 
-    <field name="message" type="text" column="message" />
+    <field name="createdOn" type="datetime" />
+    <field name="sendDone" type="boolean" />
+    <field name="sentTo" type="simple_array" />
+    <field name="sentFrom" type="simple_array" />
+    <field name="subject" type="string" length="500" />
     <field name="status" type="string" length="255" />
     <field name="environment" type="string" length="40" />
-    <field name="sentTo" type="json_array" />
-    <field name="sentFrom" type="json_array" />
-    <field name="subject" type="string" length="500" />
-    <field name="createdOn" type="datetime" />
+    <field name="message" type="text" column="message" />
 
   </entity>
 

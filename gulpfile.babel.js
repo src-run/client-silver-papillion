@@ -48,12 +48,14 @@ gulp.task('clean', gulp.parallel(
 
 gulp.task('tests-styles', () => {
     return gulp.src(c.globs(['tests.styles']))
+        .pipe(p.debug())
         .pipe(p.sassLint())
         .on("error", p.notify.onError("Error: <%= error.message %>"));
 });
 
 gulp.task('tests-scripts', () => {
     return gulp.src(c.globs(['tests.scripts']))
+        .pipe(p.debug())
         .pipe(p.jscs({fix: true, configPath: c.option('jscs-rc')}))
         .pipe(p.jscs.reporter())
         .pipe(p.jscs.reporter('fail'));
@@ -66,11 +68,13 @@ gulp.task('tests', gulp.parallel(
 
 gulp.task('assets-images', () => {
     return gulp.src(c.files(['plugins.images', 'app.images']))
+        .pipe(p.debug())
         .pipe(gulp.dest(c.path('public.images')));
 });
 
 gulp.task('assets-fonts', () => {
     return gulp.src(c.files(['plugins.fonts', 'app.fonts']))
+        .pipe(p.debug())
         .pipe(gulp.dest(c.path('public.fonts')));
 });
 
