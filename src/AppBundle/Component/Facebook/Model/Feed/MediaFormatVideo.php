@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -10,7 +10,6 @@
  */
 
 namespace AppBundle\Component\Facebook\Model\Feed;
-use AppBundle\Component\Facebook\Transformer\EmbedHtmlTransformer;
 
 /**
  * Class MediaFormatVideo.
@@ -22,10 +21,10 @@ class MediaFormatVideo extends MediaFormat
      */
     const MAPPING_DEFINITION = [
         'embed_html' => [
-            'to_property' => 'embeddableIframe'
+            'to_property' => 'embeddableIframe',
         ],
         'picture' => [
-            'to_property' => 'link'
+            'to_property' => 'link',
         ],
     ];
 

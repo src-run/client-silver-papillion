@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -27,8 +27,8 @@ class CategoryController extends Controller
     public function listAction()
     {
         return $this->render('AppBundle:category:list.html.twig', [
-            '_c' => static::class,
-            'categories' => $this->get('app.manager.category')->getAll()
+            '_c'         => static::class,
+            'categories' => $this->get('app.manager.category')->getAll(),
         ]);
     }
 
@@ -43,8 +43,8 @@ class CategoryController extends Controller
         $count = $this->get('app.manager.configuration')->value('product.count', 12);
 
         return $this->render('AppBundle:category:view.html.twig', [
-            '_c' => static::class,
-            'category' => $category,
+            '_c'         => static::class,
+            'category'   => $category,
             'categories' => $this->get('app.manager.category')->getAll(),
             'pagination' => $this->get('app.manager.product')->getAllFromCategoryPaginated($category, $page, $count),
         ]);

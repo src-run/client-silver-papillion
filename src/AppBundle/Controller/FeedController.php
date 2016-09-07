@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -15,7 +15,6 @@ use AppBundle\Component\Facebook\Model\Feed\Feed;
 use AppBundle\Component\Facebook\Model\Feed\FeedPost;
 use AppBundle\Component\Facebook\Model\Feed\MediaVideo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Category FeedController.
@@ -64,8 +63,8 @@ class FeedController extends Controller
         $this->get('session')->save();
 
         return $this->render('AppBundle:fragment:feed-attachment-video.html.twig', [
-            '_c' => static::class,
-            'video' => $this->findVideo($this->get('app.fb.provider.page_feed')->get(), $post, $video),
+            '_c'     => static::class,
+            'video'  => $this->findVideo($this->get('app.fb.provider.page_feed')->get(), $post, $video),
             'app_id' => $this->getParameter('facebook_app_id'),
         ]);
     }

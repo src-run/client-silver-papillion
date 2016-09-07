@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -77,7 +77,7 @@ class CartController extends Controller
 
         return $this->render('AppBundle:cart:checkout.html.twig', [
             '_c' => static::class,
-            'f' => $form->createView(),
+            'f'  => $form->createView(),
         ]);
     }
 
@@ -111,9 +111,9 @@ class CartController extends Controller
         }
 
         return $this->render('AppBundle:cart:checkout-payment.html.twig', [
-            '_c' => static::class,
-            'f' => $form->createView(),
-            'flash' => $session->getFlashBag()->get('error'),
+            '_c'         => static::class,
+            'f'          => $form->createView(),
+            'flash'      => $session->getFlashBag()->get('error'),
             'stripe_key' => $this->getParameter('stripe_publishable_key'),
         ]);
     }
@@ -135,14 +135,14 @@ class CartController extends Controller
             Stripe::setApiKey($this->getParameter('stripe_secret_key'));
 
             $response = Charge::create([
-                'amount' => round($cart->total() * 100),
+                'amount'   => round($cart->total() * 100),
                 'currency' => 'usd',
-                'source' => $payment->getStripeToken(),
+                'source'   => $payment->getStripeToken(),
                 'metadata' => [
                     'email' => $shipment->getEmail(),
-                ]
+                ],
             ]);
-        } catch(Card $e) {
+        } catch (Card $e) {
             return $this->returnProcessError($e);
         } catch (RateLimit $e) {
             return $this->returnProcessError($e);
@@ -156,6 +156,7 @@ class CartController extends Controller
             return $this->returnProcessError($e);
         } catch (\Exception $e) {
             $session->getFlashBag()->add('error', 'An unexpected error occured. Please try again later.');
+
             return $this->redirectToRoute('app_cart_checkout_payment');
         }
 
@@ -169,7 +170,7 @@ class CartController extends Controller
         $session->remove('checkout-payment');
 
         return $this->render('AppBundle:cart:checkout-confirmation.html.twig', [
-            '_c' => static::class,
+            '_c'    => static::class,
             'order' => $order,
         ]);
     }
@@ -258,10 +259,10 @@ class CartController extends Controller
     private function getEmailTwigArgs(Order $order)
     {
         return [
-            'order' => $order,
-            'title' => sprintf('Order Confirmation (Reference ID %s)', $order->getOrderNumber()),
+            'order'     => $order,
+            'title'     => sprintf('Order Confirmation (Reference ID %s)', $order->getOrderNumber()),
             'createdOn' => $order->getCreatedOn(),
-            'from' => 'orders@silverpapillon.com',
+            'from'      => 'orders@silverpapillon.com',
         ];
     }
 
@@ -409,8 +410,8 @@ class CartController extends Controller
     protected function redirectBack($r)
     {
         return $this->redirect($this->generateUrl($r['_route'], [
-            'category' => $r['category'],
-            'product' => $r['product'],
+            'category'    => $r['category'],
+            'product'     => $r['product'],
             'productName' => $r['productName'],
         ]));
     }

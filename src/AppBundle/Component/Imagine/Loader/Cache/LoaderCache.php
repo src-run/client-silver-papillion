@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -24,8 +24,8 @@ class LoaderCache extends AbstractAdapter implements LoaderCacheInterface
     protected $directoryPath;
 
     /**
-     * @param string      $directoryPath
-     * @param int|null    $defaultLifetime
+     * @param string   $directoryPath
+     * @param int|null $defaultLifetime
      */
     public function __construct($directoryPath, $defaultLifetime = self::DEFAULT_LIFETIME)
     {
@@ -213,7 +213,7 @@ class LoaderCache extends AbstractAdapter implements LoaderCacheInterface
      *
      * @return string
      */
-    static public function getItemBasePath($id)
+    public static function getItemBasePath($id)
     {
         $hash = str_replace('/', '-', base64_encode(md5($id, true)));
         $path = $hash[0].DIRECTORY_SEPARATOR.$hash[1].DIRECTORY_SEPARATOR;

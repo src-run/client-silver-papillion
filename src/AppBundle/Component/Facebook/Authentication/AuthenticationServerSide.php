@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -16,7 +16,7 @@ use Facebook\Facebook;
 use Symfony\Component\Cache\Adapter\AbstractAdapter;
 
 /**
- * Category AuthenticationServerSide
+ * Category AuthenticationServerSide.
  */
 class AuthenticationServerSide implements AuthenticationInterface
 {
@@ -145,8 +145,7 @@ class AuthenticationServerSide implements AuthenticationInterface
             $facebook = FacebookFactory::create($this->getAppId(), $this->getAppSecret(), $this->getGraphVersion());
 
             return Token::create($this->getTokenRequest($facebook));
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return Token::create(null);
         }
     }
@@ -170,9 +169,9 @@ class AuthenticationServerSide implements AuthenticationInterface
     private function getTokenEndpoint()
     {
         $query = http_build_query([
-            'client_id' => $this->appId,
+            'client_id'     => $this->appId,
             'client_secret' => $this->appSecret,
-            'grant_type' => 'client_credentials',
+            'grant_type'    => 'client_credentials',
         ]);
 
         return sprintf('%s?%s', self::OAUTH_ENDPOINT, $query);

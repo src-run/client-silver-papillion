@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -14,7 +14,7 @@ namespace AppBundle\Twig;
 use AppBundle\Manager\ConfigurationManager;
 
 /**
- * Class ConfigurationExtension
+ * Class ConfigurationExtension.
  */
 class ConfigurationExtension extends \Twig_Extension
 {
@@ -36,10 +36,10 @@ class ConfigurationExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
+        return [
             new \Twig_Function('config_instance', [$this, 'getConfig']),
             new \Twig_Function('config', [$this, 'getValue']),
-        );
+        ];
     }
 
     /**

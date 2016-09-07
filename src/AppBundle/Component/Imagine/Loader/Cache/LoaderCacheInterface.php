@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -34,7 +34,7 @@ interface LoaderCacheInterface extends CacheItemPoolInterface, LoggerAwareInterf
      *
      * @return string
      */
-    static public function getItemBasePath($id);
+    public static function getItemBasePath($id);
 }
 
 /* EOF */

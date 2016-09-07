@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -14,11 +14,11 @@ namespace AppBundle\Twig;
 use AppBundle\Manager\ContentBlockManager;
 
 /**
- * Class ContentBlockExtension
+ * Class ContentBlockExtension.
  */
 class ContentBlockExtension extends \Twig_Extension
 {
-    static $cache = [];
+    public static $cache = [];
 
     /**
      * @var ContentBlockManager
@@ -74,7 +74,7 @@ class ContentBlockExtension extends \Twig_Extension
     public function blockProps($name)
     {
         $props = [];
-        foreach($this->get($name)->getProperties() as $p) {
+        foreach ($this->get($name)->getProperties() as $p) {
             if (1 !== preg_match('{\[([^]]+)\]=}i', $p, $matches)) {
                 $props[] = $p;
             }

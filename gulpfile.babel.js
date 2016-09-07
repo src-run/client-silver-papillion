@@ -100,6 +100,23 @@ gulp.task('make-styles', () => {
         .on("error", p.notify.onError("Error: <%= error.message %>"));
 });
 
+gulp.task('make-styles-admin', () => {
+    return gulp.src(c.file('app.styles-admin'))
+        .pipe(p.sourcemaps.init())
+        .pipe(p.sass({includePaths: c.paths(['components'])}))
+        .pipe(p.decomment.text())
+        .pipe(p.banner(c.option('banner-text'), {pkg : pkg}))
+        .pipe(p.autoprefixer(c.option('prefix-rule-set')))
+        .pipe(p.csscomb({config: c.option('css-comb-rc')}))
+        .pipe(gulp.dest(c.path('public.styles')))
+        .pipe(p.rename({suffix: '.min'}))
+        .pipe(p.cleanCss())
+        .pipe(p.sourcemaps.write('.'))
+        .pipe(gulp.dest(c.path('public.styles')))
+        .pipe(p.notify({onLast: true}))
+        .on("error", p.notify.onError("Error: <%= error.message %>"));
+});
+
 gulp.task('make-scripts-app-core', () => {
     return browserify({entries: c.file('app.scripts'), debug: true})
         .transform(babelify, {presets: ["es2015"]})
@@ -145,6 +162,7 @@ gulp.task('make-scripts', gulp.series(
 
 gulp.task('make', gulp.parallel(
     'make-styles',
+    'make-styles-admin',
     'make-scripts'
 ));
 
@@ -154,7 +172,7 @@ gulp.task('build', gulp.series(
 ));
 
 gulp.task('watch', () => {
-    gulp.watch(c.globs(['tests.styles']),  gulp.series('tests-styles', 'make-styles'));
+    gulp.watch(c.globs(['tests.styles']),  gulp.series('tests-styles', 'make-styles', 'make-styles-admin'));
     gulp.watch(c.globs(['tests.scripts']), gulp.series('tests-scripts', 'make-scripts'));
 });
 

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -77,13 +77,12 @@ abstract class MediaFormat extends AbstractModel
     {
         return [
             $this->width,
-            $this->height
+            $this->height,
         ];
     }
 
     public function getType()
     {
-
     }
 }
 

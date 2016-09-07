@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -14,7 +14,7 @@ namespace AppBundle\Twig;
 use AppBundle\Util\Slugger;
 
 /**
- * Class SluggerExtension
+ * Class SluggerExtension.
  */
 class SluggerExtension extends \Twig_Extension
 {
@@ -36,9 +36,9 @@ class SluggerExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array(
+        return [
             new \Twig_Filter('slugify', [$this, 'slugify']),
-        );
+        ];
     }
 
     /**

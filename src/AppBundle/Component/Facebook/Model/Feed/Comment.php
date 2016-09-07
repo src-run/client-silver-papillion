@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -26,7 +26,7 @@ class Comment extends AbstractModel
      */
     const VALUE_TRANSFORMERS = [
         'created_time' => DateTimeTransformer::class,
-        'from' => AuthorTransformer::class,
+        'from'         => AuthorTransformer::class,
     ];
 
     /**

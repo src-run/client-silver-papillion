@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -36,7 +36,7 @@ class MediaPhoto extends Media
             'object_coll' => true,
         ],
         'name' => [
-            'to_property' => 'text'
+            'to_property' => 'text',
         ],
         'created_time' => [
             'to_property' => 'createdOn',

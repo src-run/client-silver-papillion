@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -15,7 +15,7 @@ use AppBundle\Entity\CarouselSlide;
 use AppBundle\Manager\CarouselSlideManager;
 
 /**
- * Class CarouselSlideExtension
+ * Class CarouselSlideExtension.
  */
 class CarouselSlideExtension extends \Twig_Extension
 {

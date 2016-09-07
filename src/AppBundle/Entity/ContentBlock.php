@@ -1,9 +1,18 @@
 <?php
 
+/*
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 /**
- * ContentBlock
+ * ContentBlock.
  */
 class ContentBlock
 {
@@ -32,9 +41,8 @@ class ContentBlock
      */
     private $properties;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -44,7 +52,7 @@ class ContentBlock
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -58,7 +66,7 @@ class ContentBlock
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -68,7 +76,7 @@ class ContentBlock
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -82,7 +90,7 @@ class ContentBlock
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -92,7 +100,7 @@ class ContentBlock
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -106,7 +114,7 @@ class ContentBlock
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -116,7 +124,7 @@ class ContentBlock
     }
 
     /**
-     * Set properties
+     * Set properties.
      *
      * @param array $properties
      *
@@ -130,7 +138,7 @@ class ContentBlock
     }
 
     /**
-     * Get properties
+     * Get properties.
      *
      * @return array
      */
@@ -139,4 +147,3 @@ class ContentBlock
         return $this->properties;
     }
 }
-

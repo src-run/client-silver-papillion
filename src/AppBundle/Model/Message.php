@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -41,11 +41,13 @@ class Message
 
     /**
      * @param string $name
+     *
      * @return Shipment
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -59,11 +61,13 @@ class Message
 
     /**
      * @param string $email
+     *
      * @return Shipment
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -77,11 +81,13 @@ class Message
 
     /**
      * @param string $message
+     *
      * @return Shipment
      */
     public function setMessage($message)
     {
         $this->message = $message;
+
         return $this;
     }
 }

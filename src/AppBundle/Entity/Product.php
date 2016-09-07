@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -79,7 +79,7 @@ class Product
     /**
      * @var File|null
      *
-     * @Vich\UploadableField(mapping="image_productss", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="image_products", fileNameProperty="image")
      */
     protected $imageFile;
 
@@ -94,7 +94,7 @@ class Product
     protected $shipping;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $taxable;
 

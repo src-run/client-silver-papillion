@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -12,14 +12,14 @@
 namespace AppBundle\Twig;
 
 /**
- * Class IconExtension
+ * Class IconExtension.
  */
 class IconExtension extends \Twig_Extension
 {
     /**
      * @var string
      */
-    const TEMPLATE_WRAP = <<<TPL
+    const TEMPLATE_WRAP = <<<'TPL'
 <span class="icon-wrap-type-%s icon-wrap-name-%s">
   %s
 </span>
@@ -27,7 +27,7 @@ TPL;
     /**
      * @var string
      */
-    const TEMPLATE_ICON = <<<TPL
+    const TEMPLATE_ICON = <<<'TPL'
 <i class="%s"></i>
 TPL;
 
@@ -38,7 +38,7 @@ TPL;
     {
         return [
             new \Twig_Function('ion', [$this, 'iconIon'], ['is_safe' => ['html']]),
-            new \Twig_Function('fa',  [$this, 'iconFa'], ['is_safe' => ['html']]),
+            new \Twig_Function('fa', [$this, 'iconFa'], ['is_safe' => ['html']]),
         ];
     }
 

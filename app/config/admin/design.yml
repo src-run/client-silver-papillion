@@ -1,9 +1,13 @@
 ---
 
 easy_admin:
-  site_name: 'Silver Papillon Backend'
+  site_name: 'Silver Papillon Admin'
   design:
     form_theme: 'horizontal'
     color_scheme: 'dark'
+    brand_color: 'rgba(33, 150, 243, .88)'
+    assets:
+      css:
+        - '/assets/stylesheets/app_admin.min.css'
 
 ...

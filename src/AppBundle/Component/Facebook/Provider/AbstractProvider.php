@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -185,9 +185,9 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * @return AbstractModel|null
-     *
      * @throws FacebookException
+     *
+     * @return AbstractModel|null
      */
     protected function getResponse()
     {
@@ -204,8 +204,7 @@ abstract class AbstractProvider implements ProviderInterface
             );
 
             return $this->hydrate($response);
-        }
-        catch(FacebookSDKException $exception) {
+        } catch (FacebookSDKException $exception) {
             throw FacebookException::create()
                 ->setMessage('An error occured while requesting a Facebook API endpoint "%s": "%s"')
                 ->with($this->getEndpoint(), $exception->getMessage(), $exception);

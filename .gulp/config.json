@@ -18,6 +18,9 @@
       "styles" : [
         "${paths.app}stylesheets/app.scss"
       ],
+      "styles-admin" : [
+        "${paths.app}stylesheets/app_admin.scss"
+      ],
       "images" : [],
       "fonts"  : []
     },

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -15,7 +15,7 @@ use SR\File\FileInfo;
 use SR\Reflection\Inspect;
 
 /**
- * Class TemplateLocator
+ * Class TemplateLocator.
  */
 class TemplateLocator
 {
@@ -45,8 +45,7 @@ class TemplateLocator
                 ->invoke($this->loader, $name);
 
             return new FileInfo($filePath);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return null;
         }
     }

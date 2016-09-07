@@ -34,7 +34,7 @@ easy_admin:
             label    : SKU
 
           - property  : 'price'
-            label     : 'Unit Price'
+            label     : 'Price'
             format    : '%.2f'
 
           - property  : 'shipping'

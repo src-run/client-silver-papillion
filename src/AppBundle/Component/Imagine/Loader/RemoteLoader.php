@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -73,7 +73,6 @@ class RemoteLoader implements LoaderInterface
 
         $this->handleRemoteFileLoad($url);
         list($absolutePath, , $mimeType, $extension) = $this->info($url);
-
 
         return new FileBinary($absolutePath, $mimeType, $extension);
     }
@@ -167,7 +166,7 @@ class RemoteLoader implements LoaderInterface
      *
      * @return string
      */
-    static public function slugifyUrl($url)
+    public static function slugifyUrl($url)
     {
         return preg_replace('{[\-]+}', '-', preg_replace('{[^a-z0-9]}i', '-', static::sanitizeUrl($url)));
     }
@@ -177,7 +176,7 @@ class RemoteLoader implements LoaderInterface
      *
      * @return string
      */
-    static private function sanitizeUrl($url)
+    private static function sanitizeUrl($url)
     {
         return filter_var($url, FILTER_SANITIZE_URL);
     }
@@ -187,7 +186,7 @@ class RemoteLoader implements LoaderInterface
      *
      * @return bool
      */
-    static private function validateUrl($url)
+    private static function validateUrl($url)
     {
         return filter_var($url, FILTER_VALIDATE_URL);
     }

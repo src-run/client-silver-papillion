@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -15,7 +15,7 @@ use AppBundle\Entity\Product;
 use AppBundle\Model\Cart;
 
 /**
- * Class CartExtension
+ * Class CartExtension.
  */
 class CartExtension extends \Twig_Extension
 {
@@ -37,7 +37,7 @@ class CartExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
+        return [
             new \Twig_Function('get_cart', [$this, 'getCart']),
             new \Twig_Function('cart_has', [$this, 'cartHas']),
             new \Twig_Function('cart_uuid', [$this, 'cartUuid']),
@@ -48,7 +48,7 @@ class CartExtension extends \Twig_Extension
             new \Twig_Function('cart_shipping', [$this, 'cartShipping']),
             new \Twig_Function('cart_items', [$this, 'cartItems']),
             new \Twig_Function('cart_items_grouped', [$this, 'cartItemsGrouped']),
-        );
+        ];
     }
 
     /**

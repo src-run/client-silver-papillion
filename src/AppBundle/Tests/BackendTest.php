@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -37,39 +37,39 @@ class BackendTest extends WebTestCase
      */
     public function queryParametersProvider()
     {
-        return array(
-            array(
-                array('action' => 'list', 'entity' => 'Category'),
-            ),
-            array(
-                array('action' => 'list', 'entity' => 'Category', 'page' => 2),
-            ),
-            array(
-                array('action' => 'search', 'entity' => 'Category', 'query' => 'cat'),
-            ),
-            array(
-                array('action' => 'show', 'entity' => 'Category', 'id' => 1),
-            ),
-            array(
-                array('action' => 'edit', 'entity' => 'Category', 'id' => 1),
-            ),
+        return [
+            [
+                ['action' => 'list', 'entity' => 'Category'],
+            ],
+            [
+                ['action' => 'list', 'entity' => 'Category', 'page' => 2],
+            ],
+            [
+                ['action' => 'search', 'entity' => 'Category', 'query' => 'cat'],
+            ],
+            [
+                ['action' => 'show', 'entity' => 'Category', 'id' => 1],
+            ],
+            [
+                ['action' => 'edit', 'entity' => 'Category', 'id' => 1],
+            ],
 
-            array(
-                array('action' => 'list', 'entity' => 'Product'),
-            ),
-            array(
-                array('action' => 'list', 'entity' => 'Product', 'page' => 2),
-            ),
-            array(
-                array('action' => 'search', 'entity' => 'Product', 'query' => 'lorem'),
-            ),
-            array(
-                array('action' => 'show', 'entity' => 'Product', 'id' => 1),
-            ),
-            array(
-                array('action' => 'edit', 'entity' => 'Product', 'id' => 1),
-            ),
-        );
+            [
+                ['action' => 'list', 'entity' => 'Product'],
+            ],
+            [
+                ['action' => 'list', 'entity' => 'Product', 'page' => 2],
+            ],
+            [
+                ['action' => 'search', 'entity' => 'Product', 'query' => 'lorem'],
+            ],
+            [
+                ['action' => 'show', 'entity' => 'Product', 'id' => 1],
+            ],
+            [
+                ['action' => 'edit', 'entity' => 'Product', 'id' => 1],
+            ],
+        ];
     }
 
     /**
@@ -87,11 +87,11 @@ class BackendTest extends WebTestCase
         $loginManager = $container->get('fos_user.security.login_manager');
         $firewallName = $container->getParameter('fos_user.firewall_name');
 
-        $user = $userManager->findUserBy(array('username' => 'john.smith'));
+        $user = $userManager->findUserBy(['username' => 'john.smith']);
         $loginManager->loginUser($firewallName, $user);
 
         // save the login token into the session and put it in a cookie
-        $container->get('session')->set('_security_' . $firewallName,
+        $container->get('session')->set('_security_'.$firewallName,
             serialize($container->get('security.token_storage')->getToken()));
         $container->get('session')->save();
         $client->getCookieJar()->set(new Cookie($session->getName(), $session->getId()));

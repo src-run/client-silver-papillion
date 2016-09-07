@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -15,7 +15,7 @@ use AppBundle\Component\Facebook\Model\Feed\Page\PageFeed;
 use AppBundle\Component\Facebook\Provider\ProviderInterface;
 
 /**
- * Class FacebookExtension
+ * Class FacebookExtension.
  */
 class FacebookExtension extends \Twig_Extension
 {
@@ -37,12 +37,12 @@ class FacebookExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
+        return [
             new \Twig_Function('has_fb_feed', [$this, 'hasFacebookFeed']),
             new \Twig_Function('get_fb_feed', [$this, 'getFacebookFeed']),
             new \Twig_Function('has_fb_feed_cached', [$this, 'hasFacebookFeedCached']),
             new \Twig_Function('get_fb_feed_cached', [$this, 'getFacebookFeedCached']),
-        );
+        ];
     }
 
     /**

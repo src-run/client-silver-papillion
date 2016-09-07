@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -21,7 +21,7 @@ class MediaFormatPhoto extends MediaFormat
      */
     const MAPPING_DEFINITION = [
         'source' => [
-            'to_property' => 'link'
+            'to_property' => 'link',
         ],
     ];
 }

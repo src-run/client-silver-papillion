@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -24,10 +24,10 @@ class LocationController extends Controller
     public function indexAction()
     {
         return $this->render('AppBundle:location:index.html.twig', [
-            '_c' => static::class,
-            'hours' => $this->get('app.manager.hours')->getAll(),
-            'staticMaps' => $this->get('app.mapper.static')->generate(),
-            'streetView' => $this->get('app.mapper.street')->generate(),
+            '_c'            => static::class,
+            'hours'         => $this->get('app.manager.hours')->getAll(),
+            'staticMaps'    => $this->get('app.mapper.static')->generate(),
+            'streetView'    => $this->get('app.mapper.street')->generate(),
             'directionsUri' => $this->get('app.directions')->generate(),
         ]);
     }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -12,11 +12,8 @@
 namespace AppBundle\Component\Imagine\Resolver;
 
 use AppBundle\Component\Imagine\Loader\RemoteLoader;
-use Liip\ImagineBundle\Binary\BinaryInterface;
-use Liip\ImagineBundle\Binary\MimeTypeGuesserInterface;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\WebPathResolver;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesserInterface;
 use Symfony\Component\Routing\RequestContext;
 
 /**
@@ -36,7 +33,8 @@ class RemoteResolver extends WebPathResolver
      * @param string         $webRootDir
      * @param string         $cachePrefix
      */
-    public function __construct(Filesystem $filesystem, RequestContext $requestContext, RemoteLoader $loader, $webRootDir, $cachePrefix = 'media/cache') {
+    public function __construct(Filesystem $filesystem, RequestContext $requestContext, RemoteLoader $loader, $webRootDir, $cachePrefix = 'media/cache')
+    {
         parent::__construct($filesystem, $requestContext, $webRootDir, $cachePrefix);
 
         $this->loader = $loader;
@@ -49,7 +47,7 @@ class RemoteResolver extends WebPathResolver
 
     protected function getFileUrl($path, $filter)
     {
-        list(, $relativePath, , ) = $this->loader->info($path);
+        list(, $relativePath) = $this->loader->info($path);
 
         return sprintf('%s/%s/%s', $this->cachePrefix, $filter, ltrim($relativePath, '/'));
     }

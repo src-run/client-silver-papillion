@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -14,10 +14,9 @@ namespace AppBundle\Component\Facebook\Model;
 use AppBundle\Component\Facebook\Exception\FacebookException;
 use AppBundle\Component\Facebook\Transformer\TransformerInterface;
 use SR\Reflection\Inspect;
-use SR\Utility\ClassInstantiator;
 
 /**
- * Category AbstractModel
+ * Category AbstractModel.
  */
 abstract class AbstractModel
 {
@@ -94,8 +93,7 @@ abstract class AbstractModel
             $this->assertNonConflictingModelConfig();
             $data = $this->removeExtraKeyDepth($data);
             $this->assertRequiredFieldsExist($data);
-        }
-        catch (FacebookException $exception) {
+        } catch (FacebookException $exception) {
             throw FacebookException::create()
                 ->setMessage('Model hydration failed in pre-hydration sanity check operations')
                 ->with($exception);
@@ -189,14 +187,14 @@ abstract class AbstractModel
     }
 
     /**
-     * @param mixed $data
+     * @param mixed  $data
      * @param string $key
      *
      * @return $this
      */
     protected function assignFieldToModel($data, $key)
     {
-        list($property, , ) = $this->buildFieldMappingDefinition($key);
+        list($property) = $this->buildFieldMappingDefinition($key);
 
         if (!$this->getInspector()->hasProperty($property)) {
             return $this;
@@ -209,7 +207,7 @@ abstract class AbstractModel
     }
 
     /**
-     * @param mixed $data
+     * @param mixed  $data
      * @param string $key
      *
      * @return bool
@@ -308,7 +306,7 @@ abstract class AbstractModel
 
     /**
      * @param mixed[] ...$data
-     * @param string  $key
+     * @param string $key
      *
      * @return bool
      */
@@ -319,7 +317,7 @@ abstract class AbstractModel
 
     /**
      * @param mixed[] ...$data
-     * @param string  $key
+     * @param string $key
      *
      * @return null|mixed[]
      */
@@ -328,7 +326,7 @@ abstract class AbstractModel
         $part = explode('.', $key);
         $size = count($part);
 
-        for ($i = 0; $i < $size; $i++) {
+        for ($i = 0; $i < $size; ++$i) {
             if (!array_key_exists($part[$i], $data)) {
                 return null;
             }

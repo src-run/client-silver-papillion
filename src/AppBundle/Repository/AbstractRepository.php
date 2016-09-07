@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -100,7 +100,7 @@ abstract class AbstractRepository extends EntityRepository
             $k .= $this->getCacheKeyPartFromParameter($parameter).'-';
         }
 
-        return StringTransform::toAlphanumericAndDashes(strtolower(substr($k, 0, strlen($k)-1)));
+        return StringTransform::toAlphanumericAndDashes(strtolower(substr($k, 0, strlen($k) - 1)));
     }
 
     /**
@@ -121,7 +121,7 @@ abstract class AbstractRepository extends EntityRepository
                 ->with($this->getClassName());
         }
 
-        return $name.'='.(string)$value;
+        return $name.'='.(string) $value;
     }
 
     /**

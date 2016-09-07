@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -50,7 +50,8 @@ class CartGroup
     /**
      * @param Product $product
      */
-    public function add(Product $product) {
+    public function add(Product $product)
+    {
         $this->items[] = $product;
     }
 
@@ -59,7 +60,8 @@ class CartGroup
      *
      * @return int
      */
-    public function count(Product $product = null) {
+    public function count(Product $product = null)
+    {
         return count($this->items);
     }
 

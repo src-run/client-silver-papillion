@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -37,7 +37,7 @@ class MediaVideo extends Media
             'to_property' => 'updatedOn',
         ],
         'embed_html' => [
-            'to_property' => 'embeddableIframe'
+            'to_property' => 'embeddableIframe',
         ],
         'format' => [
             'to_property' => 'formats',
@@ -45,10 +45,10 @@ class MediaVideo extends Media
             'object_coll' => true,
         ],
         'source' => [
-            'to_property' => 'link'
+            'to_property' => 'link',
         ],
         'description' => [
-            'to_property' => 'text'
+            'to_property' => 'text',
         ],
     ];
 

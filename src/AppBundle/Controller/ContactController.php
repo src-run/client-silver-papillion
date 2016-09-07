@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -36,12 +36,12 @@ class ContactController extends Controller
             $this->sendMessage($message);
 
             return $this->render('AppBundle:contact:sent.html.twig', [
-                '_c' => static::class
+                '_c' => static::class,
             ]);
         }
 
         return $this->render('AppBundle:contact:index.html.twig', [
-            '_c' => static::class,
+            '_c'   => static::class,
             'form' => $form->createView(),
         ]);
     }
@@ -59,9 +59,9 @@ class ContactController extends Controller
                 $this->renderView(
                     'email/message.html.twig',
                     [
-                        'name' => $message->getName(),
+                        'name'    => $message->getName(),
                         'message' => $message->getMessage(),
-                        'email' => $message->getEmail(),
+                        'email'   => $message->getEmail(),
                     ]
                 ),
                 'text/html'

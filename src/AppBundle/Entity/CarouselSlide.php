@@ -1,12 +1,21 @@
 <?php
 
+/*
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * CarouselEntry
+ * CarouselEntry.
  *
  * @Vich\Uploadable
  */
@@ -40,7 +49,7 @@ class CarouselSlide
     /**
      * @var File|null
      *
-     * @Vich\UploadableField(mapping="image_carousels", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="image_carousel", fileNameProperty="image")
      */
     protected $imageFile;
 
@@ -52,9 +61,8 @@ class CarouselSlide
         $this->enabled = true;
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -73,7 +81,7 @@ class CarouselSlide
 
     /**
      * @return int
-    o     */
+     o     */
     public function getWeight()
     {
         return $this->weight;
@@ -100,7 +108,7 @@ class CarouselSlide
     }
 
     /**
-     * Set caption
+     * Set caption.
      *
      * @param string $caption
      *
@@ -114,7 +122,7 @@ class CarouselSlide
     }
 
     /**
-     * Get caption
+     * Get caption.
      *
      * @return string
      */
@@ -207,4 +215,3 @@ class CarouselSlide
         return $this->imageFile !== null;
     }
 }
-

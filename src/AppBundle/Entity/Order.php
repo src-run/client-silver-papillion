@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -10,6 +10,7 @@
  */
 
 namespace AppBundle\Entity;
+
 use SR\Exception\RuntimeException;
 
 /**
@@ -124,6 +125,14 @@ class Order
     public function getCreatedOn(): \DateTime
     {
         return $this->createdOn;
+    }
+
+    /**
+     * @param \DateTime $createdOn
+     */
+    public function setCreatedOn(\DateTime $createdOn)
+    {
+        $this->createdOn = $createdOn;
     }
 
     /**
@@ -279,7 +288,7 @@ class Order
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPaid(): bool
     {
@@ -287,7 +296,7 @@ class Order
     }
 
     /**
-     * @param boolean $paid
+     * @param bool $paid
      */
     public function setPaid(bool $paid)
     {

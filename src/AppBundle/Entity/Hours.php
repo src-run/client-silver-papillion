@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 /**
@@ -36,7 +45,6 @@ class Hours
      * @var \DateTime
      */
     private $timeClose;
-
 
     /**
      * @return int
@@ -84,14 +92,14 @@ class Hours
 
     /**
      * @return int
-o     */
+     o     */
     public function getIso8601()
     {
         return $this->iso8601;
     }
 
     /**
-     * @param boolean $closed
+     * @param bool $closed
      *
      * @return Hours
      */

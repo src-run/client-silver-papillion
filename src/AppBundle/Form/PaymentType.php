@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -13,8 +13,8 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -48,7 +48,7 @@ class PaymentType extends AbstractType
     private function getExpMonthChoices()
     {
         $c = [];
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 12; ++$i) {
             $c[str_pad($i, 2, '0', STR_PAD_LEFT)] = $i;
         }
 
@@ -59,7 +59,7 @@ class PaymentType extends AbstractType
     {
         $d = date('Y');
         $c = [];
-        for ($i = $d; $i <= $d + 20; $i++) {
+        for ($i = $d; $i <= $d + 20; ++$i) {
             $c[$i] = $i;
         }
 

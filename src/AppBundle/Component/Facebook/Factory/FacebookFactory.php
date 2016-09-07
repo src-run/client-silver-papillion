@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -38,12 +38,11 @@ class FacebookFactory
         if (static::$facebook === null) {
             try {
                 static::$facebook = new Facebook([
-                    'app_id' => $appId,
-                    'app_secret' => $appSecret,
+                    'app_id'                => $appId,
+                    'app_secret'            => $appSecret,
                     'default_graph_version' => $graphVersion,
                 ]);
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 throw FacebookException::create()
                     ->setMessage('Could not create FB instance in factory: %s')
                     ->with($e->getMessage(), $e);

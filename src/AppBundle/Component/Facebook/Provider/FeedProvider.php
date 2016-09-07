@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -37,12 +37,12 @@ class FeedProvider extends AbstractProvider
     /**
      * @var string[]
      */
-    static $cleanObjectHashes = [];
+    public static $cleanObjectHashes = [];
 
     /**
      * @var int
      */
-    static $cleanMethodDepth = 0;
+    public static $cleanMethodDepth = 0;
 
     /**
      * @param AuthenticationInterface|null $authentication
@@ -72,12 +72,11 @@ class FeedProvider extends AbstractProvider
      */
     final protected function cleanProperties(AbstractModel $model)
     {
-        static::$cleanMethodDepth++;
-        static::$cleanObjectHashes[] = spl_object_hash($model);
-
-        if (static::$cleanMethodDepth > 100 || in_array(spl_object_hash($model), static::$cleanObjectHashes)) {
+        if (static::incrementMethodCallDepth() > 100 || static::hasObjectHashInCache($model)) {
             return $model;
         }
+
+        static::addObjectHashToCache($model);
 
         $rc = new \ReflectionClass($model);
 
@@ -108,20 +107,18 @@ class FeedProvider extends AbstractProvider
             $this->cleanPropertiesRecurse($p->getValue($model), $model);
         });
 
-        static::$cleanMethodDepth--;
+        static::decrementMethodCallDepth();
 
         return $model;
     }
 
     /**
      * @param AbstractModel|AbstractModel[] $work
-     * @param AbstractModel $parent
-     *
-     * @return null
+     * @param AbstractModel                 $parent
      */
     final private function cleanPropertiesRecurse($work, AbstractModel $parent)
     {
-        static::$cleanMethodDepth++;
+        static::incrementMethodCallDepth();
 
         if (is_array($work)) {
             foreach ($work as $v) {
@@ -134,7 +131,7 @@ class FeedProvider extends AbstractProvider
             $rp->setValue($work, $parent);
         }
 
-        static::$cleanMethodDepth--;
+        static::decrementMethodCallDepth();
 
         return;
     }
@@ -163,8 +160,7 @@ class FeedProvider extends AbstractProvider
         $posts = array_map(function (array $p) {
             try {
                 return isset($p['id']) ? $this->resolvePost($p['id']) : null;
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 return null;
             }
         }, $data['data']);
@@ -199,6 +195,40 @@ class FeedProvider extends AbstractProvider
         }
 
         return $cacheItem;
+    }
+
+    /**
+     * @return int
+     */
+    private static function incrementMethodCallDepth()
+    {
+        return static::$cleanMethodDepth++;
+    }
+
+    /**
+     * @return int
+     */
+    private static function decrementMethodCallDepth()
+    {
+        return static::$cleanMethodDepth--;
+    }
+
+    /**
+     * @param mixed $model
+     */
+    private static function addObjectHashToCache($model)
+    {
+        static::$cleanObjectHashes[] = spl_object_hash($model);
+    }
+
+    /**
+     * @param mixed $model
+     *
+     * @return bool
+     */
+    private static function hasObjectHashInCache($model)
+    {
+        return in_array(spl_object_hash($model), static::$cleanObjectHashes);
     }
 }
 

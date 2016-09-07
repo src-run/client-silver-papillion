@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -58,7 +58,6 @@ class WineCaddyCommand extends ContainerAwareCommand
 
         $this->io->table(['Product', 'SKU', 'Image URL', 'Local Image Path'], $this->products);
 
-
         $this->cleanUpDetails();
     }
 
@@ -87,8 +86,8 @@ class WineCaddyCommand extends ContainerAwareCommand
             return;
         }
 
-        $p->setEnabled((bool)$d['enabled']);
-        $p->setFeatured((bool)$d['featured']);
+        $p->setEnabled((bool) $d['enabled']);
+        $p->setFeatured((bool) $d['featured']);
         $p->setPrice($d['price']);
         $this->em->persist($p);
     }
@@ -117,7 +116,7 @@ class WineCaddyCommand extends ContainerAwareCommand
 
         $this->io->progressStart(count($matches[0]));
 
-        for($i = 0; $i < count($matches[0]); $i++) {
+        for ($i = 0; $i < count($matches[0]); ++$i) {
             $this->fetchProductPage($matches[1][$i], $matches[2][$i]);
             $this->io->progressAdvance(1);
         }
@@ -155,7 +154,7 @@ class WineCaddyCommand extends ContainerAwareCommand
 
     protected function persistProduct($product)
     {
-        list($name, $sku,) = $product;
+        list($name, $sku) = $product;
 
         $image = $this->saveImage($product);
 

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -11,7 +11,6 @@
 
 namespace AppBundle\Controller;
 
-use Facebook\Facebook;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -27,9 +26,9 @@ class DefaultController extends Controller
         $count = $this->get('app.manager.configuration')->value('product.count.featured', 3);
 
         return $this->render('AppBundle:default:index.html.twig', [
-            '_c' => static::class,
-            'hours' => $this->get('app.manager.hours')->getAll(),
-            'featured' => $this->get('app.manager.product')->getFeatured($count),
+            '_c'         => static::class,
+            'hours'      => $this->get('app.manager.hours')->getAll(),
+            'featured'   => $this->get('app.manager.product')->getFeatured($count),
             'staticMaps' => $this->get('app.mapper.static')->generate('420x220'),
         ]);
     }

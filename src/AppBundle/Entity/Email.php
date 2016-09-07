@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 use WhiteOctober\SwiftMailerDBBundle\EmailInterface;
@@ -20,7 +29,7 @@ class Email implements EmailInterface
     private $message;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $sendDone;
 
@@ -111,7 +120,7 @@ class Email implements EmailInterface
      */
     public function setStatus($status)
     {
-        if ($status == "3") {
+        if ($status == '3') {
             $this->sendDone = true;
         }
 
@@ -165,7 +174,7 @@ class Email implements EmailInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isSendDone(): bool
     {

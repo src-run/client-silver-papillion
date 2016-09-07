@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -12,7 +12,7 @@
 namespace AppBundle\Twig;
 
 /**
- * Class UrlToFileExtension
+ * Class UrlToFileExtension.
  */
 class UrlToFileExtension extends \Twig_Extension
 {
@@ -49,7 +49,7 @@ class UrlToFileExtension extends \Twig_Extension
     {
         return [
             new \Twig_Filter('url_to_file', [$this, 'urlToFile']),
-            new \Twig_Filter('cache_url', [$this, 'urlToFile'])
+            new \Twig_Filter('cache_url', [$this, 'urlToFile']),
         ];
     }
 
@@ -79,8 +79,7 @@ class UrlToFileExtension extends \Twig_Extension
         $fileContents = @file_get_contents($url);
 
         if (!$fileContents || (!is_dir($sysDir = pathinfo($sysPath, PATHINFO_DIRNAME)) && !@mkdir($sysDir, 0777, true)) ||
-            !file_put_contents($sysPath, $fileContents))
-        {
+            !file_put_contents($sysPath, $fileContents)) {
             return $url;
         }
 

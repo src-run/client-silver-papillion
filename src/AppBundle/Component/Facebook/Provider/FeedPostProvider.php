@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -15,8 +15,6 @@ use AppBundle\Component\Facebook\Exception\FacebookException;
 use AppBundle\Component\Facebook\Model\AbstractModel;
 use AppBundle\Component\Facebook\Model\Feed\Media;
 use AppBundle\Component\Facebook\Model\Feed\MediaAlbum;
-use AppBundle\Component\Facebook\Model\Feed\MediaFormat;
-use AppBundle\Component\Facebook\Model\Feed\MediaPhoto;
 use Facebook\FacebookResponse;
 use Symfony\Component\Cache\CacheItem;
 
@@ -39,7 +37,7 @@ class FeedPostProvider extends AbstractProvider
         'message',
         'attachments',
         'comments',
-        'reactions'
+        'reactions',
     ];
 
     /**
@@ -143,7 +141,6 @@ class FeedPostProvider extends AbstractProvider
 
         return $this->instantiateFqcn($fqcn);
     }
-
 
     /**
      * @param string $type

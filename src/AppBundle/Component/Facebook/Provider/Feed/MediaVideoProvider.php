@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -30,7 +30,7 @@ class MediaVideoProvider extends AbstractProvider
         'status',
         'title',
         'description',
-        'embed_html'
+        'embed_html',
     ];
 
     /**

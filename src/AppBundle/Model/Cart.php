@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -53,7 +53,6 @@ class Cart implements \Serializable
      */
     private $entityManager;
 
-
     /**
      * @var ConfigurationManager
      */
@@ -87,6 +86,7 @@ class Cart implements \Serializable
      * @param EntityManager        $entityManager
      * @param ConfigurationManager $configurationManager
      *on
+     *
      * @return mixed|static
      */
     public static function create(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager)
@@ -94,7 +94,7 @@ class Cart implements \Serializable
         if ($session->has(static::SESSION_KEY)) {
             $instance = unserialize($session->get(static::SESSION_KEY));
 
-            if ($instance instanceof Cart) {
+            if ($instance instanceof self) {
                 $instance->setSession($session);
                 $instance->setEntityManager($entityManager);
                 $instance->setConfigurationManager($configurationManager);
@@ -132,7 +132,7 @@ class Cart implements \Serializable
     }
 
     /**
-     * init
+     * init.
      */
     public function initialize()
     {
@@ -141,9 +141,7 @@ class Cart implements \Serializable
                 if (($c = $this->entityManager->merge($p->getCategory())) instanceof Category) {
                     $p->setCategory($c);
                 }
-            }
-            catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
             }
 
             return $p;
@@ -151,7 +149,7 @@ class Cart implements \Serializable
     }
 
     /**
-     * saver
+     * saver.
      */
     public function save()
     {
@@ -168,6 +166,7 @@ class Cart implements \Serializable
 
         if (!$this->session->has($sessionIdKey) || empty($uuid = $this->session->get($sessionIdKey))) {
             $this->session->set($sessionIdKey, $uuid = Uuid::uuid4()->toString());
+
             return $uuid;
         }
 
@@ -175,7 +174,7 @@ class Cart implements \Serializable
     }
 
     /**
-     * clear
+     * clear.
      */
     public function clear()
     {
@@ -234,6 +233,7 @@ class Cart implements \Serializable
         $this->items = array_values(array_filter($this->items, function (Product $p) use ($product, &$removed) {
             if ($p->getName() === $product->getName() && !$removed) {
                 $removed = true;
+
                 return false;
             }
 
@@ -254,7 +254,8 @@ class Cart implements \Serializable
     /**
      * @param Product $product
      */
-    public function add(Product $product) {
+    public function add(Product $product)
+    {
         $this->items[] = $product;
     }
 
@@ -263,7 +264,8 @@ class Cart implements \Serializable
      *
      * @return bool
      */
-    public function has(Product $product) {
+    public function has(Product $product)
+    {
         return $this->count($product) > 0;
     }
 
@@ -272,7 +274,8 @@ class Cart implements \Serializable
      *
      * @return int
      */
-    public function count(Product $product = null) {
+    public function count(Product $product = null)
+    {
         if (!$product) {
             return count($this->items);
         }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -80,11 +80,13 @@ class Shipment
 
     /**
      * @param string $name
+     *
      * @return Shipment
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -98,11 +100,13 @@ class Shipment
 
     /**
      * @param string $email
+     *
      * @return Shipment
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -116,11 +120,13 @@ class Shipment
 
     /**
      * @param string $phone
+     *
      * @return Shipment
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
         return $this;
     }
 
@@ -134,11 +140,13 @@ class Shipment
 
     /**
      * @param string $address
+     *
      * @return Shipment
      */
     public function setAddress($address)
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -152,11 +160,13 @@ class Shipment
 
     /**
      * @param string $city
+     *
      * @return Shipment
      */
     public function setCity($city)
     {
         $this->city = $city;
+
         return $this;
     }
 
@@ -170,11 +180,13 @@ class Shipment
 
     /**
      * @param string $state
+     *
      * @return Shipment
      */
     public function setState($state)
     {
         $this->state = $state;
+
         return $this;
     }
 
@@ -188,11 +200,13 @@ class Shipment
 
     /**
      * @param string $zip
+     *
      * @return Shipment
      */
     public function setZip($zip)
     {
         $this->zip = $zip;
+
         return $this;
     }
 
@@ -206,11 +220,13 @@ class Shipment
 
     /**
      * @param string $country
+     *
      * @return Shipment
      */
     public function setCountry($country)
     {
         $this->country = $country;
+
         return $this;
     }
 
@@ -224,11 +240,13 @@ class Shipment
 
     /**
      * @param Cart $cart
+     *
      * @return Shipment
      */
     public function setCart($cart)
     {
         $this->cart = $cart;
+
         return $this;
     }
 }

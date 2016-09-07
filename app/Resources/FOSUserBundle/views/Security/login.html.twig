@@ -2,34 +2,6 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block head_stylesheets %}
-    {{ parent() }}
-
-    {% if app.environment == 'dev' %}
-        {% javascripts 'assets/javascripts/app.js' %}
-            <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-    {% else %}
-        {% javascripts 'assets/javascripts/app.min.js' %}
-            <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-    {% endif %}
-{% endblock %}
-
-{% block body_javascript %}
-    {{ parent() }}
-
-    {% if app.environment == 'dev' %}
-        {% stylesheets 'assets/stylesheets/app.css' filter='cssrewrite' %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
-    {% else %}
-        {% stylesheets 'assets/stylesheets/app.min.css' filter='cssrewrite' %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
-    {% endif %}
-{% endblock %}
-
 {% block page_title 'Silver Papillon Admin' %}
 {% block body_id 'admin-login' %}
 
@@ -70,8 +42,8 @@
                         </label>
                     </fieldset>
 
-                    <fieldset class="form-group">
-                        <button type="submit" class="btn btn-primary" id="_submit" name="_submit">{{ 'security.login.submit'|trans }}</button>
+                    <fieldset class="form-group text-center">
+                        <button type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans }}</button>
                     </fieldset>
                 </form>
             </div>

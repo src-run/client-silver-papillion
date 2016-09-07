@@ -4,8 +4,8 @@ easy_admin:
   entities:
     Email:
       class: AppBundle\Entity\Email
-      label: 'Email Logs'
-      disabled_actions: ['new', 'delete']
+      label: 'Email Message Logs'
+      disabled_actions: ['new', 'delete', 'edit']
 
       list:
         title: '%%entity_label%%'
@@ -15,5 +15,23 @@ easy_admin:
           - name  : 'show'
             label : 'Show'
             icon  : 'eye'
+
+        fields:
+          - id
+          - { property: 'sendDone', type: 'boolean', label: 'Accepted' }
+          - { property: 'createdOn', label: 'Created On' }
+          - { property: 'sentTo', label: 'Recipient' }
+          - subject
+
+      show:
+        fields:
+          - id
+          - { property: 'sendDone', type: 'boolean', label: 'Accepted' }
+          - { property: 'createdOn', label: 'Created On' }
+          - { property: 'sentTo', label: 'Recipient' }
+          - { property: 'sentFrom', label: 'From' }
+          - subject
+          - environment
+          - message
 
 ...

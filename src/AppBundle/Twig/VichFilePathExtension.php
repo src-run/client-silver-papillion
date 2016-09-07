@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/src-silver-papillon` project
+ * This file is part of the `src-run/srw-client-silverpapillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -12,7 +12,7 @@
 namespace AppBundle\Twig;
 
 /**
- * Class VichFilePathExtension
+ * Class VichFilePathExtension.
  */
 class VichFilePathExtension extends \Twig_Extension
 {
@@ -36,7 +36,7 @@ class VichFilePathExtension extends \Twig_Extension
     {
         return [
             new \Twig_Function('asset_uploaded', [$this, 'assetUploaded']),
-            new \Twig_Function('asset_product',  [$this, 'assetProduct']),
+            new \Twig_Function('asset_product', [$this, 'assetProduct']),
             new \Twig_Function('asset_category', [$this, 'assetCategory']),
             new \Twig_Function('asset_carousel', [$this, 'assetCarousel']),
         ];
@@ -49,7 +49,7 @@ class VichFilePathExtension extends \Twig_Extension
      */
     public function assetUploaded($file, $context)
     {
-        return $this->paths[$context] . '/' . $file;
+        return $this->paths[$context].'/'.$file;
     }
 
     /**
