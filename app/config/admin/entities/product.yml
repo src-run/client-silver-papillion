@@ -81,6 +81,8 @@ easy_admin:
             type      : 'image'
             base_path : '%srwc.public_path.image_products%'
 
+          - images
+
           - category
 
       form:
@@ -122,6 +124,10 @@ easy_admin:
           - property  : 'imageFile'
             label     : 'Image'
             type      : 'vich_image'
+
+          - type: divider
+
+          - images
 
           - label     : 'Pricing'
             type      : 'group'

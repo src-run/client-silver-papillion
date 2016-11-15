@@ -24,6 +24,9 @@ menu.category.add:  Add
 menu.product:       Products
 menu.product.list:  List
 menu.product.add:   Add
+menu.product_image:       Product Images
+menu.product_image.list:  List
+menu.product_image.add:   Add
 menu.customer:      Customers
 menu.purchase:      Purchases
 menu.about:         About EasyAdmin

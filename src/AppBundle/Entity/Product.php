@@ -11,6 +11,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -75,6 +76,11 @@ class Product
      * @var string
      */
     protected $image;
+
+    /**
+     * @var ProductImage[]|ArrayCollection
+     */
+    protected $images;
 
     /**
      * @var File|null
@@ -367,6 +373,34 @@ class Product
     public function hasImageFile()
     {
         return $this->imageFile !== null;
+    }
+
+    /**
+     * @return ProductImage[]|ArrayCollection
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param ProductImage[]|ArrayCollection $images
+     *
+     * @return $this
+     */
+    public function setImages(ArrayCollection $images)
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasImages()
+    {
+        return !$this->images->isEmpty();
     }
 
     /**

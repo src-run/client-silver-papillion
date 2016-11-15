@@ -34,6 +34,12 @@
       <join-column name="category_id" />
     </many-to-one>
 
+    <one-to-many field="images" target-entity="AppBundle\Entity\ProductImage" mapped-by="product" fetch="EAGER">
+      <order-by>
+        <order-by-field name="weight" direction="ASC" />
+      </order-by>
+    </one-to-many>
+
   </entity>
 
 </doctrine-mapping>

@@ -10,6 +10,12 @@ easy_admin:
           - { entity: 'Product', icon: 'th-list', label: 'menu.product.list' }
           - { entity: 'Product', icon: 'plus-circle', label: 'menu.product.add', params: { action: 'new' } }
 
+      - label: 'menu.product_image'
+        icon: 'image'
+        children:
+          - { entity: 'ProductImage', icon: 'th-list', label: 'menu.product_image.list' }
+          - { entity: 'ProductImage', icon: 'plus-circle', label: 'menu.product_image.add', params: { action: 'new' } }
+
       - label: 'menu.category'
         icon: 'tags'
         children:

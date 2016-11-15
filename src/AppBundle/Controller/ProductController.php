@@ -14,6 +14,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Product ProductController.
@@ -27,12 +28,19 @@ class ProductController extends Controller
      */
     public function viewAction($productName, Product $product)
     {
-        $count = $this->get('app.manager.configuration')->value('product.count.similar', 4);
+        VarDumper::dump($product);
+        $productManager = $this->get('app.manager.product');
+        $configsManager = $this->get('app.manager.configuration');
+
+        $similar = $productManager->getRandomFromCategory(
+            $product->getCategory(),
+            $configsManager->value('product.count.similar', 4)
+        );
 
         return $this->render('AppBundle:product:view.html.twig', [
             '_c'       => static::class,
             'product'  => $product,
-            'similar'  => $this->get('app.manager.product')->getRandomFromCategory($product->getCategory(), $count),
+            'similar'  => $similar,
             'category' => $product->getCategory(),
         ]);
     }

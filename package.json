@@ -65,6 +65,9 @@
     "clean": "gulp clean",
     "build": "gulp build",
     "watch": "gulp default",
-    "test": "gulp tests"
+    "test": "gulp tests",
+    "tasks": "gulp --tasks",
+    "tasks-core": "gulp --tasks --depth=1",
+    "tasks-verify": "gulp --verify"
   }
 }

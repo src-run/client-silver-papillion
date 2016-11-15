@@ -21,6 +21,26 @@
                     >
                         <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" />
                     </a>
+
+                    {% if product.hasImages() %}
+                        <div class="card-section-foot is-overlay is-toggleable">
+                            <ul class="product-view-image-collection">
+                            {% for image in product.getImages() %}
+                                <li>
+                                    <a  class="feed-attachment-link"
+                                        title="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
+                                        data-fancybox-initialized="0"
+                                        href="{{ asset_product(image.getImage) | imagine_filter('product_focus') }}"
+                                    >
+                                        <img src="{{ asset_product(image.getImage) | imagine_filter('product_view_thumbs') }}"
+                                             alt="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
+                                        />
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 
