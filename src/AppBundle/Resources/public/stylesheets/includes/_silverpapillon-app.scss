@@ -812,9 +812,39 @@ footer {
   padding-top    : $container-padding-top;
   padding-bottom : $container-padding-bot;
 
-  img {
-    @include img-responsive();
+  .card {
+
+    .card-section-body {
+      .feed-attachment-link {
+        img {
+          @include img-responsive();
+        }
+      }
+    }
+
+    .card-section-foot {
+      .product-view-image-collection {
+        list-style-type : none;
+        margin          : 0;
+        padding         : 0;
+
+        li {
+          padding : 0;
+          margin  : 0;
+
+          .feed-attachment-link {
+            img {
+              @include img-responsive();
+
+              width : 25%;
+            }
+          }
+        }
+      }
+    }
   }
+
+
 }
 
 .product-view-info {

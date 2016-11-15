@@ -1,0 +1,78 @@
+---
+
+easy_admin:
+  entities:
+    ProductImage:
+      class: AppBundle\Entity\ProductImage
+      label: 'Product Images'
+
+      list:
+        title: '%%entity_label%%'
+
+        actions:
+
+          - name  : 'show'
+            label : 'Show'
+            icon  : 'search'
+
+          - name  : 'edit'
+            label : 'Edit'
+            icon  : 'edit'
+
+          - name  : 'delete'
+            label : 'Delete'
+            icon  : 'trash'
+
+        fields:
+
+          - id
+          - updatedOn
+          - weight
+          - description
+
+          - property  : 'image'
+            type      : 'image'
+            base_path : '%srwc.public_path.image_products%'
+
+          - product
+
+      show:
+        fields:
+
+          - id
+          - updatedOn
+          - weight
+          - description
+
+          - property  : 'image'
+            type      : 'image'
+            base_path : '%srwc.public_path.image_products%'
+
+          - product
+
+      form:
+        fields:
+
+          - label     : 'Product Association'
+            type      : 'group'
+            icon      : 'shopping-cart'
+            css_class : 'col-sm-5'
+
+          - property  : 'imageFile'
+            label     : 'Image'
+            type      : 'vich_image'
+
+          - type: divider
+
+          - product
+
+          - label     : 'Optional Information'
+            type      : 'group'
+            icon      : 'pencil'
+            css_class : 'col-sm-7'
+
+          - weight
+
+          - property  : 'description'
+
+...

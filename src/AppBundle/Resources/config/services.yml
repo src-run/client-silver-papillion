@@ -156,6 +156,12 @@ services :
     tags :
       - { name : twig.extension }
 
+  app.twig_extension.strip_html:
+    class  : AppBundle\Twig\StripHtmlExtension
+    public : false
+    tags :
+      - { name : twig.extension }
+
   app.manager.category :
     class : AppBundle\Manager\CategoryManager
     calls :

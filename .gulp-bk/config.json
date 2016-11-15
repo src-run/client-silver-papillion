@@ -1,0 +1,90 @@
+{
+  "paths" : {
+    "components" : "web/components/",
+    "app"        : "web/bundles/app/",
+    "public"     : {
+      "root"    : "web/assets/",
+      "scripts" : "${paths.public.root}javascripts/",
+      "styles"  : "${paths.public.root}stylesheets/",
+      "images"  : "${paths.public.root}images/",
+      "fonts"   : "${paths.public.root}fonts/"
+    }
+  },
+  "files" : {
+    "app" : {
+      "scripts" : [
+        "${paths.app}javascripts/app.js"
+      ],
+      "styles" : [
+        "${paths.app}stylesheets/app.scss"
+      ],
+      "styles-admin" : [
+        "${paths.app}stylesheets/app_admin.scss"
+      ],
+      "images" : [],
+      "fonts"  : []
+    },
+    "plugins" : {
+      "scripts" : [
+        "${paths.components}jquery/dist/jquery.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/transition.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/alert.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/button.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/carousel.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/collapse.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/dropdown.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/modal.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/tooltip.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/popover.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/tab.js",
+        "${paths.components}bootstrap-sass/assets/javascripts/bootstrap/affix.js",
+        "${paths.components}jquery-fancy-box/source/js/jquery.fancybox.js",
+        "${paths.components}jquery-fancy-box/source/js/helpers/jquery.fancybox-buttons.js",
+        "${paths.components}jquery-fancy-box/source/js/helpers/jquery.fancybox-media.js",
+        "${paths.components}jquery-fancy-box/source/js/helpers/jquery.fancybox-thumbs.js",
+        "${paths.components}jquery-smooth-scroll/jquery.smooth-scroll.js",
+        "${paths.components}jquery-waypoints/lib/jquery.waypoints.js",
+        "${paths.components}jquery-creditcardvalidator/jquery.creditCardValidator.js",
+        "${paths.components}jquery-oembed-all/jquery.oembed.js"
+      ],
+      "styles" : [
+        "${paths.components}jquery-oembed-all/jquery.oembed.css"
+      ],
+      "images" : [
+        "${paths.components}jquery-fancy-box/source/img/*.png",
+        "${paths.components}jquery-fancy-box/source/img/*.gif"
+      ],
+      "fonts" : [
+        "${paths.components}bootstrap-sass/assets/fonts/bootstrap/*.eot",
+        "${paths.components}bootstrap-sass/assets/fonts/bootstrap/*.svg",
+        "${paths.components}bootstrap-sass/assets/fonts/bootstrap/*.ttf",
+        "${paths.components}bootstrap-sass/assets/fonts/bootstrap/*.woff",
+        "${paths.components}bootstrap-sass/assets/fonts/bootstrap/*.woff2",
+        "${paths.components}font-awesome/fonts/*.otf",
+        "${paths.components}font-awesome/fonts/*.svg",
+        "${paths.components}font-awesome/fonts/*.ttf",
+        "${paths.components}font-awesome/fonts/*.woff",
+        "${paths.components}font-awesome/fonts/*.woff2",
+        "${paths.components}ionicons/fonts/*.eot",
+        "${paths.components}ionicons/fonts/*.svg",
+        "${paths.components}ionicons/fonts/*.ttf",
+        "${paths.components}ionicons/fonts/*.woff"
+      ]
+    }
+  },
+  "globs" : {
+    "tests": {
+      "scripts" : [ "${paths.app}**/app.js", ".gulp/configuration-parser.js", "gulpfile.babel.js" ],
+      "styles"  : [ "${paths.app}**/*.scss" ],
+      "fonts"   : [],
+      "images"  : []
+    }
+  },
+  "options" : {
+    "css-comb-rc"     : "${paths.app}stylesheets/.csscomb.json",
+    "jscs-rc"         : "${paths.app}javascripts/.jscsrc",
+    "prefix-rule-set" : [ "Android >= 4", "Chrome >= 28", "Firefox >= 40", "Explorer >= 11", "iOS >= 7", "Opera >= 30", "Safari >= 9" ],
+    "banner-text"     : "\n/*!\n * This file is part of the `src-run/<%= pkg.name %>` project.\n *\n * (c) <%= pkg.author %>\n *\n * or the full copyright and license information, please view the LICENSE.md\n * file that was distributed with this source code.\n*/\n"
+  }
+}
