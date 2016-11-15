@@ -14,13 +14,16 @@
 
             <div class="product-view-image">
                 <div class="card is-linkable is-animated">
-                    <a  class="feed-attachment-link"
-                        title="{{ product.getName }}"
-                        data-fancybox-initialized="0"
-                        href="{{ asset_product(product.getImage) | imagine_filter('product_focus') }}"
-                    >
-                        <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" />
-                    </a>
+                    <div class="card-section-body">
+                        <a  class="feed-attachment-link"
+                            rel="product-image-group_{{ product.getName()|slugify }}"
+                            title="{{ product.getName }}"
+                            data-fancybox-initialized="0"
+                            href="{{ asset_product(product.getImage) | imagine_filter('product_focus') }}"
+                        >
+                            <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" />
+                        </a>
+                    </div>
 
                     {% if product.hasImages() %}
                         <div class="card-section-foot is-overlay is-toggleable">
@@ -28,6 +31,7 @@
                             {% for image in product.getImages() %}
                                 <li>
                                     <a  class="feed-attachment-link"
+                                        rel="product-image-group_{{ product.getName()|slugify }}"
                                         title="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
                                         data-fancybox-initialized="0"
                                         href="{{ asset_product(image.getImage) | imagine_filter('product_focus') }}"
