@@ -11,9 +11,8 @@
 
 namespace AppBundle\Util;
 
-use SR\Exception\InvalidArgumentException;
 use SR\Reflection\Inspect;
-use SR\Utility\StringTransform;
+use SR\Util\Transform\StringTransform;
 
 /**
  * Class Slugger.
@@ -27,10 +26,9 @@ class Slugger
      */
     public function slugify($string)
     {
-        $string = StringTransform::spacesToDashes($string);
-        $string = StringTransform::toAlphanumericAndDashes($string);
+        $transformer = new StringTransform($string);
 
-        return strtolower($string);
+        return $transformer->spacesToDashes()->toAlphanumericAndDashes()->toLower();
     }
 
     /**

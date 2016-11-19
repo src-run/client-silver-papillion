@@ -1,0 +1,11 @@
+---
+
+knp_snappy:
+  temporary_folder: "%kernel.cache_dir%/snappy"
+  pdf:
+    enabled: true
+    binary: "%wkhtmltopdf_bin%"
+  image:
+    enabled: false
+
+...

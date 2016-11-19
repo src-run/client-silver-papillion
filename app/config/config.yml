@@ -82,6 +82,7 @@ framework :
       images : { base_urls : [ "//silverpapillon.com/bundles/app/images" ] }
 
 
+
 #
 # asset management
 #

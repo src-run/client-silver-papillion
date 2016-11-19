@@ -43,9 +43,7 @@ class FacebookFactory
                     'default_graph_version' => $graphVersion,
                 ]);
             } catch (\Exception $e) {
-                throw FacebookException::create()
-                    ->setMessage('Could not create FB instance in factory: %s')
-                    ->with($e->getMessage(), $e);
+                throw FacebookException::create('Could not create FB instance in factory: %s', $e->getMessage(), $e);
             }
         }
 

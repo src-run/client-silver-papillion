@@ -14,6 +14,13 @@ namespace AppBundle\Component\Facebook\Model;
 use AppBundle\Component\Facebook\Exception\FacebookException;
 use AppBundle\Component\Facebook\Transformer\TransformerInterface;
 use SR\Reflection\Inspect;
+use SR\Reflection\Inspector\ClassInspector;
+use SR\Reflection\Inspector\ConstantInspector;
+use SR\Reflection\Inspector\InterfaceInspector;
+use SR\Reflection\Inspector\MethodInspector;
+use SR\Reflection\Inspector\ObjectInspector;
+use SR\Reflection\Inspector\PropertyInspector;
+use SR\Reflection\Inspector\TraitInspector;
 
 /**
  * Category AbstractModel.
@@ -95,8 +102,7 @@ abstract class AbstractModel
             $this->assertRequiredFieldsExist($data);
         } catch (FacebookException $exception) {
             throw FacebookException::create()
-                ->setMessage('Model hydration failed in pre-hydration sanity check operations')
-                ->with($exception);
+                ->setMessage('Model hydration failed in pre-hydration sanity check operations', $exception);
         }
 
         $this->assignDataToModel($this->removeExcludedFields($data));
@@ -128,9 +134,13 @@ abstract class AbstractModel
                 continue;
             }
 
-            throw FacebookException::create()
-                ->setMessage('Invalid model (%s) config: conflict between "required" (%s) and "excluded" (%s) as both contain "%s" element')
-                ->with(static::class, var_export(static::DATA_KEYS_REQUIRED, true), var_export(static::DATA_KEYS_EXCLUDED, true), $k);
+            throw FacebookException::create(
+                'Invalid model (%s) config: conflict between "required" (%s) and "excluded" (%s) as both contain "%s" element',
+                static::class,
+                var_export(static::DATA_KEYS_REQUIRED, true),
+                var_export(static::DATA_KEYS_EXCLUDED, true),
+                $k
+            );
         }
     }
 
@@ -156,9 +166,7 @@ abstract class AbstractModel
                 continue;
             }
 
-            throw FacebookException::create()
-                ->setMessage('A required data key (%s) does not exit in the response data array.')
-                ->with($k);
+            throw FacebookException::create('A required data key (%s) does not exit in the response data array.', $k);
         }
 
         return $this;
@@ -340,7 +348,7 @@ abstract class AbstractModel
     /**
      * @param string|null $what
      *
-     * @return \SR\Reflection\Introspection\ClassIntrospection|\SR\Reflection\Introspection\InterfaceIntrospection|\SR\Reflection\Introspection\ObjectIntrospection|\SR\Reflection\Introspection\TraitIntrospection
+     * @return ClassInspector|TraitInspector|InterfaceInspector|ConstantInspector|PropertyInspector|ObjectInspector|MethodInspector
      */
     protected function getInspector($what = null)
     {
@@ -351,7 +359,7 @@ abstract class AbstractModel
         }
 
         if ($inspector === null) {
-            $inspector = Inspect::this($what);
+            $inspector = Inspect::using($what);
         }
 
         return $inspector;

@@ -138,7 +138,7 @@ class ProductImage
 
     /**
      * @return int
-    o     */
+     o     */
     public function getWeight()
     {
         return $this->weight;

@@ -205,9 +205,12 @@ abstract class AbstractProvider implements ProviderInterface
 
             return $this->hydrate($response);
         } catch (FacebookSDKException $exception) {
-            throw FacebookException::create()
-                ->setMessage('An error occured while requesting a Facebook API endpoint "%s": "%s"')
-                ->with($this->getEndpoint(), $exception->getMessage(), $exception);
+            throw FacebookException::create(
+                'An error occured while requesting a Facebook API endpoint "%s": "%s"',
+                $this->getEndpoint(),
+                $exception->getMessage(),
+                $exception
+            );
         }
     }
 

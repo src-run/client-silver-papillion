@@ -36,3 +36,4 @@ parameters:
     stripe_publishable_key: ~
     stripe_secret_key: ~
 
+    wkhtmltopdf_bin: /usr/bin/wkhtmltopdf

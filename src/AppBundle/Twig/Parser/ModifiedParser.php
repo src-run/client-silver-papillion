@@ -34,7 +34,7 @@ class ModifiedParser extends \Twig_TokenParser
     public function parse(\Twig_Token $token)
     {
         $stream = $this->parser->getStream();
-        $file = $this->locator->find($stream->getFilename());
+        $file = $this->locator->find($this->parser->getStream());
         $format = 'l, F j Y, h:i A';
 
         if (!$stream->test(\Twig_Token::BLOCK_END_TYPE)) {
@@ -42,7 +42,7 @@ class ModifiedParser extends \Twig_TokenParser
         }
         $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
-        return new \Twig_Node_Text($file->getMTime()->format($format), $token->getLine(), $this->getTag());
+        return new \Twig_Node_Text($file->getTimeModified()->format($format), $token->getLine(), $this->getTag());
     }
 
     /**

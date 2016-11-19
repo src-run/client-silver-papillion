@@ -11,8 +11,8 @@
 
 namespace AppBundle\Twig\Locator;
 
-use SR\File\FileInfo;
-use SR\Reflection\Inspect;
+use SR\Exception\Runtime\RuntimeException;
+use SR\Spl\File\SplFileInfo;
 
 /**
  * Class TemplateLocator.
@@ -25,6 +25,11 @@ class TemplateLocator
     private $loader;
 
     /**
+     * @var string
+     */
+    private $kernelRootDirectory;
+
+    /**
      * @param \Twig_LoaderInterface $loader
      */
     public function __construct(\Twig_LoaderInterface $loader)
@@ -33,21 +38,69 @@ class TemplateLocator
     }
 
     /**
+     * @param string $kernelRootDirectory
+     *
+     * @return $this
+     */
+    public function setKernelRoot(string $kernelRootDirectory)
+    {
+        $this->kernelRootDirectory = $kernelRootDirectory;
+
+        return $this;
+    }
+
+    /**
+     * @param \Twig_TokenStream $stream
+     *
+     * @return SplFileInfo
+     */
+    public function find(\Twig_TokenStream $stream)
+    {
+        $templatePath = $stream->getSourceContext()->getPath();
+
+        if (is_null($templatePath) || empty($templatePath)) {
+            $templatePath = $this->templatePathFromSourceContextName($stream);
+        }
+
+        return new SplFileInfo($templatePath);
+    }
+
+    /**
+     * @param \Twig_TokenStream $stream
+     *
+     * @return string
+     */
+    private function templatePathFromSourceContextName(\Twig_TokenStream $stream)
+    {
+        $name = $stream->getSourceContext()->getName();
+
+        if (false !== $templatePath = $this->templatePathFromNameUsingBundleSyntax($name)) {
+            return $name;
+        }
+
+        if (false !== $templatePath = realpath($name)) {
+            return $name;
+        }
+
+        throw new RuntimeException('Could not resolve real template pathname for %s', $name);
+    }
+
+    /**
      * @param string $name
      *
-     * @return FileInfo|null
+     * @return bool|string
      */
-    public function find($name)
+    private function templatePathFromNameUsingBundleSyntax(string $name)
     {
-        try {
-            $filePath = Inspect::this($this->loader)
-                ->getMethod('findTemplate')
-                ->invoke($this->loader, $name);
+        $bundleSyntax = explode(':', $name);
 
-            return new FileInfo($filePath);
-        } catch (\Exception $e) {
-            return null;
+        if (count($bundleSyntax) !== 3) {
+            return false;
         }
+
+        return realpath(
+            sprintf('%s/../src/%s/Resources/views/%s/%s', $this->kernelRootDirectory, ...$bundleSyntax)
+        );
     }
 }
 

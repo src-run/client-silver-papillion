@@ -22,7 +22,7 @@ disabled:
   - unalign_equals
 
 finder :
-  exclude : [ "tests" ]
+  exclude : [ "vendor" ]
   name    : [ "*.php" ]
   path    : [ "lib", "src" ]
 

@@ -14,9 +14,9 @@ namespace AppBundle\Repository;
 use Doctrine\Common\Cache\ApcCache;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
-use SR\Doctrine\Exception\OrmException;
-use SR\Utility\ClassInspect;
-use SR\Utility\StringTransform;
+use SR\Exception\Runtime\RuntimeException;
+use SR\Util\Info\ClassInfo;
+use SR\Util\Transform\StringTransform;
 
 /**
  * Class AbstractRepository.
@@ -100,7 +100,9 @@ abstract class AbstractRepository extends EntityRepository
             $k .= $this->getCacheKeyPartFromParameter($parameter).'-';
         }
 
-        return StringTransform::toAlphanumericAndDashes(strtolower(substr($k, 0, strlen($k) - 1)));
+        $transformer = new StringTransform(strtolower(substr($k, 0, strlen($k) - 1)));
+
+        return $transformer->toAlphanumericAndDashes();
     }
 
     /**
@@ -116,9 +118,7 @@ abstract class AbstractRepository extends EntityRepository
         $value = $parameter->getValue();
 
         if (is_object($value) && !method_exists($value, '__toString')) {
-            throw OrmException::create()
-                ->setMessage('Could not convert parameter to string for doctrin result cache in %s')
-                ->with($this->getClassName());
+            throw new RuntimeException('Could not convert parameter to string for doctrin result cache in %s', $this->getClassName());
         }
 
         return $name.'='.(string) $value;
@@ -151,7 +151,7 @@ abstract class AbstractRepository extends EntityRepository
      */
     private function getClassNameShort()
     {
-        return ClassInspect::getNameShort($this->getClassName());
+        return ClassInfo::getNameShort($this->getClassName());
     }
 }
 

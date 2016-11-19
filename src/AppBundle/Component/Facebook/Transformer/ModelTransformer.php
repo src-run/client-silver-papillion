@@ -12,7 +12,7 @@
 namespace AppBundle\Component\Facebook\Transformer;
 
 use AppBundle\Component\Facebook\Model\AbstractModel;
-use SR\Utility\ClassInstantiator;
+use SR\Instantiator\StatelessInstantiator;
 
 /**
  * Class AuthorTransformer.
@@ -37,11 +37,11 @@ class ModelTransformer implements TransformerInterface
     /**
      * @param string $model
      *
-     * @return AbstractModel
+     * @return AbstractModel|object
      */
     protected static function instantiateModel($model)
     {
-        return ClassInstantiator::instantiate($model);
+        return StatelessInstantiator::instantiate($model);
     }
 }
 

@@ -38,9 +38,7 @@ class DateTimeTransformer implements TransformerInterface
             return $dateTime;
         }
 
-        throw FacebookException::create()
-            ->setMessage('Could not transform data value (%s) to \DateTime object instance.')
-            ->with($data);
+        throw FacebookException::create('Could not transform data value (%s) to \DateTime object instance.', $data);
     }
 }
 

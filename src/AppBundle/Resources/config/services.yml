@@ -119,6 +119,8 @@ services :
 
   app.twig_locator:
     class     : AppBundle\Twig\Locator\TemplateLocator
+    calls     :
+      - [setKernelRoot, ["%kernel.root_dir%"]]
     arguments :
       - '@twig.loader'
 
