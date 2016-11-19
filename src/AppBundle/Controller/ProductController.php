@@ -14,7 +14,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Product ProductController.
@@ -28,7 +27,6 @@ class ProductController extends Controller
      */
     public function viewAction($productName, Product $product)
     {
-        VarDumper::dump($product);
         $productManager = $this->get('app.manager.product');
         $configsManager = $this->get('app.manager.configuration');
 

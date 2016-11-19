@@ -11,8 +11,6 @@
 
 namespace AppBundle\Twig;
 
-use Symfony\Component\VarDumper\VarDumper;
-
 /**
  * Class StripHtmlExtension.
  */
@@ -35,9 +33,6 @@ class StripHtmlExtension extends \Twig_Extension
      */
     public function stripHtml(string $html, string $allowed = '<b><string><em><italic><a>')
     {
-        VarDumper::dump($html);
-        VarDumper::dump(strip_tags($html, $allowed));
-
         return strip_tags($html, $allowed);
     }
 
