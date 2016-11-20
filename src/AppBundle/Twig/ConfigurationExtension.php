@@ -12,16 +12,27 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Manager\ConfigurationManager;
+use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
 
 /**
  * Class ConfigurationExtension.
  */
-class ConfigurationExtension extends \Twig_Extension
+class ConfigurationExtension extends TwigExtension
 {
     /**
      * @var ConfigurationManager
      */
     private $manager;
+
+    public function __construct()
+    {
+        parent::__construct(new TwigOptionsDefinition(), [], [
+            new TwigFunctionDefinition('config_instance', [$this, 'getConfig']),
+            new TwigFunctionDefinition('config', [$this, 'getValue']),
+        ]);
+    }
 
     /**
      * @param ConfigurationManager $manager
@@ -29,17 +40,6 @@ class ConfigurationExtension extends \Twig_Extension
     public function setConfigurationManager(ConfigurationManager $manager)
     {
         $this->manager = $manager;
-    }
-
-    /**
-     * @return \Twig_Function[]
-     */
-    public function getFunctions()
-    {
-        return [
-            new \Twig_Function('config_instance', [$this, 'getConfig']),
-            new \Twig_Function('config', [$this, 'getValue']),
-        ];
     }
 
     /**
@@ -61,14 +61,6 @@ class ConfigurationExtension extends \Twig_Extension
     public function getValue($index, $default = null)
     {
         return $this->manager->value($index, $default);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'configuration_extension';
     }
 }
 

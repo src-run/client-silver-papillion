@@ -11,13 +11,14 @@
 
 namespace AppBundle\Twig;
 
-use SR\Exception\InvalidArgumentException;
+use SR\Exception\Logic\InvalidArgumentException;
+use SR\WonkaBundle\Twig\TwigExtension;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Class FrameworkReflectExtension.
  */
-class FrameworkReflectExtension extends \Twig_Extension
+class FrameworkReflectExtension extends TwigExtension
 {
     /**
      * @var string

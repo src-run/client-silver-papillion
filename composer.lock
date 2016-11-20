@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "786470a7924d205e7f72750858be00a5",
-    "content-hash": "b0b4f114a0b7988b584983200d41873a",
+    "hash": "86c093b4bb823e90501622c1773cd463",
+    "content-hash": "7dac3707b7b01dce20dbf194bab53716",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -3596,16 +3596,16 @@
         },
         {
             "name": "src-run/wonka-bundle",
-            "version": "0.7.0",
+            "version": "0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/src-run/wonka-bundle.git",
-                "reference": "e8b7494420298ba593a84e23ed2b51fccb43a27c"
+                "reference": "b19afe36127f18388f46f882cc89a29502bf957c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/src-run/wonka-bundle/zipball/e8b7494420298ba593a84e23ed2b51fccb43a27c",
-                "reference": "e8b7494420298ba593a84e23ed2b51fccb43a27c",
+                "url": "https://api.github.com/repos/src-run/wonka-bundle/zipball/b19afe36127f18388f46f882cc89a29502bf957c",
+                "reference": "b19afe36127f18388f46f882cc89a29502bf957c",
                 "shasum": ""
             },
             "require": {
@@ -3614,7 +3614,7 @@
                 "symfony/config": "~3.0",
                 "symfony/dependency-injection": "~3.0",
                 "symfony/http-foundation": "~3.0",
-                "twig/twig": "~2.0@dev"
+                "twig/twig": "~1.0 || ~2.0@dev"
             },
             "require-dev": {
                 "codacy/coverage": "~1.0",
@@ -3664,7 +3664,7 @@
                 "wonka",
                 "wonka-bundle"
             ],
-            "time": "2016-11-16 18:35:48"
+            "time": "2016-11-20 16:06:47"
         },
         {
             "name": "src-run/wonka-library",
@@ -4578,21 +4578,20 @@
         },
         {
             "name": "twig/twig",
-            "version": "2.x-dev",
+            "version": "v1.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/src-run/twig.git",
-                "reference": "f1afba6cc3c2f16ed4e8439ce3d7c523b99b502b"
+                "reference": "60ae30368f7ac50a95de032f16c1e882b0f69813"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/src-run/twig/zipball/f1afba6cc3c2f16ed4e8439ce3d7c523b99b502b",
-                "reference": "f1afba6cc3c2f16ed4e8439ce3d7c523b99b502b",
+                "url": "https://api.github.com/repos/src-run/twig/zipball/60ae30368f7ac50a95de032f16c1e882b0f69813",
+                "reference": "60ae30368f7ac50a95de032f16c1e882b0f69813",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6|^7.0",
-                "symfony/polyfill-mbstring": "~1.0"
+                "php": ">=5.2.7"
             },
             "require-dev": {
                 "symfony/debug": "~2.7",
@@ -4601,17 +4600,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "1.28-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
                     "Twig_": "lib/"
-                }
-            },
-            "autoload-dev": {
-                "psr-0": {
-                    "Twig_Tests_": "test/"
                 }
             },
             "license": [
@@ -4642,9 +4636,9 @@
             ],
             "support": {
                 "forum": "https://groups.google.com/forum/#!forum/twig-users",
-                "source": "https://github.com/src-run/twig/tree/2.x"
+                "source": "https://github.com/src-run/twig/tree/v1.28.0"
             },
-            "time": "2016-11-19 05:34:33"
+            "time": "2016-11-17 17:46:53"
         },
         {
             "name": "vich/uploader-bundle",

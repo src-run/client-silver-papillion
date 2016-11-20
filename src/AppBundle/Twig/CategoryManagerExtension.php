@@ -12,16 +12,26 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Manager\CategoryManager;
+use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
 
 /**
  * Class CategoryManagerExtension.
  */
-class CategoryManagerExtension extends \Twig_Extension
+class CategoryManagerExtension extends TwigExtension
 {
     /**
      * @var CategoryManager
      */
     private $manager;
+
+    public function __construct()
+    {
+        parent::__construct(new TwigOptionsDefinition(), [], [
+            new TwigFunctionDefinition('get_categories', [$this, 'getCategories'])
+        ]);
+    }
 
     /**
      * @param CategoryManager $manager
@@ -32,29 +42,11 @@ class CategoryManagerExtension extends \Twig_Extension
     }
 
     /**
-     * @return \Twig_Function[]
-     */
-    public function getFunctions()
-    {
-        return [
-            new \Twig_Function('get_categories', [$this, 'getCategories']),
-        ];
-    }
-
-    /**
      * @return \AppBundle\Entity\Category[]
      */
     public function getCategories()
     {
         return $this->manager->getAll();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'category_manager_extension';
     }
 }
 

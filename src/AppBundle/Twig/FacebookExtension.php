@@ -11,38 +11,37 @@
 
 namespace AppBundle\Twig;
 
-use AppBundle\Component\Facebook\Model\Feed\Page\PageFeed;
 use AppBundle\Component\Facebook\Provider\ProviderInterface;
+use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
 
 /**
  * Class FacebookExtension.
  */
-class FacebookExtension extends \Twig_Extension
+class FacebookExtension extends TwigExtension
 {
     /**
      * @var ProviderInterface
      */
     private $provider;
 
+    public function __construct()
+    {
+        parent::__construct(new TwigOptionsDefinition(), [], [
+            new TwigFunctionDefinition('has_fb_feed', [$this, 'hasFacebookFeed']),
+            new TwigFunctionDefinition('get_fb_feed', [$this, 'getFacebookFeed']),
+            new TwigFunctionDefinition('has_fb_feed_cached', [$this, 'hasFacebookFeedCached']),
+            new TwigFunctionDefinition('get_fb_feed_cached', [$this, 'getFacebookFeedCached']),
+        ]);
+    }
+
     /**
-     * @param Slugger $slugger
+     * @param ProviderInterface $provider
      */
     public function setProvider(ProviderInterface $provider)
     {
         $this->provider = $provider;
-    }
-
-    /**
-     * @return \Twig_Function[]
-     */
-    public function getFunctions()
-    {
-        return [
-            new \Twig_Function('has_fb_feed', [$this, 'hasFacebookFeed']),
-            new \Twig_Function('get_fb_feed', [$this, 'getFacebookFeed']),
-            new \Twig_Function('has_fb_feed_cached', [$this, 'hasFacebookFeedCached']),
-            new \Twig_Function('get_fb_feed_cached', [$this, 'getFacebookFeedCached']),
-        ];
     }
 
     /**
@@ -54,7 +53,7 @@ class FacebookExtension extends \Twig_Extension
     }
 
     /**
-     * @return PageFeed
+     * @return Feed
      */
     public function getFacebookFeed()
     {
@@ -75,14 +74,6 @@ class FacebookExtension extends \Twig_Extension
     public function getFacebookFeedCached()
     {
         return $this->provider->getCached();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'facebook_extension';
     }
 }
 

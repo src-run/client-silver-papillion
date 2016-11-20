@@ -12,11 +12,14 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Manager\ContentBlockManager;
+use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
 
 /**
  * Class ContentBlockExtension.
  */
-class ContentBlockExtension extends \Twig_Extension
+class ContentBlockExtension extends TwigExtension
 {
     public static $cache = [];
 
@@ -25,25 +28,22 @@ class ContentBlockExtension extends \Twig_Extension
      */
     private $manager;
 
+    public function __construct()
+    {
+        parent::__construct(new TwigOptionsDefinition(), [], [
+            new TwigFunctionDefinition('block_title', [$this, 'blockTitle'], ['is_safe' => ['html']]),
+            new TwigFunctionDefinition('block_content', [$this, 'blockContent'], ['is_safe' => ['html']]),
+            new TwigFunctionDefinition('block_props', [$this, 'blockProps'], ['is_safe' => ['html']]),
+            new TwigFunctionDefinition('block_prop', [$this, 'blockProp'], ['is_safe' => ['html']]),
+        ]);
+    }
+
     /**
      * @param ContentBlockManager $manager
      */
     public function setContentBlockManager(ContentBlockManager $manager)
     {
         $this->manager = $manager;
-    }
-
-    /**
-     * @return \Twig_Function[]
-     */
-    public function getFunctions()
-    {
-        return [
-            new \Twig_Function('block_title', [$this, 'blockTitle'], ['is_safe' => ['html']]),
-            new \Twig_Function('block_content', [$this, 'blockContent'], ['is_safe' => ['html']]),
-            new \Twig_Function('block_props', [$this, 'blockProps'], ['is_safe' => ['html']]),
-            new \Twig_Function('block_prop', [$this, 'blockProp'], ['is_safe' => ['html']]),
-        ];
     }
 
     /**
@@ -100,14 +100,6 @@ class ContentBlockExtension extends \Twig_Extension
         }
 
         return $props[$index];
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'content_block_extension';
     }
 
     /**

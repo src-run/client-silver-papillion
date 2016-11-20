@@ -37,11 +37,17 @@ services :
       - [setConfigManager, [ "@app.manager.configuration" ]]
       - [setUri, ["%srwc.google.simple_directions_href%"]]
 
-  app.twig_extension.cart:
-    class  : AppBundle\Twig\CartExtension
+  app.twig_extension_helper.cart:
+    class  : AppBundle\Twig\Helper\CartTwigExtensionHelper
     public : false
-    calls  :
-      - [setCart, ["@app.cart"]]
+    arguments :
+      - "@app.cart"
+
+  app.twig_extension.cart:
+    class  : AppBundle\Twig\CartTwigExtension
+    public : false
+    arguments :
+      - "@app.twig_extension_helper.cart"
     tags   :
       - { name : twig.extension }
 
