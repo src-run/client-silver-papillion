@@ -11,83 +11,28 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Twig\Helper\VichFilePathExtensionHelper;
+use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
+
 /**
  * Class VichFilePathExtension.
  */
-class VichFilePathExtension extends \Twig_Extension
+class VichFilePathExtension extends TwigExtension
 {
-    /**
-     * @var string[]
-     */
-    private $paths;
 
     /**
-     * @param string[] $paths
+     * @param VichFilePathExtensionHelper $helper
      */
-    public function setPaths($paths)
+    public function __construct(VichFilePathExtensionHelper $helper)
     {
-        $this->paths = $paths;
-    }
-
-    /**
-     * @return \Twig_Function[]
-     */
-    public function getFunctions()
-    {
-        return [
-            new \Twig_Function('asset_uploaded', [$this, 'assetUploaded']),
-            new \Twig_Function('asset_product', [$this, 'assetProduct']),
-            new \Twig_Function('asset_category', [$this, 'assetCategory']),
-            new \Twig_Function('asset_carousel', [$this, 'assetCarousel']),
-        ];
-    }
-
-    /**
-     * @param string $file
-     *
-     * @return string
-     */
-    public function assetUploaded($file, $context)
-    {
-        return $this->paths[$context].'/'.$file;
-    }
-
-    /**
-     * @param string $file
-     *
-     * @return string
-     */
-    public function assetProduct($file)
-    {
-        return $this->assetUploaded($file, 'product');
-    }
-
-    /**
-     * @param string $file
-     *
-     * @return string
-     */
-    public function assetCategory($file)
-    {
-        return $this->assetUploaded($file, 'category');
-    }
-
-    /**
-     * @param string $file
-     *
-     * @return string
-     */
-    public function assetCarousel($file)
-    {
-        return $this->assetUploaded($file, 'carousel');
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'vich_file_path_extension';
+        parent::__construct(new TwigOptionsDefinition(), [], [
+            new TwigFunctionDefinition('asset_uploaded', [$helper, 'assetUploaded']),
+            new TwigFunctionDefinition('asset_product', [$helper, 'assetProduct']),
+            new TwigFunctionDefinition('asset_category', [$helper, 'assetCategory']),
+            new TwigFunctionDefinition('asset_carousel', [$helper, 'assetCarousel']),
+        ]);
     }
 }
 

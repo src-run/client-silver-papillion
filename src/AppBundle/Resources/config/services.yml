@@ -62,8 +62,8 @@ services :
   app.twig_extension.slugger:
     class  : AppBundle\Twig\SluggerExtension
     public : false
-    calls  :
-      - [setSlugger, ["@app.slugger"]]
+    arguments:
+      - "@app.slugger"
     tags   :
       - { name : twig.extension }
 
@@ -78,8 +78,8 @@ services :
   app.twig_extension.carousel_slide:
     class  : AppBundle\Twig\CarouselSlideExtension
     public : false
-    calls  :
-      - [setCarouselSlideManager, ["@app.manager.carousel_slide"]]
+    arguments:
+      - "@app.manager.carousel_slide"
     tags   :
       - { name : twig.extension }
 
@@ -91,18 +91,30 @@ services :
     tags   :
       - { name : twig.extension }
 
+  app.twig_extension_helper.url_to_file:
+    class  : AppBundle\Twig\Helper\UrlToFileExtensionHelper
+    public : false
+    arguments :
+      - "%srwc.system_path.upload%"
+      - "%srwc.public_path.upload%"
+
   app.twig_extension.url_to_file:
     class  : AppBundle\Twig\UrlToFileExtension
     public : false
-    calls  :
-      - [setSysDir, ["%srwc.system_path.upload%"]]
-      - [setWebDir, ["%srwc.public_path.upload%"]]
+    arguments:
+      - "@app.twig_extension_helper.url_to_file"
     tags   :
       - { name : twig.extension }
+
+  app.twig_extension_helper.url_transformer:
+    class  : AppBundle\Twig\Helper\UrlTransformerExtensionHelper
+    public : false
 
   app.twig_extension.url_transformer:
     class  : AppBundle\Twig\UrlTransformerExtension
     public : false
+    arguments:
+      - "@app.twig_extension_helper.url_transformer"
     tags   :
       - { name : twig.extension }
 
@@ -114,12 +126,18 @@ services :
     tags      :
       - { name : twig.extension }
 
-  app.twig_extension.framework_reflect:
-    class     : AppBundle\Twig\FrameworkReflectExtension
+  app.twig_extension_helper.framework_reflect:
+    class     : AppBundle\Twig\Helper\FrameworkReflectExtensionHelper
     public    : false
     arguments :
       - '%kernel.environment%'
       - '%kernel.debug%'
+
+  app.twig_extension.framework_reflect:
+    class     : AppBundle\Twig\FrameworkReflectTwigExtension
+    public    : false
+    arguments :
+      - '@app.twig_extension_helper.framework_reflect'
     tags :
       - { name : twig.extension }
 
@@ -144,9 +162,15 @@ services :
     tags   :
       - { name : twig.extension }
 
+  app.twig_extension_helper.icon:
+    class  : AppBundle\Twig\Helper\IconExtensionHelper
+    public : false
+
   app.twig_extension.icon:
     class  : AppBundle\Twig\IconExtension
     public : false
+    arguments:
+      - "@app.twig_extension_helper.icon"
     tags   :
       - { name : twig.extension }
 
@@ -156,11 +180,18 @@ services :
     tags   :
       - { name : twig.extension }
 
+  app.twig_extension_helper.vich_file_path:
+    class  : AppBundle\Twig\Helper\VichFilePathExtensionHelper
+    public : false
+    arguments :
+      - product : '%srwc.public_path.image_products%'
+        carousel : '%srwc.public_path.image_carousel%'
+
   app.twig_extension.vich_file_path:
     class  : AppBundle\Twig\VichFilePathExtension
     public : false
-    calls  :
-      - [setPaths, [{ product : '%srwc.public_path.image_products%', carousel : '%srwc.public_path.image_carousel%' }]]
+    arguments:
+      - "@app.twig_extension_helper.vich_file_path"
     tags :
       - { name : twig.extension }
 

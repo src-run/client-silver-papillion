@@ -31,10 +31,10 @@ class ContentBlockExtension extends TwigExtension
     public function __construct()
     {
         parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('block_title', [$this, 'blockTitle'], ['is_safe' => ['html']]),
-            new TwigFunctionDefinition('block_content', [$this, 'blockContent'], ['is_safe' => ['html']]),
-            new TwigFunctionDefinition('block_props', [$this, 'blockProps'], ['is_safe' => ['html']]),
-            new TwigFunctionDefinition('block_prop', [$this, 'blockProp'], ['is_safe' => ['html']]),
+            new TwigFunctionDefinition('block_title', [$this, 'blockTitle'], new TwigOptionsDefinition(['is_safe' => ['html']])),
+            new TwigFunctionDefinition('block_content', [$this, 'blockContent'], new TwigOptionsDefinition(['is_safe' => ['html']])),
+            new TwigFunctionDefinition('block_props', [$this, 'blockProps'], new TwigOptionsDefinition(['is_safe' => ['html']])),
+            new TwigFunctionDefinition('block_prop', [$this, 'blockProp'], new TwigOptionsDefinition(['is_safe' => ['html']])),
         ]);
     }
 

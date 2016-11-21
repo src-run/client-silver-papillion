@@ -11,37 +11,22 @@
 
 namespace AppBundle\Twig;
 
+use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
+
 /**
  * Class StripHtmlExtension.
  */
-class StripHtmlExtension extends \Twig_Extension
+class StripHtmlExtension extends TwigExtension
 {
-    /**
-     * @return \Twig_Filter[]
-     */
-    public function getFilters()
+    public function __construct()
     {
-        return [
-            new \Twig_Filter('strip_html', [$this, 'stripHtml']),
-        ];
-    }
-
-    /**
-     * @param string $html
-     *
-     * @return string
-     */
-    public function stripHtml(string $html, string $allowed = '<b><string><em><italic><a>')
-    {
-        return strip_tags($html, $allowed);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'strip_html_extension';
+        parent::__construct(new TwigOptionsDefinition(), [
+            new TwigFilterDefinition('strip_html', function (string $html, string $allowed = '<b><string><em><italic><a>') {
+                return strip_tags($html, $allowed);
+            })
+        ], []);
     }
 }
 

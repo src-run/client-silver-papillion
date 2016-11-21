@@ -9,16 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Twig;
+namespace AppBundle\Twig\Helper;
 
 use SR\Exception\Logic\InvalidArgumentException;
-use SR\WonkaBundle\Twig\TwigExtension;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**
- * Class FrameworkReflectExtension.
+ * Class FrameworkReflectExtensionHelper.
  */
-class FrameworkReflectExtension extends TwigExtension
+class FrameworkReflectExtensionHelper
 {
     /**
      * @var string
@@ -34,20 +33,50 @@ class FrameworkReflectExtension extends TwigExtension
      * @param string $environment
      * @param bool   $debug
      */
-    public function __construct($environment, $debug)
+    public function __construct(string $environment, bool $debug)
     {
         $this->environment = $environment;
         $this->debug = $debug;
     }
 
     /**
-     * @return \Twig_Function[]
+     * @return string
      */
-    public function getFunctions()
+    public function getEnvironment()
     {
-        return [
-            new \Twig_Function('framework_*', [$this, 'frameworkInfo']),
-        ];
+        return $this->environment;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDebug()
+    {
+        return (bool) $this->debug;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'symfony/symfony';
+    }
+
+    /**
+     * @return int
+     */
+    public function getKernelId()
+    {
+        return Kernel::VERSION_ID;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEndOfLife()
+    {
+        return preg_replace('{[^0-9]+}i', '', Kernel::END_OF_LIFE);
     }
 
     /**
@@ -74,14 +103,6 @@ class FrameworkReflectExtension extends TwigExtension
             default:
                 throw InvalidArgumentException::create('Invalid framework property requested '.$what);
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'framework_reflect_extension';
     }
 }
 

@@ -10,36 +10,22 @@
  */
 
 namespace AppBundle\Twig;
+use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
 
 /**
  * Class SessionExtension.
  */
-class SessionExtension extends \Twig_Extension
+class SessionExtension extends TwigExtension
 {
-    /**
-     * @return \Twig_Function[]
-     */
-    public function getFunctions()
+    public function __construct()
     {
-        return [
-            new \Twig_Function('get_php_session_id', [$this, 'getPhpSessionId']),
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhpSessionId()
-    {
-        return session_id();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'session_extension';
+        parent::__construct(new TwigOptionsDefinition(), [], [
+            new TwigFunctionDefinition('get_php_session_id', function () {
+                return session_id();
+            }),
+        ]);
     }
 }
 

@@ -11,52 +11,24 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Twig\Helper\UrlTransformerExtensionHelper;
+use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
+
 /**
  * Class UrlTransformerExtension.
  */
-class UrlTransformerExtension extends \Twig_Extension
+class UrlTransformerExtension extends TwigExtension
 {
     /**
-     * @return \Twig_Function[]
+     * @param UrlTransformerExtensionHelper $helper
      */
-    public function getFilters()
+    public function __construct(UrlTransformerExtensionHelper $helper)
     {
-        return [
-            new \Twig_Filter('url_abs_to_rel', [$this, 'urlAbsToRel']),
-        ];
-    }
-
-    /**
-     * @param string $url
-     *
-     * @return mixed|string
-     */
-    public function urlAbsToRel($url)
-    {
-        $return = $relative = parse_url($url, PHP_URL_PATH);
-        if (!$relative) {
-            return $url;
-        }
-
-        $query = parse_url($url, PHP_URL_QUERY);
-        if ($query) {
-            $return .= '?'.$query;
-        }
-
-        $fragment = parse_url($url, PHP_URL_FRAGMENT);
-        if ($fragment) {
-            $return .= '#'.$fragment;
-        }
-
-        return $return;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'url_transformer_extension';
+        parent::__construct(new TwigOptionsDefinition(), [
+            new TwigFilterDefinition('url_abs_to_rel', [$helper, 'urlAbsToRel']),
+        ]);
     }
 }
 

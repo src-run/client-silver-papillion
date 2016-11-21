@@ -2,6 +2,7 @@
 
 {% block bread %}
     {{ parent() }}
+    <li><a href="{{ url('app_category_list') }}">Products</a></li>
     <li><a href="{{ url('app_category_view', {'category': product.getCategory.getSlug}) }}">{{ product.getCategory.getName }}</a></li>
     <li>{{ product.getName }}</li>
 {% endblock %}
