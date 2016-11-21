@@ -3596,16 +3596,16 @@
         },
         {
             "name": "src-run/wonka-bundle",
-            "version": "0.7.0",
+            "version": "0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/src-run/wonka-bundle.git",
-                "reference": "e8b7494420298ba593a84e23ed2b51fccb43a27c"
+                "reference": "b19afe36127f18388f46f882cc89a29502bf957c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/src-run/wonka-bundle/zipball/e8b7494420298ba593a84e23ed2b51fccb43a27c",
-                "reference": "e8b7494420298ba593a84e23ed2b51fccb43a27c",
+                "url": "https://api.github.com/repos/src-run/wonka-bundle/zipball/b19afe36127f18388f46f882cc89a29502bf957c",
+                "reference": "b19afe36127f18388f46f882cc89a29502bf957c",
                 "shasum": ""
             },
             "require": {
@@ -3614,7 +3614,7 @@
                 "symfony/config": "~3.0",
                 "symfony/dependency-injection": "~3.0",
                 "symfony/http-foundation": "~3.0",
-                "twig/twig": "~2.0@dev"
+                "twig/twig": "~1.0 || ~2.0@dev"
             },
             "require-dev": {
                 "codacy/coverage": "~1.0",
@@ -3664,7 +3664,7 @@
                 "wonka",
                 "wonka-bundle"
             ],
-            "time": "2016-11-16 18:35:48"
+            "time": "2016-11-20 16:06:47"
         },
         {
             "name": "src-run/wonka-library",
