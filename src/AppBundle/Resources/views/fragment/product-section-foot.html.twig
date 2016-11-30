@@ -3,7 +3,7 @@
  # product section footer
  #}
 
-<div class="card-section-foot is-overlay is-toggleable">
+<div class="card-section-foot is-overlay is-toggleable {{ classes|default('') }}">
     <div class="product-link">
         <a href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId, 'category': product.getCategory.getSlug}) }}">View Item {{ ion('android-arrow-forward') }}</a>
     </div>

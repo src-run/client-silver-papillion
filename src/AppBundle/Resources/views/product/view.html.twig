@@ -25,6 +25,11 @@
                             <img src="{{ asset_product(product.getImage) | imagine_filter('product_thumb') }}" alt="{{ product.getName }}" />
                         </a>
                     </div>
+
+                    {% include 'AppBundle:fragment:product-section-foot.html.twig' with {
+                        'product' : product,
+                        'classes' : 'has-accent'
+                    } only %}
                 </div>
 
                 {% if product.getImages()|length > 0 %}
@@ -132,7 +137,7 @@
             <div class="container">
 
                 <h3 class="primary-hr-i">
-                    {{ ion('grid') }} Related with this <em>"{{ product.getName }}" Product</em>
+                    {{ ion('grid') }} Associated with <em>{{ product.getName() }}</em>
                 </h3>
 
                 <div class="card-listing">
@@ -150,7 +155,7 @@
             <div class="container">
 
                 <h3 class="primary-hr-i">
-                    {{ ion('pricetag') }} More from the <em>"{{ product.getCategory.getName() }}" Category</em>
+                    {{ ion('plus') }} Other Available <em>{{ product.getCategory.getName() }}</em>
                 </h3>
 
                 <div class="card-listing">

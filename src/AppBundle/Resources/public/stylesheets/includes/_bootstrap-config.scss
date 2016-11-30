@@ -124,8 +124,9 @@ $font-family-base       : $font-family-sans-serif;
 // fonts: sizes
 
 $font-size-base    : 13px;
-$font-size-large   : $font-size-base * 1.2308; // ~18px
-$font-size-medium  : $font-size-base * 0.9231; // ~13px
+$font-size-xl      : $font-size-base * 1.3847; // ~18px
+$font-size-large   : $font-size-base * 1.2308; // ~16px
+$font-size-medium  : $font-size-base * 1.0000; // ~13px
 $font-size-small   : $font-size-base * 0.9231; // ~12px
 $font-size-x-small : $font-size-base * 0.8469; // ~11px
 $font-size-micro   : $font-size-base * 0.7699; // ~10px
@@ -136,16 +137,20 @@ $font-size-h4      : $font-size-base * 1.8462; // ~24px
 $font-size-h5      : $font-size-base * 1.5385; // ~20px
 $font-size-h6      : $font-size-base * 1.0770; // ~14px
 
-// fonts: line height
+// line sizes
 
 $line-height-base     : 1.6923;
 $line-height-computed : $font-size-base * $line-height-base; // ~22px
+$line-height-large    : $line-height-base * 0.8864;          // ~ 1.50
+$line-height-small    : $line-height-base * 0.7878;          // ~ 1.33
+$line-height-xsmall   : $line-height-base * 0.7091;          // ~ 1.20
+$line-height-flat     : 1.0;
 
 // fonts: headings
 
 $headings-font-family : inherit;
 $headings-font-weight : 300;
-$headings-line-height : $line-height-base * 0.7092; // ~1.2
+$headings-line-height : $line-height-xsmall;
 $headings-color       : $color-accent;
 
 // fonts: margins
@@ -174,20 +179,19 @@ $padding-micro-horizontal : $padding-base-horizontal * 0.3335; // ~ 04
 
 // containers
 
-$section-padding-above    : $padding-base * 3.5000;          // ~ 42
-$section-padding-above-md : $section-padding-above;          // ~ 42
-$section-padding-above-sm : $section-padding-above * 0.5715; // ~ 24
+$section-padding-base     : $padding-base * 2;              // ~ 24
 
-$section-padding-below    : $padding-base * 3.0000;          // ~ 34
-$section-padding-below-lg : $section-padding-below * 1.5883; // ~ 54
-$section-padding-below-md : $section-padding-below;          // ~ 34
-$section-padding-below-sm : $section-padding-below * 0.5295; // ~ 18
-$section-padding-below-xm : $section-padding-below * 0.2648; // ~ 9
+$section-padding-above-lg : $section-padding-base * 2.2500; // ~ 54
+$section-padding-above    : $section-padding-base * 1.7500; // ~ 42
+$section-padding-above-md : $section-padding-base * 1.2500; // ~ 30
+$section-padding-above-sm : $section-padding-base * 0.7500; // ~ 18
+$section-padding-above-xs : $section-padding-base * 0.2500; // ~ 06
 
-// line sizes
-
-$line-height-large : 1.3333333;
-$line-height-small : 1.5;
+$section-padding-below-lg : $section-padding-base * 2.7500; // ~ 66
+$section-padding-below    : $section-padding-base * 2.2500; // ~ 54
+$section-padding-below-md : $section-padding-base * 1.7500; // ~ 42
+$section-padding-below-sm : $section-padding-base * 1.0000; // ~ 24
+$section-padding-below-xs : $section-padding-base * 0.5000; // ~ 12
 
 // border radius sizes
 

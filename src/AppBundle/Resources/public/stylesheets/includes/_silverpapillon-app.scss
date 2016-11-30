@@ -272,8 +272,8 @@ footer {
 
 .promo {
   background-color : $bg-color-accent;
-  padding-top      : $container-padding-base * 1.1;
-  padding-bottom   : $container-padding-base;
+  padding-top      : $section-padding-above * 1.1;
+  padding-bottom   : $section-padding-above;
 
   a.btn {
     margin-top : 3px;
@@ -307,8 +307,8 @@ footer {
 
 .bread {
   background-color : $bg-color-accent;
-  padding-top      : $container-padding-base * 1.1;
-  padding-bottom   : $container-padding-base;
+  padding-top      : $section-padding-above-md;
+  padding-bottom   : $section-padding-below-md;
 
   h2 {
     color   : $color-accent;
@@ -383,6 +383,34 @@ footer {
     background-color : $card-section-bg;
   }
 
+  > .card-section-foot {
+
+    &.has-accent {
+      background-color : rgba($color-accent, 0.85) !important;
+
+      > * {
+        font-size      : $font-size-micro;
+        font-weight    : 600;
+        display        : block;
+        margin         : 1px 0 0 0;
+        text-align     : center;
+        text-transform : uppercase;
+      }
+
+      > * > * {
+        color                      : rgba($color-white, 0.85);
+        line-height                : 27px;
+        will-change                : auto;
+        transition                 : color $transition-time-color;
+        transition-timing-function : $transition-func-color;
+      }
+
+      &:hover > * > a {
+        text-decoration : none;
+      }
+    }
+  }
+
   &.is-linkable {
     cursor           : pointer;
     border           : $card-linkable-border;
@@ -391,7 +419,7 @@ footer {
     &:hover {
       border           : $card-linkable-border-active;
       background-color : $card-linkable-bg-active;
-      box-shadow       : 0 6px 27px rgba(0, 0, 0, .5);
+      box-shadow       : 0 4px 24px rgba(66, 26, 47, 0.76);
 
       > .card-section-head,
       > .card-section-foot {
@@ -455,6 +483,45 @@ footer {
   }
 }
 
+.card {
+  > .card-section-head {
+    > .product-name {
+      margin        : $section-padding-above-sm;
+
+      > h3, > h4, > h5 {
+        color         : $color-primary-alt;
+        font-family   : $font-family-condensed;
+        white-space   : nowrap;
+        overflow      : hidden;
+        text-overflow : ellipsis;
+      }
+
+      > h3 {
+        font-size : $font-size-large;
+      }
+
+      > h4 {
+        font-size : $font-size-xl;
+      }
+
+      > h5 {
+        font-size : $font-size-h5;
+      }
+    }
+
+    > .product-price {
+      font-size   : $font-size-small;
+      font-weight : 400;
+      color       : $color-accent;
+      margin      : -$section-padding-above-sm $section-padding-above-sm $section-padding-above-sm*0.75 $section-padding-above-sm;
+
+      p {
+        margin-bottom : 0;
+      }
+    }
+  }
+}
+
 .card-listing {
   @include make-row();
 }
@@ -467,29 +534,6 @@ footer {
       pointer-events : none;
     }
 
-    > .card-section-head {
-      .product-price {
-        font-size   : 12px;
-        font-weight : 400;
-        color       : $color-accent;
-        margin      : -15px 18px 12px 18px;
-
-        p {
-          margin-bottom : 0;
-        }
-      }
-
-      .product-name {
-        margin : 18px;
-
-        h4 {
-          color       : $color-primary-alt;
-          font-family : $font-family-condensed;
-          font-size   : 18px;
-        }
-      }
-    }
-
     > .card-section-body img {
       @include img-responsive();
 
@@ -499,18 +543,6 @@ footer {
     > .card-section-foot {
       margin           : 0;
       background-color : rgba($color-accent-alt, 0.9) !important;
-
-      .product-link {
-        display        : block;
-        margin         : 9px 6px 9px 6px;
-        text-align     : center;
-        font-weight    : 300;
-        text-transform : uppercase;
-
-        a {
-          color : $color-white;
-        }
-      }
     }
   }
 }
@@ -523,40 +555,10 @@ footer {
       pointer-events : none;
     }
 
-    > .card-section-head {
-      .product-name {
-        margin : 18px;
-
-        h4 {
-          color       : $color-primary-alt;
-          font-family : $font-family-condensed;
-          font-size   : 18px;
-        }
-      }
-    }
-
     > .card-section-body img {
       @include img-responsive();
 
       width : 100%;
-    }
-
-    > .card-section-foot {
-      margin           : 0;
-      background-color : rgba($color-accent-alt, 0.9) !important;
-
-      .product-link {
-        display        : block;
-        margin         : 6px 3px 5px 3px;
-        text-align     : center;
-        font-weight    : 600;
-        text-transform : uppercase;
-        font-size      : 10px;
-
-        a {
-          color : $color-white;
-        }
-      }
     }
   }
 }
@@ -569,39 +571,10 @@ footer {
       pointer-events : none;
     }
 
-    > .card-section-head {
-      .product-name {
-        margin : 18px;
-
-        h4 {
-          color       : $color-primary-alt;
-          font-family : $font-family-condensed;
-          font-size   : 18px;
-        }
-      }
-    }
-
     > .card-section-body img {
       @include img-responsive();
 
       width : 100%;
-    }
-
-    > .card-section-foot {
-      margin           : 0;
-      background-color : rgba($color-accent-alt, 0.9) !important;
-
-      .product-link {
-        display        : block;
-        margin         : 9px 6px 9px 6px;
-        text-align     : center;
-        font-weight    : 300;
-        text-transform : uppercase;
-
-        a {
-          color : $color-white;
-        }
-      }
     }
   }
 }
@@ -715,50 +688,10 @@ footer {
       pointer-events : none;
     }
 
-    > .card-section-head {
-      .product-price {
-        font-size   : 12px;
-        font-weight : 400;
-        color       : $color-accent;
-        margin      : -15px 18px 12px 18px;
-
-        p {
-          margin-bottom : 0;
-        }
-      }
-
-      .product-name {
-        margin : 18px;
-
-        h4 {
-          color       : $color-primary-alt;
-          font-family : $font-family-condensed;
-          font-size   : 18px;
-        }
-      }
-    }
-
     > .card-section-body img {
       @include img-responsive();
 
       width : 100%;
-    }
-
-    > .card-section-foot {
-      margin           : 0;
-      background-color : rgba($color-accent-alt, 0.9) !important;
-
-      .product-link {
-        display        : block;
-        margin         : 9px 6px 9px 6px;
-        text-align     : center;
-        font-weight    : 300;
-        text-transform : uppercase;
-
-        a {
-          color : $color-white;
-        }
-      }
     }
   }
 }
@@ -889,16 +822,6 @@ footer {
           @include img-responsive();
         }
       }
-    }
-  }
-
-  .card-section-foot {
-    padding: 0 5px 5px 5px;
-
-    .card {
-      float: left;
-      width: 25%;
-      margin-bottom: 0;
     }
   }
 }
@@ -1916,6 +1839,17 @@ footer {
       .category-info {
         color : $color-white;
       }
+    }
+  }
+}
+
+.container-sr-odd {
+  .card-wrap {
+    border        : 1px solid #efefef;
+    margin-bottom : $section-padding-below-md;
+
+    > .card {
+      margin-bottom : 0 !important;
     }
   }
 }

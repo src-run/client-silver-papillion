@@ -8,8 +8,7 @@
 
         {% include 'AppBundle:fragment:product-section-head.html.twig' with {
             'product'     : product,
-            'price'       : 'hide',
-            'class_cards' : 'is-not-overlay has-bg-light-gray',
+            'price'       : 'show'
         } only %}
 
         {% include 'AppBundle:fragment:product-section-body.html.twig' with {
@@ -17,7 +16,8 @@
         } only %}
 
         {% include 'AppBundle:fragment:product-section-foot.html.twig' with {
-            'product' : product
+            'product' : product,
+            'classes' : 'has-accent'
         } only %}
 
     </div>
