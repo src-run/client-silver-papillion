@@ -49,7 +49,7 @@
                             {% endif %}
 
                             <div class="card-section-body">
-                                {% for j, m in f.getMedia() %}
+                                {% for j, m in f.getMedia()|slice(0, 1) %}
                                     <a  class="feed-attachment-link"
                                         title="{{ m.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ m.getText()|default(f.getMessage()) }} ({{ j+1 }} of {{ f.getMedia|length }})"
                                         data-fancybox-initialized="0"
@@ -57,17 +57,13 @@
                                         {% if m.isVideo() %}
                                             href="https://www.facebook.com/video.php?v={{ m.getId() }}"
                                         {% else %}
-                                            href="{{ m.formatLgrThan(1800).getLink() | cache_url | imagine_filter('feed_attachment_lightbox_focus') }}"
+                                            href="{{ m.formatLgrThan(1800).getLink() | cache_url | imagine_filter('feed_media_lg') }}"
                                         {% endif %}
                                     >
 
                                         <img
                                             class="feed-attachment"
-                                            src="{% if j > 0 -%}
-                                                {{ m.formatSlrThan(1200).getLink() | cache_url | imagine_filter('feed_attachment_sm_thumb')  }}
-                                            {%- else -%}
-                                                {{ m.formatSlrThan(1200).getLink() | cache_url | imagine_filter('feed_attachment_lg_thumb')  }}
-                                            {%- endif %}"
+                                            src="{{ m.formatSlrThan(1200).getLink() | cache_url | imagine_filter('feed_media_thumb_lg')  }}"
                                             alt="{{ m.getText()|default(f.getMessage()) }}" />
 
                                     </a>
@@ -89,6 +85,59 @@
             </div>
 
         </div>
+
+        {% if f.getMedia()|slice(1)|length > 0 %}
+            <div class="card is-animated is-top-flush">
+                <div class="card-section-foot">
+                    {% for j, m in f.getMedia()|slice(1) %}
+                        <div class="card-feed-attachment">
+                            <div class="card is-animated">
+
+                                {% if m.isVideo()|default(false) %}
+                                    <div class="card-section-head is-overlay">
+
+                                    <span class="fa-stack fa-lg">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+                                    </span>
+
+                                    </div>
+                                {% endif %}
+
+                                <div class="card-section-body">
+                                    <a  class="feed-attachment-link"
+                                        title="{{ m.getCreatedOn()|default(f.getCreatedOn()) | date("m/d/Y") }} - {{ m.getText()|default(f.getMessage()) }} ({{ j+1 }} of {{ f.getMedia|length }})"
+                                        data-fancybox-initialized="0"
+                                        rel="photo-group"
+                                            {% if m.isVideo() %}
+                                                href="https://www.facebook.com/video.php?v={{ m.getId() }}"
+                                            {% else %}
+                                                href="{{ m.formatLgrThan(1800).getLink() | cache_url | imagine_filter('feed_media_lg') }}"
+                                            {% endif %}
+                                    >
+
+                                        <img
+                                                class="feed-attachment"
+                                                src="{{ m.formatSlrThan(1200).getLink() | cache_url | imagine_filter('feed_media_thumb_lg')  }}"
+                                                alt="{{ m.getText()|default(f.getMessage()) }}" />
+
+                                    </a>
+                                </div>
+
+                                <div class="card-section-foot is-overlay is-toggleable">
+                                    <p class="feed-type">
+
+                                        {% if f.getFirstMedia().isVideo() %}Watch video{% else %}Enlarge photo{% endif %}
+                                        {{ ion('android-arrow-forward') }}
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
     </div>
     {% set i = i + 1 %}
 {% endfor %}

@@ -170,7 +170,8 @@ class Events {
     this.initMenuDropDown();
     this.initCardProduct();
     this.initCardProductFeatured();
-    this.initCardProductSimilar();
+      this.initCardProductSimilar();
+      this.initCardProductRelated();
     this.initCardCategory();
     this.initCardMap();
   }
@@ -197,11 +198,17 @@ class Events {
     });
   }
 
-  initCardProductSimilar() {
-    RegisterEvent.onClick('.card-product-similar .card', function (event) {
-      Link.follow(LinkResolver.resolve(event.target));
-    });
-  }
+    initCardProductSimilar() {
+        RegisterEvent.onClick('.card-product-similar .card', function (event) {
+            Link.follow(LinkResolver.resolve(event.target));
+        });
+    }
+
+    initCardProductRelated() {
+        RegisterEvent.onClick('.card-product-related .card', function (event) {
+            Link.follow(LinkResolver.resolve(event.target));
+        });
+    }
 
   initCardCategory() {
     RegisterEvent.onClick('.card-product-category .card', function (event) {

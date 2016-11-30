@@ -20,12 +20,33 @@
                             rel="product-image-group_{{ product.getName()|slugify }}"
                             title="{{ product.getName }}"
                             data-fancybox-initialized="0"
-                            href="{{ asset_product(product.getImage) | imagine_filter('product_focus') }}"
+                            href="{{ asset_product(product.getImage) | imagine_filter('product_lg') }}"
                         >
-                            <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" />
+                            <img src="{{ asset_product(product.getImage) | imagine_filter('product_thumb') }}" alt="{{ product.getName }}" />
                         </a>
                     </div>
                 </div>
+
+                {% if product.getImages()|length > 0 %}
+                    <div class="product-alternate-images">
+                        {% for image in product.getImages() %}
+                            <div class="card is-linkable is-animated">
+                                <div class="card-section-body">
+                                    <a  class="feed-attachment-link"
+                                        rel="product-image-group_{{ product.getName()|slugify }}"
+                                        title="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
+                                        data-fancybox-initialized="0"
+                                        href="{{ asset_product(image.getImage) | imagine_filter('product_lg') }}"
+                                    >
+                                        <img src="{{ asset_product(image.getImage) | imagine_filter('product_thumb_no_border') }}"
+                                             alt="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
+                                        />
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
 
             <div class="product-view-info">
@@ -101,60 +122,50 @@
                             {% endif %}
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-        {% if product.getImages()|length > 0 %}
-        <div class="row">
-            <div class="product-view-image-more">
+    </div>
+
+    {% if product.hasRelatedProducts() %}
+        <div class="container-sr-odd">
+            <div class="container">
+
                 <h3 class="primary-hr-i">
-                    {{ ion('images') }} Alternate <em>Images</em>
+                    {{ ion('star') }} Products <em>Related to {{ product.getName }}</em>
                 </h3>
-                <div class="row">
-                    {% for image in product.getImages() %}
-                        <div class="product-view-image-more-item">
-                            <div class="card is-linkable is-animated">
-                                <div class="card-section-body">
-                                    <a  class="feed-attachment-link"
-                                        rel="product-image-group_{{ product.getName()|slugify }}"
-                                        title="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
-                                        data-fancybox-initialized="0"
-                                        href="{{ asset_product(image.getImage) | imagine_filter('product_focus') }}"
-                                    >
-                                        <img src="{{ asset_product(image.getImage) | imagine_filter('product_view_thumbs') }}"
-                                             alt="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
-                                        />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+
+                <div class="card-listing">
+                    {% for p in product.getRelatedProductsExcludingSelf() %}
+                        {% include 'AppBundle:fragment:product-list-item-related.html.twig' with { 'product': p } only %}
                     {% endfor %}
                 </div>
+
             </div>
         </div>
-        {% endif %}
-    </div>
+    {% endif %}
 
-    <div class="container-sr-odd">
-        <div class="container">
+    {% if similar|length > 0 %}
+        <div class="{% if product.hasRelatedProducts() %}container-sr{% else %}container-sr-odd{% endif %}">
+            <div class="container">
 
-            <h3 class="primary-hr-i">
-                {{ ion('grid') }} Similar <em>Products</em>
-            </h3>
+                <h3 class="primary-hr-i">
+                    {{ ion('grid') }} Other <em>{{ product.getCategory.getName() }}</em>
+                </h3>
 
-            <div class="card-listing">
-                {% for p in similar %}
-                    {% include 'AppBundle:fragment:product-list-item-simple.html.twig' with { 'product': p } only %}
-                {% endfor %}
+                <div class="card-listing">
+                    {% for p in similar %}
+                        {% include 'AppBundle:fragment:product-list-item-simple.html.twig' with { 'product': p } only %}
+                    {% endfor %}
+                </div>
+
+                {% include 'AppBundle:fragment:link-button-right.html.twig' with {
+                    'route' : 'app_category_view',
+                    'args'  : {'category': category.getSlug},
+                    'text'  : 'All ' ~ category.getName
+                } only %}
+
             </div>
-
-            {% include 'AppBundle:fragment:link-button-right.html.twig' with {
-                'route' : 'app_category_view',
-                'args'  : {'category': category.getSlug},
-                'text'  : 'View More ' ~ category.getName
-            } only %}
-
         </div>
-    </div>
+    {% endif %}
 {% endblock %}

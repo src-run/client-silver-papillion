@@ -48,6 +48,8 @@ easy_admin:
             type      : 'image'
             base_path : '%srwc.public_path.image_products%'
 
+          - relatedProducts
+
           - category
 
       show:
@@ -83,6 +85,8 @@ easy_admin:
 
           - images
 
+          - relatedProducts
+
           - category
 
       form:
@@ -100,6 +104,10 @@ easy_admin:
 
           - property  : 'description'
             type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
+
+          - type      : 'divider'
+
+          - relatedProducts
 
           - type      : 'divider'
 

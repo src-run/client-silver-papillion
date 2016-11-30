@@ -11,87 +11,25 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Twig\Helper\UrlToFileExtensionHelper;
+use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
+
 /**
  * Class UrlToFileExtension.
  */
-class UrlToFileExtension extends \Twig_Extension
+class UrlToFileExtension extends TwigExtension
 {
     /**
-     * @var string
+     * @param UrlToFileExtensionHelper $helper
      */
-    private $sysDir;
-
-    /**
-     * @param string $dir
-     */
-    public function setSysDir($dir)
+    public function __construct(UrlToFileExtensionHelper $helper)
     {
-        $this->sysDir = $dir;
-    }
-
-    /**
-     * @var string
-     */
-    private $webDir;
-
-    /**
-     * @param string $dir
-     */
-    public function setWebDir($dir)
-    {
-        $this->webDir = $dir;
-    }
-
-    /**
-     * @return \Twig_Function[]
-     */
-    public function getFilters()
-    {
-        return [
-            new \Twig_Filter('url_to_file', [$this, 'urlToFile']),
-            new \Twig_Filter('cache_url', [$this, 'urlToFile']),
-        ];
-    }
-
-    /**
-     * @param string      $url
-     * @param string|null $fileExt
-     *
-     * @return string
-     */
-    public function urlToFile($url, $fileExt = null)
-    {
-        if ($fileExt === null) {
-            $fileExt = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
-        }
-
-        $sysPath = sprintf('%s/fetched/%s.%s', $this->sysDir, $md5 = md5($url), $fileExt);
-        $webPath = sprintf('%s/fetched/%s.%s', $this->webDir, $md5, $fileExt);
-
-        if (!is_dir(pathinfo($sysPath, PATHINFO_DIRNAME))) {
-            mkdir(pathinfo($sysPath, PATHINFO_DIRNAME), 0777, true);
-        }
-
-        if (file_exists($sysPath)) {
-            return $webPath;
-        }
-
-        $fileContents = @file_get_contents($url);
-
-        if (!$fileContents || (!is_dir($sysDir = pathinfo($sysPath, PATHINFO_DIRNAME)) && !@mkdir($sysDir, 0777, true)) ||
-            !file_put_contents($sysPath, $fileContents)) {
-            return $url;
-        }
-
-        return $webPath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'url_to_file_extension';
+        parent::__construct(new TwigOptionsDefinition(), [
+            new TwigFilterDefinition('url_to_file', [$helper, 'urlToFile']),
+            new TwigFilterDefinition('cache_url', [$helper, 'urlToFile']),
+        ]);
     }
 }
 

@@ -11,7 +11,7 @@
         {% if f.hasPhotos() -%}
         "image"         : [
             {%- for i, p in f.getPhotos() -%}
-            "{{ p.formatLgrThan(2400, true).getLink() | url_encode | imagine_filter('feed_attachment_lightbox_focus') }}"{% if i != f.getPhotos()|length - 1 %},{% endif %}
+            "{{ p.formatLgrThan(2400, true).getLink() | url_encode | imagine_filter('feed_media_lg') }}"{% if i != f.getPhotos()|length - 1 %},{% endif %}
             {%- endfor -%} ],
         {% endif -%}
         {% if f.getVideos()|length > 0 -%}

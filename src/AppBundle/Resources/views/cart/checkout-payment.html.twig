@@ -95,7 +95,7 @@
                         {% for g in cart_items_grouped() %}
                             <div class="checkout-info-item">
                                 <div class="cart-item-image">
-                                    <img alt="{{ g.getProduct.getName }}" src="{{ asset_product(g.getProduct.getImage) | imagine_filter('cart_product_thumb') }}" />
+                                    <img alt="{{ g.getProduct.getName }}" src="{{ asset_product(g.getProduct.getImage) | imagine_filter('product_thumb_sm') }}" />
                                 </div>
                                 <h4>
                                     <a href="{{ path('app_product_view', {'productName': g.getProduct.getName|slugify, 'product': g.getProduct.getId, 'category': g.getProduct.getCategory.getSlug}) }}">

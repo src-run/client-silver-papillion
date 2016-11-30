@@ -12,51 +12,26 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Util\Slugger;
+use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
+use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
+use SR\WonkaBundle\Twig\TwigExtension;
 
 /**
  * Class SluggerExtension.
  */
-class SluggerExtension extends \Twig_Extension
+class SluggerExtension extends TwigExtension
 {
-    /**
-     * @var Slugger
-     */
-    private $slugger;
-
     /**
      * @param Slugger $slugger
      */
-    public function setSlugger(Slugger $slugger)
+    public function __construct(Slugger $slugger)
     {
-        $this->slugger = $slugger;
-    }
-
-    /**
-     * @return \Twig_Filter[]
-     */
-    public function getFilters()
-    {
-        return [
-            new \Twig_Filter('slugify', [$this, 'slugify']),
-        ];
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
-    public function slugify($value)
-    {
-        return $this->slugger->slugify($value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'slugger_extension';
+        parent::__construct(new TwigOptionsDefinition(), [
+            new TwigFilterDefinition('slugify', [$slugger, 'slugify']),
+        ], [
+            new TwigFunctionDefinition('slugify', [$slugger, 'slugify']),
+        ]);
     }
 }
 

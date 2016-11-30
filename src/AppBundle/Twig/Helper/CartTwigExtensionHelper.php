@@ -9,46 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Twig;
+namespace AppBundle\Twig\Helper;
 
 use AppBundle\Entity\Product;
 use AppBundle\Model\Cart;
 
 /**
- * Class CartExtension.
+ * Class CartTwigExtensionHelper.
  */
-class CartExtension extends \Twig_Extension
+class CartTwigExtensionHelper
 {
     /**
      * @var Cart
      */
     private $cart;
 
-    /**
-     * @param Cart $cart
-     */
-    public function setCart(Cart $cart)
+    public function __construct(Cart $cart)
     {
         $this->cart = $cart;
-    }
-
-    /**
-     * @return \Twig_Function[]
-     */
-    public function getFunctions()
-    {
-        return [
-            new \Twig_Function('get_cart', [$this, 'getCart']),
-            new \Twig_Function('cart_has', [$this, 'cartHas']),
-            new \Twig_Function('cart_uuid', [$this, 'cartUuid']),
-            new \Twig_Function('cart_count', [$this, 'cartCount']),
-            new \Twig_Function('cart_total', [$this, 'cartTotal']),
-            new \Twig_Function('cart_subTotal', [$this, 'cartSubTotal']),
-            new \Twig_Function('cart_tax', [$this, 'cartTax']),
-            new \Twig_Function('cart_shipping', [$this, 'cartShipping']),
-            new \Twig_Function('cart_items', [$this, 'cartItems']),
-            new \Twig_Function('cart_items_grouped', [$this, 'cartItemsGrouped']),
-        ];
     }
 
     /**
@@ -133,14 +111,6 @@ class CartExtension extends \Twig_Extension
     public function cartItemsGrouped()
     {
         return $this->cart->getItemsGrouped();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'cart_extension';
     }
 }
 
