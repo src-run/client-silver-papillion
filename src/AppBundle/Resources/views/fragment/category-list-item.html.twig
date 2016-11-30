@@ -14,7 +14,7 @@
         <div class="card-section-body">
             {% for p in category.getProducts|slice(0, 5) %}
 
-                <img src="{{ asset_product(p.getImage) | imagine_filter('product_category_thumbs') }}" alt="{{ p.getName }} Product Image" />
+                <img src="{{ asset_product(p.getImage) | imagine_filter('category_thumb') }}" alt="{{ p.getName }} Product Image" />
 
             {% endfor %}
         </div>

@@ -531,6 +531,20 @@ class Product
     }
 
     /**
+     * @return Product[]|ArrayCollection
+     */
+    public function getRelatedProductsExcludingSelf()
+    {
+        $relatedProduct = $this->relatedProducts;
+
+        if ($relatedProduct->contains($this)) {
+            $relatedProduct->removeElement($this);
+        };
+
+        return $relatedProduct;
+    }
+
+    /**
      * @param null|Product[]|ArrayCollection $relatedProducts
      *
      * @return $this

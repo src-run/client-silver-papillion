@@ -20,9 +20,9 @@
                             rel="product-image-group_{{ product.getName()|slugify }}"
                             title="{{ product.getName }}"
                             data-fancybox-initialized="0"
-                            href="{{ asset_product(product.getImage) | imagine_filter('product_focus') }}"
+                            href="{{ asset_product(product.getImage) | imagine_filter('product_lg') }}"
                         >
-                            <img src="{{ asset_product(product.getImage) | imagine_filter('product_view_thumbs') }}" alt="{{ product.getName }}" />
+                            <img src="{{ asset_product(product.getImage) | imagine_filter('product_thumb') }}" alt="{{ product.getName }}" />
                         </a>
                     </div>
                 </div>
@@ -36,9 +36,9 @@
                                         rel="product-image-group_{{ product.getName()|slugify }}"
                                         title="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
                                         data-fancybox-initialized="0"
-                                        href="{{ asset_product(image.getImage) | imagine_filter('product_focus') }}"
+                                        href="{{ asset_product(image.getImage) | imagine_filter('product_lg') }}"
                                     >
-                                        <img src="{{ asset_product(image.getImage) | imagine_filter('product_view_thumbs_no_border') }}"
+                                        <img src="{{ asset_product(image.getImage) | imagine_filter('product_thumb_no_border') }}"
                                              alt="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
                                         />
                                     </a>
@@ -136,7 +136,7 @@
                 </h3>
 
                 <div class="card-listing">
-                    {% for p in product.getRelatedProducts() %}
+                    {% for p in product.getRelatedProductsExcludingSelf() %}
                         {% include 'AppBundle:fragment:product-list-item-related.html.twig' with { 'product': p } only %}
                     {% endfor %}
                 </div>

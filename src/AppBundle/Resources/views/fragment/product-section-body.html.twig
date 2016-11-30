@@ -5,6 +5,6 @@
 
 <div class="card-section-body">
     <a href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId, 'category': product.getCategory.getSlug}) }}">
-        <img alt="{{ product.getName }}" src="{{ asset_product(product.getImage) | imagine_filter('product_thumbs') }}"/>
+        <img alt="{{ product.getName }}" src="{{ asset_product(product.getImage) | imagine_filter('product_thumb') }}"/>
     </a>
 </div>

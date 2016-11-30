@@ -32,7 +32,7 @@ class ProductController extends Controller
 
         $similar = $productManager->getRandomSimilar(
             $product,
-            $configsManager->value('product.count.similar', 4)
+            $configsManager->value('product.count.similar', 8)
         );
 
         return $this->render('AppBundle:product:view.html.twig', [

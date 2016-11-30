@@ -1473,9 +1473,42 @@ footer {
         font-size   : 14px;
         text-align  : center;
       }
+
+      .feed-attachment-link-wrap {
+        padding-bottom : 20px;
+      }
+
+      .feed-attachment-link {
+        width : 100%;
+        float : none;
+
+        img {
+          @include img-responsive();
+
+          pointer-events : auto;
+
+          cursor           : pointer;
+          border           : $card-linkable-border;
+          background-color : $card-linkable-bg;
+          will-change      : auto;
+          transition       : border $transition-time-x08, background-color $transition-time-x08, box-shadow $transition-time-x04;
+
+          &:hover {
+            border           : $card-linkable-border-active;
+            background-color : $card-linkable-bg-active;
+            box-shadow       : 0 6px 27px rgba(0, 0, 0, .5);
+
+            > .card-section-head,
+            > .card-section-foot {
+              background-color : $card-section-bg-active;
+            }
+          }
+        }
+      }
     }
 
-    > .card-section-foot .card-feed-attachment {
+    > .card-section-foot .card-feed-attachment,
+    > .card-section-body .card-feed-attachment {
       margin : 12px 21px 21px 21px;
 
       .card {
@@ -1610,6 +1643,10 @@ footer {
           }
         }
       }
+    }
+
+    &.is-top-flush {
+      margin-top : -50px;
     }
   }
 }
