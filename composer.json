@@ -33,7 +33,7 @@
     "doctrine/orm": "~2.5",
     "egeloen/ckeditor-bundle": "~4.0",
     "friendsofphp/php-cs-fixer": "~2.0",
-    "facebook/php-sdk-v4": "~5.0",
+    "facebook/graph-sdk": "~5.0",
     "friendsofsymfony/user-bundle": "~2.0",
     "hostnet/form-handler-bundle": "~1.1",
     "incenteev/composer-parameter-handler": "~2.1",
@@ -57,7 +57,7 @@
     "symfony/monolog-bundle": "~3.0",
     "symfony/routing": "~3.2",
     "symfony/swiftmailer-bundle": "~2.4",
-    "twig/twig": "~1.25",
+    "twig/twig": "~1.25 || ~2.0",
     "vich/uploader-bundle": "~1.3",
     "whiteoctober/swiftmailerdbbundle": "~1.0"
   },
@@ -108,11 +108,5 @@
     "branch-alias" : {
       "dev-master" : "1.0-dev"
     }
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/src-run/twig.git"
-    }
-  ]
+  }
 }

@@ -30,8 +30,8 @@ class ProductController extends Controller
         $productManager = $this->get('app.manager.product');
         $configsManager = $this->get('app.manager.configuration');
 
-        $similar = $productManager->getRandomFromCategory(
-            $product->getCategory(),
+        $similar = $productManager->getRandomSimilar(
+            $product,
             $configsManager->value('product.count.similar', 4)
         );
 

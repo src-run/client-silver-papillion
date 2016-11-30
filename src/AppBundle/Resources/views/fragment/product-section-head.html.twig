@@ -3,7 +3,7 @@
  # product section header
  #}
 
-<div class="card-section-head{{ class_cards|default(' is-overlay is-toggleable') }}">
+<div class="card-section-head {{ class_cards|default(' is-overlay is-toggleable') }}">
 
     <div class="product-name">
         <h4><a href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId, 'category': product.getCategory.getSlug}) }}">{{ product.getName }}</a></h4>

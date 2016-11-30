@@ -40,6 +40,20 @@
       </order-by>
     </one-to-many>
 
+    <many-to-many field="relatedProducts" target-entity="AppBundle\Entity\Product" fetch="EAGER">
+      <join-table name="product_related">
+        <join-columns>
+          <join-column name="product"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="related"/>
+        </inverse-join-columns>
+      </join-table>
+      <order-by>
+        <order-by-field name="name" direction="ASC" />
+      </order-by>
+    </many-to-many>
+
   </entity>
 
 </doctrine-mapping>

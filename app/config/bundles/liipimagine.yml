@@ -66,6 +66,16 @@ liip_imagine :
         thumbnail   : { size : [800, 800], mode : outbound, allow_upscale : true }
         background  : { size : [840, 840], position : center, color : '#fff' }
 
+    product_view_thumbs_no_border :
+
+      jpeg_quality          : 85
+      png_compression_level : 8
+
+      filters :
+        auto_rotate : ~
+        strip       : ~
+        thumbnail   : { size : [400, 400], mode : outbound, allow_upscale : true }
+
     feed_photo_thumbs :
 
       jpeg_quality          : 85

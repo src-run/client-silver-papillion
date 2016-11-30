@@ -105,9 +105,14 @@ class Product
     protected $taxable;
 
     /**
-     * @var \AppBundle\Entity\Category
+     * @var Category
      */
     protected $category;
+
+    /**
+     * @var Product
+     */
+    protected $relatedProducts;
 
     /**
      * Assign entity property default values.
@@ -119,6 +124,8 @@ class Product
         $this->enabled = true;
         $this->featured = false;
         $this->taxable = true;
+        $this->relatedProducts = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     /**
@@ -513,6 +520,34 @@ class Product
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * @return Product[]|ArrayCollection
+     */
+    public function getRelatedProducts()
+    {
+        return $this->relatedProducts;
+    }
+
+    /**
+     * @param null|Product[]|ArrayCollection $relatedProducts
+     *
+     * @return $this
+     */
+    public function setRelatedProducts($relatedProducts = null)
+    {
+        $this->relatedProducts = $relatedProducts;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasRelatedProducts()
+    {
+        return !$this->relatedProducts->isEmpty();
     }
 }
 

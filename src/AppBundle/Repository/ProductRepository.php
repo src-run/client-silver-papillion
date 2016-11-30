@@ -51,6 +51,31 @@ class ProductRepository extends AbstractRepository
     }
 
     /**
+     * @param Category $category
+     * @param Product[] ...$exclusions
+     *
+     * @return Product[]
+     */
+    public function findInCategoryWithExclusions(Category $category, Product ...$exclusions)
+    {
+        return $this->getResult(function (QueryBuilder $b) use ($category, $exclusions) {
+            $b
+                ->where('p.category = :category')
+                ->andWhere('p.enabled = 1');
+
+            foreach ($exclusions as $i => $product) {
+                $b
+                    ->andWhere('p != :product_'.$i)
+                    ->setParameter('product_'.$i, $product);
+            }
+
+            $b
+                ->setParameter('category', $category)
+                ->orderBy('p.name');
+        });
+    }
+
+    /**
      * @param Category  $category
      * @param Paginator $paginator
      * @param int       $page
