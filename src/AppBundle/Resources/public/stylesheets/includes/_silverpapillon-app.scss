@@ -9,14 +9,14 @@
 */
 
 .container-sr {
-  padding-top    : $container-padding-top;
-  padding-bottom : $container-padding-bot;
+  padding-top    : $section-padding-above;
+  padding-bottom : $section-padding-below-md;
 }
 
 .container-sr-odd {
   background-color : #fff;
-  padding-top      : $container-padding-top;
-  padding-bottom   : $container-padding-bot * 1.6;
+  padding-top      : $section-padding-above;
+  padding-bottom   : $section-padding-below-md * 1.6;
 }
 
 .container-main-wrap {
@@ -362,7 +362,7 @@ footer {
   overflow         : hidden;
   position         : relative;
   box-shadow       : 0 3px 12px rgba(0,0,0,0.05);
-  margin-bottom    : $container-padding-bot;
+  margin-bottom    : $section-padding-below-md;
 
   > .card-section-head,
   > .card-section-body,
@@ -547,10 +547,11 @@ footer {
 
       .product-link {
         display        : block;
-        margin         : 9px 6px 9px 6px;
+        margin         : 6px 3px 5px 3px;
         text-align     : center;
-        font-weight    : 300;
+        font-weight    : 600;
         text-transform : uppercase;
+        font-size      : 10px;
 
         a {
           color : $color-white;
@@ -878,8 +879,8 @@ footer {
 .product-view-image {
   @include make-sm-column(5);
 
-  padding-top    : $container-padding-top;
-  padding-bottom : $container-padding-bot;
+  padding-top    : $section-padding-above;
+  padding-bottom : $section-padding-below-md;
 
   .card {
     .card-section-body {
@@ -915,8 +916,8 @@ footer {
 .product-view-info {
   @include make-sm-column(7);
 
-  padding-top    : $container-padding-top;
-  padding-bottom : $container-padding-bot;
+  padding-top    : $section-padding-above;
+  padding-bottom : $section-padding-below-md;
 }
 
 .card-product-info {
@@ -2074,7 +2075,7 @@ input[type=number],
 
   &.input {
     &-sm {
-      font-size: $font-size-small;
+      font-size: $font-size-x-small;
     }
 
     &-lg {
@@ -2105,7 +2106,7 @@ select.form-control {
 
   &.input {
     &-sm {
-      font-size: $font-size-small;
+      font-size: $font-size-x-small;
     }
 
     &-lg {
