@@ -64,7 +64,7 @@ class WineCaddyCommand extends ContainerAwareCommand
     protected function cleanUpDetails()
     {
         $this->io->section('Cleaning up product details');
-        $contents = file_get_contents(__DIR__.'/../../../products.yml');
+        $contents = file_get_contents(__DIR__ . '/../../../products.yml');
         $details = Yaml::parse($contents);
 
         $this->io->progressStart(count($details));

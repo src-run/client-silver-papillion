@@ -194,7 +194,7 @@
           &:hover {
             border           : $border-color-linkable-focus;
             background-color : $bg-color-linkable-focus;
-            box-shadow       : 0 6px 27px rgba(0, 0, 0, 0.5);
+            box-shadow       : 0 6px 27px rgba($color-black, 0.5);
 
             > .card-section-head,
             > .card-section-foot {
@@ -316,7 +316,7 @@
               &:hover {
                 border           : $border-color-linkable-focus;
                 background-color : $bg-color-linkable-focus;
-                box-shadow       : 0 6px 27px rgba(0, 0, 0, 0.5);
+                box-shadow       : 0 6px 27px rgba($color-black, 0.5);
 
                 > .card-section-head,
                 > .card-section-foot {

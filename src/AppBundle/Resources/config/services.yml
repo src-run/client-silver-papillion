@@ -9,6 +9,7 @@ services :
       - "@session"
       - "@doctrine.orm.default_entity_manager"
       - "@app.manager.configuration"
+      - "@app.location_lookup.resolver"
 
   app.slugger :
     class : AppBundle\Util\Slugger
@@ -284,3 +285,41 @@ services :
       - "%public_cache_dir%"
     tags:
       - { name: liip_imagine.cache.resolver, resolver: remote }
+
+  #
+  # location lookup cache
+  #
+  app.location_lookup.cache:
+    class     : AppBundle\Component\Cache\Cache
+    arguments :
+      - "@cache.app"
+    calls     :
+      - [setEnabled, [false]]
+
+  #
+  # maxmind location resolver
+  #
+  app.location_lookup.maxmind.resolver:
+    class     : AppBundle\Component\Location\Resolver\MaxMindResolver
+    arguments :
+      - "%location_lookup.max_mind.database%"
+
+  #
+  # ip2location location resolver
+  #
+  app.location_lookup.ip2location.resolver:
+    class     : AppBundle\Component\Location\Resolver\Ip2LocationResolver
+    arguments :
+      - "%location_lookup.ip2location.database%"
+
+  #
+  # location lookup master resolver
+  #
+  app.location_lookup.resolver:
+    class     : AppBundle\Component\Location\LocationLookup
+    arguments :
+      - ["@app.location_lookup.maxmind.resolver", "@app.location_lookup.ip2location.resolver"]
+      - "@app.location_lookup.cache"
+      - 30
+    calls :
+      - [setRequestStack, ["@request_stack"]]

@@ -11,6 +11,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Component\Location\Model\LocationCollectionModel;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderItem;
@@ -40,12 +41,24 @@ use Symfony\Component\HttpFoundation\Request;
 class CartController extends Controller
 {
     /**
+     * @param Request $request
+     *
+     * @return LocationCollectionModel
+     */
+    private function locationLookup(Request $request)
+    {
+        return $this->get('app.location_lookup.resolver')
+            ->lookupAll($request->getClientIp());
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction()
+    public function viewAction(Request $request)
     {
         return $this->render('AppBundle:cart:view.html.twig', [
-            '_c' => static::class,
+            '_c'    => static::class,
+            'geoip' => $this->locationLookup($request),
         ]);
     }
 
@@ -76,8 +89,9 @@ class CartController extends Controller
         }
 
         return $this->render('AppBundle:cart:checkout.html.twig', [
-            '_c' => static::class,
-            'f'  => $form->createView(),
+            '_c'    => static::class,
+            'f'     => $form->createView(),
+            'geoip' => $this->locationLookup($request),
         ]);
     }
 
@@ -113,12 +127,13 @@ class CartController extends Controller
         return $this->render('AppBundle:cart:checkout-payment.html.twig', [
             '_c'         => static::class,
             'f'          => $form->createView(),
+            'geoip'      => $this->locationLookup($request),
             'flash'      => $session->getFlashBag()->get('error'),
             'stripe_key' => $this->getParameter('stripe_publishable_key'),
         ]);
     }
 
-    public function checkoutProcessAction()
+    public function checkoutProcessAction(Request $request)
     {
         $session = $this->get('session');
 
@@ -171,6 +186,7 @@ class CartController extends Controller
 
         return $this->render('AppBundle:cart:checkout-confirmation.html.twig', [
             '_c'    => static::class,
+            'geoip' => $this->locationLookup($request),
             'order' => $order,
         ]);
     }

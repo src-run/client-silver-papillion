@@ -11,6 +11,7 @@
 
 namespace AppBundle\Model;
 
+use AppBundle\Component\Location\LocationLookupInterface;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Manager\ConfigurationManager;
@@ -59,15 +60,22 @@ class Cart implements \Serializable
     protected $configurationManager;
 
     /**
-     * @param Session              $session
-     * @param EntityManager        $entityManager
-     * @param ConfigurationManager $configurationManager
+     * @var LocationLookupInterface
      */
-    public function __construct(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager)
+    protected $locationLookup;
+
+    /**
+     * @param Session                 $session
+     * @param EntityManager           $entityManager
+     * @param ConfigurationManager    $configurationManager
+     * @param LocationLookupInterface $locationLookup
+     */
+    public function __construct(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager, LocationLookupInterface $locationLookup)
     {
         $this->setSession($session);
         $this->setEntityManager($entityManager);
         $this->setConfigurationManager($configurationManager);
+        $this->setLocationLookup($locationLookup);
     }
 
     public function toJson()
@@ -82,14 +90,14 @@ class Cart implements \Serializable
     }
 
     /**
-     * @param Session              $session
-     * @param EntityManager        $entityManager
-     * @param ConfigurationManager $configurationManager
-     *on
+     * @param Session                 $session
+     * @param EntityManager           $entityManager
+     * @param ConfigurationManager    $configurationManager
+     * @param LocationLookupInterface $locationLookup
      *
      * @return mixed|static
      */
-    public static function create(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager)
+    public static function create(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager, LocationLookupInterface $locationLookup)
     {
         if ($session->has(static::SESSION_KEY)) {
             $instance = unserialize($session->get(static::SESSION_KEY));
@@ -98,13 +106,14 @@ class Cart implements \Serializable
                 $instance->setSession($session);
                 $instance->setEntityManager($entityManager);
                 $instance->setConfigurationManager($configurationManager);
+                $instance->setLocationLookup($locationLookup);
                 $instance->initialize();
 
                 return $instance;
             }
         }
 
-        return new static($session, $entityManager, $configurationManager);
+        return new static($session, $entityManager, $configurationManager, $locationLookup);
     }
 
     /**
@@ -129,6 +138,14 @@ class Cart implements \Serializable
     public function setConfigurationManager(ConfigurationManager $configurationManager)
     {
         $this->configurationManager = $configurationManager;
+    }
+
+    /**
+     * @param LocationLookupInterface $locationLookup
+     */
+    public function setLocationLookup(LocationLookupInterface $locationLookup)
+    {
+        $this->locationLookup = $locationLookup;
     }
 
     /**
@@ -209,7 +226,7 @@ class Cart implements \Serializable
         }, []);
 
         uasort($grouped, function (CartGroup $a, CartGroup $b) {
-            return $a->getProduct()->getName() > $b->getProduct()->getName();
+            return $a->item()->getName() > $b->item()->getName();
         });
 
         return $grouped;
@@ -300,6 +317,10 @@ class Cart implements \Serializable
      */
     public function tax()
     {
+        if ($this->locationLookup->lookupUsingClientIp()->getRegionName() !== 'Connecticut') {
+            return 0;
+        }
+
         $taxableRate = $this->configurationManager->value('rate.taxable', Product::RATE_TAX_PERCENTAGE);
 
         return array_reduce($this->items, function ($carry, Product $p) use ($taxableRate) {
