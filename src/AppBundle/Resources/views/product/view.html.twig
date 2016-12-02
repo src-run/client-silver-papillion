@@ -59,34 +59,43 @@
                 <div class="card card-product-info">
 
                     <div class="product-name">
-                        <h1>{{ product.getName }}</h1>
+                        <h1>{{ product.getName() }}</h1>
                     </div>
 
                     <hr />
 
-                    {% if product.hasSku %}
+                    {% if product.hasSku() %}
                         <div class="product-sku">
-                            <span class="label label-default">SKU: {{ product.getSku }}</span>
+                            <span class="label label-default">SKU: {{ product.getSku() }}</span>
                         </div>
                     {% endif %}
 
-                    {% if product.hasDescription %}
+                    {% if product.hasDescription() %}
                         <div class="product-desc">
-                            {{ product.getDescription }}
+                            {{ product.getDescription() }}
                         </div>
                     {% endif %}
 
                     <div class="product-price">
-                        <p class="product-price-main">${{ product.getPrice|number_format(2, '.', ',') }}</p>
+
+                        <p class="product-price-main">
+                            ${{ product.getPrice()|number_format(2, '.', ',') }}
+                        </p>
+
                         <p class="product-price-extra">
+
                             <em>${{ product.getShippingRate(config('rate.shipping', constant('AppBundle\\Entity\\Product::RATE_SHIPPING_DEFAULT')))|number_format(2, '.', ',') }}</em> shipping per unit
-                            {% if product.isTaxable %}
+
+                            {% if product.isTaxable() %}
+                                /
                                 {% if client_is_taxable() %}
-                                    / <em>{{ product.getTaxableRate(config('rate.taxable', constant('AppBundle\\Entity\\Product::RATE_TAX_PERCENTAGE')))|number_format(4, '.', ',') }}%</em> sales tax {% if client_region_name() != null %}for <em>{{ client_region_name()|lower }}</em> region{% endif %}
+                                    <em>{{ product.getTaxableRate(config('rate.taxable', constant('AppBundle\\Entity\\Product::RATE_TAX_PERCENTAGE')))|number_format(4, '.', ',') }}%</em>
                                 {% else %}
-                                    / <em>0.00%</em> sales tax {% if client_region_name() != null %}for <em>{{ client_region_name()|lower }}</em> region{% endif %}
+                                    <em>$0.00</em>
                                 {% endif %}
+                                sales tax{% if client_region_name() != null %} for <em>{{ client_region_name() }}</em> region{% endif %}
                             {% endif %}
+
                         </p>
                     </div>
 
@@ -95,7 +104,7 @@
                             {% if cart_has(product) != true %}
                                 {% include 'AppBundle:fragment:link-button.html.twig' with {
                                     'route' : 'app_cart_add',
-                                    'args'  : {product: product.getId, quantity: 1},
+                                    'args'  : {product: product.getId(), quantity: 1},
                                     'icon'  : 'plus',
                                     'text'  : 'Add to cart'
                                 } only %}
@@ -109,21 +118,21 @@
                                     } only %}
                                     {% include 'AppBundle:fragment:link-button.html.twig' with {
                                         'route' : 'app_cart_remove_group',
-                                        'args'  : {product: product.getId},
+                                        'args'  : {product: product.getId()},
                                         'type'  : 'danger',
                                         'icon'  : 'trash-b',
                                         'tip'   : 'remove all'
                                     } only %}
                                     {% include 'AppBundle:fragment:link-button.html.twig' with {
                                         'route' : 'app_cart_remove',
-                                        'args'  : {product: product.getId, quantity: 1},
+                                        'args'  : {product: product.getId(), quantity: 1},
                                         'type'  : 'warning',
                                         'icon'  : 'minus-circled',
                                         'tip'   : 'remove one'
                                     } only %}
                                     {% include 'AppBundle:fragment:link-button.html.twig' with {
                                         'route' : 'app_cart_add',
-                                        'args'  : {product: product.getId, quantity: 1},
+                                        'args'  : {product: product.getId(), quantity: 1},
                                         'type'  : 'success',
                                         'icon'  : 'plus-circled',
                                         'tip'   : 'add another'
@@ -171,8 +180,8 @@
 
                 {% include 'AppBundle:fragment:link-button-right.html.twig' with {
                     'route' : 'app_category_view',
-                    'args'  : {'category': category.getSlug},
-                    'text'  : 'All ' ~ category.getName
+                    'args'  : {'category': category.getSlug()},
+                    'text'  : 'All ' ~ category.getName()
                 } only %}
 
             </div>

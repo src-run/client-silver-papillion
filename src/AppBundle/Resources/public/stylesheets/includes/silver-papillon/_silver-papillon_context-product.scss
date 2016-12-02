@@ -223,12 +223,12 @@
 
       h4 {
         margin  : 0;
-        padding : 6px 0 9px 0;
+        padding : $padding-above-xxs 0 $padding-below-xs 0;
 
         a {
           font-family : $font-family-condensed;
           color       : $color-primary;
-          padding     : 15px 0 12px 18px;
+          padding     : $padding-x-base 0 $padding-y-lg $padding-x-lg*1.2;
           display     : block;
           will-change : color;
           transition  : color $trans-time-color;
@@ -239,19 +239,30 @@
         }
       }
 
+      .category-desc {
+        padding     : 0 0 $padding-y-md $padding-x-lg*1.2;
+        margin-top  : -$padding-x-lg;
+        color       : lighten($color-blue-dark, 20%);
+        font-size   : $font-size-md;
+        font-weight : 300;
+        transition  : color $trans-time-color;
+        will-change : color;
+      }
+
       .category-info {
         position       : absolute;
-        right          : 18px;
-        top            : 27px;
+        right          : $padding-x-lg*1.2;
+        top            : (($padding-above-xs*4)-2);
+        color          : $color-accent;
         font-size      : $font-size-md;
         font-weight    : 200;
         text-transform : uppercase;
-        will-change    : color;
         transition     : color $trans-time-color;
+        will-change    : color;
 
         em {
           font-style  : normal;
-          font-weight : 300;
+          font-weight : 400;
         }
       }
     }
@@ -271,15 +282,21 @@
       }
     }
 
+    .card-section-foot .category-link a {
+      display : block;
+    }
+
     &:hover .card-section-head {
-      a {
-        color : $color-white;
+      h4 a {
+        color : darken($color-primary, 10%);
       }
 
-      background-color : $color-accent;
+      .category-desc {
+        color : darken($color-blue-dark, 10%);
+      }
 
       .category-info {
-        color : $color-white;
+        color : darken($color-accent, 10%);
       }
     }
   }

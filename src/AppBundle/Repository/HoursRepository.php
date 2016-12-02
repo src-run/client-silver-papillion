@@ -22,7 +22,7 @@ class HoursRepository extends AbstractRepository
     /**
      * @return Hours[]
      */
-    public function findAll()
+    public function findAllOrderByIso8601()
     {
         return $this->getResult(function (QueryBuilder $b) {
             $b->orderBy('h.iso8601');

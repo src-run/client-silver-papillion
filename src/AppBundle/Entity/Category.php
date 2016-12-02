@@ -33,6 +33,11 @@ class Category
     protected $weight;
 
     /**
+     * @var string|null
+     */
+    protected $description;
+
+    /**
      * @var bool
      */
     protected $enabled;
@@ -78,24 +83,64 @@ class Category
 
     /**
      * @param int $weight
+     *
+     * @return Category
      */
-    public function setWeight($weight)
+    public function setWeight($weight = null)
     {
         $this->weight = $weight;
+
+        return $this;
     }
 
     /**
      * @return int
-    o     */
+     */
     public function getWeight()
     {
         return $this->weight;
     }
 
     /**
+     * @return bool
+     */
+    public function hasWeight()
+    {
+        return $this->weight !== null;
+    }
+
+    /**
+     * @param string|null $description
+     *
+     * @return Category
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDescription()
+    {
+        return $this->description !== null;
+    }
+
+    /**
      * @param bool $enabled
      *
-     * @return $this
+     * @return Category
      */
     public function setEnabled($enabled)
     {
@@ -109,13 +154,13 @@ class Category
      */
     public function isEnabled()
     {
-        return $this->enabled;
+        return $this->enabled === true;
     }
 
     /**
      * @param string $name
      *
-     * @return $this
+     * @return Category
      */
     public function setName($name)
     {
@@ -135,11 +180,11 @@ class Category
     /**
      * @param string $slug
      *
-     * @return $this
+     * @return Category
      */
-    public function setSlug($slug)
+    public function setSlug($slug = null)
     {
-        $this->slug = (string) $slug;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -172,9 +217,9 @@ class Category
     }
 
     /**
-     * @param \Doctrine\Common\Collections\ArrayCollection|Product[] $products
+     * @param ArrayCollection|Product[] $products
      *
-     * @return $this
+     * @return Category
      */
     public function setProducts(ArrayCollection $products)
     {
@@ -186,9 +231,9 @@ class Category
     }
 
     /**
-     * @param \AppBundle\Entity\Product $product
+     * @param Product $product
      *
-     * @return $this
+     * @return Category
      */
     public function addProduct(Product $product)
     {
@@ -200,9 +245,9 @@ class Category
     }
 
     /**
-     * @param \AppBundle\Entity\Product $product
+     * @param Product $product
      *
-     * @return $this
+     * @return Category
      */
     public function removeProduct(Product $product)
     {

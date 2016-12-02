@@ -74,7 +74,7 @@ doctrine_migrations :
   dir_name   : "%kernel.root_dir%/Resources/migrations"
   namespace  : SR\AppBundle\Migrations
   table_name : migration_versions
-  name       : src-silver-papillon
+  name       : "%database_name%"
 
 
 # EOF

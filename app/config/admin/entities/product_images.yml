@@ -73,5 +73,6 @@ easy_admin:
           - weight
 
           - property  : 'description'
+            type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
 
 ...

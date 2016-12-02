@@ -12,6 +12,7 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Component\Location\LocationLookup;
+use AppBundle\Manager\ConfigurationManager;
 use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
 use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
 use SR\WonkaBundle\Twig\TwigExtension;
@@ -21,11 +22,14 @@ use SR\WonkaBundle\Twig\TwigExtension;
  */
 class UserLocationExtension extends TwigExtension
 {
-    public function __construct(LocationLookup $lookup)
+    public function __construct(LocationLookup $lookup, ConfigurationManager $configuration)
     {
         parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('client_is_taxable', function () use ($lookup) {
-                return $lookup->lookupUsingClientIp()->getRegionName() === 'Connecticut';
+            new TwigFunctionDefinition('client_is_taxable', function () use ($lookup, $configuration) {
+                $clientIpRegion = $lookup->lookupUsingClientIp()->getRegionName();
+                $taxableRegions = explode(',', $configuration->get('taxable.states')->getValue());
+
+                return in_array($clientIpRegion, $taxableRegions) || $clientIpRegion === null;
             }),
             new TwigFunctionDefinition('client_region_name', function () use ($lookup) {
                 return $lookup->lookupUsingClientIp()->getRegionName();

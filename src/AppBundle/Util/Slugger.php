@@ -11,6 +11,7 @@
 
 namespace AppBundle\Util;
 
+use SR\Exception\Logic\InvalidArgumentException;
 use SR\Reflection\Inspect;
 use SR\Util\Transform\StringTransform;
 
@@ -45,18 +46,20 @@ class Slugger
             $string .= $this->entityPropertyValue($entity, $p);
         }
 
-        return $this->slugify($string);
+        return $this->slugify($string)->__toString();
     }
 
     /**
      * @param object $entity
      * @param string $property
      *
+     * @throws \SR\Exception\ExceptionInterface
+     *
      * @return mixed
      */
     private function entityPropertyValue($entity, $property)
     {
-        $inspector = Inspect::thisInstance($entity);
+        $inspector = Inspect::useInstance($entity);
 
         if (!$inspector->hasProperty($property)) {
             throw InvalidArgumentException::create('Could not slugify entity property as it does not exist on the passed entity.');

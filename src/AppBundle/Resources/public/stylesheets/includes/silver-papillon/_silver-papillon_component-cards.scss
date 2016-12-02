@@ -15,8 +15,7 @@
   background-color : $bg-color-card;
   overflow         : hidden;
   position         : relative;
-  box-shadow       : 0 3px 12px rgba(0,0,0,0.05);
-  margin-bottom    : $padding-below-md;
+  margin-bottom    : ($padding-below-md*1.25);
 
   > .card-section-head,
   > .card-section-body,
@@ -69,12 +68,12 @@
     cursor           : pointer;
     border           : $border-size-card $border-type-card $border-color-card;
     background-color : $bg-color-linkable;
-    box-shadow       : 0 6px 24px rgba($color-blue-darkest, 0.1);
+    box-shadow       : 0 8px 32px rgba($color-blue-darkest, 0.15);
 
     &:hover {
       border           : $border-size-card $border-type-card $border-color-card-focus;
       background-color : $bg-color-linkable-focus;
-      box-shadow       : 0 6px 24px rgba($color-blue-darkest, 0.8);
+      box-shadow       : 0 8px 32px rgba($color-blue-darkest, 0.75);
 
       > .card-section-head,
       > .card-section-foot {
@@ -93,13 +92,13 @@
 
   &.is-animated {
     will-change : auto;
-    transition  : border $trans-time-x-08, background-color $trans-time-x-08, box-shadow $trans-time-x-04;
+    transition  : border $trans-time-x-08, background-color $trans-time-x-06, box-shadow $trans-time-x-06;
 
     > .card-section-head,
     > .card-section-body,
     > .card-section-foot {
       will-change                : auto;
-      transition                 : transform $trans-time-x-03, background-color $trans-time-x-02;
+      transition                 : transform $trans-time-x-02, background-color $trans-time-x-03;
       transition-timing-function : $trans-func-transform;
     }
   }

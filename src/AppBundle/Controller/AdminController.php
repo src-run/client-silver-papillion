@@ -40,6 +40,8 @@ class AdminController extends EasyAdminController
         if (method_exists($entity, 'setCreatedOn')) {
             $entity->setCreatedOn(new \DateTime());
         }
+
+        $this->updateSlug($entity);
     }
 
     /**
@@ -50,6 +52,8 @@ class AdminController extends EasyAdminController
         if (method_exists($entity, 'setUpdatedOn')) {
             $entity->setUpdatedOn(new \DateTime());
         }
+
+        $this->updateSlug($entity);
     }
 
     /**

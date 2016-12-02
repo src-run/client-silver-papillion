@@ -4,21 +4,42 @@
  #}
 
 <div class="card-product-category">
-    <div class="card is-linkable is-animated" data-href="{{ url('app_category_view', {'category': category.getSlug}) }}">
+    <div class="card is-linkable is-animated" data-href="{{ url('app_category_view', {'category': category.getSlug()}) }}">
 
         <div class="card-section-head">
-            <h4><a href="{{ url('app_category_view', {'category': category.getSlug}) }}">{{ category.getName }}</a></h4>
-            <p class="category-info"><em>{{ category.getProducts|length }}</em> products</p>
+
+            <h4>
+                <a href="{{ url('app_category_view', {'category': category.getSlug()}) }}">{{ category.getName() }}</a>
+            </h4>
+
+            {% if category.hasDescription() %}
+                <div class="category-desc">
+                    {{ category.getDescription() | raw }}
+                </div>
+            {% endif %}
+
+            <div class="category-info">
+                <p><em>{{ category.getProducts()|length }}</em> products</p>
+            </div>
+
         </div>
 
         <div class="card-section-body">
-            {% for p in category.getProductsShuffled|slice(0, 6) %}
+            {% for p in category.getProductsShuffled() | slice(0, 6) %}
 
                 <div class="category-image-thumb">
-                    <img src="{{ asset_product(p.getImage) | imagine_filter('category_thumb') }}" alt="{{ p.getName }} Product Image" />
+                    <img src="{{ asset_product(p.getImage) | imagine_filter('category_thumb') }}"
+                         alt="Product thumbnail: {{ p.getName() }}"
+                    />
                 </div>
 
             {% endfor %}
+        </div>
+
+        <div class="card-section-foot is-overlay is-toggleable has-accent has-depth">
+            <div class="category-link">
+                <a href="{{ url('app_category_view', {'category': category.getSlug()}) }}">browse category {{ ion('android-arrow-forward') }}</a>
+            </div>
         </div>
 
     </div>

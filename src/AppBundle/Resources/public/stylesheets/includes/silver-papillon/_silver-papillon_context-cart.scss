@@ -223,6 +223,8 @@
 .cart-item {
   @include make-row();
 
+  box-shadow : 0 6px 27px rgba($color-black, 0.075);
+
   .cart-item-info {
     @include make-sm-column(7);
 

@@ -327,5 +327,6 @@ services :
     public : false
     arguments:
       - "@app.location_lookup.resolver"
+      - "@app.manager.configuration"
     tags :
       - { name : twig.extension }

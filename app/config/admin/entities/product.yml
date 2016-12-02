@@ -113,12 +113,13 @@ easy_admin:
 
           - type      : 'divider'
 
-          - property : relatedProducts
-            label    : 'Related Products'
+          - category
 
           - type      : 'divider'
 
-          - category
+          - property : relatedProducts
+            label    : 'Related Products'
+            help     : 'Optional association to other products, which are featured on this items page.'
 
           - label     : 'Published State'
             type      : 'group'
@@ -151,12 +152,15 @@ easy_admin:
             icon      : 'dollar'
             css_class : 'col-sm-8'
 
-          - property  : 'price'
-            type      : 'number'
+          - property     : 'price'
+            type         : 'money'
+            type_options : { currency: USD }
 
-          - property  : 'shipping'
-            label     : 'Shipping Rate'
-            type      : 'number'
+          - property     : 'shipping'
+            label        : 'Shipping Rate'
+            type         : 'money'
+            type_options : { currency: USD }
+            help         : 'Leave blank to use the default, global shipping price'
 
           - property  : taxable
             label     : 'Enable Sales Tax'

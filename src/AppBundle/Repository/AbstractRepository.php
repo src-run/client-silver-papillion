@@ -11,8 +11,9 @@
 
 namespace AppBundle\Repository;
 
-use Doctrine\Common\Cache\ApcCache;
+use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use SR\Exception\Runtime\RuntimeException;
 use SR\Util\Info\ClassInfo;
@@ -31,7 +32,7 @@ abstract class AbstractRepository extends EntityRepository
     /**
      * @var int
      */
-    const DEFAULT_TTL = 300;
+    const DEFAULT_TTL = 3600;
 
     /**
      * @param callable|null $config
@@ -108,7 +109,7 @@ abstract class AbstractRepository extends EntityRepository
     /**
      * @param Query\Parameter $parameter
      *
-     * @throws OrmException
+     * @throws ORMException
      *
      * @return string
      */
@@ -125,14 +126,14 @@ abstract class AbstractRepository extends EntityRepository
     }
 
     /**
-     * @return ApcCache
+     * @return FilesystemCache
      */
     private function getCacheDriver()
     {
         static $cacheDriver;
 
         if ($cacheDriver === null) {
-            $cacheDriver = new ApcCache();
+            $cacheDriver = new FilesystemCache(__DIR__.'/../../../var/cache/dev/repo/');
         }
 
         return $cacheDriver;

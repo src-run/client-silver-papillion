@@ -4,12 +4,16 @@ easy_admin:
   entities:
     Category:
       class: AppBundle\Entity\Category
-      label: 'Categories'
+      label: 'Category'
 
       list:
-        title: '%%entity_label%%'
+        title: '%%entity_label%% Listing'
 
         actions:
+
+          - name  : 'show'
+            label : 'Show'
+            icon  : 'eye'
 
           - name  : 'edit'
             label : 'Edit'
@@ -24,10 +28,12 @@ easy_admin:
           - enabled
           - name
           - slug
+          - description
           - weight
           - products
 
       show:
+        title: 'Showing %%entity_label%% (#%%entity_id%%)'
         fields:
 
           - property  : 'name'
@@ -35,6 +41,9 @@ easy_admin:
             css_class : 'large'
 
           - slug
+
+          - description
+
           - weight
 
           - property  : 'enabled'
@@ -51,7 +60,16 @@ easy_admin:
             css_class : 'col-sm-8'
 
           - name
-          - slug
+          - property     : slug
+            type_options : { required: false, disabled: true }
+
+          - type : divider
+
+          - property  : 'description'
+            type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
+
+          - type : divider
+
           - weight
 
           - type : divider

@@ -40,6 +40,11 @@ class Cart implements \Serializable
     const RATE_TAX_PERCENTAGE = 0.069;
 
     /**
+     * @var string
+     */
+    const LIST_TAX_REGIONS = 'Connecticut';
+
+    /**
      * @var Product[]
      */
     private $items = [];
@@ -317,8 +322,11 @@ class Cart implements \Serializable
      */
     public function tax()
     {
-        if ($this->locationLookup->lookupUsingClientIp()->getRegionName() !== 'Connecticut') {
-            return 0;
+        $clientIpRegion = $this->locationLookup->lookupUsingClientIp()->getRegionName();
+        $taxableRegions = explode(',', $this->configurationManager->value('taxable.states', self::LIST_TAX_REGIONS));
+
+        if (!in_array($clientIpRegion, $taxableRegions) && $clientIpRegion !== null) {
+            return 0.0;
         }
 
         $taxableRate = $this->configurationManager->value('rate.taxable', Product::RATE_TAX_PERCENTAGE);

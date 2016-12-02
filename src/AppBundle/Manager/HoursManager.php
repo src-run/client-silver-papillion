@@ -37,7 +37,7 @@ class HoursManager extends AbstractManager
      */
     public function getAll()
     {
-        return $this->getRepository()->findAll();
+        return $this->getRepository()->findAllOrderByIso8601();
     }
 }
 
