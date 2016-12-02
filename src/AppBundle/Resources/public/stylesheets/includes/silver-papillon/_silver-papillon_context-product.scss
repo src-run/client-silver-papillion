@@ -239,8 +239,8 @@
       .category-info {
         position       : absolute;
         right          : 18px;
-        top            : 23px;
-        font-size      : 13px;
+        top            : 27px;
+        font-size      : $font-size-md;
         font-weight    : 200;
         text-transform : uppercase;
         will-change    : color;
@@ -254,13 +254,17 @@
     }
 
     .card-section-body {
-      overflow       : hidden;
+      display        : flex;
+      flex-wrap      : wrap;
       pointer-events : none;
 
-      img {
-        width          : 20%;
-        pointer-events : none;
-        float          : left;
+      .category-image-thumb {
+        width     : calc(100% * (1/6));
+        flex-grow : 0;
+
+        img {
+          @include img-responsive();
+        }
       }
     }
 

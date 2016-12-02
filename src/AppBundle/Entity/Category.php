@@ -140,6 +140,17 @@ class Category
     }
 
     /**
+     * @return Product[]|ArrayCollection
+     */
+    public function getProductsShuffled()
+    {
+        $products = $this->products->toArray();
+         shuffle($products);
+
+        return new ArrayCollection($products);
+    }
+
+    /**
      * @param \Doctrine\Common\Collections\ArrayCollection|Product[] $products
      *
      * @return $this
