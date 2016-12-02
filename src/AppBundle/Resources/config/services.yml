@@ -321,3 +321,11 @@ services :
       - 3600
     calls :
       - [setRequestStack, ["@request_stack"]]
+
+  app.twig_extension.location_lookup:
+    class  : AppBundle\Twig\UserLocationExtension
+    public : false
+    arguments:
+      - "@app.location_lookup.resolver"
+    tags :
+      - { name : twig.extension }

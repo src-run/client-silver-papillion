@@ -28,7 +28,7 @@ class CategoryController extends Controller
     {
         return $this->render('AppBundle:category:list.html.twig', [
             '_c'         => static::class,
-            'categories' => $this->get('app.manager.category')->getAll(),
+            'categories' => $this->get('app.manager.category')->getAllByWeight(),
         ]);
     }
 

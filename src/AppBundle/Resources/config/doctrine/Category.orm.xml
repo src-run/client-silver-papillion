@@ -14,6 +14,8 @@
 
     <field name="slug" type="string" column="slug" length="255" unique="true"/>
 
+    <field name="weight" type="integer" column="weight" nullable="true"/>
+
     <one-to-many field="products" target-entity="AppBundle\Entity\Product" mapped-by="category" fetch="EAGER">
       <order-by>
         <order-by-field name="name" direction="ASC" />

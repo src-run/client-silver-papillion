@@ -30,6 +30,18 @@ class CategoryRepository extends AbstractRepository
                 ->orderBy('c.name');
         });
     }
+
+    /**
+     * @return Category[]
+     */
+    public function findAllOrderByWeight()
+    {
+        return $this->getResult(function (QueryBuilder $b) {
+            $b
+                ->andWhere('c.enabled = 1')
+                ->orderBy('c.weight');
+        });
+    }
 }
 
 /* EOF */

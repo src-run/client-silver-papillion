@@ -125,15 +125,17 @@
   background-color : $color-white;
   display          : flex;
   flex-wrap        : wrap;
-  box-shadow       : 0 3px 12px rgba($color-blue-darkest, 0.05);
+  box-shadow       : 0 3px 12px rgba($color-blue-darkest, 0.075);
+  border           : 1px solid $color-gray-bg;
 
   .card {
     will-change                : auto;
-    transition                 : opacity $trans-time-x-03, border $trans-time-x-08;
+    transition                 : opacity $trans-time-x-05, filter $trans-time-x-05;
     transition-timing-function : $trans-func-transform;
-    opacity                    : 0.85;
+    opacity                    : 0.75;
     margin                     : 2px 2px 0 0;
     width                      : calc(100% * (1/4) - 2px);
+    border                     : 1px solid transparent !important;
 
     img {
       filter: grayscale(80%);
@@ -142,6 +144,7 @@
     &:hover {
       opacity    : 1;
       box-shadow : none !important;
+      border     : 1px solid transparent !important;
 
       img {
         filter: grayscale(0%);

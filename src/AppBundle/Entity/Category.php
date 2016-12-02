@@ -28,6 +28,11 @@ class Category
     protected $id;
 
     /**
+     * @var int
+     */
+    protected $weight;
+
+    /**
      * @var bool
      */
     protected $enabled;
@@ -69,6 +74,22 @@ class Category
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $weight
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    }
+
+    /**
+     * @return int
+    o     */
+    public function getWeight()
+    {
+        return $this->weight;
     }
 
     /**

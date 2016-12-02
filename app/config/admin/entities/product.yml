@@ -48,7 +48,11 @@ easy_admin:
             type      : 'image'
             base_path : '%srwc.public_path.image_products%'
 
-          - relatedProducts
+          - property : relatedProducts
+            label    : 'Related Products'
+
+          - property : images
+            label    : 'Alt. Images'
 
           - category
 
@@ -83,9 +87,11 @@ easy_admin:
             type      : 'image'
             base_path : '%srwc.public_path.image_products%'
 
-          - images
+          - property : images
+            label    : 'Alt. Images'
 
-          - relatedProducts
+          - property : relatedProducts
+            label    : 'Related Products'
 
           - category
 
@@ -107,7 +113,8 @@ easy_admin:
 
           - type      : 'divider'
 
-          - relatedProducts
+          - property : relatedProducts
+            label    : 'Related Products'
 
           - type      : 'divider'
 
@@ -135,7 +142,9 @@ easy_admin:
 
           - type: divider
 
-          - images
+          - property     : images
+            label        : 'Alt. Images'
+            type_options : { by_reference: false }
 
           - label     : 'Pricing'
             type      : 'group'

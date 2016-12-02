@@ -24,6 +24,8 @@ easy_admin:
           - enabled
           - name
           - slug
+          - weight
+          - products
 
       show:
         fields:
@@ -33,6 +35,7 @@ easy_admin:
             css_class : 'large'
 
           - slug
+          - weight
 
           - property  : 'enabled'
             label     : 'Published'
@@ -49,6 +52,10 @@ easy_admin:
 
           - name
           - slug
+          - weight
+
+          - type : divider
+
           - products
 
           - type      : 'group'

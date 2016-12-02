@@ -81,7 +81,11 @@
                         <p class="product-price-extra">
                             <em>${{ product.getShippingRate(config('rate.shipping', constant('AppBundle\\Entity\\Product::RATE_SHIPPING_DEFAULT')))|number_format(2, '.', ',') }}</em> shipping per unit
                             {% if product.isTaxable %}
-                                / <em>{{ product.getTaxableRate(config('rate.taxable', constant('AppBundle\\Entity\\Product::RATE_TAX_PERCENTAGE')))|number_format(4, '.', ',') }}%</em> sales tax
+                                {% if client_is_taxable() %}
+                                    / <em>{{ product.getTaxableRate(config('rate.taxable', constant('AppBundle\\Entity\\Product::RATE_TAX_PERCENTAGE')))|number_format(4, '.', ',') }}%</em> sales tax {% if client_region_name() != null %}for {{ client_region_name() }}{% endif %}
+                                {% else %}
+                                    / <em>0.00%</em> sales tax {% if client_region_name() != null %}for {{ client_region_name() }}{% endif %}
+                                {% endif %}
                             {% endif %}
                         </p>
                     </div>

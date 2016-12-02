@@ -391,23 +391,42 @@ class Product
     }
 
     /**
-     * @param ProductImage[]|ArrayCollection $images
-     *
-     * @return $this
-     */
-    public function setImages(ArrayCollection $images)
-    {
-        $this->images = $images;
-
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function hasImages()
     {
         return !$this->images->isEmpty();
+    }
+
+    /**
+     * @param ProductImage $image
+     *
+     * @return $this
+     */
+    public function addImage(ProductImage $image)
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ProductImage $image
+     *
+     * @return $this
+     */
+    public function removeImage(ProductImage $image)
+    {
+        dump($image);
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            $image->setProduct(null);
+        }
+
+        return $this;
     }
 
     /**

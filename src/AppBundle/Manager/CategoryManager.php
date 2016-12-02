@@ -39,6 +39,14 @@ class CategoryManager extends AbstractManager
     {
         return $this->getRepository()->findAll();
     }
+
+    /**
+     * @return Category[]
+     */
+    public function getAllByWeight()
+    {
+        return $this->getRepository()->findAllOrderByWeight();
+    }
 }
 
 /* EOF */

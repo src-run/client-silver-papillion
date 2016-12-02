@@ -27,7 +27,6 @@ easy_admin:
 
           - id
           - updatedOn
-          - weight
           - description
 
           - property  : 'image'
