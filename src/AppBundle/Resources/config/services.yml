@@ -293,8 +293,6 @@ services :
     class     : AppBundle\Component\Cache\Cache
     arguments :
       - "@cache.app"
-    calls     :
-      - [setEnabled, [false]]
 
   #
   # maxmind location resolver
@@ -320,6 +318,6 @@ services :
     arguments :
       - ["@app.location_lookup.maxmind.resolver", "@app.location_lookup.ip2location.resolver"]
       - "@app.location_lookup.cache"
-      - 30
+      - 3600
     calls :
       - [setRequestStack, ["@request_stack"]]
