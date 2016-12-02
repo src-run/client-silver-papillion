@@ -22,6 +22,14 @@ class CategoryRepository extends AbstractRepository
     /**
      * @return Category[]
      */
+    public function findAllEnabled()
+    {
+        return $this->findAllOrderByWeight();
+    }
+
+    /**
+     * @return Category[]
+     */
     public function findAllOrderByWeight()
     {
         return $this->getResult(function (QueryBuilder $b) {

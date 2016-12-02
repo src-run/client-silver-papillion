@@ -37,7 +37,7 @@ class CategoryManager extends AbstractManager
      */
     public function getAll()
     {
-        return $this->getRepository()->findAll();
+        return $this->getRepository()->findAllEnabled();
     }
 
     /**
