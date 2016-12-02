@@ -8,23 +8,16 @@
  * file that was distributed with this source code.
 */
 
-
-//
-// import configuration global-partials
-//
+/* import configuration global-partials */
 
 @import '../silver-papillon/silver-papillon_variables';
 
-//
-// map border global-partials
-//
+/* map border global-partials */
 
 $border-radius-large : $border-radius-lg;
 $border-radius-small : $border-radius-sm;
 
-//
-// map padding global-partials
-//
+/* map padding global-partials */
 
 $padding-base-vertical    : $padding-y-base;
 $padding-large-vertical   : $padding-y-lg;
@@ -33,25 +26,50 @@ $padding-base-horizontal  : $padding-x-base;
 $padding-large-horizontal : $padding-x-lg;
 $padding-small-horizontal : $padding-x-sm;
 $padding-micro-horizontal : $padding-x-xs;
+$padding-xs-vertical      : $padding-y-xs;
+$padding-xs-horizontal    : $padding-x-xs;
 
-//
-// map font size global-partials
-//
+/* map font size global-partials */
 
 $font-size-large   : $font-size-lg;
 $font-size-medium  : $font-size-md;
 $font-size-small   : $font-size-sm;
 $font-size-x-small : $font-size-xs;
 
-//
-// map line height global-partials
-//
+/* map font families */
+
+$font-family-monospace : $font-family-mono-space;
+
+/* map line height global-partials */
 
 $line-height-large : $line-height-lg;
 $line-height-small : $line-height-sm;
 
-// disable bootstrap sass asset helper
+/* disable bootstrap sass asset helper */
 
 $bootstrap-sass-asset-helper : false;
 
-// EOF
+/* map colors */
+
+$gray-darker   : $color-gray-darker;
+$gray-dark     : $color-gray-dark;
+$gray          : $color-gray;
+$gray-light    : $color-gray-light;
+$gray-lighter  : $color-gray-lighter;
+$brand-primary : $color-primary;
+$brand-success : $color-success;
+$brand-info    : $color-info;
+$brand-warning : $color-warning;
+$brand-danger  : $color-danger;
+
+$state-success-bg : $bg-color-success;
+$state-info-bg    : $bg-color-info;
+$state-warning-bg : $bg-color-warning;
+$state-danger-bg  : $bg-color-danger;
+
+$state-success-border : $border-color-success;
+$state-info-border    : $border-color-info;
+$state-warning-border : $border-color-warning;
+$state-danger-border  : $border-color-danger;
+
+/* EOF */

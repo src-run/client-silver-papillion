@@ -8,10 +8,7 @@
  * file that was distributed with this source code.
 */
 
-
-//
-// buttons
-//
+/* buttons */
 
 .btn {
   .icon-ion {
@@ -44,20 +41,24 @@
 @include btn(link,    $color-white);
 
 .btn {
+
+  @include box-shadow(0 1px 2px rgba($color-black ,0.1));
+  @include transition(all 0.4s);
+
   text-transform : uppercase;
   border         : none;
   padding        : $padding-x-md ($padding-y-lg*1.2) ($padding-x-md*0.85);
 
-  @include box-shadow(0 1px 2px rgba(0,0,0,.1));
-  @include transition(all 0.4s);
-
   &-link {
+
     @include box-shadow(none);
 
     border-radius : $btn-border-radius-base;
     color         : $btn-default-color;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
+
       @include box-shadow(none);
 
       color           : $btn-default-color;
@@ -92,4 +93,4 @@
   }
 }
 
-// EOF
+/* EOF */

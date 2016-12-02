@@ -8,26 +8,25 @@
  * file that was distributed with this source code.
 */
 
+/* import config */
 
-//
-// import config
-//
+@import 'silver-papillon_variables';
 
-@import '../global-partials/global-partials_variables';
+/* import organized site style included */
 
+@import 'silver-papillon_typography';
+@import 'silver-papillon_component-alerts';
+@import 'silver-papillon_component-buttons';
+@import 'silver-papillon_component-cards';
+@import 'silver-papillon_component-containers';
+@import 'silver-papillon_component-forms';
+@import 'silver-papillon_component-navs';
+@import 'silver-papillon_component-progress';
+@import 'silver-papillon_component-tables';
+@import 'silver-papillon_context-base';
+@import 'silver-papillon_context-cart';
+@import 'silver-papillon_context-feed';
+@import 'silver-papillon_context-footer';
+@import 'silver-papillon_context-product';
 
-//
-// import organized site style included
-//
-
-@import 'silverpapillon-base';
-@import 'silverpapillon-nav';
-@import 'silverpapillon-btn';
-@import 'silverpapillon-components';
-@import 'silverpapillon-feed';
-@import 'silverpapillon-card';
-@import 'silverpapillon-cart';
-@import 'silverpapillon-product';
-
-
-// EOF
+/* EOF */

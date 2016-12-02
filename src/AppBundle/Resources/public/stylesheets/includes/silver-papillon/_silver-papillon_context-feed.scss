@@ -8,21 +8,15 @@
  * file that was distributed with this source code.
 */
 
-
-//
-// photos feed
-//
+/* photos feed */
 
 #feed-photos .card {
   &.action-status-icon {
-    box-shadow: none !important;
+    box-shadow : none !important;
   }
 }
 
-
-//
-// card photo feed
-//
+/* card photo feed */
 
 .card-listing .card-feed-photo {
   @include make-sm-column(3);
@@ -32,15 +26,15 @@
       font-size  : 860%;
       margin-top : 160px;
 
-      @media (min-width: $screen-sm-min) {
+      @media (min-width : $screen-sm-min) {
         font-size  : 140%;
         margin-top : 60px;
       }
-      @media (min-width: $screen-md-min) {
+      @media (min-width : $screen-md-min) {
         font-size  : 200%;
         margin-top : 80px;
       }
-      @media (min-width: $screen-lg-min) {
+      @media (min-width : $screen-lg-min) {
         font-size  : 320%;
         margin-top : 80px;
       }
@@ -73,13 +67,13 @@
     &:hover .card-section-head {
       margin-top : 72px;
 
-      @media (min-width: $screen-sm-min) {
+      @media (min-width : $screen-sm-min) {
         margin-top : 32px;
       }
-      @media (min-width: $screen-md-min) {
+      @media (min-width : $screen-md-min) {
         margin-top : 42px;
       }
-      @media (min-width: $screen-lg-min) {
+      @media (min-width : $screen-lg-min) {
         margin-top : 40px;
       }
 
@@ -112,10 +106,7 @@
   }
 }
 
-
-//
-// social feed
-//
+/* social feed */
 
 .feed-social {
   @include make-row();
@@ -138,21 +129,18 @@
   }
 }
 
-
-//
-// card-based social feed
-//
+/* card-based social feed */
 
 .card-feed-social {
   > .card {
     .card-section-head {
       padding          : 21px 29px 21px 21px;
       text-align       : right;
-      background-color : rgba($color-gray-bg-alt, .4);
-      border-bottom    : 1px solid rgba($color-accent, .2);
+      background-color : rgba($color-gray-bg-alt, 0.4);
+      border-bottom    : 1px solid rgba($color-accent, 0.2);
 
       .feed-info-type {
-        color : rgba($color-accent, .8);
+        color : rgba($color-accent, 0.8);
 
         .icon-ion {
           position  : absolute;
@@ -174,10 +162,10 @@
     }
 
     .card-section-body {
-      padding: 21px 21px 9px 21px;
+      padding : 21px 21px 9px 21px;
 
       .feed-post-message p {
-        color       : #505050;
+        color       : $color-gray-darkish-alt-2;
         margin      : 3px 0 0 0;
         font-weight : 300;
         font-size   : 14px;
@@ -206,7 +194,7 @@
           &:hover {
             border           : $border-color-linkable-focus;
             background-color : $bg-color-linkable-focus;
-            box-shadow       : 0 6px 27px rgba(0, 0, 0, .5);
+            box-shadow       : 0 6px 27px rgba(0, 0, 0, 0.5);
 
             > .card-section-head,
             > .card-section-foot {
@@ -237,15 +225,15 @@
           font-size  : 400%;
           margin-top : 60px;
 
-          @media (min-width: $screen-sm-min) {
+          @media (min-width : $screen-sm-min) {
             font-size  : 400%;
             margin-top : 80px;
           }
-          @media (min-width: $screen-md-min) {
+          @media (min-width : $screen-md-min) {
             font-size  : 500%;
             margin-top : 120px;
           }
-          @media (min-width: $screen-lg-min) {
+          @media (min-width : $screen-lg-min) {
             font-size  : 700%;
             margin-top : 160px;
           }
@@ -278,13 +266,13 @@
         &:hover .card-section-head {
           margin-top : 6px;
 
-          @media (min-width: $screen-sm-min) {
+          @media (min-width : $screen-sm-min) {
             margin-top : 25px;
           }
-          @media (min-width: $screen-md-min) {
+          @media (min-width : $screen-md-min) {
             margin-top : 60px;
           }
-          @media (min-width: $screen-lg-min) {
+          @media (min-width : $screen-lg-min) {
             margin-top : 70px;
           }
 
@@ -322,12 +310,13 @@
               border           : $border-color-linkable;
               background-color : $bg-color-linkable;
               will-change      : auto;
-              transition       : border $trans-time-x-08, background-color $trans-time-x-08, box-shadow $trans-time-x-04;
+
+              transition : border $trans-time-x-08, background-color $trans-time-x-08, box-shadow $trans-time-x-04;
 
               &:hover {
                 border           : $border-color-linkable-focus;
                 background-color : $bg-color-linkable-focus;
-                box-shadow       : 0 6px 27px rgba(0, 0, 0, .5);
+                box-shadow       : 0 6px 27px rgba(0, 0, 0, 0.5);
 
                 > .card-section-head,
                 > .card-section-foot {
@@ -361,10 +350,7 @@
   }
 }
 
-
-//
-// feed post
-//
+/* feed post */
 
 .feed-post-wrapper {
   .feed-post {
@@ -383,7 +369,7 @@
       }
 
       .feed-post-attachments {
-        background-color: $color-gray-bg;
+        background-color : $color-gray-bg;
       }
 
       .feed-post-attachments .feed-post-attachments-overlay {
@@ -429,11 +415,11 @@
           padding          : 4px 5px 3px 5px;
           border-radius    : 3px;
           font-weight      : 300;
-          color            : #bbb;
+          color            : $color-gray-light;
         }
 
         .em {
-          color       : rgba($color-accent, .5);
+          color       : rgba($color-accent, 0.5);
           font-weight : 400;
         }
       }
@@ -464,7 +450,6 @@
         z-index    : 9;
         transition : all $trans-time;
       }
-
 
       .feed-post-attachments-overlay {
         transform        : translateY(90px);
@@ -500,10 +485,7 @@
   }
 }
 
-
-//
-// index feed
-//
+/* index feed */
 
 .feed-index {
   .btn-primary {
@@ -518,5 +500,4 @@
   }
 }
 
-
-// EOF
+/* EOF */

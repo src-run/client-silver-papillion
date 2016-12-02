@@ -8,19 +8,13 @@
  * file that was distributed with this source code.
 */
 
-
-//
-// category card
-//
+/* category card */
 
 .card-category {
   @include make-sm-column(12);
 }
 
-
-//
-// product cards
-//
+/* product cards */
 
 .card  > .card-section-head  > .product-name {
   margin : $padding-above-sm;
@@ -92,7 +86,7 @@
 .product-view-image-more {
   @include make-sm-column(12);
 
-  margin-top: -40px;
+  margin-top : -40px;
 
   .product-view-image-more-item {
     @include make-sm-column(2);
@@ -159,12 +153,12 @@
   padding : 6px 30px 30px 30px;
 
   hr {
-    border-top : 1px solid rgba($color-accent, .5);
+    border-top : 1px solid rgba($color-accent, 0.5);
     padding    : $padding-above-sm 0 0;
   }
 
   hr.muted {
-    border-top : 1px solid rgba($color-accent, .5);
+    border-top : 1px solid rgba($color-accent, 0.5);
   }
 
   .product-price {
@@ -187,7 +181,7 @@
   }
 
   .product-action .btn-default {
-    background-color : #f8f8f9;
+    background-color : $pagination-disabled-bg;
   }
 
   .product-sku {
@@ -196,7 +190,7 @@
     .label {
       font-size   : 90%;
       font-weight : 300;
-      padding     : .4em .6em;
+      padding     : 0.4em 0.6em;
     }
   }
 }
@@ -212,7 +206,7 @@
   .card {
     .card-section-head {
       pointer-events   : none;
-      background-color : rgba($color-gray-bg-alt, .4);
+      background-color : rgba($color-gray-bg-alt, 0.4);
       will-change      : background-color;
       transition       : background-color $trans-time-x-04;
 
@@ -276,4 +270,4 @@
   }
 }
 
-// EOF
+/* EOF */

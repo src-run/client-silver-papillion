@@ -8,8 +8,14 @@
  * file that was distributed with this source code.
 */
 
-/* global-partials */
+/* hoverable tables */
 
-$fancybox-path-img : '/assets/images/';
+.table-hover {
+  > tbody > tr,
+  > tbody > tr > th,
+  > tbody > tr > td {
+    @include transition(all 0.2s);
+  }
+}
 
 /* EOF */

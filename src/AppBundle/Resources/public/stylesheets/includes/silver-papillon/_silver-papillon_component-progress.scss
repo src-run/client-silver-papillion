@@ -1,0 +1,62 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* progress bars */
+
+.progress {
+
+  @include box-shadow(none);
+
+  position      : relative;
+  z-index       : 1;
+  height        : 6px;
+  border-radius : $border-radius-none;
+
+  &-bar {
+
+    @include box-shadow(none);
+
+    &:last-child {
+      border-radius : 0 $border-radius-sm $border-radius-sm 0;
+    }
+
+    &:last-child {
+      &:before {
+        display          : block;
+        content          : '';
+        position         : absolute;
+        width            : 100%;
+        height           : 100%;
+        left             : 0;
+        right            : 0;
+        z-index          : -1;
+        background-color : lighten($progress-bar-bg, 35%);
+      }
+    }
+
+    &-success:last-child.progress-bar:before {
+      background-color : lighten($color-success, 35%);
+    }
+
+    &-info:last-child.progress-bar:before {
+      background-color : lighten($color-info, 45%);
+    }
+
+    &-warning:last-child.progress-bar:before {
+      background-color : lighten($color-warning, 35%);
+    }
+
+    &-danger:last-child.progress-bar:before {
+      background-color : lighten($color-danger, 25%);
+    }
+  }
+}
+
+/* EOF */

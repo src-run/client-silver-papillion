@@ -8,10 +8,7 @@
  * file that was distributed with this source code.
 */
 
-
-//
-// cart checkout
-//
+/* cart checkout */
 
 .checkout {
   @include make-row();
@@ -27,7 +24,7 @@
       @include make-row();
 
       .btn {
-        width: 50%;
+        width : 50%;
       }
     }
 
@@ -35,7 +32,7 @@
       margin      : 0;
       font-size   : 18px;
       font-weight : 300;
-      color       : red;
+      color       : darken($color-red-bright, 20%);
 
       p {
         padding : 0;
@@ -109,12 +106,12 @@
           font-weight : 400;
 
           &:after {
-            content : " / ";
+            content : ' / ';
           }
 
           &:last-child {
             &:after {
-              content : "";
+              content : '';
             }
           }
         }
@@ -135,7 +132,7 @@
           padding : 0 6px;
 
           &:after {
-            content : ": ";
+            content : ': ';
           }
         }
 
@@ -177,7 +174,7 @@
         padding     : 0 6px;
 
         &:after {
-          content : ": ";
+          content : ': ';
         }
       }
 
@@ -185,12 +182,12 @@
         font-weight : 400;
 
         &:after {
-          content : " / ";
+          content : ' / ';
         }
 
         &:last-child {
           &:after {
-            content : "";
+            content : '';
           }
         }
       }
@@ -211,7 +208,7 @@
         padding : 0 6px;
 
         &:after {
-          content : ": ";
+          content : ': ';
         }
       }
 
@@ -255,7 +252,7 @@
     @include make-sm-column(5);
 
     text-align : right;
-    padding-top: 18px;
+    padding-top : 18px;
 
     em {
       font-style  : normal;
@@ -263,7 +260,7 @@
     }
 
     p {
-      margin: 0 0 6px;
+      margin : 0 0 6px;
     }
 
     .cart-item-actions-count,
@@ -288,5 +285,4 @@
   }
 }
 
-
-// EOF
+/* EOF */

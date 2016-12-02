@@ -8,10 +8,7 @@
  * file that was distributed with this source code.
 */
 
-
-//
-// page navigation (pagination)
-//
+/* page navigation (pagination) */
 
 .page-navigation {
   text-align : right;
@@ -36,7 +33,8 @@
         cursor : pointer;
       }
 
-      > span, > a {
+      > span,
+      > a {
         display   : block;
         font-size : $font-size-lg;
         padding   : 6px 17px 5px 17px;
@@ -49,14 +47,16 @@
       }
 
       &.page-int {
-        > span, > a {
+        > span,
+        > a {
           font-size   : $font-size-md;
           line-height : 29px;
         }
       }
 
       &:hover, &:active {
-        > span, > a {
+        > span,
+        > a {
           color            : $color-white;
           background-color : $color-primary;
           text-decoration  : none;
@@ -68,14 +68,16 @@
           cursor : not-allowed;
         }
 
-        > span, > a {
+        > span,
+        > a {
           color       : $color-primary;
           font-weight : 600;
           padding     : 7px 17px 4px 17px;
         }
 
         &:hover, &:active {
-          > span, > a {
+          > span,
+          > a {
             color            : $color-primary;
             background-color : transparent;
           }
@@ -83,14 +85,16 @@
       }
 
       &.disabled {
-        > span, > a {
+        > span,
+        > a {
           cursor           : not-allowed;
           color            : rgba($color-black, 0.2);
           background-color : rgba($bg-color-global, 0.4);
         }
 
         &:hover, &:active {
-          > span, > a {
+          > span,
+          > a {
             color            : rgba($color-black, 0.2);
             background-color : rgba($bg-color-global, 0.4);
           }
@@ -100,8 +104,7 @@
   }
 }
 
-
-// fancy-box nav
+/* fancy-box nav */
 
 .fancybox-type-iframe .fancybox-nav {
   width : 60px;
@@ -124,13 +127,10 @@
   left : -60px;
 }
 
-
-//
-// nav bar
-//
+/* nav bar */
 
 .navbar {
-  @include box-shadow(0 1px 2px rgba(0,0,0,.3));
+  @include box-shadow(0 1px 2px rgba($color-black, 0.3));
 
   border : none;
 
@@ -150,7 +150,9 @@
   }
 
   &.navbar-inverse {
-    box-shadow       : 0 0 40px rgba(0, 0, 0, 0.5);
+
+    @include box-shadow(0 0 40px rgba($color-black, 0.5));
+
     background-image : url('/bundles/app/images/bg-large-opacity02.png');
     background-size  : cover;
   }
@@ -181,20 +183,18 @@
     color : $color-gray-light-d;
 
     .badge {
-      font-size : 10px;
+      font-size : $font-size-xxs;
       padding   : 2px 4px 1px 4px;
     }
   }
 }
 
-
-//
-// nav tags
-//
+/* nav tags */
 
 .nav-tabs {
   > li > a, > li > a:focus {
-    @include box-shadow(inset 0 -1px 0 #ddd);
+
+    @include box-shadow(inset 0 -1px 0 $color-gray-light-m);
     @include transition(all 0.2s);
 
     margin-right     : 0;
@@ -203,27 +203,29 @@
     color            : $navbar-default-link-color;
 
     &:hover {
-      @include box-shadow(inset 0 -2px 0 $brand-primary);
+
+      @include box-shadow(inset 0 -2px 0 $color-primary);
 
       background-color : transparent;
-      color            : $brand-primary;
+      color            : $color-primary;
     }
   }
 
   & > li.active > a, & > li.active > a:focus {
-    @include box-shadow(inset 0 -2px 0 $brand-primary);
+
+    @include box-shadow(inset 0 -2px 0 $color-primary);
 
     border : none;
-    color  : $brand-primary;
+    color  : $color-primary;
 
     &:hover {
       border : none;
-      color  : $brand-primary;
+      color  : $color-primary;
     }
   }
 
   & > li.disabled > a {
-    @include box-shadow(inset 0 -1px 0 #ddd);
+    @include box-shadow(inset 0 -1px 0 $color-gray-light-m);
   }
 
   &.nav-justified {
@@ -233,26 +235,23 @@
     & > .active > a,
     & > .active > a:hover,
     & > .active > a:focus {
-      border: none;
+      border : none;
     }
   }
 
   .dropdown-menu {
-    margin-top: 0;
+    margin-top : 0;
   }
 }
 
-
-//
-// drop-down menu
-//
+/* drop-down menu */
 
 .dropdown-menu {
-  @include box-shadow(0 1px 12px rgba(0,0,0,.2));
+
+  @include box-shadow(0 1px 12px rgba($color-black, 0.2));
 
   margin-top : 0;
   border     : none;
 }
 
-
-// EOF
+/* EOF */

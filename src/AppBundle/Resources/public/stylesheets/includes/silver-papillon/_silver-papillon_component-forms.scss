@@ -1,0 +1,323 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* basic form wrapper */
+
+.form-basic {
+  .form-control {
+    margin : 0;
+  }
+
+  .control-label {
+    font-size   : 16px;
+    font-weight : 300;
+    margin-top  : 29px;
+  }
+
+  .form-submit-wrap {
+    @include make-row();
+
+    .form-submit {
+      @include make-sm-column(12);
+      @include make-sm-column-offset(0);
+
+      margin-top : 54px;
+    }
+  }
+}
+
+label {
+  font-weight : 300;
+}
+
+textarea,
+textarea.form-control,
+input.form-control,
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=number],
+[type=text].form-control,
+[type=password].form-control,
+[type=email].form-control,
+[type=tel].form-control,
+[contenteditable].form-control {
+
+  @include box-shadow(inset 0 -1px 0 rgba($color-gray-light-m, 0.3));
+
+  border             : none;
+  border-radius      : $border-radius-hint;
+  appearance         : none;
+  padding            : 0 0 4px 0;
+  font-size          : $font-size-md;
+
+  &:focus {
+    @include box-shadow(inset 0 -2px 0 $color-primary);
+  }
+
+  &[disabled],
+  &[readonly] {
+    @include box-shadow(none);
+
+    border-bottom : 1px dotted $color-gray-light-m;
+  }
+
+  &.input {
+    &-sm {
+      font-size : $font-size-xs;
+    }
+
+    &-lg {
+      font-size : $font-size-lg;
+    }
+  }
+}
+
+select,
+select.form-control {
+
+  @include box-shadow(inset 0 -1px 0 $color-gray-light-m);
+
+  border              : 0;
+  border-radius       : $border-radius-hint;
+  appearance          : none;
+  padding-left        : 0;
+  background-image    : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEVmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmaP/QSjAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=);
+  background-size     : 13px;
+  background-repeat   : no-repeat;
+  background-position : right center;
+  font-size           : $font-size-md;
+  line-height         : $line-height-lg;
+
+  &::-ms-expand {
+    display : none;
+  }
+
+  &.input {
+    &-sm {
+      font-size : $font-size-xs;
+    }
+
+    &-lg {
+      font-size : $font-size-lg;
+    }
+  }
+
+  &:focus {
+    @include box-shadow(inset 0 -2px 0 $color-primary);
+
+    background-image : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEUhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISF8S9ewAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=);
+  }
+
+  &[multiple] {
+    background : none;
+  }
+}
+
+.radio,
+.radio-inline,
+.checkbox,
+.checkbox-inline {
+  label {
+    padding-left : 25px;
+  }
+
+  input[type='radio'],
+  input[type='checkbox'] {
+    margin-left : -25px;
+  }
+}
+
+input[type='radio'],
+.radio input[type='radio'],
+.radio-inline input[type='radio'] {
+  position           : relative;
+  margin-top         : 6px;
+  margin-right       : 4px;
+  vertical-align     : top;
+  border             : none;
+  background-color   : $color-transparent;
+  appearance         : none;
+  cursor             : pointer;
+
+  &:focus {
+    outline : none;
+  }
+
+  &:before,
+  &:after {
+
+    @include transition(240ms);
+
+    content       : '';
+    display       : block;
+    width         : 18px;
+    height        : 18px;
+    border-radius : 50%;
+  }
+
+  &:before {
+
+    @include scale(0);
+
+    position         : absolute;
+    left             : 0;
+    top              : -3px;
+    background-color : $color-primary;
+  }
+
+  &:after {
+    position : relative;
+    top      : -3px;
+    border   : 2px solid $color-gray;
+  }
+
+  &:checked:before {
+    @include scale(0.5);
+  }
+
+  &:disabled:checked:before {
+    background-color : $color-gray-light;
+  }
+
+  &:checked:after {
+    border-color : $color-primary;
+  }
+
+  &:disabled:after,
+  &:disabled:checked:after {
+    border-color : $color-gray-light;
+  }
+}
+
+input[type='checkbox'],
+.checkbox input[type='checkbox'],
+.checkbox-inline input[type='checkbox'] {
+  position           : relative;
+  border             : none;
+  margin-bottom      : -4px;
+  appearance         : none;
+  cursor             : pointer;
+
+  &:focus {
+    outline : none;
+  }
+
+  &:focus:after {
+    border-color : $color-primary;
+  }
+
+  &:after {
+
+    @include transition(240ms);
+
+    content       : '';
+    display       : block;
+    width         : 18px;
+    height        : 18px;
+    margin-top    : -2px;
+    margin-right  : 5px;
+    border        : 2px solid $color-gray;
+    border-radius : $border-radius-sm;
+  }
+
+  &:checked:before {
+
+    @include rotate(45deg);
+
+    content           : '';
+    position          : absolute;
+    top               : 0;
+    left              : 6px;
+    display           : table;
+    width             : 6px;
+    height            : 12px;
+    border            : 2px solid $color-white;
+    border-top-width  : 0;
+    border-left-width : 0;
+  }
+
+  &:checked:after {
+    background-color : $color-primary;
+    border-color     : $color-primary;
+  }
+
+  &:disabled:after {
+    border-color : $color-gray-light;
+  }
+
+  &:disabled:checked:after {
+    background-color : $color-gray-light;
+    border-color     : $color-transparent;
+  }
+}
+
+.has-warning {
+  input:not([type=checkbox]),
+  .form-control,
+  input.form-control[readonly],
+  input[type=text][readonly],
+  [type=text].form-control[readonly],
+  input:not([type=checkbox]):focus,
+  .form-control:focus {
+
+    @include box-shadow(inset 0 -2px 0 $color-warning);
+
+    border-bottom : none;
+  }
+}
+
+.has-error {
+  input:not([type=checkbox]),
+  .form-control,
+  input.form-control[readonly],
+  input[type=text][readonly],
+  [type=text].form-control[readonly],
+  input:not([type=checkbox]):focus,
+  .form-control:focus {
+
+    @include box-shadow(inset 0 -2px 0 $color-danger);
+
+    border-bottom : none;
+  }
+}
+
+.has-success {
+  input:not([type=checkbox]),
+  .form-control,
+  input.form-control[readonly],
+  input[type=text][readonly],
+  [type=text].form-control[readonly],
+  input:not([type=checkbox]):focus,
+  .form-control:focus {
+
+    @include box-shadow(inset 0 -2px 0 $color-success);
+
+    border-bottom : none;
+  }
+}
+
+/* Remove the Bootstrap feedback styles for input addons */
+.input-group-addon {
+  .has-warning &, .has-error &, .has-success & {
+    color            : $input-color;
+    border-color     : $input-group-addon-border-color;
+    background-color : $input-group-addon-bg;
+  }
+}
+
+.form-group-lg {
+  select,
+  select.form-control {
+    line-height : $line-height-lg;
+  }
+}
+
+/* EOF */

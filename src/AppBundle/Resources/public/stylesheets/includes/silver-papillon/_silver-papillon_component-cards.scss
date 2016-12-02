@@ -8,10 +8,7 @@
  * file that was distributed with this source code.
 */
 
-
-//
-// cards
-//
+/* cards */
 
 .card {
   border           : $border-def-card;
@@ -141,14 +138,21 @@
   }
 }
 
-
-//
-// card listing
-//
+/* card listing */
 
 .card-listing {
   @include make-row();
 }
 
+/* cards in odd containers */
 
-// EOF
+.container-sr-odd .card-wrap {
+  border        : 1px solid $component-border-color;
+  margin-bottom : $padding-below-md;
+
+  > .card {
+    margin-bottom : 0 !important;
+  }
+}
+
+/* EOF */

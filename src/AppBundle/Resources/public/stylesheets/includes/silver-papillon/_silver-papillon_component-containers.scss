@@ -1,0 +1,91 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* containers */
+
+.container-sr {
+  padding-top    : $padding-above;
+  padding-bottom : $padding-below-md;
+}
+
+.container-sr-odd {
+  background-color : $color-white;
+  padding-top      : $padding-above;
+  padding-bottom   : $padding-below-md * 1.6;
+}
+
+/* container wrapper */
+
+.container-main-wrap {
+  padding-top : 92px;
+}
+
+/* close container */
+
+.close {
+  @include transition(all 0.2s);
+
+  font-size   : 34px;
+  font-weight : 300;
+  line-height : 24px;
+  opacity     : 0.6;
+
+  &:hover {
+    opacity : 1;
+  }
+}
+
+/* list group */
+
+.list-group {
+
+  &-item {
+    padding : 15px;
+  }
+
+  &-item-text {
+    color : $color-gray-light;
+  }
+}
+
+/* well container */
+
+.well {
+  @include box-shadow(none);
+
+  border-radius : $border-radius-hint;
+}
+
+/* panel container */
+
+.panel {
+  @include box-shadow(0 2px 8px rgba(000, 000, 000, 0.20));
+
+  border-width  : 1px;
+  border-radius : $border-radius-xs;
+
+  &-heading {
+    border-bottom : none;
+  }
+
+  &-footer {
+    border-top : none;
+  }
+}
+
+/* popover container */
+
+.popover {
+  @include box-shadow(0 1px 4px rgba(000, 000, 000, 0.30));
+
+  border : none;
+}
+
+/* EOF */

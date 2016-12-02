@@ -1,0 +1,44 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* alerts */
+
+.alert {
+  border : none;
+  color  : $color-black;
+
+  &-success {
+    background-color : $color-success;
+  }
+
+  &-info {
+    background-color : $color-info;
+  }
+
+  &-warning {
+    background-color : $color-warning;
+  }
+
+  &-danger {
+    background-color : $color-danger;
+  }
+
+  a:not(.close):not(.btn),
+  .alert-link {
+    color       : $color-black;
+    font-weight : 700;
+  }
+
+  .close {
+    color : $color-black;
+  }
+}
+
+/* EOF */

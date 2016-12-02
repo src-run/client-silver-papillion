@@ -8,8 +8,23 @@
  * file that was distributed with this source code.
 */
 
-/* global-partials */
+body {
+  -webkit-font-smoothing : antialiased;
+  letter-spacing         : 0.1px;
+}
 
-$fancybox-path-img : '/assets/images/';
+p {
+  margin : 0 0 1em;
+}
+
+input,
+button {
+  -webkit-font-smoothing : antialiased;
+  letter-spacing         : 0.1px;
+}
+
+a {
+  @include transition(all 0.2s);
+}
 
 /* EOF */
