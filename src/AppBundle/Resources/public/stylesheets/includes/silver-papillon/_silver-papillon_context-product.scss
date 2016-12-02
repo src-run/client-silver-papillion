@@ -121,23 +121,31 @@
 }
 
 .product-alternate-images {
-  padding          : 1px 1px 3px 2px;
+  padding          : 1px 1px 3px 3px;
   background-color : $color-white;
   display          : flex;
   flex-wrap        : wrap;
-  box-shadow       : 0 3px 12px rgba(0,0,0,0.05);
+  box-shadow       : 0 3px 12px rgba($color-blue-darkest, 0.05);
 
   .card {
     will-change                : auto;
-    transition                 : opacity $trans-time-x-03;
+    transition                 : opacity $trans-time-x-03, border $trans-time-x-08;
     transition-timing-function : $trans-func-transform;
-    opacity                    : 0.8;
+    opacity                    : 0.85;
     margin                     : 2px 2px 0 0;
-    width                      : calc(100% * (1/3) - 2px);
+    width                      : calc(100% * (1/4) - 2px);
+
+    img {
+      filter: grayscale(80%);
+    }
 
     &:hover {
       opacity    : 1;
       box-shadow : none !important;
+
+      img {
+        filter: grayscale(0%);
+      }
     }
   }
 }

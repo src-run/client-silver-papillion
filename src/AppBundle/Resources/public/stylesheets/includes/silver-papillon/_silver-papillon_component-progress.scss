@@ -42,7 +42,7 @@
     }
 
     &-success:last-child.progress-bar:before {
-      background-color : lighten($color-success, 35%);
+      background-color : lighten($color-okay, 35%);
     }
 
     &-info:last-child.progress-bar:before {
@@ -50,11 +50,11 @@
     }
 
     &-warning:last-child.progress-bar:before {
-      background-color : lighten($color-warning, 35%);
+      background-color : lighten($color-warn, 35%);
     }
 
     &-danger:last-child.progress-bar:before {
-      background-color : lighten($color-danger, 25%);
+      background-color : lighten($color-crit, 25%);
     }
   }
 }

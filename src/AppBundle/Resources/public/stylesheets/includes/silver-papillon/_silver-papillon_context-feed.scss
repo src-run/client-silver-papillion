@@ -186,13 +186,13 @@
           pointer-events : auto;
 
           cursor           : pointer;
-          border           : $border-color-linkable;
+          border           : $border-size-card $border-type-card $border-color-card;
           background-color : $bg-color-linkable;
           will-change      : auto;
           transition       : border $trans-time-x-08, background-color $trans-time-x-08, box-shadow $trans-time-x-04;
 
           &:hover {
-            border           : $border-color-linkable-focus;
+            border           : $border-size-card $border-type-card $border-color-card-focus;
             background-color : $bg-color-linkable-focus;
             box-shadow       : 0 6px 27px rgba($color-black, 0.5);
 
@@ -307,14 +307,14 @@
               pointer-events : auto;
 
               cursor           : pointer;
-              border           : $border-color-linkable;
+              border           : $border-size-card $border-type-card $border-color-card;
               background-color : $bg-color-linkable;
               will-change      : auto;
 
               transition : border $trans-time-x-08, background-color $trans-time-x-08, box-shadow $trans-time-x-04;
 
               &:hover {
-                border           : $border-color-linkable-focus;
+                border           : $border-size-card $border-type-card $border-color-card-focus;
                 background-color : $bg-color-linkable-focus;
                 box-shadow       : 0 6px 27px rgba($color-black, 0.5);
 

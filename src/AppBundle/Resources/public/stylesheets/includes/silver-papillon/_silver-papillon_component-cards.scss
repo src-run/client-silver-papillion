@@ -11,7 +11,7 @@
 /* cards */
 
 .card {
-  border           : $border-def-card;
+  border           : $border-size-card $border-type-card $border-color-card;
   background-color : $bg-color-card;
   overflow         : hidden;
   position         : relative;
@@ -23,7 +23,7 @@
   > .card-section-foot {
     position : relative;
     overflow : hidden;
-    z-index  : 1;
+    z-index  : $z-index-card-body;
 
     .abs-right {
       position : absolute;
@@ -67,18 +67,26 @@
 
   &.is-linkable {
     cursor           : pointer;
-    border           : $border-color-linkable;
+    border           : $border-size-card $border-type-card $border-color-card;
     background-color : $bg-color-linkable;
-    box-shadow       : 0 6px 24px rgba(29, 42, 46, 0.075);
+    box-shadow       : 0 6px 24px rgba($color-blue-darkest, 0.1);
 
     &:hover {
-      border           : $border-color-linkable-focus;
+      border           : $border-size-card $border-type-card $border-color-card-focus;
       background-color : $bg-color-linkable-focus;
-      box-shadow       : 0 6px 24px rgba(29, 42, 46, 0.8);
+      box-shadow       : 0 6px 24px rgba($color-blue-darkest, 0.8);
 
       > .card-section-head,
       > .card-section-foot {
         background-color : $bg-color-section-focus;
+      }
+    }
+
+    &.is-accented {
+      border : $border-size-card $border-type-card $border-color-card-accent;
+
+      &:hover {
+        border : $border-size-card $border-type-card $border-color-card-accent-focus;
       }
     }
   }
@@ -97,22 +105,22 @@
   }
 
   > .has-bg-light-gray {
-    background-color : $bg-color-global;
+    background-color : $bg-color-page-body-normal;
   }
 
   > .is-overlay {
-    background-color : $bg-color-overlay;
+    background-color : rgba($color-white, 0.8);
     position         : absolute;
     left             : 0;
     right            : 0;
 
     &.card-section-head {
-      z-index : 9;
+      z-index : $z-index-card-head;
       top     : 0;
     }
 
     &.card-section-foot {
-      z-index : 9;
+      z-index : $z-index-card-foot;
       bottom  : 0;
     }
   }
@@ -121,10 +129,23 @@
     background-color : $bg-color-toggleable;
 
     &.card-section-head {
-      transform : $trans-toggleable-card-head;
+      background-color : $bg-color-toggleable-card-head;
+      transform        : $trans-toggleable-card-head;
     }
+
     &.card-section-foot {
-      transform : $trans-toggleable-card-foot;
+      background-color : $bg-color-toggleable-card-foot;
+      transform        : $trans-toggleable-card-foot;
+    }
+
+    &.has-depth {
+      &.card-section-head {
+        box-shadow : 0 20px 40px rgba($color-blue-darkest, 0.0);
+      }
+
+      &.card-section-foot {
+        box-shadow : 0 -2px 30px rgba($color-blue-darkest, 0.0);
+      }
     }
   }
 
@@ -135,6 +156,24 @@
     &.card-section-foot {
       transform : $trans-toggleable-card;
     }
+
+    &.card-section-head {
+      background-color : $bg-color-toggleable-card-head-focus;
+    }
+
+    &.card-section-foot {
+      background-color : $bg-color-toggleable-card-foot-focus;
+    }
+
+    &.has-depth {
+      &.card-section-head {
+        box-shadow : 0 20px 40px rgba($color-blue-darkest, 0.1);
+      }
+
+      &.card-section-foot {
+        box-shadow : 0 -2px 30px rgba($color-blue-darkest, 0.4);
+      }
+    }
   }
 }
 
@@ -142,17 +181,6 @@
 
 .card-listing {
   @include make-row();
-}
-
-/* cards in odd containers */
-
-.container-sr-odd .card-wrap {
-  border        : 1px solid $component-border-color;
-  margin-bottom : $padding-below-md;
-
-  > .card {
-    margin-bottom : 0 !important;
-  }
 }
 
 /* EOF */

@@ -15,7 +15,7 @@
   color  : $color-black;
 
   &-success {
-    background-color : $color-success;
+    background-color : $color-okay;
   }
 
   &-info {
@@ -23,11 +23,11 @@
   }
 
   &-warning {
-    background-color : $color-warning;
+    background-color : $color-warn;
   }
 
   &-danger {
-    background-color : $color-danger;
+    background-color : $color-crit;
   }
 
   a:not(.close):not(.btn),

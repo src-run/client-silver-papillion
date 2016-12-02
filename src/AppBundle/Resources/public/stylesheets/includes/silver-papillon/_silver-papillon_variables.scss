@@ -25,7 +25,7 @@ $color-gray-darker        : lighten(rgba($color-black , 1.00), 14%);
 $color-gray-dark          : rgba(033, 033, 033, 1.00);
 $color-gray-darkish       : rgba(051, 051, 051, 1.00);
 $color-gray-darkish-alt-1 : rgba(068, 068, 068, 1.00);
-$color-gray-darkish-alt-2 : rgba(080, 080, 080, 1.00);
+$color-gray-darkish-alt-2 : rgba(080, 080, 068, 1.00);
 $color-gray               : rgba(102, 102, 102, 1.00);
 $color-gray-light-d       : rgba(153, 153, 153, 1.00);
 $color-gray-light         : rgba(187, 187, 187, 1.00);
@@ -39,8 +39,9 @@ $color-gray-bg-alt-3      : rgba(249, 249, 249, 1.00);
 
 /* blue variants */
 
-$color-blue-dark  : rgba(097, 119, 138, 1.00);
-$color-blue-light : rgba(130, 156, 175, 0.51);
+$color-blue-darkest : rgba(029, 042, 046, 1.00);
+$color-blue-dark    : rgba(097, 119, 138, 1.00);
+$color-blue-light   : rgba(130, 156, 175, 0.51);
 
 /* red variants */
 
@@ -61,19 +62,30 @@ $color-primary-light : rgba(059, 160, 240, 1.00);
 
 /* status colors (states) */
 
-$color-success    : rgba(076, 175, 080, 1.00);
-$color-info       : rgba(156, 039, 176, 1.00);
-$color-warning    : rgba(255, 152, 000, 1.00);
-$color-danger     : rgba(229, 028, 035, 1.00);
-$bg-color-success : rgba(223, 240, 216, 1.00);
-$bg-color-info    : rgba(225, 190, 231, 1.00);
-$bg-color-warning : rgba(255, 224, 178, 1.00);
-$bg-color-danger  : rgba(249, 189, 187, 1.00);
+$color-okay : rgba(076, 175, 080, 1.00);
+$color-info : rgba(156, 039, 176, 1.00);
+$color-warn : rgba(255, 152, 000, 1.00);
+$color-crit : rgba(229, 028, 035, 1.00);
+
+$bg-color-okay : rgba(223, 240, 216, 1.00);
+$bg-color-info : rgba(225, 190, 231, 1.00);
+$bg-color-warn : rgba(255, 224, 178, 1.00);
+$bg-color-crit : rgba(249, 189, 187, 1.00);
+
+$border-color-okay : darken(adjust-hue($bg-color-okay, -10), 5%);
+$border-color-info : darken(adjust-hue($bg-color-info, -10), 7%);
+$border-color-warn : darken(adjust-hue($bg-color-warn, -10), 5%);
+$border-color-crit : darken(adjust-hue($bg-color-crit, -10), 5%);
+
+$text-color-okay : $color-okay;
+$text-color-info : $color-info;
+$text-color-warn : $color-warn;
+$text-color-crit : $color-crit;
 
 /* background colors */
 
-$bg-color-global : $color-gray-lighter;
-$bg-color-accent : $color-white;
+$bg-color-page-body-normal : $color-gray-lighter;
+$bg-color-page-body-accent : $color-white;
 
 /* component colors */
 
@@ -81,15 +93,22 @@ $component-active-color : $color-white;
 $component-active-bg    : $color-primary;
 $component-border-color : rgba(239, 239, 239, 1);
 
+/* CARDS */
+
+$bg-color-card-overlay-blur         : rgba($color-white, 0.25);
+$bg-color-card-overlay-focus        : rgba($color-white, 0.95);
+$bg-color-card-overlay-accent-blur  : rgba($color-accent, 0.25);
+$bg-color-card-overlay-accent-focus : rgba($color-accent, 0.95);
+
 /* BORDERS */
 
-$border-size         : 1px;
-$border-type         : solid;
-$border-color        : $color-white;
-$border-color-active : $color-accent;
+$border-size-card        : 1px;
+$border-type-card        : solid;
+$border-color-card       : $color-white;
+$border-color-card-focus : $color-accent;
 
-$border-color-accent        : rgba($color-blue-dark, 0.7);
-$border-color-accent-active : $color-accent;
+$border-color-card-accent       : rgba($color-blue-dark, 0.25);
+$border-color-card-accent-focus : $color-accent;
 
 /* TRANSITION AND TRANSLATION DEFINITIONS */
 
@@ -141,36 +160,34 @@ $trans-x-off-screen-to-rt : translateX(100%);
 
 /* cards */
 
-$border-def-card : $border-size $border-type $border-color;
-$bg-color-card   : $bg-color-accent;
-
-/* overlays */
-
-$bg-color-overlay : rgba($bg-color-accent, 0.8);
+$bg-color-card          : $bg-color-page-body-accent;
 
 /* sections */
 
-$bg-color-section       : rgba($bg-color-accent, 1.0);
-$bg-color-section-focus : $bg-color-section;
+$bg-color-section       : $bg-color-page-body-accent;
+$bg-color-section-focus : $bg-color-page-body-accent;
 
 /* toggleable sections */
 
-$bg-color-toggleable        : rgba($bg-color-accent, 0.4);
-$bg-color-toggleable-focus  : $bg-color-overlay;
+$bg-color-toggleable                 : $bg-color-card-overlay-blur;
+$bg-color-toggleable-focus           : $bg-color-card-overlay-focus;
+$bg-color-toggleable-card-head       : $bg-color-card-overlay-blur;
+$bg-color-toggleable-card-head-focus : $bg-color-card-overlay-focus;
+$bg-color-toggleable-card-foot       : $bg-color-card-overlay-accent-blur;
+$bg-color-toggleable-card-foot-focus : $bg-color-card-overlay-accent-focus;
+
 $trans-toggleable-card      : $trans-y-off-screen-reset;
 $trans-toggleable-card-head : $trans-y-off-screen-to-up;
 $trans-toggleable-card-foot : $trans-y-off-screen-to-dn;
 
 /* linkable sections */
 
-$border-color-linkable       : $border-size $border-type $border-color;
-$border-color-linkable-focus : $border-size $border-type $border-color-active;
-$bg-color-linkable           : $bg-color-accent;
-$bg-color-linkable-focus     : $bg-color-global;
+$bg-color-linkable           : $bg-color-page-body-accent;
+$bg-color-linkable-focus     : $bg-color-page-body-normal;
 
 /* scaffolding */
 
-$body-bg               : $bg-color-global;
+$body-bg               : $bg-color-page-body-normal;
 $text-color            : $color-gray;
 $link-color            : $color-primary;
 $link-hover-color      : darken($link-color, 15%);
@@ -308,21 +325,21 @@ $btn-primary-color  : $color-white;
 $btn-primary-bg     : $color-primary-light;
 $btn-primary-border : $color-primary-dark;
 
-$btn-success-color  : $color-white;
-$btn-success-bg     : $color-success;
-$btn-success-border : $color-transparent;
+$btn-okay-color  : $color-white;
+$btn-okay-bg     : $color-okay;
+$btn-okay-border : $color-transparent;
 
 $btn-info-color  : $color-white;
 $btn-info-bg     : $color-info;
 $btn-info-border : $color-transparent;
 
-$btn-warning-color  : $color-white;
-$btn-warning-bg     : $color-warning;
-$btn-warning-border : $color-transparent;
+$btn-warn-color  : $color-white;
+$btn-warn-bg     : $color-warn;
+$btn-warn-border : $color-transparent;
 
-$btn-danger-color  : $color-white;
-$btn-danger-bg     : $color-danger;
-$btn-danger-border : $color-transparent;
+$btn-crit-color  : $color-white;
+$btn-crit-bg     : $color-crit;
+$btn-crit-border : $color-transparent;
 
 $btn-link-disabled-color : $color-gray-light;
 
@@ -373,13 +390,16 @@ $dropdown-caret-color         : $color-gray-light;
 
 /* Z-INDEX (MASTER LIST) */
 
-$zindex-navbar           : 1000;
-$zindex-dropdown         : 1000;
-$zindex-popover          : 1060;
-$zindex-tooltip          : 1070;
-$zindex-navbar-fixed     : 1030;
-$zindex-modal-background : 1040;
-$zindex-modal            : 1050;
+$z-index-navbar       : 1000;
+$z-index-navbar-fixed : 1030;
+$z-index-dropdown     : 1000;
+$z-index-popover      : 1060;
+$z-index-tooltip      : 1070;
+$z-index-modal-bg     : 1040;
+$z-index-modal        : 1050;
+$z-index-card-body    : 1;
+$z-index-card-head    : 9;
+$z-index-card-foot    : 9;
 
 /* BREAKPOINTS */
 
@@ -543,23 +563,8 @@ $jumbotron-padding           : 36px;
 $jumbotron-color             : inherit;
 $jumbotron-bg                : $color-gray-bg-alt-3;
 $jumbotron-heading-color     : $headings-color;
-$jumbotron-font-size         : ceil(($font-size-base * 1.5));
-$jumbotron-heading-font-size : ceil(($font-size-base * 4.5));
-
-/* FORM STATES */
-
-$state-success-text   : $color-success;
-$state-info-text      : $color-info;
-$state-warning-text   : $color-warning;
-$state-danger-text    : $color-danger;
-$bg-color-success     : rgba(223, 240, 216, 1.00);
-$bg-color-info        : rgba(225, 190, 231, 1.00);
-$bg-color-warning     : rgba(255, 224, 178, 1.00);
-$bg-color-danger      : rgba(249, 189, 187, 1.00);
-$border-color-success : darken(adjust-hue($bg-color-success, -10), 5%);
-$border-color-info    : darken(adjust-hue($bg-color-info, -10), 7%);
-$border-color-warning : darken(adjust-hue($bg-color-warning, -10), 5%);
-$border-color-danger  : darken(adjust-hue($bg-color-danger, -10), 5%);
+$jumbotron-font-size         : ceil($font-size-base * 1.5);
+$jumbotron-heading-font-size : ceil($font-size-base * 4.5);
 
 /* TOOLTIPS */
 
@@ -588,10 +593,10 @@ $popover-arrow-outer-fallback-color : darken($popover-fallback-border-color, 20%
 
 $label-default-bg : $color-gray-light;
 $label-primary-bg : $color-primary;
-$label-success-bg : $color-success;
+$label-okay-bg    : $color-okay;
 $label-info-bg    : $color-info;
-$label-warning-bg : $color-warning;
-$label-danger-bg  : $color-danger;
+$label-warn-bg    : $color-warn;
+$label-crit-bg    : $color-crit;
 
 $label-color            : $color-white;
 $label-link-hover-color : $color-white;
@@ -617,25 +622,25 @@ $modal-sm : 300px;
 
 /* ALERTS */
 
-$alert-padding : 15px;
-$alert-border-radius : $border-radius-base;
+$alert-padding          : 15px;
+$alert-border-radius    : $border-radius-base;
 $alert-link-font-weight : bold;
 
-$alert-success-bg : $bg-color-success;
-$alert-success-text : $state-success-text;
-$alert-success-border : $border-color-success;
+$alert-okay-bg     : $bg-color-okay;
+$alert-okay-text   : $color-okay;
+$alert-okay-border : $border-color-okay;
 
-$alert-info-bg : $bg-color-info;
-$alert-info-text : $state-info-text;
+$alert-info-bg     : $bg-color-info;
+$alert-info-text   : $color-info;
 $alert-info-border : $border-color-info;
 
-$alert-warning-bg : $bg-color-warning;
-$alert-warning-text : $state-warning-text;
-$alert-warning-border : $border-color-warning;
+$alert-warn-bg     : $bg-color-warn;
+$alert-warn-text   : $color-warn;
+$alert-warn-border : $border-color-warn;
 
-$alert-danger-bg : $bg-color-danger;
-$alert-danger-text : $state-danger-text;
-$alert-danger-border : $border-color-danger;
+$alert-crit-bg     : $bg-color-crit;
+$alert-crit-text   : $color-crit;
+$alert-crit-border : $border-color-crit;
 
 /* Progress bars */
 
@@ -644,9 +649,9 @@ $progress-bar-color : $color-white;
 $progress-border-radius : $border-radius-base;
 
 $progress-bar-bg : $color-primary;
-$progress-bar-success-bg : $color-success;
-$progress-bar-warning-bg : $color-warning;
-$progress-bar-danger-bg : $color-danger;
+$progress-bar-okay-bg : $color-okay;
+$progress-bar-warn-bg : $color-warn;
+$progress-bar-crit-bg : $color-crit;
 $progress-bar-info-bg : $color-info;
 
 /* List group */
@@ -669,40 +674,40 @@ $list-group-link-color : rgba(085, 085, 085, 1.00);
 $list-group-link-hover-color : $list-group-link-color;
 $list-group-link-heading-color : $color-gray-darkish;
 
-/* Panels */
+/* PANELS */
 
-$panel-bg : $color-white;
-$panel-body-padding : 15px;
+$panel-bg              : $color-white;
+$panel-body-padding    : 15px;
 $panel-heading-padding : 10px 15px;
-$panel-footer-padding : $panel-heading-padding;
-$panel-border-radius : $border-radius-base;
+$panel-footer-padding  : $panel-heading-padding;
+$panel-border-radius   : $border-radius-base;
 
 $panel-inner-border : $color-gray-light-m;
-$panel-footer-bg : $color-gray-bg-alt-2;
+$panel-footer-bg    : $color-gray-bg-alt-2;
 
-$panel-default-text : $color-gray-dark;
-$panel-default-border : $color-gray-light-m;
+$panel-default-text       : $color-gray-dark;
+$panel-default-border     : $color-gray-light-m;
 $panel-default-heading-bg : $color-gray-bg-alt-2;
 
-$panel-primary-text : $color-white;
-$panel-primary-border : $color-primary;
+$panel-primary-text       : $color-white;
+$panel-primary-border     : $color-primary;
 $panel-primary-heading-bg : $color-primary;
 
-$panel-success-text : $color-white;
-$panel-success-border : $border-color-success;
-$panel-success-heading-bg : $color-success;
+$panel-okay-text       : $color-white;
+$panel-okay-border     : $border-color-okay;
+$panel-okay-heading-bg : $color-okay;
 
-$panel-info-text : $color-white;
-$panel-info-border : $border-color-info;
+$panel-info-text       : $color-white;
+$panel-info-border     : $border-color-info;
 $panel-info-heading-bg : $color-info;
 
-$panel-warning-text : $color-white;
-$panel-warning-border : $border-color-warning;
-$panel-warning-heading-bg : $color-warning;
+$panel-warn-text       : $color-white;
+$panel-warn-border     : $border-color-warn;
+$panel-warn-heading-bg : $color-warn;
 
-$panel-danger-text : $color-white;
-$panel-danger-border : $border-color-danger;
-$panel-danger-heading-bg : $color-danger;
+$panel-crit-text       : $color-white;
+$panel-crit-border     : $border-color-crit;
+$panel-crit-heading-bg : $color-crit;
 
 /* Thumbnails */
 

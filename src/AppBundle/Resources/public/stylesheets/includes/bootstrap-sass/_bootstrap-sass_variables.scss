@@ -51,25 +51,108 @@ $bootstrap-sass-asset-helper : false;
 
 /* map colors */
 
-$gray-darker   : $color-gray-darker;
-$gray-dark     : $color-gray-dark;
-$gray          : $color-gray;
-$gray-light    : $color-gray-light;
-$gray-lighter  : $color-gray-lighter;
+$gray-darker  : $color-gray-darker;
+$gray-dark    : $color-gray-dark;
+$gray         : $color-gray;
+$gray-light   : $color-gray-light;
+$gray-lighter : $color-gray-lighter;
+
 $brand-primary : $color-primary;
-$brand-success : $color-success;
+$brand-success : $color-okay;
 $brand-info    : $color-info;
-$brand-warning : $color-warning;
-$brand-danger  : $color-danger;
+$brand-warning : $color-warn;
+$brand-danger  : $color-crit;
 
-$state-success-bg : $bg-color-success;
+$state-success-bg : $bg-color-okay;
 $state-info-bg    : $bg-color-info;
-$state-warning-bg : $bg-color-warning;
-$state-danger-bg  : $bg-color-danger;
+$state-warning-bg : $bg-color-warn;
+$state-danger-bg  : $bg-color-crit;
 
-$state-success-border : $border-color-success;
+$color-success : $color-okay;
+$color-info    : $color-info;
+$color-warn    : $color-warn;
+$color-danger  : $color-crit;
+
+$bg-color-success : $bg-color-okay;
+$bg-color-info    : $bg-color-info;
+$bg-color-warning : $bg-color-warn;
+$bg-color-danger  : $bg-color-crit ;
+
+$border-color-success : $border-color-okay;
+$border-color-info    : $border-color-info;
+$border-color-warning : $border-color-warn;
+$border-color-danger  : $border-color-crit;
+
+$state-success-text : $text-color-okay;
+$state-info-text    : $text-color-info;
+$state-warning-text : $text-color-warn;
+$state-danger-text  : $text-color-crit;
+
+$state-success-border : $border-color-okay;
 $state-info-border    : $border-color-info;
-$state-warning-border : $border-color-warning;
-$state-danger-border  : $border-color-danger;
+$state-warning-border : $border-color-warn;
+$state-danger-border  : $border-color-crit;
+
+$state-success-bg : $bg-color-okay;
+$state-info-bg    : $bg-color-info;
+$state-warning-bg : $bg-color-warn;
+$state-danger-bg  : $bg-color-crit;
+
+$label-success-bg : $color-okay;
+$label-info-bg    : $color-info;
+$label-warning-bg : $color-warn;
+$label-danger-bg  : $color-crit;
+
+$btn-success-color  : $btn-okay-color;
+$btn-success-bg     : $btn-okay-bg;
+$btn-success-border : $btn-okay-border;
+
+$btn-warning-color  : $btn-warn-color;
+$btn-warning-bg     : $btn-warn-bg;
+$btn-warning-border : $btn-warn-border;
+
+$btn-danger-color  : $btn-crit-color;
+$btn-danger-bg     : $btn-crit-bg;
+$btn-danger-border : $btn-crit-border;
+
+$label-success-bg : $label-okay-bg;
+$label-warning-bg : $label-warn-bg;
+$label-danger-bg  : $label-crit-bg;
+
+$alert-success-bg     : $alert-okay-bg;
+$alert-success-text   : $alert-okay-text;
+$alert-success-border : $alert-okay-border;
+
+$alert-warning-bg     : $alert-warn-bg;
+$alert-warning-text   : $alert-warn-text;
+$alert-warning-border : $alert-warn-border;
+
+$alert-danger-bg     : $alert-crit-bg;
+$alert-danger-text   : $alert-crit-text;
+$alert-danger-border : $alert-crit-border;
+
+$panel-success-heading-bg : $panel-okay-heading-bg;
+$panel-success-text       : $panel-okay-text;
+$panel-success-border     : $panel-okay-border;
+
+$panel-warning-heading-bg : $panel-warn-heading-bg;
+$panel-warning-text       : $panel-warn-text;
+$panel-warning-border     : $panel-warn-border;
+
+$panel-danger-heading-bg : $panel-crit-heading-bg;
+$panel-danger-text       : $panel-crit-text;
+$panel-danger-border     : $panel-crit-border;
+
+$progress-bar-success-bg : $progress-bar-okay-bg;
+$progress-bar-warning-bg : $progress-bar-warn-bg;
+$progress-bar-danger-bg  : $progress-bar-crit-bg;
+
+$zindex-navbar           : $z-index-navbar;
+$zindex-navbar-fixed     : $z-index-navbar-fixed;
+$zindex-dropdown         : $z-index-dropdown;
+$zindex-popover          : $z-index-popover;
+$zindex-tooltip          : $z-index-tooltip;
+$zindex-modal-background : $z-index-modal-bg;
+$zindex-modal            : $z-index-modal;
 
 /* EOF */

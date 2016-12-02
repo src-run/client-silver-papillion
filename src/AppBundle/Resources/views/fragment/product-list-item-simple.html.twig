@@ -7,8 +7,9 @@
     <div class="card is-linkable is-animated" data-href="{{ path('app_product_view', {'productName': product.getName|slugify, 'product': product.getId, 'category': product.getCategory.getSlug}) }}">
 
         {% include 'AppBundle:fragment:product-section-head.html.twig' with {
-            'product' : product,
-            'price'   : 'show'
+            'product'     : product,
+            'price'       : 'show',
+            'class_cards' : ' is-toggleable is-overlay has-depth',
         } only %}
 
         {% include 'AppBundle:fragment:product-section-body.html.twig' with {
@@ -17,7 +18,7 @@
 
         {% include 'AppBundle:fragment:product-section-foot.html.twig' with {
             'product' : product,
-            'classes' : 'has-accent'
+            'classes' : 'has-accent has-depth'
         } only %}
 
     </div>

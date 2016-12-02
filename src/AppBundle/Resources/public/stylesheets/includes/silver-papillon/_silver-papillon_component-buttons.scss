@@ -34,11 +34,17 @@
 
 @include btn(default, $btn-default-bg);
 @include btn(primary, $btn-primary-bg);
-@include btn(success, $btn-success-bg);
+
+@include btn(success, $btn-okay-bg);
 @include btn(info,    $btn-info-bg);
-@include btn(warning, $btn-warning-bg);
-@include btn(danger,  $btn-danger-bg);
-@include btn(link,    $color-white);
+@include btn(warning, $btn-warn-bg);
+@include btn(danger,  $btn-crit-bg);
+
+@include btn(link, $color-white);
+
+@include btn(okay, $btn-okay-bg);
+@include btn(warn, $btn-warn-bg);
+@include btn(crit, $btn-crit-bg);
 
 .btn {
 

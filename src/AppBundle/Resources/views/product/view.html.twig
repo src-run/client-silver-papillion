@@ -27,8 +27,9 @@
                     </div>
 
                     {% include 'AppBundle:fragment:product-section-foot.html.twig' with {
-                        'product' : product,
-                        'classes' : 'has-accent'
+                        'product'   : product,
+                        'classes'   : 'has-accent has-depth',
+                        'link_text' : 'Enlarge Thumbnail'
                     } only %}
                 </div>
 

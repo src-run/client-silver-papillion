@@ -89,14 +89,14 @@
         > a {
           cursor           : not-allowed;
           color            : rgba($color-black, 0.2);
-          background-color : rgba($bg-color-global, 0.4);
+          background-color : rgba($bg-color-page-body-normal, 0.4);
         }
 
         &:hover, &:active {
           > span,
           > a {
             color            : rgba($color-black, 0.2);
-            background-color : rgba($bg-color-global, 0.4);
+            background-color : rgba($bg-color-page-body-normal, 0.4);
           }
         }
       }
