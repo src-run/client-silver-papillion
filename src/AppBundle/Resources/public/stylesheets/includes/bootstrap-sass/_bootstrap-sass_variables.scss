@@ -1,0 +1,57 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+
+//
+// import configuration global-partials
+//
+
+@import '../silver-papillon/silver-papillon_variables';
+
+//
+// map border global-partials
+//
+
+$border-radius-large : $border-radius-lg;
+$border-radius-small : $border-radius-sm;
+
+//
+// map padding global-partials
+//
+
+$padding-base-vertical    : $padding-y-base;
+$padding-large-vertical   : $padding-y-lg;
+$padding-small-vertical   : $padding-y-sm;
+$padding-base-horizontal  : $padding-x-base;
+$padding-large-horizontal : $padding-x-lg;
+$padding-small-horizontal : $padding-x-sm;
+$padding-micro-horizontal : $padding-x-xs;
+
+//
+// map font size global-partials
+//
+
+$font-size-large   : $font-size-lg;
+$font-size-medium  : $font-size-md;
+$font-size-small   : $font-size-sm;
+$font-size-x-small : $font-size-xs;
+
+//
+// map line height global-partials
+//
+
+$line-height-large : $line-height-lg;
+$line-height-small : $line-height-sm;
+
+// disable bootstrap sass asset helper
+
+$bootstrap-sass-asset-helper : false;
+
+// EOF

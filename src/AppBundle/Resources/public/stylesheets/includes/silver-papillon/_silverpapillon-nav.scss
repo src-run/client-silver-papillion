@@ -1,0 +1,258 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+
+//
+// page navigation (pagination)
+//
+
+.page-navigation {
+  text-align : right;
+  margin     : $padding-above 0 $padding-below-sm 0;
+  float      : right;
+
+  .page-selector {
+    border-radius    : $border-radius-hint;
+    list-style-type  : none;
+    padding          : 0;
+    margin           : 0;
+    overflow         : hidden;
+
+    > li {
+      transition  : background-color $trans-time-x-08, color $trans-time-x-08;
+      will-change : background-color, color;
+      display     : block;
+      float       : left;
+      font-size   : $font-size-h6;
+
+      > a {
+        cursor : pointer;
+      }
+
+      > span, > a {
+        display   : block;
+        font-size : $font-size-lg;
+        padding   : 6px 17px 5px 17px;
+        color     : rgba($color-black, 0.55);
+
+        .icon-wrap-type-ion {
+          display : block;
+          padding : 1px;
+        }
+      }
+
+      &.page-int {
+        > span, > a {
+          font-size   : $font-size-md;
+          line-height : 29px;
+        }
+      }
+
+      &:hover, &:active {
+        > span, > a {
+          color            : $color-white;
+          background-color : $color-primary;
+          text-decoration  : none;
+        }
+      }
+
+      &.active {
+        > a {
+          cursor : not-allowed;
+        }
+
+        > span, > a {
+          color       : $color-primary;
+          font-weight : 600;
+          padding     : 7px 17px 4px 17px;
+        }
+
+        &:hover, &:active {
+          > span, > a {
+            color            : $color-primary;
+            background-color : transparent;
+          }
+        }
+      }
+
+      &.disabled {
+        > span, > a {
+          cursor           : not-allowed;
+          color            : rgba($color-black, 0.2);
+          background-color : rgba($bg-color-global, 0.4);
+        }
+
+        &:hover, &:active {
+          > span, > a {
+            color            : rgba($color-black, 0.2);
+            background-color : rgba($bg-color-global, 0.4);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// fancy-box nav
+
+.fancybox-type-iframe .fancybox-nav {
+  width : 60px;
+}
+
+.fancybox-type-iframe .fancybox-nav span {
+  visibility : visible;
+  opacity    : 0.5;
+}
+
+.fancybox-type-iframe .fancybox-nav:hover span {
+  opacity : 1;
+}
+
+.fancybox-type-iframe .fancybox-next {
+  right : -60px;
+}
+
+.fancybox-type-iframe .fancybox-prev {
+  left : -60px;
+}
+
+
+//
+// nav bar
+//
+
+.navbar {
+  @include box-shadow(0 1px 2px rgba(0,0,0,.3));
+
+  border : none;
+
+  &.navbar-inverse .navbar-nav > .active > a,
+  &.navbar-inverse .navbar-nav > .active > a:hover,
+  &.navbar-inverse .navbar-nav > .active > a:focus {
+    box-shadow : inset 0 6px 18px darken($navbar-inverse-bg, 11%);
+  }
+
+  .navbar-nav > li > a {
+    font-size : 14px;
+
+    > .fa {
+      font-size     : 17px;
+      padding-right : 6px;
+    }
+  }
+
+  &.navbar-inverse {
+    box-shadow       : 0 0 40px rgba(0, 0, 0, 0.5);
+    background-image : url('/bundles/app/images/bg-large-opacity02.png');
+    background-size  : cover;
+  }
+
+  .navbar-collapse .navbar-nav {
+    @media (min-width: $screen-sm-min) {
+      float : right;
+    }
+  }
+
+  .navbar-brand {
+    padding : 0;
+
+    img {
+      height       : 87px;
+      padding-top  : 6px;
+      opacity      : 1;
+      transition   : opacity $trans-time-opacity;
+      padding-left : 12px;
+    }
+
+    &:hover img {
+      opacity : 0.8;
+    }
+  }
+
+  .dropdown-header {
+    color : $color-gray-light-d;
+
+    .badge {
+      font-size : 10px;
+      padding   : 2px 4px 1px 4px;
+    }
+  }
+}
+
+
+//
+// nav tags
+//
+
+.nav-tabs {
+  > li > a, > li > a:focus {
+    @include box-shadow(inset 0 -1px 0 #ddd);
+    @include transition(all 0.2s);
+
+    margin-right     : 0;
+    background-color : transparent;
+    border           : none;
+    color            : $navbar-default-link-color;
+
+    &:hover {
+      @include box-shadow(inset 0 -2px 0 $brand-primary);
+
+      background-color : transparent;
+      color            : $brand-primary;
+    }
+  }
+
+  & > li.active > a, & > li.active > a:focus {
+    @include box-shadow(inset 0 -2px 0 $brand-primary);
+
+    border : none;
+    color  : $brand-primary;
+
+    &:hover {
+      border : none;
+      color  : $brand-primary;
+    }
+  }
+
+  & > li.disabled > a {
+    @include box-shadow(inset 0 -1px 0 #ddd);
+  }
+
+  &.nav-justified {
+    & > li > a,
+    & > li > a:hover,
+    & > li > a:focus,
+    & > .active > a,
+    & > .active > a:hover,
+    & > .active > a:focus {
+      border: none;
+    }
+  }
+
+  .dropdown-menu {
+    margin-top: 0;
+  }
+}
+
+
+//
+// drop-down menu
+//
+
+.dropdown-menu {
+  @include box-shadow(0 1px 12px rgba(0,0,0,.2));
+
+  margin-top : 0;
+  border     : none;
+}
+
+
+// EOF

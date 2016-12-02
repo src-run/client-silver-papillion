@@ -1,0 +1,292 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+
+//
+// cart checkout
+//
+
+.checkout {
+  @include make-row();
+
+  .card {
+    padding : 0 29px 29px 29px;
+  }
+
+  .checkout-form-wrap {
+    @include make-sm-column(7);
+
+    .form-submit-wrap {
+      @include make-row();
+
+      .btn {
+        width: 50%;
+      }
+    }
+
+    .checkout-error {
+      margin      : 0;
+      font-size   : 18px;
+      font-weight : 300;
+      color       : red;
+
+      p {
+        padding : 0;
+        margin  : 0;
+
+        em {
+          font-style     : normal;
+          font-weight    : 400;
+        }
+      }
+    }
+  }
+
+  .checkout-info {
+    @include make-sm-column(4);
+    @include make-sm-column-offset(1);
+
+    .checkout-info-item-group {
+      .checkout-info-item {
+        overflow      : hidden;
+        padding       : 0;
+        margin-bottom : 6px;
+
+        .cart-item-image {
+          float : left;
+          width : 52px;
+
+          img {
+            width : 100%;
+          }
+        }
+
+        h4 {
+          display     : block;
+          margin      : 6px 0 0 0;
+          padding     : 0 0 0 63px;
+          font-size   : $font-size-h6;
+          font-weight : 400;
+        }
+
+        h5 {
+          margin    : 0;
+          padding   : 3px 0 0 63px;
+          font-size : $font-size-sm;
+
+          em {
+            font-weight : 500;
+            font-style  : normal;
+          }
+        }
+      }
+    }
+
+    .cart-total {
+      text-align : right;
+
+      .cart-total-breakdown {
+        overflow : auto;
+        margin   : 36px 0 0 0;
+
+        > * {
+          float : left;
+        }
+
+        dt {
+          font-weight : 500;
+          padding     : 0 6px;
+        }
+
+        dd {
+          font-weight : 400;
+
+          &:after {
+            content : " / ";
+          }
+
+          &:last-child {
+            &:after {
+              content : "";
+            }
+          }
+        }
+      }
+
+      .cart-total-total {
+        clear         : right;
+        float         : right;
+        font-size     : $font-size-h4;
+        color         : $color-accent;
+        margin-bottom : 0;
+
+        > * {
+          float : left;
+        }
+
+        dt {
+          padding : 0 6px;
+
+          &:after {
+            content : ": ";
+          }
+        }
+
+        dt,
+        dd {
+          font-weight : 500;
+        }
+      }
+    }
+  }
+}
+
+.cart-actions {
+  @include make-row();
+
+  .cart-btns,
+  .cart-total {
+    @include make-sm-column(6);
+  }
+
+  .cart-btns {
+    margin-top : 18px;
+  }
+
+  .cart-total {
+    text-align : right;
+
+    .cart-total-breakdown {
+      overflow      : auto;
+      float         : right;
+      margin-bottom : 6px;
+
+      > * {
+        float : left;
+      }
+
+      dt {
+        font-weight : 500;
+        padding     : 0 6px;
+
+        &:after {
+          content : ": ";
+        }
+      }
+
+      dd {
+        font-weight : 400;
+
+        &:after {
+          content : " / ";
+        }
+
+        &:last-child {
+          &:after {
+            content : "";
+          }
+        }
+      }
+    }
+
+    .cart-total-total {
+      clear         : right;
+      float         : right;
+      font-size     : $font-size-h4;
+      color         : $color-accent;
+      margin-bottom : 0;
+
+      > * {
+        float : left;
+      }
+
+      dt {
+        padding : 0 6px;
+
+        &:after {
+          content : ": ";
+        }
+      }
+
+      dt,
+      dd {
+        font-weight : 500;
+      }
+    }
+  }
+}
+
+.cart-item {
+  @include make-row();
+
+  .cart-item-info {
+    @include make-sm-column(7);
+
+    .cart-item-image {
+      float  : left;
+      margin : 15px 30px 15px 0;
+    }
+
+    p {
+      margin-top : 28px;
+    }
+
+    h4 {
+      margin-top : 29px;
+    }
+
+    h6 {
+      color : $color-accent;
+
+      a {
+        color : $color-accent;
+      }
+    }
+  }
+
+  .cart-item-actions {
+    @include make-sm-column(5);
+
+    text-align : right;
+    padding-top: 18px;
+
+    em {
+      font-style  : normal;
+      font-weight : 500;
+    }
+
+    p {
+      margin: 0 0 6px;
+    }
+
+    .cart-item-actions-count,
+    .cart-item-actions-total {
+      margin    : 6px;
+      padding   : 8px 12px 6px 12px;
+      display   : inline-block;
+      font-size : 14px;
+    }
+
+    .cart-item-actions-count {
+      font-weight : 400;
+    }
+
+    .cart-item-actions-total {
+      font-weight : 400;
+    }
+
+    .btn-group {
+      margin : 6px;
+    }
+  }
+}
+
+
+// EOF

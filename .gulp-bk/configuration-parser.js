@@ -30,7 +30,7 @@ export default class ConfigurationParser {
   }
 
   /**
-   * Assign two passed variables to class properties if they contain a valid value.
+   * Assign two passed global-partials to class properties if they contain a valid value.
    *
    * @param {String} filePath
    * @param {Object} fileOpts

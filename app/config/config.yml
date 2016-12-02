@@ -79,7 +79,7 @@ framework :
     version        : 1.2.1
     version_format : "%%s?v=%%s"
     packages :
-      images : { base_urls : [ "//silverpapillon.com/bundles/app/images" ] }
+      images : { base_urls : [ "//silver-papillon.com/bundles/app/images" ] }
 
 
 

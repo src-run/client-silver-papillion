@@ -1,0 +1,154 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+
+//
+// cards
+//
+
+.card {
+  border           : $border-def-card;
+  background-color : $bg-color-card;
+  overflow         : hidden;
+  position         : relative;
+  box-shadow       : 0 3px 12px rgba(0,0,0,0.05);
+  margin-bottom    : $padding-below-md;
+
+  > .card-section-head,
+  > .card-section-body,
+  > .card-section-foot {
+    position : relative;
+    overflow : hidden;
+    z-index  : 1;
+
+    .abs-right {
+      position : absolute;
+      right    : 21px;
+      top      : 27px;
+    }
+  }
+
+  > .card-section-head,
+  > .card-section-foot {
+    background-color : $bg-color-section;
+  }
+
+  > .card-section-foot {
+
+    &.has-accent {
+      background-color : rgba($color-accent, 0.95) !important;
+
+      > * {
+        font-size      : $font-size-xxs;
+        font-weight    : 600;
+        display        : block;
+        margin         : 5px 4px 3px 4px;
+        text-align     : center;
+        text-transform : uppercase;
+      }
+
+      > * > * {
+        color                      : rgba($color-white, 0.9);
+        line-height                : 27px;
+        will-change                : auto;
+        transition                 : color $trans-time-color;
+        transition-timing-function : $trans-func-color;
+      }
+
+      &:hover > * > a {
+        text-decoration : none;
+      }
+    }
+  }
+
+  &.is-linkable {
+    cursor           : pointer;
+    border           : $border-color-linkable;
+    background-color : $bg-color-linkable;
+    box-shadow       : 0 6px 24px rgba(29, 42, 46, 0.075);
+
+    &:hover {
+      border           : $border-color-linkable-focus;
+      background-color : $bg-color-linkable-focus;
+      box-shadow       : 0 6px 24px rgba(29, 42, 46, 0.8);
+
+      > .card-section-head,
+      > .card-section-foot {
+        background-color : $bg-color-section-focus;
+      }
+    }
+  }
+
+  &.is-animated {
+    will-change : auto;
+    transition  : border $trans-time-x-08, background-color $trans-time-x-08, box-shadow $trans-time-x-04;
+
+    > .card-section-head,
+    > .card-section-body,
+    > .card-section-foot {
+      will-change                : auto;
+      transition                 : transform $trans-time-x-03, background-color $trans-time-x-02;
+      transition-timing-function : $trans-func-transform;
+    }
+  }
+
+  > .has-bg-light-gray {
+    background-color : $bg-color-global;
+  }
+
+  > .is-overlay {
+    background-color : $bg-color-overlay;
+    position         : absolute;
+    left             : 0;
+    right            : 0;
+
+    &.card-section-head {
+      z-index : 9;
+      top     : 0;
+    }
+
+    &.card-section-foot {
+      z-index : 9;
+      bottom  : 0;
+    }
+  }
+
+  > .is-overlay.is-toggleable {
+    background-color : $bg-color-toggleable;
+
+    &.card-section-head {
+      transform : $trans-toggleable-card-head;
+    }
+    &.card-section-foot {
+      transform : $trans-toggleable-card-foot;
+    }
+  }
+
+  &:hover > .is-overlay.is-toggleable {
+    background-color : $bg-color-toggleable-focus;
+
+    &.card-section-head,
+    &.card-section-foot {
+      transform : $trans-toggleable-card;
+    }
+  }
+}
+
+
+//
+// card listing
+//
+
+.card-listing {
+  @include make-row();
+}
+
+
+// EOF

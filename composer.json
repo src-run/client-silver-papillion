@@ -37,6 +37,7 @@
     "friendsofsymfony/user-bundle": "~2.0",
     "hostnet/form-handler-bundle": "~1.1",
     "incenteev/composer-parameter-handler": "~2.1",
+    "ip2location/ip2location-php": "~8.0",
     "javiereguiluz/easyadmin-bundle": "~1.16",
     "knplabs/knp-menu-bundle": "~2.1",
     "knplabs/knp-paginator-bundle": "~2.5",

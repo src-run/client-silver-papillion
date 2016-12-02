@@ -1,0 +1,559 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+
+.primary-hr {
+  margin      : ($font-margin-base * 2.5) 0 ($font-margin-base * 3) 0;
+  font-weight : 300;
+  color       : $color-accent;
+  text-shadow : 1px 1px 1px $color-white;
+
+  &-i {
+    margin      : ($font-margin-base * 2.5) 0 ($font-margin-base * 3) 0;
+    font-weight : 100;
+    color       : $color-accent;
+
+    em {
+      font-style  : normal;
+      font-weight : 300;
+    }
+  }
+}
+
+.hr-extra-top {
+  margin-top : 60px !important;
+}
+
+.contact {
+  @include make-row();
+
+  .card {
+    padding : 0 29px 29px 29px;
+  }
+
+  .contact-form-wrap {
+    @include make-sm-column(7);
+  }
+
+  .contact-from-info {
+    @include make-sm-column(4);
+    @include make-sm-column-offset(1);
+  }
+}
+
+.promo {
+  background-color : $bg-color-accent;
+  padding-top      : $padding-above;
+  padding-bottom   : $padding-below;
+
+  a.btn {
+    margin : $padding-above-xxs 0 0 0;
+  }
+
+  p {
+    color       : $color-primary;
+    font-size   : $font-size-xxl;
+    font-weight : 300;
+    padding     : $padding-above-xs 0 $padding-below-xxs;
+    margin      : 0;
+  }
+}
+
+.legal {
+  &.legal-tos, &.legal-privacy {
+    @include make-row();
+
+    .section-tos-body, .section-privacy-body {
+      @include make-sm-column(7);
+
+      .legal-modified h4 {
+        margin    : -9px 0 36px 0;
+        font-size : 14px;
+        color     : $color-gray-light;
+
+        em {
+          font-style  : normal;
+          font-weight : 400;
+        }
+      }
+
+      .legal-body {
+        p {
+          font-size   : 14px;
+          line-height : 29px;
+          font-weight : 300;
+        }
+
+        h5 {
+          margin         : 29px 0 18px 0;
+          font-weight    : 100;
+          font-size      : $font-size-h3;
+          color          : $color-primary;
+
+          em {
+            display        : block;
+            margin-top     : 6px;
+            font-style     : normal;
+            font-weight    : 400;
+            font-size      : $font-size-h6;
+            color          : $color-accent;
+            text-transform : uppercase;
+          }
+        }
+
+        ul li {
+          font-weight : 300;
+        }
+      }
+    }
+
+    .section-tos-more, .section-privacy-more {
+      @include make-sm-column(4);
+      @include make-sm-column-offset(1);
+
+      .card {
+        padding : 0 29px 29px 29px;
+
+        .btn {
+          margin-top : 29px;
+        }
+      }
+    }
+  }
+}
+
+.index-about {
+  @include make-row();
+
+  .info-phone-and-address {
+    font-size   : 21px;
+    font-weight : 200;
+    color       : $color-black;
+  }
+
+  .index-about-section {
+    @include make-sm-column(4);
+
+    .btn {
+      margin-top    : 30px;
+      margin-bottom : 20px;
+    }
+
+    .info-hours {
+      margin-bottom : $font-margin-base*3;
+
+      dt {
+        font-weight : 300;
+        font-size   : 14px;
+        float       : left;
+        width       : 124px;
+        opacity     : 0.6;
+
+        &.today {
+          font-style : italic;
+        }
+      }
+
+      dd {
+        font-weight : 200;
+        font-size   : 14px;
+        color       : $color-black;
+
+        &.today {
+          font-style : italic;
+        }
+      }
+    }
+  }
+}
+
+.action-status-icon {
+  text-align : center;
+
+  p {
+    margin      : 0 27px 36px 27px;
+    font-size   : 18px;
+    font-weight : 300;
+  }
+
+  .action-status-icon-stack {
+    font-size : 120px;
+    margin    : 36px 27px 12px 27px;
+
+    .action-status-icon-bg {
+      color : $color-primary;
+    }
+
+    .action-status-icon-mg {
+      color   : $color-black;
+      opacity : 0.25;
+    }
+
+    .action-status-icon-fg {
+      color : rgba($color-white, 0.9);
+    }
+  }
+}
+
+.about-location {
+  @include make-row();
+
+  .info-phone-and-address p {
+    font-size   : 21px;
+    font-weight : 200;
+    color       : $color-black;
+  }
+
+  .about-address {
+    @include make-sm-column(4);
+
+    .info-hours {
+      margin-bottom : $font-margin-base*3;
+
+      dt {
+        font-weight : 300;
+        font-size   : 14px;
+        float       : left;
+        width       : 120px;
+        opacity     : 0.6;
+
+        &.today {
+          font-style : italic;
+        }
+      }
+
+      dd {
+        font-weight : 200;
+        font-size   : 14px;
+        color       : $color-black;
+
+        &.today {
+          font-style : italic;
+        }
+      }
+    }
+  }
+
+  .about-map {
+    @include make-sm-column(8);
+
+    .card {
+      > * {
+        pointer-events : none;
+      }
+
+      .card-section-head {
+        font-size : 700%;
+
+        @media (min-width: $screen-sm-min) {
+          font-size : 400%;
+        }
+        @media (min-width: $screen-md-min) {
+          font-size : 600%;
+        }
+        @media (min-width: $screen-lg-min) {
+          font-size : 800%;
+        }
+
+        z-index                    : 10;
+        pointer-events             : none;
+        display                    : block;
+        background-color           : transparent;
+        border-bottom              : none;
+        text-align                 : center;
+        margin-top                 : 60px;
+        will-change                : auto;
+        transition                 : opacity $trans-time-x-03;
+        transition-timing-function : $trans-func-transform;
+        opacity                    : 0;
+
+        .fa {
+          will-change                : auto;
+          transition                 : transform $trans-time-x-07;
+          transition-timing-function : $trans-func-transform;
+        }
+
+        p {
+          padding                    : 0;
+          margin                     : 12px;
+          text-align                 : center;
+          font-size                  : 21px;
+          font-weight                : 500;
+          color                      : rgba($color-white, 1);
+          text-shadow                : 1px 1px 1px rgba(#000, 0.9);
+        }
+
+        .fa-circle {
+          color : rgba($color-black, 0.8);
+        }
+
+        .fa-map-marker {
+          color : rgba($color-white, 0.9);
+        }
+      }
+
+      .card-section-foot {
+        opacity    : 0;
+        transform  : translateY(0) !important;
+        transition : opacity $trans-time-x-03;
+      }
+
+      &:hover {
+        .card-section-head {
+          background-color : transparent;
+          opacity          : 1;
+
+          .fa-map-marker {
+            transform : rotate(720deg);
+          }
+        }
+
+        .card-section-foot {
+          opacity : 1;
+        }
+      }
+
+      img {
+        @include img-responsive();
+
+        width : 100%;
+      }
+    }
+  }
+}
+
+.tooltip {
+  text-transform : uppercase;
+  font-size      : 10px;
+}
+
+.about-text p {
+  font-size   : 18px;
+  font-weight : 300;
+  line-height : 42px;
+}
+
+.jslghtbx {
+  z-index : 9999;
+}
+
+.carousel {
+  .carousel-inner .item {
+    max-height : 360px;
+
+    img {
+      width : 100%;
+    }
+  }
+
+  .carousel-indicators {
+    bottom : 10px;
+
+    li {
+      background-color : rgba(255, 255, 255, 0.5);
+      border-radius    : 100px;
+      height           : 12px;
+      width            : 12px;
+
+      &.active {
+        background-color : #fff;
+        margin           : 1px;
+        height           : 12px;
+        width            : 12px;
+      }
+    }
+  }
+
+  .carousel-caption {
+    background-color : rgba(0,0,0,0.6);
+    margin           : 0 0 54px 0;
+    padding          : 6px;
+
+    > * {
+      font-size   : 21px;
+      font-weight : 300;
+      margin      : 6px;
+      padding     : 0;
+    }
+  }
+
+  &-caption {
+    h1, h2, h3, h4, h5, h6 {
+      color: inherit;
+    }
+  }
+}
+
+// Typography =================================================================
+
+body {
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: .1px;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+input,
+button {
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: .1px;
+}
+
+a {
+  @include transition(all 0.2s);
+}
+
+// Tables =====================================================================
+
+.table-hover {
+  > tbody > tr,
+  > tbody > tr > th,
+  > tbody > tr > td {
+    @include transition(all 0.2s);
+  }
+}
+
+// Indicators =================================================================
+
+.alert {
+  border: none;
+  color: #fff;
+
+  &-success {
+    background-color: $brand-success;
+  }
+
+  &-info {
+    background-color: $brand-info;
+  }
+
+  &-warning {
+    background-color: $brand-warning;
+  }
+
+  &-danger {
+    background-color: $brand-danger;
+  }
+
+  a:not(.close):not(.btn),
+  .alert-link {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .close {
+    color: #fff;
+  }
+}
+
+.badge {
+  padding: 4px 6px 4px;
+}
+
+.progress {
+  position: relative;
+  z-index: 1;
+  height: 6px;
+  border-radius: 0;
+
+  @include box-shadow(none);
+
+  &-bar {
+    @include box-shadow(none);
+
+    &:last-child {
+      border-radius: 0 3px 3px 0;
+    }
+
+    &:last-child {
+      &:before {
+        display: block;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        background-color: lighten($progress-bar-bg, 35%);
+      }
+    }
+
+    &-success:last-child.progress-bar:before {
+      background-color: lighten($brand-success, 35%);
+    }
+
+    &-info:last-child.progress-bar:before {
+      background-color: lighten($brand-info, 45%);
+    }
+    &-warning:last-child.progress-bar:before {
+      background-color: lighten($brand-warning, 35%);
+    }
+
+    &-danger:last-child.progress-bar:before {
+      background-color: lighten($brand-danger, 25%);
+    }
+  }
+}
+
+// Containers =================================================================
+
+.close {
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 24px;
+  opacity: 0.6;
+  @include transition(all 0.2s);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.list-group {
+
+  &-item {
+    padding: 15px;
+  }
+
+  &-item-text {
+    color: $gray-light;
+  }
+}
+
+.well {
+  border-radius: 0;
+  @include box-shadow(none);
+}
+
+.panel {
+  border-width: 1px;
+  border-radius: 2px;
+  @include box-shadow(0 2px 8px rgba(0,0,0,.2));
+
+  &-heading {
+    border-bottom: none;
+  }
+
+  &-footer {
+    border-top: none;
+  }
+}
+
+.popover {
+  border: none;
+  @include box-shadow(0 1px 4px rgba(0,0,0,.3));
+}
+
+
+
+// EOF

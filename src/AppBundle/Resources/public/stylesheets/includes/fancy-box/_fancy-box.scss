@@ -8,7 +8,19 @@
  * file that was distributed with this source code.
 */
 
-@import "fancybox-config";
-@import "jquery-fancy-box/source/scss/fancybox.scss";
 
-/* EOF */
+//
+// import fancy-box configuration
+//
+
+@import 'fancy-box_variables';
+
+
+//
+// import fancy-box sass assets
+//
+
+@import 'jquery-fancy-box/source/scss/fancybox.scss';
+
+
+// EOF

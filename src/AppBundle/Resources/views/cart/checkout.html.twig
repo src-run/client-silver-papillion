@@ -73,52 +73,7 @@
 
             </div>
 
-            <div class="checkout-info">
-
-                <div class="card">
-                    <h3 class="primary-hr-i">
-                        {{ ion('bag') }} Cart <em>Summary</em>
-                    </h3>
-
-                    <div class="checkout-info-item-group">
-
-                        {% for g in cart_items_grouped() %}
-                            <div class="checkout-info-item">
-                                <div class="cart-item-image">
-                                    <img alt="{{ g.getProduct.getName }}" src="{{ asset_product(g.getProduct.getImage) | imagine_filter('product_thumb_sm') }}" />
-                                </div>
-                                <h4>
-                                    <a href="{{ path('app_product_view', {'productName': g.getProduct.getName|slugify, 'product': g.getProduct.getId, 'category': g.getProduct.getCategory.getSlug}) }}">
-                                        {{ g.getProduct.getName }}
-                                    </a>
-                                </h4>
-                                <h5>
-                                    {% if g.count != 1 %}
-                                        ${{ g.getProduct.getPrice()|number_format(2, '.', ',') }} x {{ g.count() }} =
-                                    {% endif %}
-                                    ${{ g.total()|number_format(2, '.', ',') }}
-                                </h5>
-                            </div>
-                        {% endfor %}
-
-                    </div>
-
-                    <div class="cart-total">
-                        <dl class="cart-total-breakdown pull-right">
-                            <dt>Tax</dt>
-                            <dd>${{ cart_tax()|number_format(2, '.', ',') }}</dd>
-                            <dt>Shipping</dt>
-                            <dd>${{ cart_shipping()|number_format(2, '.', ',') }}</dd>
-                        </dl>
-                        <dl class="cart-total-total">
-                            <dt>Total</dt>
-                            <dd>${{ cart_total()|number_format(2, '.', ',') }}</dd>
-                        </dl>
-                    </div>
-
-                </div>
-
-            </div>
+            {% include 'AppBundle:fragment:cart-sidebar.html.twig' %}
 
         </div>
 

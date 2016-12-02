@@ -1,0 +1,148 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+
+//
+// containers
+//
+
+.container-sr {
+  padding-top    : $padding-above;
+  padding-bottom : $padding-below-md;
+}
+
+.container-sr-odd {
+  background-color : #fff;
+  padding-top      : $padding-above;
+  padding-bottom   : $padding-below-md * 1.6;
+
+  .card-wrap {
+    border        : 1px solid #efefef;
+    margin-bottom : $padding-below-md;
+
+    > .card {
+      margin-bottom : 0 !important;
+    }
+  }
+}
+
+.container-main-wrap {
+  padding-top : 92px;
+}
+
+
+//
+// breadcrumbs
+//
+
+.bread {
+  background-color : $bg-color-accent;
+  padding-top      : $padding-above-md;
+  padding-bottom   : $padding-below-md;
+
+  h2 {
+    color   : $color-accent;
+    padding : 3px 0 0 0;
+    margin  : 0;
+  }
+
+  ul {
+    margin : 0;
+
+    li {
+      color         : $color-accent;
+      font-size     : $font-size-h4;
+      font-weight   : 400;
+      font-family   : $font-family-condensed;
+      float         : left;
+      padding-right : 12px;
+      padding-top   : 1px;
+
+      &:after {
+        color         : rgba($color-accent, 0.4);
+        font-family   : "FontAwesome";
+        content       : '\f105';
+        padding-left  : 12px;
+      }
+
+      &:last-child {
+        &:after {
+          content : '';
+        }
+      }
+
+      a {
+        font-weight : 100;
+        font-family : $font-family-condensed;
+        color       : rgba($color-accent, 0.65);
+
+        &:hover {
+          color           : $color-accent;
+          text-decoration : none;
+          border-bottom   : 1px solid rgba($color-accent, 0.4);
+        }
+      }
+    }
+  }
+}
+
+
+//
+// page footer
+//
+
+footer {
+  background-color : rgba($color-white, 0.5);
+  padding          : 27px 0 10px 0;
+  border-top       : 1px solid rgba($color-gray-light-m, 0.5);
+  will-change      : border-color;
+  transition       : border-color $trans-time-border-color;
+  font-weight      : 200;
+
+  .footer-copy {
+    @include make-row();
+
+    .footer-copy-copyright {
+      @include make-sm-column(6);
+
+      text-align: left;
+    }
+
+    .footer-copy-contact {
+      @include make-sm-column(6);
+
+      text-align: right;
+    }
+
+    p {
+      margin      : 1em 0 2.4em 0;
+      color       : $color-gray-dark;
+      font-family : $font-family-condensed;
+      opacity     : 0.5;
+      will-change : opacity;
+      transition  : opacity $trans-time-opacity;
+
+      a {
+        color : darken($color-primary, 25%);
+      }
+    }
+  }
+
+  &:hover {
+    border-color : $color-gray-light-m;
+
+    .footer-copy p {
+      opacity : 1;
+    }
+  }
+}
+
+
+// EOF

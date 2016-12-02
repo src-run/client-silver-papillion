@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the `src-run/srw-client-silverpapillon` project.
+ * This file is part of the `src-run/srw-client-silver-papillon` project.
  *
  * (c) Rob Frawley 2nd <rmf@src.run>
  *
@@ -52,7 +52,7 @@ class ContactController extends Controller
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Website message from '.$message->getName())
-            ->setFrom(['website@silverpapillon.com' => 'Silver Papillon Website'])
+            ->setFrom(['website@silver-papillon.com' => 'Silver Papillon Website'])
             ->setTo([$config->value('contact.email', 'rmf@src.run') => 'Silver Papillon'])
             ->setReplyTo($message->getEmail())
             ->setBody(

@@ -53,7 +53,7 @@ liip_imagine :
       filters :
         auto_rotate : ~
         strip       : ~
-        thumbnail   : { size : [84, 84], mode : outbound, allow_upscale : true, filter: LANCZOS }
+        thumbnail   : { size : [92, 92], mode : outbound, allow_upscale : true, filter: LANCZOS }
 
     product_thumb :
 

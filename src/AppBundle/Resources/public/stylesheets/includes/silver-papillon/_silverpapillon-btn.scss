@@ -1,0 +1,95 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+
+//
+// buttons
+//
+
+.btn {
+  .icon-ion {
+    min-width : 12px;
+  }
+
+  &.btn-sm .icon-ion {
+    min-width : 10px;
+  }
+}
+
+@mixin btn($class,$bg){
+  .btn-#{$class} {
+    &:focus {
+      background-color : $bg;
+    }
+
+    &:hover, &:active:hover {
+      background-color : darken($bg, 12%);
+    }
+  }
+}
+
+@include btn(default, $btn-default-bg);
+@include btn(primary, $btn-primary-bg);
+@include btn(success, $btn-success-bg);
+@include btn(info,    $btn-info-bg);
+@include btn(warning, $btn-warning-bg);
+@include btn(danger,  $btn-danger-bg);
+@include btn(link,    $color-white);
+
+.btn {
+  text-transform : uppercase;
+  border         : none;
+  padding        : $padding-x-md ($padding-y-lg*1.2) ($padding-x-md*0.85);
+
+  @include box-shadow(0 1px 2px rgba(0,0,0,.1));
+  @include transition(all 0.4s);
+
+  &-link {
+    @include box-shadow(none);
+
+    border-radius : $btn-border-radius-base;
+    color         : $btn-default-color;
+
+    &:hover, &:focus {
+      @include box-shadow(none);
+
+      color           : $btn-default-color;
+      text-decoration : none;
+    }
+  }
+
+  &-default {
+    &.disabled {
+      background-color : rgba($color-black, 0.1);
+      color            : rgba($color-black, 0.4);
+      opacity          : 1;
+    }
+  }
+}
+
+.btn-group {
+  .btn + .btn,
+  .btn + .btn-group,
+  .btn-group + .btn,
+  .btn-group + .btn-group {
+    margin-left : 0;
+  }
+
+  &-vertical {
+    > .btn + .btn,
+    > .btn + .btn-group,
+    > .btn-group + .btn,
+    > .btn-group + .btn-group {
+      margin-top : 0;
+    }
+  }
+}
+
+// EOF

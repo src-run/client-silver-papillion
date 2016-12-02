@@ -8,7 +8,19 @@
  * file that was distributed with this source code.
 */
 
-@import "ionicons-config";
-@import "ionicons/scss/ionicons.scss";
 
-/* EOF */
+//
+// import custom global-partials
+//
+
+@import 'ion-icons_variables';
+
+
+//
+// import ion icons asset
+//
+
+@import 'ionicons/scss/ionicons.scss';
+
+
+// EOF
