@@ -146,8 +146,6 @@ services :
     class     : AppBundle\Twig\Locator\TemplateLocator
     calls     :
       - [setKernelRoot, ["%kernel.root_dir%"]]
-    arguments :
-      - '@twig.loader'
 
   app.twig_extension.moment:
     class  : SR\WonkaBundle\Twig\MomentTwigExtension

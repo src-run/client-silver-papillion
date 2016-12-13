@@ -20,22 +20,9 @@ use SR\Spl\File\SplFileInfo;
 class TemplateLocator
 {
     /**
-     * @var \Twig_LoaderInterface
-     */
-    private $loader;
-
-    /**
      * @var string
      */
     private $kernelRootDirectory;
-
-    /**
-     * @param \Twig_LoaderInterface $loader
-     */
-    public function __construct(\Twig_LoaderInterface $loader)
-    {
-        $this->loader = $loader;
-    }
 
     /**
      * @param string $kernelRootDirectory
