@@ -37,29 +37,27 @@ class TemplateLocator
     }
 
     /**
-     * @param \Twig_TokenStream $stream
+     * @param \Twig_Source $source
      *
      * @return SplFileInfo
      */
-    public function find(\Twig_TokenStream $stream)
+    public function find(\Twig_Source $source)
     {
-        $templatePath = $stream->getSourceContext()->getPath();
-
-        if (is_null($templatePath) || empty($templatePath)) {
-            $templatePath = $this->templatePathFromSourceContextName($stream);
+        if (!($path = $source->getPath())) {
+            $path = $this->templatePathFromSourceContextName($source);
         }
 
-        return new SplFileInfo($templatePath);
+        return new SplFileInfo($path);
     }
 
     /**
-     * @param \Twig_TokenStream $stream
+     * @param \Twig_Source $source
      *
      * @return string
      */
-    private function templatePathFromSourceContextName(\Twig_TokenStream $stream)
+    private function templatePathFromSourceContextName(\Twig_Source $source)
     {
-        $name = $stream->getSourceContext()->getName();
+        $name = $source->getName();
 
         if (false !== $templatePath = $this->templatePathFromNameUsingBundleSyntax($name)) {
             return $name;
@@ -85,9 +83,7 @@ class TemplateLocator
             return false;
         }
 
-        return realpath(
-            sprintf('%s/../src/%s/Resources/views/%s/%s', $this->kernelRootDirectory, ...$bundleSyntax)
-        );
+        return realpath(sprintf('%s/../src/%s/Resources/views/%s/%s', $this->kernelRootDirectory, ...$bundleSyntax));
     }
 }
 

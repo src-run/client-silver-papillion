@@ -34,7 +34,7 @@ class ModifiedParser extends \Twig_TokenParser
     public function parse(\Twig_Token $token)
     {
         $stream = $this->parser->getStream();
-        $file = $this->locator->find($this->parser->getStream());
+        $file = $this->locator->find($this->parser->getStream()->getSourceContext());
         $format = 'l, F j Y, h:i A';
 
         if (!$stream->test(\Twig_Token::BLOCK_END_TYPE)) {
