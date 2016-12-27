@@ -150,9 +150,9 @@
         <div class="container-sr-odd">
             <div class="container">
 
-                <h3 class="primary-hr-i">
-                    {{ ion('grid') }} Associated with <em>{{ product.getName() }}</em>
-                </h3>
+                <h4 class="primary-hr-i">
+                    {{ ion('star') }} People Who Purchased <em>{{ product.getName() }}</em> Also Viewed:
+                </h4>
 
                 <div class="card-listing">
                     {% for p in product.getRelatedProductsExcludingSelf() %}
@@ -168,9 +168,9 @@
         <div class="{% if product.hasRelatedProducts() %}container-sr{% else %}container-sr-odd{% endif %}">
             <div class="container">
 
-                <h3 class="primary-hr-i">
-                    {{ ion('plus') }} Other Available <em>{{ product.getCategory.getName() }}</em>
-                </h3>
+                <h4 class="primary-hr-i">
+                    {{ ion('pricetags') }} Discover More <em>{{ product.getCategory().getName() }}</em> and Similar Products:
+                </h4>
 
                 <div class="card-listing">
                     {% for p in similar %}
