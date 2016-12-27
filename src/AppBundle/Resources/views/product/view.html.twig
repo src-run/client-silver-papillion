@@ -40,12 +40,12 @@
                                 <div class="card-section-body">
                                     <a  class="feed-attachment-link"
                                         rel="product-image-group_{{ product.getName()|slugify }}"
-                                        title="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
+                                        title="{{ product.getName }}{% if image.getDescriptionStripped %} - {{ image.getDescriptionStripped }}{% endif %}"
                                         data-fancybox-initialized="0"
                                         href="{{ asset_product(image.getImage) | imagine_filter('product_lg') }}"
                                     >
                                         <img src="{{ asset_product(image.getImage) | imagine_filter('product_thumb_no_border') }}"
-                                             alt="{{ product.getName }}{% if image.getDescription() %} - {{ image.getDescription() }}{% endif %}"
+                                             alt="{{ product.getName }}{% if image.getDescriptionStripped %} - {{ image.getDescriptionStripped }}{% endif %}"
                                         />
                                     </a>
                                 </div>
@@ -72,7 +72,7 @@
 
                     {% if product.hasDescription() %}
                         <div class="product-desc">
-                            {{ product.getDescription() }}
+                            {{ product.getDescription()|raw }}
                         </div>
                     {% endif %}
 

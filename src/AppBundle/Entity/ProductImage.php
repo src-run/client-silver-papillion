@@ -164,6 +164,11 @@ class ProductImage
         return $this->description;
     }
 
+    public function getDescriptionStripped()
+    {
+        return strip_tags($this->getDescription());
+    }
+
     /**
      * @return bool
      */
