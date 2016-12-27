@@ -278,7 +278,7 @@ class CartController extends Controller
             'order'     => $order,
             'title'     => sprintf('Order Confirmation (Reference ID %s)', $order->getOrderNumber()),
             'createdOn' => $order->getCreatedOn(),
-            'from'      => 'orders@silver-papillon.com',
+            'from'      => 'orders@silverpapillon.com',
         ];
     }
 
@@ -295,7 +295,7 @@ class CartController extends Controller
     {
         return \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom(['orders@silver-papillon.com' => 'Silver Papillon Orders'])
+            ->setFrom(['orders@silverpapillon.com' => 'Silver Papillon Orders'])
             ->setTo($to)
             ->setReplyTo($replyTo)
             ->setBody($this->renderView($view, $viewArgs), 'text/html');

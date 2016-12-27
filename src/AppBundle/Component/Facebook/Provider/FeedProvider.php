@@ -56,7 +56,7 @@ class FeedProvider extends AbstractProvider
     /**
      * @param FacebookResponse $response
      *
-     * @return Feed
+     * @return AbstractModel
      */
     protected function hydrate(FacebookResponse $response)
     {

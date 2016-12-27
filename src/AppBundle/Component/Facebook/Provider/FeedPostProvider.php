@@ -51,7 +51,6 @@ class FeedPostProvider extends AbstractProvider
     }
 
     /**
-     * @param string  $property
      * @param mixed[] $data
      *
      * @return array
@@ -96,9 +95,9 @@ class FeedPostProvider extends AbstractProvider
     }
 
     /**
-     * @param string  $property
-     * @param string  $index
-     * @param mixed[] $value
+     * @param mixed[] $data
+     *
+     * @throws FacebookException
      *
      * @return mixed
      */
@@ -159,11 +158,11 @@ class FeedPostProvider extends AbstractProvider
 
     /**
      * @param string $fqcn
-     * @param array  ...$with
+     * @param array ...$with
      *
-     * @throws FacebookException
+     * @return ProviderInterface
      *
-     * @return object
+     * @throws \SR\Exception\ExceptionInterface
      */
     protected function instantiateFqcn(string $fqcn, ...$with)
     {

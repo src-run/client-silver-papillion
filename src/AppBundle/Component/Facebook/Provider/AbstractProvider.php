@@ -160,7 +160,7 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * @return mixed
+     * @return AbstractModel
      */
     public function get()
     {

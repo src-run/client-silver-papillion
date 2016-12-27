@@ -29,9 +29,9 @@ class FacebookFactory
      * @param string $appSecret
      * @param string $graphVersion
      *
-     * @throws FacebookException
+     * @throws \SR\Exception\ExceptionInterface
      *
-     * @return Facebook
+     * @return Facebook|null
      */
     public static function create($appId, $appSecret, $graphVersion)
     {

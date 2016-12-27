@@ -11,6 +11,7 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Component\Facebook\Model\AbstractModel;
 use AppBundle\Component\Facebook\Provider\ProviderInterface;
 use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
 use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
@@ -53,7 +54,7 @@ class FacebookExtension extends TwigExtension
     }
 
     /**
-     * @return Feed
+     * @return AbstractModel
      */
     public function getFacebookFeed()
     {
