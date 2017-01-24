@@ -84,7 +84,12 @@
 
                         <p class="product-price-extra">
 
-                            <em>${{ product.getShippingRate(config('rate.shipping', constant('AppBundle\\Entity\\Product::RATE_SHIPPING_DEFAULT')))|number_format(2, '.', ',') }}</em> shipping per unit
+                            {% if product.hasNoShipping() %}
+                                <em>$0.00</em>
+                            {% else %}
+                                <em>${{ product.getShippingRate(config('rate.shipping', constant('AppBundle\\Entity\\Product::RATE_SHIPPING_DEFAULT')))|number_format(2, '.', ',') }}</em>
+                            {% endif %}
+                            shipping per unit
 
                             {% if product.isTaxable() %}
                                 /

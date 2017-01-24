@@ -217,7 +217,6 @@ white_october_swift_mailer_db :
 #      sortable: true
 #      softdeleteable: true
 
-
 # EOF
 
 ...

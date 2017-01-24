@@ -464,7 +464,7 @@ class Product
      */
     public function setShipping($shipping)
     {
-        if (empty($shipping)) {
+        if (empty($shipping) && $shipping !== 0.0) {
             $this->shipping = null;
         } else {
             $this->shipping = (float) $shipping;
@@ -479,6 +479,14 @@ class Product
     public function hasShipping()
     {
         return $this->shipping !== null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasNoShipping()
+    {
+        return $this->shipping === 0.0;
     }
 
     /**

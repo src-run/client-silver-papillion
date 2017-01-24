@@ -76,7 +76,6 @@ doctrine_migrations :
   table_name : migration_versions
   name       : "%database_name%"
 
-
 # EOF
 
 ...
