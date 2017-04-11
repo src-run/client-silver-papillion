@@ -3,10 +3,10 @@
 {% block bread %}
     {{ parent() }}
     <li><a href="{{ url('app_cart_view') }}">Your Cart</a></li>
-    <li>Checkout</li>
+    <li>Order Confirmation</li>
 {% endblock %}
 
-{% block title %}Checkout Confirmation - {{ parent() }}{% endblock %}
+{% block title %}Order Confirmation - {{ parent() }}{% endblock %}
 
 {% block body %}
 

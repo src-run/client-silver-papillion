@@ -9,6 +9,11 @@ liip_imagine :
     default :
       web_path : { cache_prefix : "assets/cache" }
 
+  loaders:
+    default:
+      filesystem:
+        locator: filesystem
+
   filter_sets :
 
     product_lg :

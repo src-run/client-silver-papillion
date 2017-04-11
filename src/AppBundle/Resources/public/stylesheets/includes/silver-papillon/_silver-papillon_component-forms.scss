@@ -50,13 +50,14 @@ input[type=number],
 [type=tel].form-control,
 [contenteditable].form-control {
 
-  @include box-shadow(inset 0 -1px 0 rgba($color-gray-light-m, 0.3));
+  @include box-shadow(inset 0 -1px 0 rgba($color-gray-light, 0.75));
 
   border             : none;
   border-radius      : $border-radius-hint;
   appearance         : none;
-  padding            : 0 0 4px 0;
-  font-size          : $font-size-md;
+  padding            : 0;
+  font-size          : $font-size-lg;
+  font-weight        : 400;
 
   &:focus {
     @include box-shadow(inset 0 -2px 0 $color-primary);

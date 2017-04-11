@@ -1,0 +1,111 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* first let's define 'all colors' and the 'absence of all colors' */
+
+$color-white : rgba(255, 255, 255, 1.00);
+$color-black : rgba(000, 000, 000, 1.00);
+
+/* no color (transparent) */
+
+$color-transparent : transparent;
+
+/* gray variants */
+
+$color-gray-darker        : lighten(rgba($color-black , 1.00), 14%);
+$color-gray-dark          : rgba(033, 033, 033, 1.00);
+$color-gray-darkish       : rgba(051, 051, 051, 1.00);
+$color-gray-darkish-alt-1 : rgba(068, 068, 068, 1.00);
+$color-gray-darkish-alt-2 : rgba(080, 080, 068, 1.00);
+$color-gray               : rgba(102, 102, 102, 1.00);
+$color-gray-light-d       : rgba(153, 153, 153, 1.00);
+$color-gray-light         : rgba(187, 187, 187, 1.00);
+$color-gray-light-m1      : rgba(204, 204, 204, 1.00);
+$color-gray-light-m       : rgba(225, 225, 225, 1.00);
+$color-gray-lighter       : rgba(242, 241, 243, 0.50);
+$color-gray-bg            : rgba(234, 234, 241, 1.00);
+$color-gray-bg-alt        : rgba(243, 243, 247, 1.00);
+$color-gray-bg-alt-2      : rgba(245, 245, 245, 1.00);
+$color-gray-bg-alt-3      : rgba(249, 249, 249, 1.00);
+
+/* blue variants */
+
+$color-blue-darkest : rgba(029, 042, 046, 1.00);
+$color-blue-dark    : rgba(097, 119, 138, 1.00);
+$color-blue-light   : rgba(130, 156, 175, 0.51);
+
+/* red variants */
+
+$color-red-bright : rgba(199, 037, 078, 1.00);
+$color-red-gray   : rgba(249, 242, 244, 1.00);
+
+/* separators */
+
+$color-separator : rgba(240, 240, 242, 1.00);
+
+/* brand/accent colors */
+
+$color-accent        : rgba(216, 008, 116, 1.00);
+$color-accent-alt    : rgba(217, 000, 113, 1.00);
+$color-primary       : rgba(033, 150, 243, 1.00);
+$color-primary-dark  : rgba(012, 124, 213, 1.00);
+$color-primary-light : rgba(059, 160, 240, 1.00);
+
+/* status colors (states) */
+
+$color-okay : rgba(076, 175, 080, 1.00);
+$color-info : rgba(156, 039, 176, 1.00);
+$color-warn : rgba(255, 152, 000, 1.00);
+$color-crit : rgba(229, 028, 035, 1.00);
+
+$bg-color-okay : rgba(223, 240, 216, 1.00);
+$bg-color-info : rgba(225, 190, 231, 1.00);
+$bg-color-warn : rgba(255, 224, 178, 1.00);
+$bg-color-crit : rgba(249, 189, 187, 1.00);
+
+$border-color-okay : darken(adjust-hue($bg-color-okay, -10), 5%);
+$border-color-info : darken(adjust-hue($bg-color-info, -10), 7%);
+$border-color-warn : darken(adjust-hue($bg-color-warn, -10), 5%);
+$border-color-crit : darken(adjust-hue($bg-color-crit, -10), 5%);
+
+$text-color-okay : $color-okay;
+$text-color-info : $color-info;
+$text-color-warn : $color-warn;
+$text-color-crit : $color-crit;
+
+/* background colors */
+
+$bg-color-page-body-normal : $color-gray-lighter;
+$bg-color-page-body-accent : $color-white;
+
+/* component colors */
+
+$component-active-color : $color-white;
+$component-active-bg    : $color-primary;
+$component-border-color : rgba(239, 239, 239, 1);
+
+/* CARDS */
+
+$bg-color-card-overlay-blur         : rgba($color-white, 0.25);
+$bg-color-card-overlay-focus        : rgba($color-white, 0.95);
+$bg-color-card-overlay-accent-blur  : rgba($color-accent, 0.25);
+$bg-color-card-overlay-accent-focus : rgba($color-accent, 0.95);
+
+/* BORDERS */
+
+$border-size-card        : 1px;
+$border-type-card        : solid;
+$border-color-card       : $color-white;
+$border-color-card-focus : $color-accent;
+
+$border-color-card-accent       : rgba($color-blue-dark, 0.25);
+$border-color-card-accent-focus : $color-accent;
+
+/* EOF */

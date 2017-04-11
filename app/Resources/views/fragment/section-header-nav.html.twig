@@ -22,11 +22,12 @@
                 <li class="{% if 'Default' in _c %}active{% endif %}">
                     <a href="{{ path('app_home') }}">{{ fa('home') }} Home</a>
                 </li>
+
                 <li class="{% if 'Feed' in _c %} active {% endif %}{% if has_fb_feed_cached() != true %} hidden {% endif %}" id="navbar-nav-feed">
                     <a href="{{ url('app_feed_view') }}">{{ fa('sticky-note') }} News</a>
                 </li>
 
-                <!-- START: dropdown -->
+                <!-- START: shop dropdown -->
                 <li class="{% if 'Category' in _c %}active{% endif %} dropdown">
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -34,13 +35,6 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                        {% if cart_count() > 0 %}
-                            <li class="dropdown-header">Your Cart <span class="badge badge-default">{{ cart_count() }}</span></li>
-                            <li><a href="{{ url('app_cart_view') }}">View</a></li>
-                            <li><a href="{{ url('app_cart_checkout') }}">Checkout</a></li>
-                            <li role="separator" class="divider"></li>
-                        {% endif %}
-
                         <li class="dropdown-header">Products</li>
                         <li><a href="{{ path('app_category_list') }}">View All</a></li>
 
@@ -50,11 +44,30 @@
                     </ul>
 
                 </li>
-                <!-- END: dropdown -->
+                <!-- END: shop dropdown -->
+
+                <!-- START: cart dropdown -->
+                {% if cart_count() > 0 %}
+                    <li class="{% if 'Cart' in _c %}active{% endif %} dropdown">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{ fa('shopping-cart') }} Cart <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Shopping Cart <span class="badge badge-default">{{ cart_count() }} item</span></li>
+                            <li><a href="{{ url('app_cart_view') }}">View</a></li>
+                            <li><a href="{{ url('app_cart_checkout') }}">Checkout</a></li>
+                        </ul>
+
+                    </li>
+                {% endif %}
+                <!-- END: cart dropdown -->
 
                 <li class="{% if 'Loc' in _c %}active{% endif %}">
                     <a href="{{ url('app_location') }}">{{ fa('map') }} Location</a>
                 </li>
+
                 <li class="{% if 'Contact' in _c %}active{% endif %}">
                     <a href="{{ url('app_contact_view') }}">{{ fa('comment') }} Contact</a>
                 </li>

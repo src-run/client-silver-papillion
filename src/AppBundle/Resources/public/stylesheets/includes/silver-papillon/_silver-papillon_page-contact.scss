@@ -1,0 +1,32 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* contact page */
+
+.contact {
+  @include make-row();
+
+  .card {
+    padding : 0 29px 29px 29px;
+  }
+
+  .contact-form-wrap {
+    @include make-sm-column(7);
+  }
+
+  .contact-from-info {
+    @include make-md-column(5);
+    @include make-md-column-offset(0);
+    @include make-lg-column(4);
+    @include make-lg-column-offset(1);
+  }
+}
+
+/* EOF */

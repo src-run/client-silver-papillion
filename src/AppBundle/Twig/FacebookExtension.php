@@ -16,6 +16,7 @@ use AppBundle\Component\Facebook\Provider\ProviderInterface;
 use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
 use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
 use SR\WonkaBundle\Twig\TwigExtension;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class FacebookExtension.

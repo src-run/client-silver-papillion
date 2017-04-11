@@ -1,0 +1,41 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* action status icon */
+
+.action-status-icon {
+  text-align : center;
+
+  p {
+    margin      : 0 27px 36px 27px;
+    font-size   : 18px;
+    font-weight : 300;
+  }
+
+  .action-status-icon-stack {
+    font-size : 120px;
+    margin    : 36px 27px 12px 27px;
+
+    .action-status-icon-bg {
+      color : $color-primary;
+    }
+
+    .action-status-icon-mg {
+      color   : $color-black;
+      opacity : 0.25;
+    }
+
+    .action-status-icon-fg {
+      color : rgba($color-white, 0.9);
+    }
+  }
+}
+
+/* EOF */

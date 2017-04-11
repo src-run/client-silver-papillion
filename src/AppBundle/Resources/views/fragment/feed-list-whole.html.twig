@@ -5,7 +5,7 @@
 
 {% set i = 0 %}
 
-{% for f in feed if i < count %}
+{% for f in feed if i < count and f.getAuthor() == 'Silver Papillon' %}
     <div class="card-feed-social" id="{{ f.getId }}">
         <div class="card is-animated">
 

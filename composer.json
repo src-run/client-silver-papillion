@@ -26,6 +26,11 @@
       "app/AppCache.php"
     ]
   },
+  "autoload-dev" : {
+    "psr-4" : {
+      "AppBundle\\Tests\\" : "src/AppBundle/Tests/"
+    }
+  },
   "require" : {
     "php": "~7.0",
     "doctrine/doctrine-bundle": "~1.6",
@@ -42,7 +47,7 @@
     "knplabs/knp-menu-bundle": "~2.1",
     "knplabs/knp-paginator-bundle": "~2.5",
     "knplabs/knp-snappy-bundle": "~1.4",
-    "liip/imagine-bundle": "~1.0",
+    "liip/imagine-bundle": "~1.7.1",
     "maxmind-db/reader": "~1.1",
     "ramsey/uuid": "~3.5",
     "sensio/distribution-bundle": "~5.0",
@@ -52,14 +57,14 @@
     "src-run/wonka-bundle": "~0.7",
     "stof/doctrine-extensions-bundle": "~1.2",
     "stripe/stripe-php": "~3.20",
-    "symfony/asset": "~3.2",
-    "symfony/assetic-bundle": "~2.8",
-    "symfony/cache": "~3.2",
-    "symfony/monolog-bundle": "~3.0",
-    "symfony/routing": "~3.2",
+    "symfony/asset": "~3.2@dev",
+    "symfony/assetic-bundle": "~2.8 || ~3.2@dev",
+    "symfony/cache": "~3.2@dev",
+    "symfony/monolog-bundle": "~3.0 || ~3.2@dev",
+    "symfony/routing": "~3.2@dev",
     "symfony/swiftmailer-bundle": "~2.4",
-    "symfony/symfony": "3.1.6",
-    "twig/twig": "~1.29 || ~2.0",
+    "symfony/symfony": "~3.2",
+    "twig/twig": "~2.0",
     "vich/uploader-bundle": "~1.3",
     "whiteoctober/swiftmailerdbbundle": "~1.0"
   },

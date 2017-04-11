@@ -278,7 +278,7 @@ class FeedPost extends AbstractModel
      */
     public function getMedia()
     {
-        return $this->attachments;
+        return (array) $this->attachments;
     }
 
     /**
@@ -294,6 +294,10 @@ class FeedPost extends AbstractModel
      */
     public function getFirstMedia()
     {
+        if (0 === count($this->attachments)) {
+            return new MediaNull();
+        }
+
         return $this->attachments[0];
     }
 

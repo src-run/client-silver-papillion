@@ -1,0 +1,127 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* navbar */
+
+$navbar-height              : 92px;
+$navbar-margin-bottom       : $line-height-computed;
+$navbar-border-radius       : $border-radius-none;
+$navbar-padding-horizontal  : floor(($grid-gutter-width / 2));
+$navbar-padding-vertical    : (($navbar-height - $line-height-computed) / 2);
+$navbar-collapse-max-height : 340px;
+
+$navbar-default-color  : $color-gray-light;
+$navbar-default-bg     : $color-white;
+$navbar-default-border : $color-transparent;
+
+/* nav bar links */
+
+$navbar-default-link-color : $color-gray;
+$navbar-default-link-hover-color : $color-gray-dark;
+$navbar-default-link-hover-bg : $color-transparent;
+$navbar-default-link-active-color : $color-gray-dark;
+$navbar-default-link-active-bg : darken($navbar-default-bg, 6.5%);
+$navbar-default-link-disabled-color : $color-gray-light-m1;
+$navbar-default-link-disabled-bg : $color-transparent;
+
+/* nav bar brand label */
+
+$navbar-default-brand-color : $navbar-default-link-color;
+$navbar-default-brand-hover-color : $navbar-default-link-hover-color;
+$navbar-default-brand-hover-bg : $color-transparent;
+
+/* nav bar toggle */
+
+$navbar-default-toggle-hover-bg : $color-transparent;
+$navbar-default-toggle-icon-bar-bg : rgba($color-black , 0.50);
+$navbar-default-toggle-border-color : $color-transparent;
+
+/* inverted nav bar */
+
+$navbar-inverse-color : $color-gray-light;
+$navbar-inverse-bg : rgba($color-primary, 0.88);
+$navbar-inverse-border : $color-transparent;
+
+/* inverted nav bar links */
+
+$navbar-inverse-link-color          : lighten($color-primary, 30%);
+$navbar-inverse-link-hover-color    : $color-white;
+$navbar-inverse-link-hover-bg       : rgba(darken($navbar-inverse-bg, 5%), 0.5);
+$navbar-inverse-link-active-color   : $navbar-inverse-link-hover-color;
+$navbar-inverse-link-active-bg      : darken($navbar-inverse-bg, 10%);
+$navbar-inverse-link-disabled-color : $color-gray-darkish-alt-1;
+$navbar-inverse-link-disabled-bg    : $color-transparent;
+
+/* inverted nav bar brand label */
+
+$navbar-inverse-brand-color       : $navbar-inverse-link-color;
+$navbar-inverse-brand-hover-color : $color-white;
+$navbar-inverse-brand-hover-bg    : $color-transparent;
+
+/* inverted nav bar toggle */
+
+$navbar-inverse-toggle-hover-bg     : $color-transparent;
+$navbar-inverse-toggle-icon-bar-bg  : rgba($color-black , 0.50);
+$navbar-inverse-toggle-border-color : $color-transparent;
+
+/* shared nav styles */
+
+$nav-link-padding  : 10px 18px;
+$nav-link-hover-bg : $color-gray-lighter;
+
+$nav-disabled-link-color       : $color-gray-light;
+$nav-disabled-link-hover-color : $color-gray-light;
+
+/* TABS */
+
+$nav-tabs-border-color                       : $color-transparent;
+$nav-tabs-link-hover-border-color            : $color-gray-lighter;
+$nav-tabs-active-link-hover-bg               : $color-transparent;
+$nav-tabs-active-link-hover-color            : $color-gray;
+$nav-tabs-active-link-hover-border-color     : $color-transparent;
+$nav-tabs-justified-link-border-color        : $nav-tabs-border-color;
+$nav-tabs-justified-active-link-border-color : $body-bg;
+
+/* PILLS */
+
+$nav-pills-border-radius           : $border-radius-base;
+$nav-pills-active-link-hover-bg    : $component-active-bg;
+$nav-pills-active-link-hover-color : $component-active-color;
+
+/* PAGINATION */
+
+$pagination-color  : rgba($color-black, 0.6);
+$pagination-bg     : $color-transparent;
+$pagination-border : $color-transparent;
+
+$pagination-hover-color  : $color-white;
+$pagination-hover-bg     : $color-primary;
+$pagination-hover-border : $color-transparent;
+
+$pagination-active-color  : $color-primary;
+$pagination-active-bg     : $color-transparent;
+$pagination-active-border : $color-transparent;
+
+$pagination-disabled-color  : rgba($color-black, 0.35);
+$pagination-disabled-bg     : rgba(248, 248, 249, 0.75);
+$pagination-disabled-border : $color-transparent;
+
+/* PAGER */
+
+$pager-bg            : $pagination-bg;
+$pager-border        : $pagination-border;
+$pager-border-radius : 15px;
+
+$pager-hover-bg       : $pagination-hover-bg;
+$pager-active-bg      : $pagination-active-bg;
+$pager-active-color   : $pagination-active-color;
+$pager-disabled-color : $pagination-disabled-color;
+
+/* EOF */

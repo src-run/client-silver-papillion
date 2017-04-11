@@ -1,0 +1,55 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* motion functions */
+
+$trans-func           : ease-in-out;
+$trans-func-opacity   : $trans-func;
+$trans-func-color     : $trans-func;
+$trans-func-transform : $trans-func;
+
+/* time periods */
+
+$trans-time-base : 2.0s;
+$trans-time-x-30 : $trans-time-base * 1.50;
+$trans-time-x-20 : $trans-time-base * 1.00;
+$trans-time-x-10 : $trans-time-base * 0.50;
+$trans-time-x-09 : $trans-time-base * 0.45;
+$trans-time-x-08 : $trans-time-base * 0.40;
+$trans-time-x-07 : $trans-time-base * 0.35;
+$trans-time-x-06 : $trans-time-base * 0.30;
+$trans-time-x-05 : $trans-time-base * 0.25;
+$trans-time-x-04 : $trans-time-base * 0.20;
+$trans-time-x-03 : $trans-time-base * 0.15;
+$trans-time-x-02 : $trans-time-base * 0.10;
+$trans-time-x-01 : $trans-time-base * 0.05;
+
+/* time period for contexts */
+
+$trans-time              : $trans-time-x-02;
+$trans-time-opacity      : $trans-time-x-04;
+$trans-time-color        : $trans-time-x-03;
+$trans-time-border       : $trans-time-x-04;
+$trans-time-border-color : $trans-time-x-04;
+$trans-time-transform    : $trans-time-x-01;
+
+/* off-screen show/hide translations (horizontal movement) */
+
+$trans-y-off-screen-reset : translateY(0);
+$trans-y-off-screen-to-up : translateY(-100%);
+$trans-y-off-screen-to-dn : translateY(100%);
+
+/* off-screen show/hide translations (vertical movement) */
+
+$trans-x-off-screen-reset : translateX(0);
+$trans-x-off-screen-to-lt : translateX(-100%);
+$trans-x-off-screen-to-rt : translateX(100%);
+
+/* EOF */

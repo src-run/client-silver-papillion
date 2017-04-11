@@ -1,0 +1,146 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* location page */
+
+.about-text p {
+  font-size   : 18px;
+  font-weight : 300;
+  line-height : 42px;
+}
+
+.about-location {
+  @include make-row();
+
+  .info-phone-and-address p {
+    font-size   : 21px;
+    font-weight : 200;
+    color       : $color-black;
+  }
+
+  .about-address {
+    @include make-sm-column(4);
+
+    .info-hours {
+      margin-bottom : $font-margin-base*3;
+
+      dt {
+        font-weight : 300;
+        font-size   : 14px;
+        float       : left;
+        width       : 120px;
+        opacity     : 0.6;
+
+        &.today {
+          font-style : italic;
+        }
+      }
+
+      dd {
+        font-weight : 200;
+        font-size   : 14px;
+        color       : $color-black;
+
+        &.today {
+          font-style : italic;
+        }
+      }
+    }
+  }
+
+  .about-map {
+    @include make-sm-column(8);
+
+    .card {
+      > * {
+        pointer-events : none;
+      }
+
+      .card-section-head {
+        font-size : 700%;
+
+        @media (min-width: $screen-sm-min) {
+          font-size : 400%;
+        }
+        @media (min-width: $screen-md-min) {
+          font-size : 600%;
+        }
+        @media (min-width: $screen-lg-min) {
+          font-size : 800%;
+        }
+
+        z-index                    : 10;
+        pointer-events             : none;
+        display                    : block;
+        background-color           : transparent;
+        border-bottom              : none;
+        text-align                 : center;
+        margin-top                 : 60px;
+        will-change                : auto;
+        transition                 : opacity $trans-time-x-03;
+        transition-timing-function : $trans-func-transform;
+        opacity                    : 0;
+
+        .fa {
+          will-change                : auto;
+          transition                 : transform $trans-time-x-07;
+          transition-timing-function : $trans-func-transform;
+        }
+
+        p {
+          padding                    : 0;
+          margin                     : 12px;
+          text-align                 : center;
+          font-size                  : 21px;
+          font-weight                : 500;
+          color                      : rgba($color-white, 1);
+          text-shadow                : 1px 1px 1px rgba($color-black, 0.9);
+        }
+
+        .fa-circle {
+          color : rgba($color-black, 0.8);
+        }
+
+        .fa-map-marker {
+          color : rgba($color-white, 0.9);
+        }
+      }
+
+      .card-section-foot {
+        opacity    : 0;
+        transform  : translateY(0) !important;
+        transition : opacity $trans-time-x-03;
+      }
+
+      &:hover {
+        .card-section-head {
+          background-color : transparent;
+          opacity          : 1;
+
+          .fa-map-marker {
+            transform : rotate(720deg);
+          }
+        }
+
+        .card-section-foot {
+          opacity : 1;
+        }
+      }
+
+      img {
+        @include img-responsive();
+
+        width : 100%;
+      }
+    }
+  }
+}
+
+/* EOF */

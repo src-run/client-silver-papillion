@@ -13,6 +13,7 @@ namespace AppBundle\Component\Facebook\Model;
 
 use AppBundle\Component\Facebook\Exception\FacebookException;
 use AppBundle\Component\Facebook\Transformer\TransformerInterface;
+use SR\Exception\ExceptionInterface;
 use SR\Reflection\Inspect;
 use SR\Reflection\Inspector\ClassInspector;
 use SR\Reflection\Inspector\ConstantInspector;
@@ -85,10 +86,10 @@ abstract class AbstractModel
     }
 
     /**
-     * @param array       $data
+     * @param array|null  $data
      * @param string|null $key
      *
-     * @throws FacebookException
+     * @throws ExceptionInterface
      *
      * @return $this
      */
@@ -98,8 +99,7 @@ abstract class AbstractModel
 
         try {
             $this->assertNonConflictingModelConfig();
-            $data = $this->removeExtraKeyDepth($data);
-            $this->assertRequiredFieldsExist($data);
+            $this->assertRequiredFieldsExist($data = $this->removeExtraKeyDepth($data));
         } catch (FacebookException $exception) {
             throw FacebookException::create()
                 ->setMessage('Model hydration failed in pre-hydration sanity check operations', $exception);
@@ -123,9 +123,7 @@ abstract class AbstractModel
     }
 
     /**
-     * @throws FacebookException
-     *
-     * @return $this
+     * @throws ExceptionInterface
      */
     protected function assertNonConflictingModelConfig()
     {
@@ -145,7 +143,9 @@ abstract class AbstractModel
     }
 
     /**
-     * @return $this
+     * @param array $data
+     *
+     * @return array
      */
     protected function removeExtraKeyDepth($data)
     {
@@ -155,9 +155,9 @@ abstract class AbstractModel
     }
 
     /**
-     * @throws FacebookException
+     * @param array $data
      *
-     * @return $this
+     * @throws ExceptionInterface
      */
     protected function assertRequiredFieldsExist($data)
     {
@@ -168,12 +168,12 @@ abstract class AbstractModel
 
             throw FacebookException::create('A required data key (%s) does not exit in the response data array.', $k);
         }
-
-        return $this;
     }
 
     /**
-     * @return $this
+     * @param array $data
+     *
+     * @return array
      */
     protected function removeExcludedFields($data)
     {
@@ -183,15 +183,13 @@ abstract class AbstractModel
     }
 
     /**
-     *@return $this
+     * @param array $data
      */
     protected function assignDataToModel($data)
     {
         foreach ($data as $index => $value) {
             $this->assignFieldToModel($value, $index);
         }
-
-        return $this;
     }
 
     /**

@@ -191,8 +191,19 @@
     }
   }
 
-  .product-action .btn-default {
-    background-color : $pagination-disabled-bg;
+  .product-action {
+    a.btn {
+      width     : 40px;
+      font-size : 15px;
+
+      &:first-child {
+        width : auto;
+      }
+    }
+
+    .btn-default {
+      background-color : $pagination-disabled-bg;
+    }
   }
 
   .product-sku {

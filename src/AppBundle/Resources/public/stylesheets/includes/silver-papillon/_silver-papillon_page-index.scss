@@ -1,0 +1,58 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* index page */
+
+.index-about {
+  @include make-row();
+
+  .info-phone-and-address {
+    font-size   : 21px;
+    font-weight : 200;
+    color       : $color-black;
+  }
+
+  .index-about-section {
+    @include make-sm-column(4);
+
+    .btn {
+      margin-top    : 30px;
+      margin-bottom : 20px;
+    }
+
+    .info-hours {
+      margin-bottom : $font-margin-base*3;
+
+      dt {
+        font-weight : 300;
+        font-size   : 14px;
+        float       : left;
+        width       : 124px;
+        opacity     : 0.6;
+
+        &.today {
+          font-style : italic;
+        }
+      }
+
+      dd {
+        font-weight : 200;
+        font-size   : 14px;
+        color       : $color-black;
+
+        &.today {
+          font-style : italic;
+        }
+      }
+    }
+  }
+}
+
+/* EOF */

@@ -47,8 +47,10 @@
   }
 
   .checkout-info {
-    @include make-sm-column(4);
-    @include make-sm-column-offset(1);
+    @include make-md-column(5);
+    @include make-md-column-offset(0);
+    @include make-lg-column(4);
+    @include make-lg-column-offset(1);
 
     .checkout-info-item-group {
       .checkout-info-item {
@@ -154,7 +156,7 @@
   }
 
   .cart-btns {
-    margin-top : 18px;
+    margin-top : 3px;
   }
 
   .cart-total {
@@ -221,8 +223,6 @@
 }
 
 .cart-item {
-  @include make-row();
-
   box-shadow : 0 6px 27px rgba($color-black, 0.075);
 
   .cart-item-info {
@@ -238,11 +238,14 @@
     }
 
     h4 {
-      margin-top : 29px;
+      margin-top    : 33px;
+      margin-bottom : 0;
     }
 
     h6 {
-      color : $color-accent;
+      margin-top    : 3px;
+      margin-bottom : 0;
+      color         : $color-accent;
 
       a {
         color : $color-accent;
@@ -268,7 +271,7 @@
     .cart-item-actions-count,
     .cart-item-actions-total {
       margin    : 6px;
-      padding   : 8px 12px 6px 12px;
+      padding   : 7px 9px 6px 9px;
       display   : inline-block;
       font-size : 14px;
     }
@@ -282,7 +285,12 @@
     }
 
     .btn-group {
-      margin : 6px 6px 21px 6px;
+      margin : 3px 6px 0 6px;
+
+      a.btn {
+        font-size : 15px;
+        width     : 40px;
+      }
     }
   }
 }

@@ -35,7 +35,7 @@ class Feed extends AbstractModel implements \IteratorAggregate
 
     /**
      * @param array|null  $data
-     * @param string|null $field
+     * @param string|null $key
      *
      * @return static
      */

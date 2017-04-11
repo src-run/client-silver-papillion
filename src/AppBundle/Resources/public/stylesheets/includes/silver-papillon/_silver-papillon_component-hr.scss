@@ -1,0 +1,33 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+.primary-hr {
+  margin      : ($font-margin-base * 2.5) 0 ($font-margin-base * 3) 0;
+  font-weight : 300;
+  color       : $color-accent;
+  text-shadow : 1px 1px 1px $color-white;
+
+  &-i {
+    margin      : ($font-margin-base * 2.5) 0 ($font-margin-base * 3) 0;
+    font-weight : 100;
+    color       : $color-accent;
+
+    em {
+      font-style  : normal;
+      font-weight : 300;
+    }
+  }
+}
+
+.hr-extra-top {
+  margin-top : 60px !important;
+}
+
+/* EOF */

@@ -2,14 +2,18 @@
 
 {% block bread %}
     {{ parent() }}
-    <li>Your Cart</li>
+    <li>Cart</li>
 {% endblock %}
 
-{% block title %}Your Cart - {{ parent() }}{% endblock %}
+{% block title %}Cart - {{ parent() }}{% endblock %}
 
 {% block body %}
 
 <div class="container container-sr">
+
+    <!--<h3 class="primary-hr-i">
+        {{ fa('shopping-cart') }} Your <em>Shopping Cart</em>
+    </h3>-->
 
     {% if cart_count() == 0 %}
 
