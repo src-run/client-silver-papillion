@@ -11,12 +11,12 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Component\Environment\Environment;
 use AppBundle\Component\Facebook\Model\AbstractModel;
 use AppBundle\Component\Facebook\Provider\ProviderInterface;
 use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
 use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
 use SR\WonkaBundle\Twig\TwigExtension;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class FacebookExtension.
@@ -24,32 +24,36 @@ use Symfony\Component\VarDumper\VarDumper;
 class FacebookExtension extends TwigExtension
 {
     /**
+     * @var Environment
+     */
+    private $environment;
+
+    /**
      * @var ProviderInterface
      */
     private $provider;
 
-    public function __construct()
-    {
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('has_fb_feed', [$this, 'hasFacebookFeed']),
-            new TwigFunctionDefinition('get_fb_feed', [$this, 'getFacebookFeed']),
-            new TwigFunctionDefinition('has_fb_feed_cached', [$this, 'hasFacebookFeedCached']),
-            new TwigFunctionDefinition('get_fb_feed_cached', [$this, 'getFacebookFeedCached']),
-        ]);
-    }
-
     /**
      * @param ProviderInterface $provider
+     * @param Environment       $environment
      */
-    public function setProvider(ProviderInterface $provider)
+    public function __construct(ProviderInterface $provider, Environment $environment)
     {
         $this->provider = $provider;
+        $this->environment = $environment;
+
+        parent::__construct(new TwigOptionsDefinition(), [], [
+            new TwigFunctionDefinition('is_facebook_feed_direct', [$this, 'isFacebookFeedDirect']),
+            new TwigFunctionDefinition('is_facebook_feed_cached', [$this, 'isFacebookFeedCached']),
+            new TwigFunctionDefinition('facebook_feed_direct',    [$this, 'facebookFeedDirect']),
+            new TwigFunctionDefinition('facebook_feed_cached',    [$this, 'facebookFeedCached']),
+        ]);
     }
 
     /**
      * @return bool
      */
-    public function hasFacebookFeed()
+    public function isFacebookFeedDirect()
     {
         return $this->provider->has();
     }
@@ -57,7 +61,7 @@ class FacebookExtension extends TwigExtension
     /**
      * @return AbstractModel
      */
-    public function getFacebookFeed()
+    public function facebookFeedDirect()
     {
         return $this->provider->get();
     }
@@ -65,15 +69,15 @@ class FacebookExtension extends TwigExtension
     /**
      * @return bool
      */
-    public function hasFacebookFeedCached()
+    public function isFacebookFeedCached()
     {
         return $this->provider->hasCached();
     }
 
     /**
-     * @return PageFeed
+     * @return AbstractModel||PageFeed
      */
-    public function getFacebookFeedCached()
+    public function facebookFeedCached()
     {
         return $this->provider->getCached();
     }

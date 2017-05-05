@@ -1,6 +1,6 @@
-{% if has_fb_feed() %}
+{% if is_facebook_feed_direct() %}
     {% include 'AppBundle:fragment:feed-list-whole.html.twig' with {
-    'feed'  : get_fb_feed(),
+    'feed'  : facebook_feed_direct(),
     'count' : config('feed.count.news', 12)
     } only %}
 {% else %}

@@ -170,8 +170,8 @@ class Events {
     this.initMenuDropDown();
     this.initCardProduct();
     this.initCardProductFeatured();
-      this.initCardProductSimilar();
-      this.initCardProductRelated();
+    this.initCardProductSimilar();
+    this.initCardProductRelated();
     this.initCardCategory();
     this.initCardMap();
   }
@@ -198,17 +198,17 @@ class Events {
     });
   }
 
-    initCardProductSimilar() {
-        RegisterEvent.onClick('.card-product-similar .card', function (event) {
-            Link.follow(LinkResolver.resolve(event.target));
-        });
-    }
+  initCardProductSimilar() {
+    RegisterEvent.onClick('.card-product-similar .card', function (event) {
+      Link.follow(LinkResolver.resolve(event.target));
+    });
+  }
 
-    initCardProductRelated() {
-        RegisterEvent.onClick('.card-product-related .card', function (event) {
-            Link.follow(LinkResolver.resolve(event.target));
-        });
-    }
+  initCardProductRelated() {
+    RegisterEvent.onClick('.card-product-related .card', function (event) {
+      Link.follow(LinkResolver.resolve(event.target));
+    });
+  }
 
   initCardCategory() {
     RegisterEvent.onClick('.card-product-category .card', function (event) {
@@ -229,34 +229,61 @@ class FeedRequest {
     this.initFeedPhotos();
   }
 
-  makeRequest(href, feed) {
-    jQuery.ajax({url: href, context: document.body})
-      .done(function (data) {
-        feed.html(data);
-        jQuery('#navbar-nav-feed').removeClass('hidden');
-        new FancyBox();
-      })
-      .fail(function () {
-        jQuery(feed.find('.fa-spin')).removeClass('fa-refresh').removeClass('fa-spin').addClass('fa-times');
-        jQuery(feed.find('p')).html('An error occured while loading feed photos.');
-      });
+  makeRequest(href, target, feed) {
+    jQuery.ajax({
+        url: href,
+        dataType: 'html',
+        crossDomain: true,
+        async: true,
+        context: document.body,
+        timeout: 120000,
+        success: function (data) {
+            feed.fadeOut(400, function () {
+                target.hide().html(data).fadeIn(800);
+                this.remove();
+            });
+            FeedRequest.hideFeedNavigation();
+            FeedRequest.initFancyBox();
+        },
+        error: function () {
+            jQuery(feed.find('.fa-spin')).removeClass('fa-refresh').removeClass('fa-spin').addClass('fa-times');
+            jQuery(feed.find('p')).html('An error occured while loading feed photos.');
+        }
+    });
+  }
+
+  static hideFeedNavigation(hide = true) {
+    let $target = jQuery('#navbar-nav-feed');
+    let className = 'hidden';
+
+    if (hide) {
+      $target.removeClass(className);
+    } else {
+      $target.addClass(className);
+    }
+  }
+
+  static initFancyBox()
+  {
+    new FancyBox();
   }
 
   initFeedFromSelector(selector) {
     let $feed = jQuery(selector);
+    let $target = jQuery($feed.data('target'));
     let href = $feed.data('href');
 
-    if ($feed && href) {
-      this.makeRequest(href, $feed);
+    if ($feed && $target && href) {
+      this.makeRequest(href, $target, $feed);
     }
   }
 
   initFeedItems() {
-    this.initFeedFromSelector('#feed-listing');
+    this.initFeedFromSelector('#feed-listing-loader');
   }
 
   initFeedPhotos() {
-    this.initFeedFromSelector('#feed-photos');
+    this.initFeedFromSelector('#feed-photos-loader');
   }
 }
 

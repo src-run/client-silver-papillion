@@ -18,6 +18,7 @@ use AppBundle\Component\Facebook\Model\AbstractModel;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\FacebookResponse;
 use Psr\Cache\CacheItemInterface;
+use SR\Exception\ExceptionInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\CacheItem;
 
@@ -144,7 +145,7 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * @return bool
+     * @return AbstractModel
      */
     public function getCached()
     {
@@ -176,16 +177,16 @@ abstract class AbstractProvider implements ProviderInterface
      */
     protected function refresh()
     {
-        $cache = $this->getCachedItem();
-        $cache->set($response = $this->getResponse());
-        $cache->expiresAfter(new \DateInterval($this->getCacheTtl()));
-        $this->getCache()->save($cache);
+        $item = $this->getCachedItem();
+        $item->set($response = $this->getResponse());
+        $item->expiresAfter(new \DateInterval($this->getCacheTtl()));
+        $this->getCache()->save($item);
 
         return $response;
     }
 
     /**
-     * @throws FacebookException
+     * @throws ExceptionInterface
      *
      * @return AbstractModel|null
      */

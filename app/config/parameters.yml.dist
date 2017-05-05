@@ -20,6 +20,9 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
+    # Should we cache some 3i1z?
+    cache:             true
+
     # Facebook credentials
     facebook_page_id:       ~
     facebook_app_id:        ~

@@ -43,21 +43,13 @@
     </div>
 
     <div class="container-sr-odd">
-        <div id="feed-photos" class="container" {% if has_fb_feed_cached() != true %}data-href="{{ url('app_fragment_feed_photos') }}"{% endif %}>
-
-            {% if has_fb_feed_cached() %}
-                {% include 'AppBundle:fragment:feed-list-photo.html.twig' with {
-                    'feed'  : get_fb_feed_cached(),
-                    'count' : config('feed.count.photos', 16)
-                } only %}
-            {% else %}
-                {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
-                    'icon'       : 'fa-refresh',
-                    'icon_class' : 'fa-spin',
-                    'text'       : 'Loading...'
-                } only %}
-            {% endif %}
-
+        <div id="feed-photos" class="container"></div>
+        <div id="feed-photos-loader" class="container" data-target="#feed-photos" {{ ajax_data_href('app_fragment_feed_photos') }}">
+            {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
+                'icon'       : 'fa-refresh',
+                'icon_class' : 'fa-spin',
+                'text'       : 'Refreshing photo feed...'
+            } only %}
         </div>
     </div>
 

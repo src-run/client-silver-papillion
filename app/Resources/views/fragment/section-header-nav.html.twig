@@ -23,7 +23,7 @@
                     <a href="{{ path('app_home') }}">{{ fa('home') }} Home</a>
                 </li>
 
-                <li class="{% if 'Feed' in _c %} active {% endif %}{% if has_fb_feed_cached() != true %} hidden {% endif %}" id="navbar-nav-feed">
+                <li class="{% if 'Feed' in _c %} active {% endif %}{% if is_facebook_feed_cached() != true %} hidden {% endif %}" id="navbar-nav-feed">
                     <a href="{{ url('app_feed_view') }}">{{ fa('sticky-note') }} News</a>
                 </li>
 

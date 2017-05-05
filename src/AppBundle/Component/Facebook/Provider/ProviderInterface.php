@@ -12,7 +12,7 @@
 namespace AppBundle\Component\Facebook\Provider;
 
 use AppBundle\Component\Facebook\Authentication\AuthenticationInterface;
-use AppBundle\Component\Facebook\Model\Feed\Page\PageFeed;
+use AppBundle\Component\Facebook\Model\AbstractModel;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 /**
@@ -66,12 +66,12 @@ interface ProviderInterface
     public function hasCached();
 
     /**
-     * @return PageFeed
+     * @return AbstractModel
      */
     public function getCached();
 
     /**
-     * @return PageFeed
+     * @return AbstractModel
      */
     public function get();
 

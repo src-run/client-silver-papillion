@@ -32,11 +32,28 @@ services :
       - [setApi,           [ "%google_api_key_street_view%" ]]
       - [setOutputPath,    [ "%srwc.system_path.root%", "%srwc.system_path.cached%" ]]
 
+  app.environment:
+    class  : AppBundle\Component\Environment\Environment
+    public : false
+    arguments:
+      - "%kernel.environment%"
+      - "%cache%"
+
   app.directions :
     class : AppBundle\Util\Directions
     calls :
       - [setConfigManager, [ "@app.manager.configuration" ]]
       - [setUri, ["%srwc.google.simple_directions_href%"]]
+
+  app.twig_extension.url:
+    class  : AppBundle\Twig\UrlExtension
+    public : false
+    arguments :
+      - "@router"
+      - "@app.environment"
+      - %srwc.url.domain_types%
+    tags   :
+      - { name : twig.extension }
 
   app.twig_extension_helper.cart:
     class  : AppBundle\Twig\Helper\CartTwigExtensionHelper
@@ -156,8 +173,9 @@ services :
   app.twig_extension.fb:
     class  : AppBundle\Twig\FacebookExtension
     public : false
-    calls  :
-      - [setProvider, ["@app.fb.provider.page_feed"]]
+    arguments:
+      - "@app.fb.provider.page_feed"
+      - "@app.environment"
     tags   :
       - { name : twig.extension }
 

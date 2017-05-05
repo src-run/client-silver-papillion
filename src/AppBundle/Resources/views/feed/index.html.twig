@@ -2,11 +2,11 @@
 
 {% block title %}News - {{ parent() }}{% endblock %}
 
-{% if has_fb_feed_cached() %}
+{% if is_facebook_feed_cached() %}
     {% block headBeforeEnd %}
         <script type="application/ld+json">
             {% include 'AppBundle:fragment:feed-structured-markup-json-ld.json.twig' with {
-                'feed'  : get_fb_feed(),
+                'feed'  : facebook_feed_direct(),
                 'count' : config('feed.count.news', 12)
             } only %}
         </script>
@@ -22,19 +22,17 @@
     <div class="container container-sr">
         <div class="feed-social">
 
-            <div id="feed-listing" class="card-feed-listing" {% if has_fb_feed_cached() != true %}data-href="{{ url('app_fragment_feed') }}"{% endif %}>
-                {% if has_fb_feed_cached() %}
-                    {% include 'AppBundle:fragment:feed-list-whole.html.twig' with {
-                        'feed'  : get_fb_feed_cached(),
-                        'count' : config('feed.count.news', 12)
-                    } only %}
-                {% else %}
+            <div id="feed-listing" class="card-feed-listing">
+
+                <div id="feed-listing-container"></div>
+                <div id="feed-listing-loader" data-target="#feed-listing-container" {{ ajax_data_href('app_fragment_feed') }}>
                     {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
-                        'icon'       : 'fa-refresh',
-                        'icon_class' : 'fa-spin',
-                        'text'       : 'Loading news feed...'
+                    'icon'       : 'fa-refresh',
+                    'icon_class' : 'fa-spin',
+                    'text'       : 'Loading news feed...'
                     } only %}
-                {% endif %}
+                </div>
+
             </div>
 
             <div class="feed-social-link">

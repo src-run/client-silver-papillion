@@ -21,6 +21,11 @@ parameters:
 
   locale : en
 
+  srwc.url.domain_types:
+    AjaxDataHref:
+      domain:   'api.silverpapillon.com'
+      template: 'data-href="%%s"'
+
   srwc.system_path.root : "%kernel.root_dir%/../web/"
   srwc.public_path.root : "/"
 
