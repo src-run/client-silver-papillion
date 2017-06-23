@@ -1,0 +1,97 @@
+{% extends '::base.html.twig' %}
+
+{% block bread %}
+    {{ parent() }}
+    <li>Coupons</li>
+{% endblock %}
+
+{% block title %}Coupons - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container container-sr">
+
+        {% if get_published_coupons()|length == 0 %}
+
+            {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
+                'icon_mg' : 'fa-ban',
+                'icon'    : 'fa-tags',
+                'text'    : 'There are no coupons available at this time.'
+            } only %}
+
+        {% else %}
+
+            <div class="coupon">
+
+                <div class="coupon-list">
+
+                    {% for i, c in get_published_coupons() %}
+                        <div class="card is-raised">
+                            <h4 class="coupon-name">{{ c.getName() }}</h4>
+                            <h1 class="coupon-discount">
+                                {% if c.hasDiscountDollars() %}
+                                    <strong>${{ c.getDiscountDollars()|number_format(2, '.', ',') }}</strong> Off
+                                {% else %}
+                                    <strong>{{ c.getDiscountPercent() }}%</strong> Off
+                                {% endif %}
+                            </h1>
+                            <h3 class="coupon-minimum">
+                                an order totaling
+                                {% if c.hasMinimumRequirement() %}
+                                    <em>${{ c.getMinimumRequirement()|number_format(2, '.', ',') }}</em> or more
+                                {% else %}
+                                    <em>any value</em>
+                                {% endif %}
+                            </h3>
+                            <h2 class="coupon-code" data-clipboard-target=".coupon-{{ i }}-code">
+                                <span>
+                                    {{ ion('clipboard') }} Coupon Code: <em class="coupon-{{ i }}-code">{{ c.getCode() }}</em>
+                                </span>
+                            </h2>
+                            {% if c.hasDescription() %}
+                                <div class="coupon-description">
+                                    {{ c.getDescription()|raw }}
+                                </div>
+                            {% endif %}
+                            <p class="coupon-detail">
+                                Coupon represents a value of
+                                {% if c.hasDiscountDollars() %}
+                                    <em>{{ c.getDiscountDollars() }} dollars</em>
+                                {% else %}
+                                    <em>{{ c.getDiscountPercent() }} percent</em>
+                                {% endif %}
+                                off any order
+                                {% if c.hasMinimumRequirement() %}
+                                    of <em>{{ c.getMinimumRequirement() }} dollars</em> or more
+                                {% endif %}
+                                —
+                                {% if c.hasMaximumValue() %}
+                                    coupon offers a maximum discount value of <em>{{ c.getMaximumValue() }} dollars</em> —
+                                {% endif %}
+                                {% if c.hasExpiration() %}
+                                    coupon is valid <em>today</em> through <em>{{ c.getExpiration().format('F j Y') }}</em> —
+                                {% endif %}
+                                coupon can be applied on all <em>online</em> in-stock merchandise available through this website.
+                            </p>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+                <div class="coupon-info">
+
+                    <div class="card">
+                        <h3 class="primary-hr-i">
+                            {{ ion('paper-airplane') }} Use a <em>Coupon</em>
+                        </h3>
+
+                        {{ block_content('about.coupon') }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+{% endblock %}

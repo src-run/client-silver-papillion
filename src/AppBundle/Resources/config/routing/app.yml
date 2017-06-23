@@ -49,6 +49,16 @@ app_category_list:
   defaults :
     _controller : AppBundle:Category:list
 
+app_coupon_list:
+  path     : /store/coupon/list
+  defaults :
+    _controller : AppBundle:Coupon:list
+
+app_coupon_show:
+  path     : /store/coupon/show/{code}
+  defaults :
+    _controller : AppBundle:Coupon:show
+
 app_category_view:
   path     : /store/view/{category}
   defaults :

@@ -13,7 +13,7 @@ namespace AppBundle\Util;
 
 use AppBundle\Manager\ConfigurationManager;
 use Psr\Cache\CacheItemInterface;
-use Symfony\Component\Cache\Adapter\AbstractAdapter;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -50,7 +50,7 @@ class Mapper implements ContainerAwareInterface
     protected $api;
 
     /**
-     * @var AbstractAdapter
+     * @var AdapterInterface
      */
     protected $cache;
 
@@ -89,10 +89,9 @@ class Mapper implements ContainerAwareInterface
     }
 
     /**
-     * @param string $sysPath
-     * @param string $webPath
+     * @param AdapterInterface $cache
      */
-    public function setCache(AbstractAdapter $cache)
+    public function setCache(AdapterInterface $cache)
     {
         $this->cache = $cache;
     }

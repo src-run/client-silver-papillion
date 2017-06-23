@@ -150,19 +150,52 @@ class Carousel {
 }
 
 class FancyBox {
-  constructor() {
-    this.confOpts = {
-      padding: 0
-    };
+    constructor() {
+        this.confOpts = {
+            padding: 0
+        };
 
-    this.setup();
-  }
+        this.setup();
+    }
 
-  setup() {
-    let $elements = jQuery('.feed-attachment-link');
+    setup() {
+        let $elements = jQuery('.feed-attachment-link');
 
-    $elements.fancybox(this.confOpts);
-  }
+        $elements.fancybox(this.confOpts);
+    }
+}
+
+class ClipboardInitializer {
+    constructor() {
+        ClipboardInitializer.setupCoupons();
+    }
+
+    static setupCoupons() {
+        let couponsCodes = jQuery('.coupon-code');
+
+        if (couponsCodes.length > 0) {
+            let clipboard = new Clipboard('.coupon-code');
+
+            couponsCodes.bind('hover', function(event, message) {
+                $(this).attr('title', message)
+                    .tooltip('show');
+            });
+
+            couponsCodes.bind('copied', function(event, message) {
+                $(this).attr('title', message)
+                    .tooltip('show');
+            });
+
+            clipboard.on('success', function (e) {
+                $(e.trigger).trigger('copied', ['Copied!']);
+                e.clearSelection();
+            });
+
+            clipboard.on('error', function (e) {
+                $(e.trigger).trigger('copied', ['Copy with Ctrl-c']);
+            });
+        }
+    }
 }
 
 class Events {
@@ -299,6 +332,7 @@ jQuery(document).ready(() => {
   new ToolTips();
   new FeedRequest();
   new Events();
+  new ClipboardInitializer();
 });
 
 /* EOF */

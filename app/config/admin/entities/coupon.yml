@@ -1,0 +1,130 @@
+---
+
+easy_admin:
+  entities:
+    Coupon:
+      class: AppBundle\Entity\Coupon
+      label: 'Order Coupons'
+
+      list:
+        title: '%%entity_label%%'
+
+        actions:
+
+          - name  : 'show'
+            label : 'Show'
+            icon  : 'eye'
+
+          - name  : 'edit'
+            label : 'Edit'
+            icon  : 'edit'
+
+          - name  : 'delete'
+            label : 'Delete'
+            icon  : 'trash'
+
+        fields:
+
+          - enabled
+          - name
+          - code
+          - featured
+          - published
+          - expiration
+
+          - property  : 'discountDollars'
+            label     : 'Discount ($)'
+            format    : '%.2f'
+
+          - property  : 'discountPercent'
+            label     : 'Discount (%)'
+            format    : '%.2f'
+
+          - property  : 'maximumValue'
+            label     : 'Max Req.'
+            format    : '%.2f'
+
+          - property  : 'minimumRequirement'
+            label     : 'Min Req.'
+            format    : '%.2f'
+
+      form:
+        fields:
+
+          - label     : 'General Information'
+            type      : 'group'
+            icon      : 'pencil'
+            css_class : 'col-sm-7'
+
+          - property : name
+            help     : |
+              Enter a short name for the coupon. Do not include the coupon value in the name; instead use a catchy title
+              (i.e. "Sizzling Summer Sale" or "Cool Winter Discounts").
+
+          - property : code
+            help     : |
+              Keep this code short, simple, and memorable, as your customers will need to remember and enter this code
+              at checkout to apply the coupon (i.e. "SIZZLING-10" or "COOL-20").
+
+          - property  : 'description'
+            type      : 'Ivory\CKEditorBundle\Form\Type\CKEditorType'
+
+          - label     : 'Publish State'
+            type      : 'group'
+            icon      : 'floppy-o'
+            css_class : 'col-sm-5'
+            help      : '"Enabled" turns the coupon on and off globally; "featured" allows you to show the coupon as a pop-up on the home page; and "published" allows you to show the coupon on the public coupons page.'
+
+          - property  : 'enabled'
+            label     : 'Enabled (Activate Coupon)'
+
+          - property  : featured
+            label     : 'Featured (Show Pop-up on Home Page)'
+
+          - property : published
+            label    : 'Advertised (Show on Coupons Page)'
+
+          - { type: divider }
+
+          - property : expiration
+            help     : 'An optional expiration date for the coupon, after which point it will become invalid.'
+
+          - label     : 'Discount Amount'
+            type      : 'group'
+            icon      : 'dollar'
+            css_class : 'col-sm-7 new-row'
+            help      : |
+              You must enter either a dollar value OR a percentage amount for coupon. It is important NOT to enter both a dollar value and percentage amount simultaneously on a single coupon.
+
+          - property     : 'discountPercent'
+            label        : 'Percentage'
+            format       : '%.2f'
+
+          - property     : 'discountDollars'
+            label        : 'Dollar Value'
+            format       : '%.2f'
+            type         : 'money'
+            type_options : { currency: USD }
+
+          - label     : 'Advanced Requirements'
+            type      : 'group'
+            icon      : 'cog'
+            css_class : 'col-sm-5'
+
+          - property     : 'minimumRequirement'
+            label        : 'Min Val'
+            format       : '%.2f'
+            type         : 'money'
+            type_options : { currency: USD }
+            help         : |
+              You may optionally set an order minimum requirement for the coupon (i.e. "10% off orders of $100 or more").
+
+          - property     : 'maximumValue'
+            label        : 'Max Val'
+            format       : '%.2f'
+            type         : 'money'
+            type_options : { currency: USD }
+            help         : |
+              You may optionally set a maximum value requirement for the coupon (i.e. "20% off up to $100").
+
+...

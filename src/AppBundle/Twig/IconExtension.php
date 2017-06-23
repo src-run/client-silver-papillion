@@ -29,8 +29,18 @@ class IconExtension extends TwigExtension
         $options = new TwigOptionsDefinition(['is_safe' => ['html']]);
 
         parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('ion', [$helper, 'renderIconIon'], $options),
-            new TwigFunctionDefinition('fa', [$helper, 'renderIconFa'], $options),
+            new TwigFunctionDefinition('ion', function ($icon) use ($helper) {
+                return $helper->renderIconIon($icon, false);
+            }, $options),
+            new TwigFunctionDefinition('ion-block', function ($icon) use ($helper) {
+                return $helper->renderIconIon($icon, true);
+            }, $options),
+            new TwigFunctionDefinition('fa', function ($icon) use ($helper) {
+                return $helper->renderIconFa($icon, false);
+            }, $options),
+            new TwigFunctionDefinition('fa-block', function ($icon) use ($helper) {
+                return $helper->renderIconFa($icon, true);
+            }, $options),
         ]);
     }
 }

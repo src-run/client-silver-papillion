@@ -26,8 +26,8 @@ class ProductRepository extends AbstractRepository
      */
     public function findFeatured()
     {
-        return $this->getResult(function (QueryBuilder $b) {
-            $b
+        return $this->getResult(function (QueryBuilder $queryBuilder) {
+            $queryBuilder
                 ->where('p.featured = 1')
                 ->andWhere('p.enabled = 1')
                 ->orderBy('p.name');
@@ -41,8 +41,8 @@ class ProductRepository extends AbstractRepository
      */
     public function findInCategory(Category $category)
     {
-        return $this->getResult(function (QueryBuilder $b) use ($category) {
-            $b
+        return $this->getResult(function (QueryBuilder $queryBuilder) use ($category) {
+            $queryBuilder
                 ->where('p.category = :category')
                 ->andWhere('p.enabled = 1')
                 ->setParameter('category', $category)
@@ -58,18 +58,18 @@ class ProductRepository extends AbstractRepository
      */
     public function findInCategoryWithExclusions(Category $category, Product ...$exclusions)
     {
-        return $this->getResult(function (QueryBuilder $b) use ($category, $exclusions) {
-            $b
+        return $this->getResult(function (QueryBuilder $queryBuilder) use ($category, $exclusions) {
+            $queryBuilder
                 ->where('p.category = :category')
                 ->andWhere('p.enabled = 1');
 
             foreach ($exclusions as $i => $product) {
-                $b
+                $queryBuilder
                     ->andWhere('p != :product_'.$i)
                     ->setParameter('product_'.$i, $product);
             }
 
-            $b
+            $queryBuilder
                 ->setParameter('category', $category)
                 ->orderBy('p.name');
         });
@@ -85,8 +85,8 @@ class ProductRepository extends AbstractRepository
      */
     public function findInCategoryPaginated(Category $category, Paginator $paginator, $page, $limit = 12)
     {
-        $query = $this->getQuery(function (QueryBuilder $b) use ($category) {
-            $b
+        $query = $this->getQuery(function (QueryBuilder $queryBuilder) use ($category) {
+            $queryBuilder
                 ->where('p.category = :category')
                 ->andWhere('p.enabled = 1')
                 ->setParameter('category', $category)

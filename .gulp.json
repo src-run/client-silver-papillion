@@ -1,6 +1,7 @@
 {
   "paths": {
     "components": "web/components/",
+    "npm": "node_modules/",
     "app": "web/bundles/app/",
     "public": {
       "root": "web/assets/",
@@ -43,7 +44,8 @@
         "${paths.components}jquery-smooth-scroll/jquery.smooth-scroll.js",
         "${paths.components}jquery-waypoints/lib/jquery.waypoints.js",
         "${paths.components}jquery-creditcardvalidator/jquery.creditCardValidator.js",
-        "${paths.components}jquery-oembed-all/jquery.oembed.js"
+        "${paths.components}jquery-oembed-all/jquery.oembed.js",
+        "${paths.npm}clipboard/dist/clipboard.js"
       ],
       "styles": [
         "${paths.components}jquery-oembed-all/jquery.oembed.css"

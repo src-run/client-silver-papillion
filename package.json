@@ -78,5 +78,8 @@
     "tasks": "gulp --tasks",
     "tasks-core": "gulp --tasks --depth=1",
     "tasks-verify": "gulp --verify"
+  },
+  "dependencies": {
+    "clipboard": "^1.7.1"
   }
 }

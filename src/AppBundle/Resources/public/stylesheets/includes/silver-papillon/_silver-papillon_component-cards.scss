@@ -64,6 +64,11 @@
     }
   }
 
+  &.is-raised {
+    border     : $border-size-card $border-type-card $border-color-card;
+    box-shadow : 0 8px 32px rgba($color-blue-darkest, 0.15);
+  }
+
   &.is-linkable {
     cursor           : pointer;
     border           : $border-size-card $border-type-card $border-color-card;

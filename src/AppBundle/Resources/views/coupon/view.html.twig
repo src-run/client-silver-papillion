@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block bread %}
+    {{ parent() }}
+    <li><a href="{{ url('app_category_list') }}">Products</a></li>
+    <li>{{ category.getName }}</li>
+{% endblock %}
+
+{% block title %}{{ category.getName }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container container-sr">
+
+        <div class="page-navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <h2 class="primary-hr-i">
+            {{ ion('pricetag') }} <em>{{ category.getName }}</em>
+        </h2>
+
+        <div class="card-listing">
+            {% for p in pagination %}
+                {% include 'AppBundle:fragment:product-list-item-default.html.twig' with { 'product': p } only %}
+            {% endfor %}
+        </div>
+
+        <div class="page-navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    </div>
+{% endblock %}

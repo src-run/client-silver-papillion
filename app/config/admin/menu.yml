@@ -33,9 +33,8 @@ easy_admin:
       - label: 'menu.store'
         icon: 'money'
         children:
-          - label: 'menu.purchase'
-            entity: 'Order'
-            icon: 'credit-card'
+          - { entity: 'Coupon', label: 'menu.coupon', icon: 'tag' }
+          - { entity: 'Order', label: 'menu.purchase', icon: 'credit-card' }
 
       - label: 'menu.logs'
         icon: 'terminal'

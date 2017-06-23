@@ -41,6 +41,11 @@
                         {% for c in get_categories() %}
                             <li><a href="{{ path('app_category_view', {'category': c.getSlug}) }}">{{ c.name }}</a></li>
                         {% endfor %}
+
+                        {% if get_published_coupons()|length > 0 %}
+                            <li class="dropdown-header">Coupons</li>
+                            <li><a href="{{ path('app_coupon_list') }}">View All ({{ get_published_coupons()|length }})</a></li>
+                        {% endif %}
                     </ul>
 
                 </li>

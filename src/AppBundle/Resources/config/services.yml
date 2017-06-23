@@ -51,7 +51,7 @@ services :
     arguments :
       - "@router"
       - "@app.environment"
-      - %srwc.url.domain_types%
+      - "%srwc.url.domain_types%"
     tags   :
       - { name : twig.extension }
 
@@ -74,6 +74,14 @@ services :
     public : false
     calls  :
       - [setCategoryManager, ["@app.manager.category"]]
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.coupon_manager:
+    class  : AppBundle\Twig\CouponManagerExtension
+    public : false
+    calls  :
+      - [setCouponManager, ["@app.manager.coupon"]]
     tags   :
       - { name : twig.extension }
 
@@ -227,6 +235,11 @@ services :
     class : AppBundle\Manager\ProductManager
     calls :
       - [setPaginator, ["@knp_paginator"]]
+      - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
+
+  app.manager.coupon :
+    class : AppBundle\Manager\CouponManager
+    calls :
       - [setEntityManager, ["@doctrine.orm.default_entity_manager"]]
 
   app.manager.hours :

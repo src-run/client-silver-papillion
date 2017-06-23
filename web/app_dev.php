@@ -19,7 +19,6 @@ Debug::enable();
 
 /** @var AppKernel $kernel */
 $kernel = new AppKernel('dev', true);
-$kernel->loadClassCache();
 
 /** @var Request $request */
 $request = Request::createFromGlobals();

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+  <entity repository-class="AppBundle\Repository\CouponRepository" name="AppBundle\Entity\Coupon" table="customer_order_coupon">
+
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+
+    <field name="expiration" type="date" column="expiration" nullable="true" />
+    <field name="featured" type="boolean" column="featured" nullable="true" />
+    <field name="published" type="boolean" column="published" nullable="true" />
+    <field name="enabled" type="boolean" column="enabled" />
+    <field name="name" type="string" column="name" length="250" />
+    <field name="code" type="string" column="code" length="250" unique="true" />
+    <field name="description" type="text" column="description" nullable="true" />
+    <field name="discountDollars" type="float" column="discount_dollars" nullable="true" />
+    <field name="discountPercent" type="float" column="discount_percent" nullable="true" />
+    <field name="maximumValue" type="float" column="maximum_value" nullable="true" />
+    <field name="minimumRequirement" type="float" column="minimum_requirement" nullable="true" />
+
+  </entity>
+
+</doctrine-mapping>

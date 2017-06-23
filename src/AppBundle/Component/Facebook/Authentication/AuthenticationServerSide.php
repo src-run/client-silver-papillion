@@ -13,7 +13,7 @@ namespace AppBundle\Component\Facebook\Authentication;
 
 use AppBundle\Component\Facebook\Factory\FacebookFactory;
 use Facebook\Facebook;
-use Symfony\Component\Cache\Adapter\AbstractAdapter;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 /**
  * Category AuthenticationServerSide.
@@ -46,7 +46,7 @@ class AuthenticationServerSide implements AuthenticationInterface
     private $graphVersion;
 
     /**
-     * @var AbstractAdapter
+     * @var AdapterInterface
      */
     private $cache;
 
@@ -129,9 +129,9 @@ class AuthenticationServerSide implements AuthenticationInterface
     }
 
     /**
-     * @param AbstractAdapter $cache
+     * @param AdapterInterface $cache
      */
-    public function setCache(AbstractAdapter $cache)
+    public function setCache(AdapterInterface $cache)
     {
         $this->cache = $cache;
     }

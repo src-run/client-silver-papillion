@@ -19,17 +19,12 @@ class IconExtensionHelper
     /**
      * @var string
      */
-    const TEMPLATE_WRAP = <<<'TPL'
-<span class="icon-wrap-type-%s icon-wrap-name-%s">
-  %s
-</span>
-TPL;
+    private static $iconTemplateWrap = '<span class="icon-wrap-type-%s icon-wrap-name-%s">%s</span>';
+
     /**
      * @var string
      */
-    const TEMPLATE_ICON = <<<'TPL'
-<i class="%s"></i>
-TPL;
+    private static $iconTemplateItem = '<i class="%s"></i>';
 
     /**
      * @param string   $icon
@@ -69,11 +64,13 @@ TPL;
             return '';
         }
 
-        $cssC = $type.'-'.$icon;
-        $html = sprintf(self::TEMPLATE_ICON, implode(' ', array_merge((array) $type, (array) ('icon-'.$type), (array) $cssC, $classes)));
+        $name = $type.'-'.$icon;
+        $html = vsprintf(static::$iconTemplateItem, [
+            implode(' ', array_merge((array) $type, (array) ('icon-'.$type), (array) $name, $classes)),
+        ]);
 
         if ($wrap) {
-            $html = sprintf(self::TEMPLATE_WRAP, $type, $cssC, $html);
+            $html = sprintf(static::$iconTemplateWrap, $type, $name, $html);
         }
 
         return $html;
