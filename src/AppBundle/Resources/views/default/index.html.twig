@@ -104,4 +104,8 @@
         </div>
 
     </div>
+
+    {% include 'AppBundle:fragment:modal-coupon.html.twig' with {
+        showCoupon: showCoupon
+    } only %}
 {% endblock %}

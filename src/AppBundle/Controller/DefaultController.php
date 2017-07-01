@@ -30,7 +30,25 @@ class DefaultController extends Controller
             'hours'      => $this->get('app.manager.hours')->getAll(),
             'featured'   => $this->get('app.manager.product')->getFeatured($count),
             'staticMaps' => $this->get('app.mapper.static')->generate('420x220'),
+            'showCoupon' => $this->showCouponState(),
         ]);
+    }
+
+    /**
+     * @return bool
+     */
+    private function showCouponState(): bool
+    {
+        $session = $this->get('session');
+        $timeNow = time();
+
+        if (($session->get('coupon_featured') ?? $timeNow) <= $timeNow) {
+            $session->set('coupon_featured', strtotime('+10 minute'));
+
+            return true;
+        }
+
+        return false;
     }
 }
 

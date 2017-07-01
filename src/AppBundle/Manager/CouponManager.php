@@ -32,11 +32,22 @@ class CouponManager extends AbstractManager
     /**
      * @param int $limit
      *
-     * @return Coupon[]
+     * @return Coupon[]|Coupon
      */
-    public function getFeatured($limit = 3)
+    public function getFeatured($limit = 1)
     {
-        return array_slice($this->getRepository()->findFeatured(), 0, $limit);
+        $coupons = $this->getRepository()->findFeatured();
+
+        if (count($coupons) === 0) {
+            return null;
+        }
+
+        if ($limit === 1) {
+            shuffle($coupons);
+            return array_shift($coupons);
+        }
+
+        return array_slice($coupons, 0, $limit);
     }
 
     /**

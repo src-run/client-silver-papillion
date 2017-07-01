@@ -333,6 +333,9 @@ jQuery(document).ready(() => {
   new FeedRequest();
   new Events();
   new ClipboardInitializer();
+  $('#modal-coupon').modal({
+      'show': true,
+  });
 });
 
 /* EOF */

@@ -26,8 +26,11 @@ class CouponManagerExtension extends TwigExtension
     public function __construct()
     {
         parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('get_featured_coupons', function (int $count = 1) {
-                return $this->manager->getFeatured($count);
+            new TwigFunctionDefinition('get_featured_coupon', function () {
+                return $this->manager->getFeatured();
+            }),
+            new TwigFunctionDefinition('has_featured_coupon', function () {
+                return $this->manager->getFeatured() !== null;
             }),
             new TwigFunctionDefinition('get_published_coupons', function (int $count = 1000) {
                 return $this->manager->getPublished($count);

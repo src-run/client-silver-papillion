@@ -107,4 +107,97 @@
   }
 }
 
+.modal-coupon {
+  text-align : center;
+
+  .modal-header {
+    .close {
+      margin-top : 5px !important;
+    }
+
+    .coupon-name {
+      margin                  : -14px -14px 0 -14px;
+      border-top-left-radius  : $border-radius-lg;
+      border-top-right-radius : $border-radius-lg;
+      padding                 : 12px 21px 9px;
+      background-color        : rgba($color-gray-bg-alt, 0.4);
+      border-bottom           : 1px solid rgba($color-accent, 0.2);
+      font-size               : 27px;
+    }
+  }
+
+  .modal-body {
+    padding : 0 27px;
+
+    .coupon-discount {
+      margin-bottom : 0;
+      font-size     : 60px;
+      font-weight   : 500;
+
+      strong {
+        font-weight : 600;
+      }
+    }
+
+    .coupon-minimum {
+      margin-top  : 0;
+      font-size   : 20px;
+      font-weight : 200;
+
+      em {
+        font-weight : 300;
+        font-style  : normal;
+      }
+    }
+
+    .coupon-code {
+      font-size   : 20px;
+
+      span {
+        cursor           : pointer;
+        color            : $color-primary-dark;
+        background-color : rgba($color-gray-bg-alt, 0.6);
+        will-change      : auto;
+        transition       : color $trans-time-x-08, background-color $trans-time-x-06;
+        padding          : 15px 24px 12px;
+        display          : inline-block;
+
+        em {
+          font-style  : normal;
+          font-family : $font-family-mono-space;
+        }
+
+        i {
+          padding : 0 9px 0 0;
+        }
+
+        &:hover {
+          color            : $color-white;
+          background-color : rgba($color-primary-dark, 0.8);
+        }
+      }
+    }
+  }
+
+  .coupon-description {
+    margin : 18px 0 -12px 0;
+  }
+
+  .coupon-detail {
+    font-size   : 10px;
+    font-weight : 300;
+    padding     : 18px 0 27px 0;
+    color       : $color-gray;
+
+    em {
+      font-weight : 400;
+      font-style  : normal;
+    }
+  }
+
+  .modal-footer {
+    border-top : 1px solid rgba($color-black, 0.15) !important;
+  }
+}
+
 /* EOF */

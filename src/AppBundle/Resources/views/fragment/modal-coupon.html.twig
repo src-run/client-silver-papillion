@@ -1,0 +1,68 @@
+
+{% if has_featured_coupon() and showCoupon == true %}
+
+    {% set featured_coupon = get_featured_coupon() %}
+
+    <div id="modal-coupon" class="modal fade modal-coupon" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title coupon-name">{{ featured_coupon.getName() }}</h4>
+                </div>
+                <div class="modal-body">
+                    <h1 class="coupon-discount">
+                        {% if featured_coupon.hasDiscountDollars() %}
+                            <strong>${{ featured_coupon.getDiscountDollars()|number_format(2, '.', ',') }}</strong> Off
+                        {% else %}
+                            <strong>{{ featured_coupon.getDiscountPercent() }}%</strong> Off
+                        {% endif %}
+                    </h1>
+                    <h3 class="coupon-minimum">
+                        an order totaling
+                        {% if featured_coupon.hasMinimumRequirement() %}
+                            <em>${{ featured_coupon.getMinimumRequirement()|number_format(2, '.', ',') }}</em> or more
+                        {% else %}
+                            <em>any value</em>
+                        {% endif %}
+                    </h3>
+                    <h2 class="coupon-code" data-clipboard-target=".coupon-featured-code">
+                            <span>
+                                {{ ion('clipboard') }} Coupon Code: <em class="coupon-featured-code">{{ featured_coupon.getCode() }}</em>
+                            </span>
+                    </h2>
+                    {% if featured_coupon.hasDescription() %}
+                        <div class="coupon-description">
+                            {{ featured_coupon.getDescription()|raw }}
+                        </div>
+                    {% endif %}
+                    <p class="coupon-detail">
+                        Coupon represents a value of
+                        {% if featured_coupon.hasDiscountDollars() %}
+                            <em>{{ featured_coupon.getDiscountDollars() }} dollars</em>
+                        {% else %}
+                            <em>{{ featured_coupon.getDiscountPercent() }} percent</em>
+                        {% endif %}
+                        off any order
+                        {% if featured_coupon.hasMinimumRequirement() %}
+                            of <em>{{ featured_coupon.getMinimumRequirement() }} dollars</em> or more
+                        {% endif %}
+                        —
+                        {% if featured_coupon.hasMaximumValue() %}
+                            coupon offers a maximum discount value of <em>{{ featured_coupon.getMaximumValue() }} dollars</em> —
+                        {% endif %}
+                        {% if featured_coupon.hasExpiration() %}
+                            coupon is valid <em>today</em> through <em>{{ featured_coupon.getExpiration().format('F j Y') }}</em> —
+                        {% endif %}
+                        coupon can be applied on all <em>online</em> in-stock merchandise available through this website.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path('app_coupon_list') }}" class="btn btn-primary">View All Coupons</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close Offer</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endif %}
