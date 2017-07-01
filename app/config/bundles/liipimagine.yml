@@ -36,8 +36,8 @@ liip_imagine :
       filters :
         auto_rotate : ~
         strip       : ~
-        thumbnail   : { size : [800, 800], mode : outbound, allow_upscale : true, filter: LANCZOS }
-        background  : { size : [840, 840], position : center, color : '#fff' }
+        thumbnail   : { size : [496, 496], mode : outbound, allow_upscale : true, filter: LANCZOS }
+        background  : { size : [500, 500], position : center, color : '#fff' }
 
     category_thumb :
 

@@ -12,14 +12,15 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Component\Location\Model\LocationCollectionModel;
-use AppBundle\Entity\Category;
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderItem;
 use AppBundle\Entity\Product;
+use AppBundle\Form\CouponCodeType;
 use AppBundle\Form\PaymentType;
 use AppBundle\Form\ShipmentType;
 use AppBundle\Model\Cart;
 use AppBundle\Model\CartGroup;
+use AppBundle\Model\CouponCode;
 use AppBundle\Model\Payment;
 use AppBundle\Model\Shipment;
 use Doctrine\ORM\EntityManager;
@@ -69,30 +70,76 @@ class CartController extends Controller
      */
     public function checkoutAction(Request $request)
     {
-        $session = $this->get('session');
+        $couponOkay = null;
+        $couponErrs = null;
 
-        if (!$session->has('checkout-shipment')) {
-            $shipment = new Shipment();
-        } else {
-            $shipment = $session->get('checkout-shipment');
+        $cart = $this->getCart();
+
+        $couponCode = new CouponCode();
+
+        if ($cart->hasCouponStateless()) {
+            $couponCode->setCode($cart->coupon()->getCode());
         }
 
-        $form = $this->createForm(ShipmentType::class, $shipment);
+        $formCoupon = $this->createForm(CouponCodeType::class, $couponCode);
+        $formCoupon->handleRequest($request);
 
-        $form->handleRequest($request);
+        if ($formCoupon->isSubmitted() && $formCoupon->isValid()) {
+            if ($cart->couponFromCode($couponCode->getCode())) {
+                $cart->save();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $session = $this->get('session');
-            $session->set('checkout-shipment', $shipment);
+                if ($cart->couponAmount() > 0) {
+                    $couponOkay = sprintf('The entered coupon code "%s" has been applied to your order and provides a discount of $%01.2f.', $couponCode->getCode(), $cart->couponAmount());
+                }
+            } else {
+                $couponErrs = sprintf('The entered coupon code "%s" is not valid and has not been applied to your order. Confirm you entered the coupon code correctly and try again.', $couponCode->getCode());
+            }
+        }
+
+        $session = $this->get('session');
+        $shipmentInfo = $session->has('checkout-shipment') ? $session->get('checkout-shipment') : new Shipment();
+        $formShipment = $this->createForm(ShipmentType::class, $shipmentInfo);
+        $formShipment->handleRequest($request);
+
+        if ($formShipment->isSubmitted() && $formShipment->isValid()) {
+            $session->set('checkout-shipment', $shipmentInfo);
 
             return $this->redirectToRoute('app_cart_checkout_payment');
         }
 
         return $this->render('AppBundle:cart:checkout.html.twig', [
-            '_c'    => static::class,
-            'f'     => $form->createView(),
-            'geoip' => $this->locationLookup($request),
+            '_c'         => static::class,
+            'f'          => $formShipment->createView(),
+            'couponForm' => $formCoupon->createView(),
+            'couponOkay' => $couponOkay,
+            'couponErrs' => $couponErrs,
+            'geoip'      => $this->locationLookup($request),
         ]);
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function removeCouponAction(string $code)
+    {
+        $cart = $this->getCart();
+
+        if ($cart->hasCoupon()) {
+            $cart->removeCoupon();
+            $cart->save();
+        }
+
+        return $this->redirectToRoute('app_cart_checkout_payment');
+    }
+
+    /**
+     * @return Cart
+     */
+    private function getCart(): Cart
+    {
+        return $this->get('app.cart');
     }
 
     /**
@@ -215,6 +262,11 @@ class CartController extends Controller
         $order->setPaid($charge->paid);
         $order->setReference($charge->id);
 
+        if ($cart->hasCoupon()) {
+            $order->setCouponCode($cart->coupon()->getCode());
+            $order->setCouponValue($cart->couponAmount());
+        }
+
         $items = [];
         foreach ($cart->getItemsGrouped() as $group) {
             $items[] = $i = $this->createOrderItemEntity($group);
@@ -237,11 +289,11 @@ class CartController extends Controller
     private function createOrderItemEntity(CartGroup $group)
     {
         $item = new OrderItem();
-        $item->setName($group->getProduct()->getName());
+        $item->setName($group->item()->getName());
         $item->setCount($group->count());
         $item->setTotal($group->total());
-        if ($group->getProduct()->hasSku()) {
-            $item->setSku($group->getProduct()->getSku());
+        if ($group->item()->hasSku()) {
+            $item->setSku($group->item()->getSku());
         }
 
         return $item;
@@ -253,15 +305,15 @@ class CartController extends Controller
     private function sendNotifications(Order $order)
     {
         $config = $this->get('app.manager.configuration');
-        $subject = sprintf('Order Confirmation (Reference ID %s)', $order->getOrderNumber());
+        $subject = sprintf('Silver Papillon Order (%s)', $order->getOrderNumber());
         $storeEmail = [$config->value('contact.email', 'rmf@src.run') => 'Silver Papillon'];
         $orderEmail = [$order->getEmail() => $order->getName()];
         $adminEmail = [$config->value('contact.admin-email', 'rmf@src.run') => 'Source Consulting'];
 
         $storeMessage = $this->createOrderMessage($storeEmail, $adminEmail, $subject,
-            'email/checkout-confirmation-store.html.twig', $this->getEmailTwigArgs($order));
+            'email/checkout-confirmation-internal.html.twig', $this->getEmailTwigArgs($order));
         $orderMessage = $this->createOrderMessage($orderEmail, $storeEmail, $subject,
-            'email/checkout-confirmation-order.html.twig', $this->getEmailTwigArgs($order));
+            'email/checkout-confirmation.html.twig', $this->getEmailTwigArgs($order));
 
         $this->get('mailer')->send($storeMessage);
         $this->get('mailer')->send($orderMessage);
@@ -276,7 +328,7 @@ class CartController extends Controller
     {
         return [
             'order'     => $order,
-            'title'     => sprintf('Order Confirmation (Reference ID %s)', $order->getOrderNumber()),
+            'title'     => 'Order Confirmation',
             'createdOn' => $order->getCreatedOn(),
             'from'      => 'orders@silverpapillon.com',
         ];

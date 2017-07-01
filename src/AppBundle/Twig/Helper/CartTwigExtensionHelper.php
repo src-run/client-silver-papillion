@@ -11,8 +11,10 @@
 
 namespace AppBundle\Twig\Helper;
 
+use AppBundle\Entity\Coupon;
 use AppBundle\Entity\Product;
 use AppBundle\Model\Cart;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class CartTwigExtensionHelper.
@@ -111,6 +113,50 @@ class CartTwigExtensionHelper
     public function cartItemsGrouped()
     {
         return $this->cart->getItemsGrouped();
+    }
+
+    /**
+     * @return bool
+     */
+    public function cartHasDiscount()
+    {
+        return $this->cart->hasCoupon();
+    }
+
+    /**
+     * @return int
+     */
+    public function cartDiscount()
+    {
+        return $this->cart->couponAmount();
+    }
+
+    /**
+     * @return string
+     */
+    public function cartDiscountCode()
+    {
+        return $this->cart->coupon()->getCode();
+    }
+
+    /**
+     * @return bool
+     */
+    public function cartHasDiscountError(): bool
+    {
+        if ($this->cart->coupon() instanceof Coupon && $this->cart->couponAmount() === 0.0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function cartDiscountErrorMessage(): string
+    {
+        return $this->cart->couponErrorMessage();
     }
 }
 

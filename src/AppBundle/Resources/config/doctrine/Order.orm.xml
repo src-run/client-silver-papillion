@@ -19,6 +19,8 @@
     <field name="shipping" type="float" column="shipping" />
     <field name="tax" type="float" column="tax" />
     <field name="paid" type="boolean" column="paid" length="510" />
+    <field name="couponCode" type="string" column="coupon_code" length="200" nullable="true" />
+    <field name="couponValue" type="float" column="coupon_value" nullable="true" />
     <field name="reference" type="string" column="reference" length="510" />
 
     <many-to-many target-entity="AppBundle\Entity\OrderItem" field="items" >

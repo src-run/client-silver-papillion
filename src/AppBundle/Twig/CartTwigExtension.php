@@ -34,6 +34,11 @@ class CartTwigExtension extends TwigExtension
             new TwigFunctionDefinition('cart_shipping',      [$helper, 'cartShipping']),
             new TwigFunctionDefinition('cart_items',         [$helper, 'cartItems']),
             new TwigFunctionDefinition('cart_items_grouped', [$helper, 'cartItemsGrouped']),
+            new TwigFunctionDefinition('cart_discount',      [$helper, 'cartDiscount']),
+            new TwigFunctionDefinition('cart_has_discount',  [$helper, 'cartHasDiscount']),
+            new TwigFunctionDefinition('cart_discount_code', [$helper, 'cartDiscountCode']),
+            new TwigFunctionDefinition('cart_has_discount_err', [$helper, 'cartHasDiscountError']),
+            new TwigFunctionDefinition('cart_discount_err_msg', [$helper, 'cartDiscountErrorMessage']),
         ]);
     }
 }

@@ -100,6 +100,20 @@ class ProductManager extends AbstractManager
     }
 
     /**
+     * @param Product $product
+     * @param int     $limit
+     *
+     * @return \AppBundle\Entity\Product[]
+     */
+    public function getRandomOther(Product $product, $limit)
+    {
+        $products = $this->getRepository()->findNotInCategory($product->getCategory());
+        shuffle($products);
+
+        return array_splice($products, 0, $limit);
+    }
+
+    /**
      * @param Category $category
      * @param int      $page
      * @param int      $limit

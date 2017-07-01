@@ -91,6 +91,21 @@ class Coupon
     }
 
     /**
+     * @return array
+     */
+    public function __toJson(): array
+    {
+        return [
+            'name' => $this->name,
+            'code' => $this->code,
+            'discountDollars' => $this->discountDollars,
+            'discountPercent' => $this->discountPercent,
+            'maximumValue' => $this->maximumValue,
+            'minimumRequirement' => $this->minimumRequirement,
+        ];
+    }
+
+    /**
      * @return int
      */
     public function getId(): ?int

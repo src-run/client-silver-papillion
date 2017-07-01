@@ -13,11 +13,13 @@ namespace AppBundle\Model;
 
 use AppBundle\Component\Location\LocationLookupInterface;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Coupon;
 use AppBundle\Entity\Product;
 use AppBundle\Manager\ConfigurationManager;
 use Doctrine\ORM\EntityManager;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class Cart.
@@ -63,6 +65,11 @@ class Cart implements \Serializable
      * @var ConfigurationManager
      */
     protected $configurationManager;
+
+    /**
+     * @var Coupon
+     */
+    protected $coupon;
 
     /**
      * @var LocationLookupInterface
@@ -353,7 +360,109 @@ class Cart implements \Serializable
      */
     public function total()
     {
-        return $this->subTotal() + $this->tax() + $this->shipping();
+        return $this->subTotal() + $this->tax() + $this->shipping() - $this->couponAmount();
+    }
+
+    /**
+     * @return Coupon
+     */
+    public function coupon()
+    {
+        return $this->coupon;
+    }
+
+    public function removeCoupon()
+    {
+        $this->coupon = null;
+        $this->save();
+    }
+
+    /**
+     * @param string $couponCode
+     *
+     * @return bool
+     */
+    public function couponFromCode(string $couponCode): bool
+    {
+        try {
+            $this->coupon = $this
+                ->entityManager
+                ->getRepository(Coupon::class)->findOneBy([
+                    'code' => $couponCode,
+                ]);
+            $this->save();
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return $this->coupon !== null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCouponStateless(): bool
+    {
+        return $this->coupon !== null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCoupon(): bool
+    {
+        if (!$this->coupon instanceof Coupon) {
+            return false;
+        }
+
+        if ($this->coupon->hasExpiration() && $this->coupon->getExpiration()->format('U') <= (new \DateTime())->format('U')) {
+            return false;
+        }
+
+        if ($this->coupon->hasMinimumRequirement() && $this->subTotal() < $this->coupon->getMinimumRequirement()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return float
+     */
+    public function couponAmount(): float
+    {
+        if (!$this->hasCoupon()) {
+            return 0;
+        }
+
+        if ($this->coupon->hasDiscountDollars()) {
+            return $this->coupon->getDiscountDollars();
+        }
+
+        $discount = $this->subTotal() * $this->coupon->getDiscountPercent() / 100;
+
+        if ($this->coupon->hasMaximumValue() && $discount > $this->coupon->getMaximumValue()) {
+            return $this->coupon->getMaximumValue();
+        }
+
+        return $discount;
+    }
+
+    public function couponErrorMessage(): string
+    {
+        if (!$this->coupon instanceof Coupon) {
+            return '';
+        }
+
+        if ($this->coupon->hasExpiration() && $this->coupon->getExpiration()->format('U') <= (new \DateTime())->format('U')) {
+            return sprintf('The entered coupon code "%s" expired on %s and is no longer valid.', $this->coupon->getCode(), $this->coupon->getExpiration()->format('n-j-Y'));
+        }
+
+        if ($this->coupon->hasMinimumRequirement() && $this->subTotal() < $this->coupon->getMinimumRequirement()) {
+            return sprintf('The entered coupon code "%s" requires an order totaling $%01.2f or more to be valid.', $this->coupon->getCode(), $this->coupon->getMinimumRequirement());
+        }
+
+        return sprintf('The entered coupon code "%s" is invalid.', $this->coupon->getCode());
     }
 
     /**
@@ -361,7 +470,10 @@ class Cart implements \Serializable
      */
     public function serialize()
     {
-        return igbinary_serialize($this->items);
+        return igbinary_serialize([
+            'items' => $this->items,
+            'coupon' => $this->coupon,
+        ]);
     }
 
     /**
@@ -369,7 +481,10 @@ class Cart implements \Serializable
      */
     public function unserialize($serialized)
     {
-        $this->items = igbinary_unserialize($serialized);
+        $data = igbinary_unserialize($serialized);
+
+        $this->items = $data['items'] ?? [];
+        $this->coupon = $data['coupon'] ?? null;
     }
 }
 

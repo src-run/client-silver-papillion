@@ -45,6 +45,34 @@ services :
       - [setConfigManager, [ "@app.manager.configuration" ]]
       - [setUri, ["%srwc.google.simple_directions_href%"]]
 
+  app.twig_extension.order_item_to_product:
+    class  : AppBundle\Twig\OrderItemToProductExtension
+    public : false
+    arguments :
+      - "@doctrine.orm.default_entity_manager"
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.domain_replacement:
+    class  : AppBundle\Twig\DomainReplacementExtension
+    public : false
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.format_object_list:
+    class  : AppBundle\Twig\FormatObjectListExtension
+    public : false
+    tags   :
+      - { name : twig.extension }
+
+  app.twig_extension.returning_customer_coupon:
+    class  : AppBundle\Twig\ReturningCustomerCoupon
+    public : false
+    arguments :
+      - "@doctrine.orm.default_entity_manager"
+    tags   :
+      - { name : twig.extension }
+
   app.twig_extension.url:
     class  : AppBundle\Twig\UrlExtension
     public : false

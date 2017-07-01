@@ -38,17 +38,20 @@
         opacity     : 0.6;
 
         &.today {
-          font-style : italic;
+          color       : rgba($color-black, 0.9);
+          font-style  : normal;
+          font-weight : 400;
         }
       }
 
       dd {
+        color       : rgba($color-black, 0.8);
         font-weight : 200;
         font-size   : 14px;
-        color       : $color-black;
 
         &.today {
-          font-style : italic;
+          font-style  : normal;
+          font-weight : 400;
         }
       }
     }

@@ -21,72 +21,82 @@ class Order
     /**
      * @var int
      */
-    protected $id;
+    private $id;
 
     /**
      * @var \DateTime
      */
-    protected $createdOn;
+    private $createdOn;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
      */
-    protected $email;
+    private $email;
 
     /**
      * @var string
      */
-    protected $address;
+    private $address;
 
     /**
      * @var string
      */
-    protected $city;
+    private $city;
 
     /**
      * @var string
      */
-    protected $state;
+    private $state;
 
     /**
      * @var string
      */
-    protected $zip;
+    private $zip;
 
     /**
      * @var float
      */
-    protected $total;
+    private $total;
 
     /**
      * @var float
      */
-    protected $shipping;
+    private $shipping;
 
     /**
      * @var float
      */
-    protected $tax;
+    private $tax;
 
     /**
      * @var bool
      */
-    protected $paid;
+    private $paid;
 
     /**
      * @var string
      */
-    protected $reference;
+    private $reference;
 
     /**
      * @var OrderItem[]
      */
-    protected $items;
+    private $items;
+
+    /**
+     * @var string|null
+     */
+    private $couponCode;
+
+    /**
+     * @var float|null
+     */
+    private $couponValue;
 
     /**
      * Order constructor.
@@ -108,7 +118,12 @@ class Order
             throw RuntimeException::create('Cannot create order number for entity missing ID and REFERENCE fields.');
         }
 
-        return sprintf('%s-%s', substr($this->reference, 3), str_pad($this->id, 5, '0', STR_PAD_LEFT));
+        return strtoupper(vsprintf('%s-%s-%s-%s', [
+            substr($this->reference, 4, 4),
+            substr($this->reference, 12, 4),
+            substr($this->reference, 16, 4),
+            str_pad($this->id, 4, '0', STR_PAD_LEFT)
+        ]));
     }
 
     /**
@@ -333,6 +348,60 @@ class Order
     public function setItems(array $items)
     {
         $this->items = $items;
+    }
+
+    /**
+     * @return int
+     */
+    public function getItemCount(): int
+    {
+        $count = 0;
+
+        foreach ($this->items as $item) {
+            $count += $item->getCount();
+        }
+
+        return $count;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCoupon(): bool
+    {
+        return $this->couponCode !== null && $this->couponValue !== null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCouponCode(): ?string
+    {
+        return $this->couponCode;
+    }
+
+    /**
+     * @param string $couponCode
+     */
+    public function setCouponCode(string $couponCode)
+    {
+        $this->couponCode = $couponCode;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getCouponValue(): ?float
+    {
+        return $this->couponValue;
+    }
+
+    /**
+     * @param float $couponValue
+     */
+    public function setCouponValue(float $couponValue)
+    {
+        $this->couponValue = $couponValue;
     }
 }
 

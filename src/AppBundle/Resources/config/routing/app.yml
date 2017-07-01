@@ -102,6 +102,11 @@ app_cart_view:
   defaults :
     _controller : AppBundle:Cart:view
 
+app_cart_coupon_remove:
+  path     : /store/cart/remove/coupon/{code}
+  defaults :
+    _controller : AppBundle:Cart:removeCoupon
+
 app_cart_checkout:
   path     : /store/checkout
   defaults :

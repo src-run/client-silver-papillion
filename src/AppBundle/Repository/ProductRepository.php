@@ -76,6 +76,22 @@ class ProductRepository extends AbstractRepository
     }
 
     /**
+     * @param Category $category
+     *
+     * @return Product[]
+     */
+    public function findNotInCategory(Category $category)
+    {
+        return $this->getResult(function (QueryBuilder $queryBuilder) use ($category) {
+            $queryBuilder
+                ->where('p.category != :category')
+                ->andWhere('p.enabled = 1')
+                ->setParameter('category', $category)
+                ->orderBy('p.name');
+        });
+    }
+
+    /**
      * @param Category  $category
      * @param Paginator $paginator
      * @param int       $page

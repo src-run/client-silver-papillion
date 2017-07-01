@@ -92,6 +92,9 @@
     <div class="order-total">
         <p class="order-total-em">Total: <em>${{ order.getTotal() }}</em></p>
         <p>Shipping: <em>${{ order.getShipping() }}</em> / Tax: <em>${{ order.getTax() }}</em></p>
+        {% if order.hasCoupon() %}
+            <p>Coupon ({{ order.getCouponCode() }}): <em>-${{ order.getCouponValue() }}</em></p>
+        {% endif %}
     </div>
 
     <hr />

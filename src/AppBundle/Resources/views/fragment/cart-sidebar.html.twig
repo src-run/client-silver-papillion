@@ -35,6 +35,12 @@
                 <dt>Shipping</dt>
                 <dd>${{ cart_shipping()|number_format(2, '.', ',') }}</dd>
             </dl>
+            {% if cart_has_discount() %}
+                <dl class="cart-total-discount">
+                    <dt>Coupon ({{ cart_discount_code() }})<!-- (<a href="{{ path('app_cart_coupon_remove', {code: cart_discount_code()}) }}">remove</a>)--></dt>
+                    <dd>-${{ cart_discount()|number_format(2, '.', ',') }}</dd>
+                </dl>
+            {% endif %}
             <dl class="cart-total-total">
                 <dt>Total</dt>
                 <dd>${{ cart_total()|number_format(2, '.', ',') }}</dd>
@@ -42,5 +48,42 @@
         </div>
 
     </div>
+
+    {% if couponForm is defined %}
+
+        <div class="card">
+            <div class="cart-coupon">
+                <h3 class="primary-hr-i">
+                    {{ ion('pricetags') }} Add <em>Coupon</em>
+                </h3>
+
+                {% if cart_has_discount_err() %}
+                    <div class="cart-coupon-error">
+                        <p>ERROR: <em>{{ cart_discount_err_msg() }}</em></p>
+                    </div>
+                {% elseif couponErrs is defined and couponErrs != null %}
+                    <div class="cart-coupon-error">
+                        <p>ERROR: <em>{{ couponErrs }}</em></p>
+                    </div>
+                {% elseif couponOkay is defined and couponOkay != null %}
+                    <div class="cart-coupon-okay">
+                        <p>SUCCESS: <em>{{ couponOkay }}</em></p>
+                    </div>
+                {% endif %}
+
+                <div class="form-basic">
+
+                    {{ form_start(couponForm) }}
+
+                    {{ form_widget(couponForm.code, { 'attr': { 'class': 'form-control' } }) }}
+                    {{ form_widget(couponForm.submit, { 'attr': {'class': 'btn btn-sm btn-primary'}, 'label': 'Apply Coupon Code' }) }}
+
+                    {{ form_end(couponForm) }}
+
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
 
 </div>

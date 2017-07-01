@@ -30,15 +30,17 @@ class ProductController extends Controller
         $productManager = $this->get('app.manager.product');
         $configsManager = $this->get('app.manager.configuration');
 
-        $similar = $productManager->getRandomSimilar(
-            $product,
-            $configsManager->value('product.count.similar', 8)
-        );
-
         return $this->render('AppBundle:product:view.html.twig', [
             '_c'       => static::class,
             'product'  => $product,
-            'similar'  => $similar,
+            'similar'  => $productManager->getRandomSimilar(
+                $product,
+                $configsManager->value('product.count.similar', 8)
+            ),
+            'other'    => $productManager->getRandomOther(
+                $product,
+                $configsManager->value('product.count.other', 8)
+            ),
             'category' => $product->getCategory(),
         ]);
     }

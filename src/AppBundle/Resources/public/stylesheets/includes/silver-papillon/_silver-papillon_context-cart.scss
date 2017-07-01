@@ -143,6 +143,28 @@
           font-weight : 500;
         }
       }
+
+      .cart-total-discount {
+        clear  : right;
+        float  : right;
+        margin : 0 0 9px 0;
+
+        > * {
+          float : left;
+        }
+
+        dt {
+          padding : 0 6px;
+        }
+
+        dt {
+          font-weight : 500;
+        }
+
+        dd {
+          font-weight : 400;
+        }
+      }
     }
   }
 }
@@ -291,6 +313,58 @@
         font-size : 15px;
         width     : 40px;
       }
+    }
+  }
+}
+
+.cart-coupon {
+  clear : both;
+
+  h3 {
+    margin-bottom : 21px;
+  }
+
+  .cart-coupon-error,
+  .cart-coupon-okay {
+    background-color : $color-gray-bg-alt-3;
+    border-radius    : $border-radius-sm;
+    padding          : 12px 15px 1px 15px;
+    margin           : 21px 0;
+    font-weight      : 600;
+    font-size        : 10px;
+    text-align       : justify;
+    font-family      : $font-family-condensed;
+
+    em {
+      font-style : normal;
+    }
+  }
+
+  .cart-coupon-error {
+    color            : $color-crit;
+    background-color : rgba($color-crit, 0.05);
+  }
+
+  .cart-coupon-okay {
+    color            : $color-okay;
+    background-color : rgba($color-okay, 0.05);
+  }
+
+  form {
+    text-align : center;
+
+    label {
+      font-size : 16px;
+    }
+
+    input[type=text] {
+      width            : 100%;
+      font-size        : 18px;
+      font-family      : $font-family-mono-space;
+      border-bottom    : 0;
+      margin           : 0 0 29px 0;
+      padding          : 9px;
+      text-align       : center;
     }
   }
 }
