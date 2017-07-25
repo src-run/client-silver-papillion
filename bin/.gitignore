@@ -1,4 +1,5 @@
 *
 !.gitignore
+!resolve-product-images.bash
 !symfony_requirements
 !console

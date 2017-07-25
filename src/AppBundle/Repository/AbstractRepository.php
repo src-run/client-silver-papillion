@@ -32,7 +32,7 @@ abstract class AbstractRepository extends EntityRepository
     /**
      * @var int
      */
-    const DEFAULT_TTL = 3600;
+    const DEFAULT_TTL = 1800;
 
     /**
      * @param callable|null $config
