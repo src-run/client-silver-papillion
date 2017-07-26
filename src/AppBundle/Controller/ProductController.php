@@ -23,6 +23,11 @@ class ProductController extends Controller
     /**
      * @ParamConverter("product")
      *
+     * @param string  $productName
+     * @param Product $product
+     *
+     * @throws \Exception
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewAction($productName, Product $product)
@@ -37,6 +42,7 @@ class ProductController extends Controller
                 $product,
                 $configsManager->value('product.count.similar', 8)
             ),
+            'related'  => $productManager->getRelated($product),
             'other'    => $productManager->getRandomOther(
                 $product,
                 $configsManager->value('product.count.other', 8)

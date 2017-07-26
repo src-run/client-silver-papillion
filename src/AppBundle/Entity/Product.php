@@ -110,9 +110,14 @@ class Product
     protected $category;
 
     /**
-     * @var Product
+     * @var Product[]|ArrayCollection
      */
     protected $relatedProducts;
+
+    /**
+     * @var Product[]|ArrayCollection
+     */
+    protected $inverseRelatedProducts;
 
     /**
      * Assign entity property default values.
@@ -125,6 +130,7 @@ class Product
         $this->featured = false;
         $this->taxable = true;
         $this->relatedProducts = new ArrayCollection();
+        $this->inverseRelatedProducts = new ArrayCollection();
         $this->images = new ArrayCollection();
     }
 
@@ -589,6 +595,22 @@ class Product
     public function hasRelatedProducts()
     {
         return !$this->relatedProducts->isEmpty();
+    }
+
+    /**
+     * @return Product[]|ArrayCollection
+     */
+    public function getInverseRelatedProducts()
+    {
+        return $this->inverseRelatedProducts;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hadInverseRelatedProducts(): bool
+    {
+        return !$this->inverseRelatedProducts->isEmpty();
     }
 }
 

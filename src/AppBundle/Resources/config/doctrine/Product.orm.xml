@@ -40,7 +40,7 @@
       </order-by>
     </one-to-many>
 
-    <many-to-many field="relatedProducts" target-entity="AppBundle\Entity\Product" fetch="EAGER">
+    <many-to-many field="relatedProducts" target-entity="AppBundle\Entity\Product" inversed-by="inverseRelatedProducts"  fetch="EAGER">
       <join-table name="product_related">
         <join-columns>
           <join-column name="product"/>
@@ -52,6 +52,9 @@
       <order-by>
         <order-by-field name="name" direction="ASC" />
       </order-by>
+    </many-to-many>
+
+    <many-to-many field="inverseRelatedProducts" target-entity="AppBundle\Entity\Product" mapped-by="relatedProducts"  fetch="EAGER">
     </many-to-many>
 
   </entity>

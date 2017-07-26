@@ -15,6 +15,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Repository\ProductRepository;
 use Knp\Component\Pager\Paginator;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class ProductManager.
@@ -80,6 +81,30 @@ class ProductManager extends AbstractManager
         shuffle($products);
 
         return array_splice($products, 0, $limit);
+    }
+
+    /**
+     * @param Product $product
+     *
+     * @return Product[]
+     */
+    public function getRelated(Product $product): array
+    {
+        $related = [];
+
+        foreach ($product->getRelatedProductsExcludingSelf() as $r) {
+            $related = array_merge($related, [$r], $r->getRelatedProductsExcludingSelf()->toArray());
+        }
+
+        foreach ($product->getInverseRelatedProducts() as $r) {
+            $related = array_merge($related, [$r], $r->getRelatedProductsExcludingSelf()->toArray());
+        }
+
+        return array_unique(array_filter(array_filter($related, function (Product $product) {
+            return $product->isEnabled();
+        }), function (Product $p) use ($product) {
+            return $p->getId() !== $product->getId();
+        }));
     }
 
     /**

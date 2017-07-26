@@ -151,7 +151,7 @@
         </div>
     </div>
 
-    {% if product.hasRelatedProducts() %}
+    {% if related|length > 0 %}
         <div class="container-sr-odd">
             <div class="container">
 
@@ -160,7 +160,7 @@
                 </h4>
 
                 <div class="card-listing">
-                    {% for p in product.getRelatedProductsExcludingSelf() %}
+                    {% for p in related %}
                         {% include 'AppBundle:fragment:product-list-item-related.html.twig' with { 'product': p } only %}
                     {% endfor %}
                 </div>
@@ -170,7 +170,7 @@
     {% endif %}
 
     {% if similar|length > 0 %}
-        <div class="{% if product.hasRelatedProducts() %}container-sr{% else %}container-sr-odd{% endif %}">
+        <div class="{% if related|length > 0 %}container-sr{% else %}container-sr-odd{% endif %}">
             <div class="container">
 
                 <h4 class="primary-hr-i">
@@ -194,7 +194,7 @@
     {% endif %}
 
     {% if other|length > 0 %}
-        <div class="{% if similar|length > 0 %}{% if product.hasRelatedProducts() %}container-sr-odd{% else %}container-sr{% endif %}{% else %}container-sr-odd{% endif %}">
+        <div class="{% if similar|length > 0 %}{% if related|length > 0 %}container-sr-odd{% else %}container-sr{% endif %}{% else %}container-sr-odd{% endif %}">
             <div class="container">
 
                 <h4 class="primary-hr-i">
