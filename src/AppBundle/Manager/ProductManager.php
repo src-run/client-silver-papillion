@@ -100,11 +100,15 @@ class ProductManager extends AbstractManager
             $related = array_merge($related, [$r], $r->getRelatedProductsExcludingSelf()->toArray());
         }
 
-        return array_unique(array_filter(array_filter($related, function (Product $product) {
+        $related = array_filter($related, function (Product $product) {
             return $product->isEnabled();
-        }), function (Product $p) use ($product) {
+        });
+
+        $related = array_filter($related, function (Product $p) use ($product) {
             return $p->getId() !== $product->getId();
-        }));
+        });
+
+        return array_unique($related);
     }
 
     /**
