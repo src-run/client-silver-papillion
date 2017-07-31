@@ -19,7 +19,7 @@
   ],
   "autoload" : {
     "psr-4" : {
-      "AppBundle\\" : "src/AppBundle/"
+      "AppBundle\\" : "src/"
     },
     "classmap" : [
       "app/AppKernel.php",
@@ -28,7 +28,7 @@
   },
   "autoload-dev" : {
     "psr-4" : {
-      "AppBundle\\Tests\\" : "src/AppBundle/Tests/"
+      "AppBundle\\Tests\\" : "tests/"
     }
   },
   "require" : {
@@ -57,14 +57,15 @@
     "src-run/wonka-bundle": "~0.7",
     "stof/doctrine-extensions-bundle": "~1.2",
     "stripe/stripe-php": "~3.20",
-    "symfony/asset": "~3.2@dev",
-    "symfony/assetic-bundle": "~2.8 || ~3.2@dev",
-    "symfony/cache": "~3.2@dev",
-    "symfony/monolog-bundle": "~3.0 || ~3.2@dev",
-    "symfony/routing": "~3.2@dev",
+    "symfony/asset": "~3.3",
+    "symfony/assetic-bundle": "~2.8 || ~3.3",
+    "symfony/cache": "~3.3",
+    "symfony/monolog-bundle": "~3.0 || ~3.3",
+    "symfony/requirements-checker": "~1.0",
+    "symfony/routing": "~3.3",
     "symfony/swiftmailer-bundle": "~2.4",
-    "symfony/symfony": "~3.2",
-    "symfony/web-server-bundle": "^3.3",
+    "symfony/symfony": "~3.3",
+    "symfony/web-server-bundle": "~3.3",
     "twig/twig": "~2.0",
     "vich/uploader-bundle": "~1.3",
     "whiteoctober/swiftmailerdbbundle": "~1.0"

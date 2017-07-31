@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+  <entity repository-class="AppBundle\Repository\ProductRepository" name="AppBundle\Entity\Product" table="product">
+
+    <indexes>
+      <index name="name" columns="name" flags="fulltext"/>
+    </indexes>
+
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+
+    <field name="createdOn" type="datetime" column="created_on" nullable="true" />
+
+    <field name="updatedOn" type="datetime" column="updated_on" nullable="true" />
+
+    <field name="name" type="string" column="name" precision="0" scale="0" nullable="false" />
+
+    <field name="sku" type="string" column="sku" precision="0" scale="0" nullable="true" />
+
+    <field name="enabled" type="boolean" column="enabled" nullable="false" />
+
+    <field name="featured" type="boolean" column="featured" nullable="false" />
+
+    <field name="price" type="float" column="price" nullable="false" />
+
+    <field name="shipping" type="float" column="shipping" nullable="true" />
+
+    <field name="taxable" type="boolean" column="taxable" nullable="true" />
+
+    <field name="description" type="text" column="description" nullable="true" />
+
+    <field name="image" type="string" column="image" length="255" nullable="true" />
+
+    <many-to-one field="category" target-entity="AppBundle\Entity\Category" inversed-by="products" fetch="EAGER">
+      <join-column name="category_id" />
+    </many-to-one>
+
+    <one-to-many field="images" target-entity="AppBundle\Entity\ProductImage" mapped-by="product" fetch="EAGER">
+      <order-by>
+        <order-by-field name="weight" direction="ASC" />
+      </order-by>
+    </one-to-many>
+
+    <many-to-many field="relatedProducts" target-entity="AppBundle\Entity\Product" inversed-by="inverseRelatedProducts"  fetch="EAGER">
+      <join-table name="product_related">
+        <join-columns>
+          <join-column name="product"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="related"/>
+        </inverse-join-columns>
+      </join-table>
+      <order-by>
+        <order-by-field name="name" direction="ASC" />
+      </order-by>
+    </many-to-many>
+
+    <many-to-many field="inverseRelatedProducts" target-entity="AppBundle\Entity\Product" mapped-by="relatedProducts"  fetch="EAGER">
+    </many-to-many>
+
+  </entity>
+
+</doctrine-mapping>

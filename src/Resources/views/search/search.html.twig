@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block bread %}
+    {{ parent() }}
+    <li><a href="{{ url('app_category_list') }}">Products</a></li>
+    <li>Search</li>
+{% endblock %}
+
+{% block title %}Search - {{ parent() }}{% endblock %}
+
+{% block search %}
+    <div class="search">
+        <div class="search-form form-basic">
+
+            {{ form_start(search) }}
+
+            {{ form_widget(search.search) }}
+            {{ form_widget(search.submit, { 'attr': {'class': 'btn-default'}, 'label': 'Search' }) }}
+
+            {{ form_end(search) }}
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="container container-sr">
+
+        <h2 class="primary-hr-i">
+            {{ ion('pricetag') }} <em>Search Results for "{{ searchTerm }}"</em>
+        </h2>
+
+        {% if products|length == 0 %}
+            {% include 'AppBundle:fragment:action-status-icon.html.twig' with {
+                'icon'    : 'fa-search-minus',
+                'text'    : 'No results found matching "'~searchTerm~'". Try simplifying your search.'
+            } only %}
+        {% else %}
+            <div class="card-listing">
+                {% for p in products %}
+                    {% include 'AppBundle:fragment:product-list-item-default.html.twig' with { 'product': p } only %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

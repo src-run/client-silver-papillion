@@ -1,0 +1,95 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* breadcrumbs */
+
+.bread {
+  background-color : $bg-color-page-body-accent;
+  padding-top      : $padding-above-md;
+  padding-bottom   : $padding-below-md;
+
+  .container {
+    position : relative;
+
+    h2 {
+      color   : $color-accent;
+      padding : 3px 0 0 0;
+      margin  : 0;
+    }
+
+    ul {
+      margin : 0;
+
+      li {
+        color         : $color-accent;
+        font-size     : $font-size-h4;
+        font-weight   : 400;
+        font-family   : $font-family-condensed;
+        float         : left;
+        padding-right : 12px;
+        padding-top   : 1px;
+
+        &:after {
+          color         : rgba($color-accent, 0.4);
+          font-family   : FontAwesome;
+          content       : '\f105';
+          padding-left  : 12px;
+        }
+
+        &:last-child {
+          &:after {
+            content : '';
+          }
+        }
+
+        a {
+          font-weight : 100;
+          font-family : $font-family-condensed;
+          color       : rgba($color-accent, 0.65);
+
+          &:hover {
+            color           : $color-accent;
+            text-decoration : none;
+            border-bottom   : 1px solid rgba($color-accent, 0.4);
+          }
+        }
+      }
+    }
+
+    .search {
+      position : absolute;
+      right    : 0;
+
+      form {
+        margin-top : 2px;
+
+        input {
+          float            : left;
+          padding          : 5px 10px 5px 10px;
+          background-color : $bg-color-page-body-normal;
+          border           : 1px solid rgba($color-gray-blue, 0.5);
+          box-shadow       : none;
+        }
+
+        button {
+          float            : left;
+          padding          : 9px 10px 8px 10px;
+          background-color : rgba($color-gray-blue, 0.5);
+          border           : none;
+          text-transform   : uppercase;
+          font-size        : 14px;
+          line-height      : 22px;
+        }
+      }
+    }
+  }
+}
+
+/* EOF */

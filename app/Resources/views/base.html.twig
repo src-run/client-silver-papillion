@@ -38,9 +38,12 @@
     {% include(':fragment:section-header-nav.html.twig') %}
 
     <div class="container-main-wrap">
+
         {% block header %}
             <div class="bread">
                 <div class="container">
+                    {% block search %}
+                    {% endblock %}
                     <ul class="list-unstyled">
                         {% block bread %}
                             <li><a href="/">Home</a></li>

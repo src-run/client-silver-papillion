@@ -137,6 +137,10 @@ doctrine :
     naming_strategy : doctrine.orm.naming_strategy.underscore
     auto_mapping    : true
 
+    dql:
+      string_functions:
+        MATCH: AppBundle\Doctrine\ORM\Query\AST\Functions\MatchAgainstFunctionNode
+
 
 #
 # file uploader bundle config

@@ -1,0 +1,172 @@
+
+#
+# This file is part of the `src-run/<name>` project.
+#
+# (c) Rob Frawley 2nd <rmf@src.run>
+#
+# For the full copyright and license information, please view the LICENSE.md
+# file that was distributed with this source code.
+#
+
+app_root:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /home
+        permanent: true
+
+app_home:
+  path     : /home
+  defaults :
+    _controller : AppBundle:Default:index
+
+app_legal_tos_redirect:
+    path: /tos
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /legal/terms-of-service
+        permanent: true
+
+app_legal_tos:
+  path     : /legal/terms-of-service
+  defaults :
+    _controller : AppBundle:Legal:tos
+
+app_legal_privacy_redirect:
+    path: /privacy
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /legal/privacy-policy
+        permanent: true
+
+app_legal_privacy:
+  path     : /legal/privacy-policy
+  defaults :
+    _controller : AppBundle:Legal:privacy
+
+app_category_list:
+  path     : /store/list
+  defaults :
+    _controller : AppBundle:Category:list
+
+app_coupon_list:
+  path     : /store/coupon/list
+  defaults :
+    _controller : AppBundle:Coupon:list
+
+app_coupon_show:
+  path     : /store/coupon/show/{code}
+  defaults :
+    _controller : AppBundle:Coupon:show
+
+app_category_view:
+  path     : /store/view/{category}
+  defaults :
+    _controller : AppBundle:Category:view
+
+app_search:
+  path     : /store/search/{search}
+  defaults :
+    _controller : AppBundle:Search:search
+  requirements:
+    search: '.+'
+
+app_product_view:
+  path     : /store/view/{category}/{productName}/{product}
+  defaults :
+    _controller : AppBundle:Product:view
+
+app_cart_add:
+  path     : /store/cart/add/{product}/{quantity}
+  requirements:
+    quantity: '\d+'
+  defaults :
+    _controller : AppBundle:Cart:add
+    quantity: 1
+
+app_cart_remove:
+  path     : /store/cart/remove/select/{product}/{quantity}
+  requirements:
+    quantity: '\d+'
+  defaults :
+    _controller : AppBundle:Cart:remove
+    quantity: 1
+
+app_cart_remove_group:
+  path     : /store/cart/remove/group/{product}
+  requirements:
+    quantity: '\d+'
+  defaults :
+    _controller : AppBundle:Cart:removeGroup
+
+app_cart_clear:
+  path     : /store/cart/clear
+  defaults :
+    _controller : AppBundle:Cart:clear
+
+app_cart_view:
+  path     : /store/cart
+  defaults :
+    _controller : AppBundle:Cart:view
+
+app_cart_coupon_remove:
+  path     : /store/cart/remove/coupon/{code}
+  defaults :
+    _controller : AppBundle:Cart:removeCoupon
+
+app_cart_checkout:
+  path     : /store/checkout
+  defaults :
+    _controller : AppBundle:Cart:checkout
+
+app_cart_checkout_payment:
+  path     : /store/checkout/payment
+  defaults :
+    _controller : AppBundle:Cart:checkoutPayment
+
+app_cart_checkout_process:
+  path     : /store/checkout/process
+  defaults :
+    _controller : AppBundle:Cart:checkoutProcess
+
+app_location:
+  path     : /location
+  defaults :
+    _controller : AppBundle:Location:index
+
+app_orders_list:
+  path     : /store/orders
+  defaults :
+    _controller : AppBundle:Orders:view
+
+app_feed_view:
+  path     : /feed
+  defaults :
+    _controller : AppBundle:Feed:index
+
+app_fragment_feed_video:
+  path     : /fragment/feed/video/{post}/{video}
+  defaults :
+    _controller : AppBundle:Feed:fragmentVideo
+
+app_fragment_feed:
+  path     : /fragment/feed
+  defaults :
+    _controller : AppBundle:Feed:fragment
+
+app_fragment_feed_photos:
+  path     : /fragment/feed/photos
+  defaults :
+    _controller : AppBundle:Feed:fragmentPhotos
+
+app_account_view:
+  path     : /account
+  defaults :
+    _controller : AppBundle:Account:view
+
+app_contact_view:
+  path     : /contact
+  defaults :
+    _controller : AppBundle:Contact:index
+
+# EOF
