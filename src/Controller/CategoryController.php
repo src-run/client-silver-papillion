@@ -17,15 +17,16 @@ use AppBundle\Form\SearchType;
 use AppBundle\Model\Search;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends AbstractProductAwareController
 {
     /**
      * @param Request  $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request): Response
     {
         $form = $this->createForm(SearchType::class, $search = new Search());
         $form->handleRequest($request);
@@ -51,9 +52,9 @@ class CategoryController extends AbstractProductAwareController
      * @param Request  $request
      * @param Category $category
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function viewAction(Request $request, Category $category)
+    public function viewAction(Request $request, Category $category): Response
     {
         $form = $this->createForm(SearchType::class, $search = new Search());
         $form->handleRequest($request);
@@ -76,5 +77,3 @@ class CategoryController extends AbstractProductAwareController
         ]);
     }
 }
-
-/* EOF */

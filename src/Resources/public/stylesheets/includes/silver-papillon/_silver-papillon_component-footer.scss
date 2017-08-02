@@ -1,0 +1,92 @@
+
+/*
+ * This file is part of the `src-run/src-app-silver-papillon` project
+ *
+ * (c) Rob Frawley 2nd <rmf@src.run>
+ *
+ * or the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+*/
+
+/* page footer */
+
+footer {
+  background-color : rgba($color-white, 0.5);
+  border-top       : 1px solid rgba($color-gray-light-m, 0.5);
+  font-weight      : 200;
+  will-change      : border-color;
+  transition       : border-color $trans-time-border-color;
+
+  p {
+    color       : $color-gray-dark;
+    font-family : $font-family-condensed;
+    opacity     : 0.65;
+    will-change : opacity;
+    transition  : opacity $trans-time-opacity;
+  }
+
+  .footer-wrap {
+    @include make-row();
+
+    .footer-nav {
+      @include make-sm-column(8);
+      padding     : 27px 0 10px 0;
+      margin-left : -9px;
+
+      div ul {
+        margin-top: 12px;
+
+        li {
+          a {
+            padding      : 8px 9px 6px 9px !important;
+            margin-right : 8px;
+            opacity      : 0.65;
+            will-change  : opacity;
+            transition   : opacity $trans-time-opacity;
+          }
+
+          &.active a {
+            color            : #3484d4 !important;
+            background-color : transparent !important;
+            font-weight      : 300 !important;
+          }
+        }
+      }
+    }
+
+    .footer-logo {
+      @include make-sm-column(4);
+
+      text-align : right;
+      padding    : 27px 0 10px 0;
+
+      img {
+        height : 75px;
+      }
+    }
+  }
+
+  .footer-wrap-bottom {
+    @include make-row();
+
+    .footer-copy {
+      @include make-sm-column(6);
+      padding : 6px 0 10px 0;
+    }
+
+    .footer-address {
+      @include make-sm-column(6);
+      padding    : 6px 0 10px 0;
+      text-align : right;
+    }
+  }
+
+  &:hover {
+    border-color : $color-gray-light-m;
+
+    p,
+    a{
+      opacity : 1 !important;
+    }
+  }
+}

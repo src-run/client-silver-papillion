@@ -36,9 +36,6 @@ use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Category CartController.
- */
 class CartController extends Controller
 {
     /**
@@ -188,7 +185,7 @@ class CartController extends Controller
             return $this->redirectToRoute('app_cart_checkout');
         }
 
-        $cart = $this->get('app.cart');
+        $cart = $this->getCart();
         $shipment = $session->get('checkout-shipment');
         $payment = $session->get('checkout-payment');
         $payment->clearSensitive();
@@ -306,9 +303,18 @@ class CartController extends Controller
     {
         $config = $this->get('app.manager.configuration');
         $subject = sprintf('Silver Papillon Order (%s)', $order->getOrderNumber());
-        $storeEmail = [$config->value('contact.email', 'rmf@src.run') => 'Silver Papillon'];
-        $orderEmail = [$order->getEmail() => $order->getName()];
-        $adminEmail = [$config->value('contact.admin-email', 'rmf@src.run') => 'Source Consulting'];
+
+        $environment = $this->get('app.environment');
+
+        if ($environment->isDevelopment()) {
+            $storeEmail = ['sp-store-dev@src.run'];
+            $orderEmail = ['sp-order-dev@src.run'];
+            $adminEmail = ['sp-admin-dev@src.run'];
+        } else {
+            $storeEmail = [$config->value('contact.email', 'rmf@src.run') => 'Silver Papillon'];
+            $orderEmail = [$order->getEmail() => $order->getName()];
+            $adminEmail = [$config->value('contact.admin-email', 'rmf@src.run') => 'Source Consulting'];
+        }
 
         $storeMessage = $this->createOrderMessage($storeEmail, $adminEmail, $subject,
             'email/checkout-confirmation-internal.html.twig', $this->getEmailTwigArgs($order));
@@ -382,7 +388,7 @@ class CartController extends Controller
      */
     public function clearAction(Request $request)
     {
-        $cart = $this->get('app.cart');
+        $cart = $this->getCart();
         $cart->clear();
         $cart->save();
 
@@ -406,7 +412,7 @@ class CartController extends Controller
      */
     public function addAction(Product $product, $quantity, Request $request)
     {
-        $cart = $this->get('app.cart');
+        $cart = $this->getCart();
         foreach (range(1, $quantity) as $i) {
             $cart->add($product);
         }
@@ -432,7 +438,7 @@ class CartController extends Controller
      */
     public function removeAction(Product $product, $quantity, Request $request)
     {
-        $cart = $this->get('app.cart');
+        $cart = $this->getCart();
         foreach (range(1, $quantity) as $i) {
             $cart->rmOne($product);
         }
@@ -457,7 +463,7 @@ class CartController extends Controller
      */
     public function removeGroupAction(Product $product, Request $request)
     {
-        $cart = $this->get('app.cart');
+        $cart = $this->getCart();
         $cart->rm($product);
         $cart->save();
 
@@ -497,5 +503,3 @@ class CartController extends Controller
         return $this->get('router')->getMatcher()->match($lastUrl);
     }
 }
-
-/* EOF */

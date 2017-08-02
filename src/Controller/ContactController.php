@@ -13,19 +13,15 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\MessageType;
 use AppBundle\Model\Message;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class ContactController.
- */
-class ContactController extends Controller
+class ContactController extends AbstractController
 {
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
@@ -46,7 +42,10 @@ class ContactController extends Controller
         ]);
     }
 
-    protected function sendMessage(Message $message)
+    /**
+     * @param Message $message
+     */
+    protected function sendMessage(Message $message): void
     {
         $config = $this->get('app.manager.configuration');
 
@@ -70,5 +69,3 @@ class ContactController extends Controller
         $this->get('mailer')->send($message);
     }
 }
-
-/* EOF */

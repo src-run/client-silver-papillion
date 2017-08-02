@@ -30,7 +30,7 @@ app_legal_tos_redirect:
 app_legal_tos:
   path     : /legal/terms-of-service
   defaults :
-    _controller : AppBundle:Legal:tos
+    _controller : AppBundle:LegalTos:index
 
 app_legal_privacy_redirect:
     path: /privacy
@@ -42,7 +42,7 @@ app_legal_privacy_redirect:
 app_legal_privacy:
   path     : /legal/privacy-policy
   defaults :
-    _controller : AppBundle:Legal:privacy
+    _controller : AppBundle:LegalPrivacy:index
 
 app_category_list:
   path     : /store/list
@@ -143,11 +143,6 @@ app_feed_view:
   path     : /feed
   defaults :
     _controller : AppBundle:Feed:index
-
-app_fragment_feed_video:
-  path     : /fragment/feed/video/{post}/{video}
-  defaults :
-    _controller : AppBundle:Feed:fragmentVideo
 
 app_fragment_feed:
   path     : /fragment/feed

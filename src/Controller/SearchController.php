@@ -11,12 +11,10 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Product;
 use AppBundle\Form\SearchType;
 use AppBundle\Model\Search;
-use AppBundle\Model\SearchProduct;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\VarDumper\VarDumper;
+use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends AbstractProductAwareController
 {
@@ -24,9 +22,9 @@ class SearchController extends AbstractProductAwareController
      * @param Request  $request
      * @param string   $search
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function searchAction(Request $request, string $search)
+    public function searchAction(Request $request, string $search): Response
     {
         $search = urldecode($search);
 
@@ -48,5 +46,3 @@ class SearchController extends AbstractProductAwareController
         ]);
     }
 }
-
-/* EOF */

@@ -13,6 +13,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends AbstractProductAwareController
 {
@@ -22,11 +23,9 @@ class ProductController extends AbstractProductAwareController
      * @param string  $productName
      * @param Product $product
      *
-     * @throws \Exception
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function viewAction($productName, Product $product)
+    public function viewAction(string $productName, Product $product): Response
     {
         return $this->render('AppBundle:product:view.html.twig', [
             '_c'       => static::class,
@@ -44,5 +43,3 @@ class ProductController extends AbstractProductAwareController
         ]);
     }
 }
-
-/* EOF */

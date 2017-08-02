@@ -1,0 +1,102 @@
+
+{% if disable_dropdowns is not defined %}
+    {% set disable_dropdowns = false %}
+{% endif %}
+
+{% if use_icons is not defined %}
+    {% set use_icons = true %}
+{% endif %}
+
+{% if use_extra is not defined %}
+    {% set use_extra = false %}
+{% endif %}
+
+<div id="{{ nav_id_main|default('navbar') }}" class="{{ nav_class_main|default('') }}">
+
+    <ul class="nav {{ nav_class|default('navbar-nav') }}">
+
+        <li class="{% if 'Default' in _c %}active{% endif %}">
+            <a href="{{ path('app_home') }}">{% if use_icons %}{{ fa('home') }} {% endif %}Home</a>
+        </li>
+
+        <li class="{% if 'Feed' in _c %} active {% endif %}{% if is_facebook_feed_cached() != true %} hidden {% endif %}" id="{{ nav_id|default('navbar') }}-nav-feed">
+            <a href="{{ url('app_feed_view') }}">{% if use_icons %}{{ fa('sticky-note') }} {% endif %}News</a>
+        </li>
+
+        {% if disable_dropdowns %}
+            <li class="{% if 'Category' in _c %} active {% endif %}">
+                <a href="{{ url('app_category_list') }}">{% if use_icons %}{{ fa('shopping-bag') }} {% endif %}Shop</a>
+            </li>
+        {% else %}
+            <!-- START: shop dropdown -->
+            <li class="{% if 'Category' in _c %}active{% endif %} dropdown">
+
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    {% if use_icons %}{{ fa('shopping-bag') }} {% endif %}Shop <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li class="dropdown-header">Products</li>
+                    <li><a href="{{ path('app_category_list') }}">View All</a></li>
+
+                    {% for c in get_categories() %}
+                        <li><a href="{{ path('app_category_view', {'category': c.getSlug}) }}">{{ c.name }}</a></li>
+                    {% endfor %}
+
+                    {% if get_published_coupons()|length > 0 %}
+                        <li class="dropdown-header">Coupons</li>
+                        <li><a href="{{ path('app_coupon_list') }}">View All ({{ get_published_coupons()|length }})</a></li>
+                    {% endif %}
+                </ul>
+
+            </li>
+            <!-- END: shop dropdown -->
+        {% endif %}
+
+        {% if cart_count() > 0 %}
+            {% if disable_dropdowns %}
+                <li class="{% if 'Cart' in _c %} active {% endif %}">
+                    <a href="{{ url('app_cart_view') }}">{% if use_icons %}{{ fa('shopping-cart') }} {% endif %}Cart</a>
+                </li>
+            {% else %}
+                <!-- START: cart dropdown -->
+                <li class="{% if 'Cart' in _c %}active{% endif %} dropdown">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                {% if use_icons %}{{ fa('shopping-cart') }} Cart {% endif %}<span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Shopping Cart <span class="badge badge-default">{{ cart_count() }} item</span></li>
+                        <li><a href="{{ url('app_cart_view') }}">View</a></li>
+                        <li><a href="{{ url('app_cart_checkout') }}">Checkout</a></li>
+                    </ul>
+
+                </li>
+                <!-- END: cart dropdown -->
+            {% endif %}
+        {% endif %}
+
+        <li class="{% if 'Loc' in _c %}active{% endif %}">
+            <a href="{{ url('app_location') }}">{% if use_icons %}{{ fa('map') }} {% endif %}Location</a>
+        </li>
+
+        <li class="{% if 'Contact' in _c %}active{% endif %}">
+            <a href="{{ url('app_contact_view') }}">{% if use_icons %}{{ fa('comment') }} {% endif %}Contact</a>
+        </li>
+
+        {% if use_extra %}
+
+
+            <li class="{% if 'LegalTos' in _c %}active{% endif %}">
+                <a href="{{ url('app_legal_tos') }}">{% if use_icons %}{{ fa('pencil') }} {% endif %}Terms of Service</a>
+            </li>
+
+            <li class="{% if 'LegalPrivacy' in _c %}active{% endif %}">
+                <a href="{{ url('app_legal_privacy') }}">{% if use_icons %}{{ fa('eye') }} {% endif %}Privacy Policy</a>
+            </li>
+
+        {% endif %}
+
+    </ul>
+</div>

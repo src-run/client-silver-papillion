@@ -2,12 +2,31 @@
 <footer>
 
     <div class="container">
-        <div class="footer-copy">
 
-            <div class="footer-copy-copyright">{{ block_content('footer') }}</div>
-            <div class="footer-copy-contact"><p>{{ config('address') }} | {{ config('phone') }}</p></div>
-
+        <div class="footer-wrap">
+            <div class="footer-nav">
+                {% include 'fragment/navigation-main.html.twig' with {
+                'nav_class': 'navbar-nav-footer nav-pills',
+                'nav_id_main': 'navbar-footer',
+                'disable_dropdowns': true,
+                'use_icons': false,
+                'use_extra': true,
+                } %}
+            </div>
+            <div class="footer-logo">
+                <img src="{{ asset('logo-text-whiter.png', 'images') }}" alt="Website Logo Text" />
+            </div>
         </div>
+
+        <div class="footer-wrap-bottom">
+            <div class="footer-copy">
+                <div class="footer-copy-copyright">{{ block_content('footer') }}</div>
+            </div>
+            <div class="footer-address">
+                <div class="footer-copy-contact"><p>{{ config('address') }} | {{ config('phone') }}</p></div>
+            </div>
+        </div>
+
     </div>
 
 </footer>

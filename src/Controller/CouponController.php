@@ -11,26 +11,47 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Product;
+use AppBundle\Manager\ConfigurationManager;
+use AppBundle\Manager\CouponManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\TwigBundle\TwigEngine;
+use Symfony\Component\Form\FormFactory;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\RouterInterface;
 
-class CouponController extends Controller
+class CouponController extends AbstractController
 {
+    /**
+     * @var CouponManager
+     */
+    private $couponManager;
+
+    /**
+     * @param TwigEngine           $twig
+     * @param RouterInterface      $router
+     * @param SessionInterface     $session
+     * @param FormFactory          $formFactory
+     * @param ConfigurationManager $configuration
+     * @param CouponManager        $couponManager
+     */
+    public function __construct(TwigEngine $twig, RouterInterface $router, SessionInterface $session, FormFactory $formFactory, ConfigurationManager $configuration, CouponManager $couponManager)
+    {
+        parent::__construct($twig, $router, $session, $formFactory, $configuration);
+
+        $this->couponManager = $couponManager;
+    }
+
     /**
      * @ParamConverter("product")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function listAction()
+    public function listAction(): Response
     {
-        $couponManager = $this->get('app.manager.coupon');
-
         return $this->render('AppBundle:coupon:list.html.twig', [
             '_c'      => static::class,
-            'coupons' => $couponManager->getPublished()
+            'coupons' => $this->couponManager->getPublished()
         ]);
     }
 }
-
-/* EOF */

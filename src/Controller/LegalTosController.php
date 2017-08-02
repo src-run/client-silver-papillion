@@ -11,18 +11,17 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-class RobotsController
+class LegalTosController extends AbstractController
 {
     /**
-     * @Route("/robots.txt", name="robots_txt")
-     *
      * @return Response
      */
     public function indexAction(): Response
     {
-        return Response::create("User-Agent: *\nDisallow: /admin\nAllow: /");
+        return $this->render('AppBundle:legal:tos.html.twig', [
+            '_c' => static::class,
+        ]);
     }
 }

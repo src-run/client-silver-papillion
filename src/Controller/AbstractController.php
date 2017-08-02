@@ -222,4 +222,14 @@ abstract class AbstractController
 
         return $this;
     }
+
+    /**
+     * @return AbstractController
+     */
+    protected function sessionSave(): self
+    {
+        $this->session->save();
+
+        return $this;
+    }
 }

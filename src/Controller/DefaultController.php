@@ -18,6 +18,7 @@ use AppBundle\Manager\ProductManager;
 use AppBundle\Util\MapperStatic;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -53,9 +54,9 @@ class DefaultController extends AbstractProductAwareController
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         $count = $this->configurationValue('product.count.featured', 3);
 
@@ -84,5 +85,3 @@ class DefaultController extends AbstractProductAwareController
         return false;
     }
 }
-
-/* EOF */
