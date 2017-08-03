@@ -9,6 +9,24 @@
 
 {% block title %}{{ product.getName }} - {{ parent() }}{% endblock %}
 
+{% block search %}
+    <div class="search">
+        <div class="search-toggle">
+            {{ fa('search') }}
+        </div>
+        <div class="search-form form-basic">
+
+            {{ form_start(search) }}
+
+            {{ form_widget(search.search) }}
+            {{ form_widget(search.submit, { 'attr': {'class': 'btn-default'}, 'label': 'Search' }) }}
+
+            {{ form_end(search) }}
+
+        </div>
+    </div>
+{% endblock %}
+
 {% block body %}
     <div class="container container-sr">
         <div class="row">

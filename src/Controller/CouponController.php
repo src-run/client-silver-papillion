@@ -14,11 +14,11 @@ namespace AppBundle\Controller;
 use AppBundle\Manager\ConfigurationManager;
 use AppBundle\Manager\CouponManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\TwigBundle\TwigEngine;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Templating\EngineInterface;
 
 class CouponController extends AbstractController
 {
@@ -28,16 +28,16 @@ class CouponController extends AbstractController
     private $couponManager;
 
     /**
-     * @param TwigEngine           $twig
+     * @param EngineInterface      $engine
      * @param RouterInterface      $router
      * @param SessionInterface     $session
-     * @param FormFactory          $formFactory
+     * @param FormFactoryInterface $formFactory
      * @param ConfigurationManager $configuration
      * @param CouponManager        $couponManager
      */
-    public function __construct(TwigEngine $twig, RouterInterface $router, SessionInterface $session, FormFactory $formFactory, ConfigurationManager $configuration, CouponManager $couponManager)
+    public function __construct(EngineInterface $engine, RouterInterface $router, SessionInterface $session, FormFactoryInterface $formFactory, ConfigurationManager $configuration, CouponManager $couponManager)
     {
-        parent::__construct($twig, $router, $session, $formFactory, $configuration);
+        parent::__construct($engine, $router, $session, $formFactory, $configuration);
 
         $this->couponManager = $couponManager;
     }
@@ -50,7 +50,6 @@ class CouponController extends AbstractController
     public function listAction(): Response
     {
         return $this->render('AppBundle:coupon:list.html.twig', [
-            '_c'      => static::class,
             'coupons' => $this->couponManager->getPublished()
         ]);
     }

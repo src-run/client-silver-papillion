@@ -20,8 +20,6 @@ class LegalPrivacyController extends AbstractController
      */
     public function indexAction(): Response
     {
-        return $this->render('AppBundle:legal:privacy.html.twig', [
-            '_c' => static::class,
-        ]);
+        return $this->render('AppBundle:legal:privacy.html.twig');
     }
 }

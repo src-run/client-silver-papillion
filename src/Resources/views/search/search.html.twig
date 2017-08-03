@@ -10,7 +10,10 @@
 
 {% block search %}
     <div class="search">
-        <div class="search-form form-basic">
+        <div class="search-toggle">
+            {{ fa('search') }}
+        </div>
+        <div class="search-form form-basic search-focus">
 
             {{ form_start(search) }}
 

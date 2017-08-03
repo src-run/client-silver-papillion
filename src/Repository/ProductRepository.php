@@ -80,6 +80,21 @@ class ProductRepository extends AbstractRepository
     }
 
     /**
+     * @param string $sku
+     *
+     * @return Product|null
+     */
+    public function findSingleBySku(string $sku): ?Product
+    {
+        return $this->getResult(function (QueryBuilder $queryBuilder) use ($sku) {
+            $queryBuilder
+                ->where('p.sku = :sku')
+                ->setParameter('sku', $sku)
+                ->setMaxResults(1);
+        }, true);
+    }
+
+    /**
      * @param Category $category
      *
      * @return Product[]

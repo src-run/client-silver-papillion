@@ -64,28 +64,65 @@
     }
 
     .search {
-      position : absolute;
-      right    : 0;
+      position         : absolute;
+      right            : 15px;
+      background-color : white;
+      padding          : 0 0 0 15px;
 
-      form {
-        margin-top : 2px;
+      .search-toggle {
+        display : inline-block;
 
-        input {
-          float            : left;
-          padding          : 5px 10px 5px 10px;
-          background-color : $bg-color-page-body-normal;
+        i {
+          line-height      : 37px;
+          padding          : 0 15px;
           border           : 1px solid rgba($color-gray-blue, 0.5);
-          box-shadow       : none;
-        }
+          cursor           : pointer;
+          background-color : $bg-color-page-body-normal;
+          will-change      : auto;
+          transition       : color $trans-time-x-03, border $trans-time-x-04, background-color $trans-time-x-04;
 
-        button {
-          float            : left;
-          padding          : 9px 10px 8px 10px;
-          background-color : rgba($color-gray-blue, 0.5);
-          border           : none;
-          text-transform   : uppercase;
-          font-size        : 14px;
-          line-height      : 22px;
+          &:hover {
+            color            : $color-white;
+            background-color : $color-primary;
+            border-color     : $color-primary-dark;
+          }
+        }
+      }
+
+      .search-form {
+        display : none;
+
+        form {
+          margin-top : 2px;
+
+          input {
+            float            : left;
+            padding          : 5px 10px 5px 10px;
+            background-color : $bg-color-page-body-normal;
+            border           : 1px solid rgba($color-gray-blue, 0.5);
+            box-shadow       : none;
+            width            : 320px;
+          }
+
+          button {
+            float            : left;
+            padding          : 9px 10px 8px 10px;
+            background-color : rgba($color-gray-blue, 0.5);
+            border           : none;
+            text-transform   : uppercase;
+            font-size        : 14px;
+            font-family      : $font-family-condensed;
+            line-height      : 22px;
+            will-change      : auto;
+            transition       : color $trans-time-x-03, border $trans-time-x-04, background-color $trans-time-x-04;
+
+            &:hover,
+            &:focus {
+              color            : $color-white;
+              background-color : $color-primary;
+              border-color     : $color-primary-dark;
+            }
+          }
         }
       }
     }

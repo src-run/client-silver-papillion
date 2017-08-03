@@ -12,6 +12,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Component\Location\Model\LocationCollectionModel;
+use AppBundle\Component\Mailer\Mailer;
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderItem;
 use AppBundle\Entity\Product;
@@ -39,23 +40,11 @@ use Symfony\Component\HttpFoundation\Request;
 class CartController extends Controller
 {
     /**
-     * @param Request $request
-     *
-     * @return LocationCollectionModel
-     */
-    private function locationLookup(Request $request)
-    {
-        return $this->get('app.location_lookup.resolver')
-            ->lookupAll($request->getClientIp());
-    }
-
-    /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewAction(Request $request)
     {
         return $this->render('AppBundle:cart:view.html.twig', [
-            '_c'    => static::class,
             'geoip' => $this->locationLookup($request),
         ]);
     }
@@ -105,7 +94,6 @@ class CartController extends Controller
         }
 
         return $this->render('AppBundle:cart:checkout.html.twig', [
-            '_c'         => static::class,
             'f'          => $formShipment->createView(),
             'couponForm' => $formCoupon->createView(),
             'couponOkay' => $couponOkay,
@@ -169,7 +157,6 @@ class CartController extends Controller
         }
 
         return $this->render('AppBundle:cart:checkout-payment.html.twig', [
-            '_c'         => static::class,
             'f'          => $form->createView(),
             'geoip'      => $this->locationLookup($request),
             'flash'      => $session->getFlashBag()->get('error'),
@@ -229,7 +216,6 @@ class CartController extends Controller
         $session->remove('checkout-payment');
 
         return $this->render('AppBundle:cart:checkout-confirmation.html.twig', [
-            '_c'    => static::class,
             'geoip' => $this->locationLookup($request),
             'order' => $order,
         ]);
@@ -321,8 +307,8 @@ class CartController extends Controller
         $orderMessage = $this->createOrderMessage($orderEmail, $storeEmail, $subject,
             'email/checkout-confirmation.html.twig', $this->getEmailTwigArgs($order));
 
-        $this->get('mailer')->send($storeMessage);
-        $this->get('mailer')->send($orderMessage);
+        $this->getMailer()->queue($storeMessage);
+        $this->getMailer()->queue($orderMessage);
     }
 
     /**
@@ -347,7 +333,7 @@ class CartController extends Controller
      * @param string          $view
      * @param mixed[]         $viewArgs
      *
-     * @return \Swift_Mime_MimePart
+     * @return \Swift_Mime_Message
      */
     private function createOrderMessage($to, $replyTo, $subject, $view, array $viewArgs = [])
     {
@@ -501,5 +487,24 @@ class CartController extends Controller
         $lastUrl = parse_url($referer, PHP_URL_PATH);
 
         return $this->get('router')->getMatcher()->match($lastUrl);
+    }
+
+    /**
+     * @return Mailer
+     */
+    private function getMailer(): Mailer
+    {
+        return $this->get('app.mailer');
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return LocationCollectionModel
+     */
+    private function locationLookup(Request $request)
+    {
+        return $this->get('app.location_lookup.resolver')
+            ->lookupAll($request->getClientIp());
     }
 }

@@ -20,9 +20,7 @@ class FeedController extends AbstractController
      */
     public function indexAction(): Response
     {
-        return $this->render('AppBundle:feed:index.html.twig', [
-            '_c' => static::class,
-        ]);
+        return $this->render('AppBundle:feed:index.html.twig');
     }
 
     /**
@@ -32,9 +30,7 @@ class FeedController extends AbstractController
     {
         $this->sessionSave();
 
-        return $this->render('AppBundle:feed:feed.html.twig', [
-            '_c' => static::class,
-        ]);
+        return $this->render('AppBundle:feed:feed.html.twig');
     }
 
     /**
@@ -44,8 +40,6 @@ class FeedController extends AbstractController
     {
         $this->sessionSave();
 
-        return $this->render('AppBundle:feed:photos.html.twig', [
-            '_c' => static::class,
-        ]);
+        return $this->render('AppBundle:feed:photos.html.twig');
     }
 }

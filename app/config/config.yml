@@ -194,6 +194,7 @@ fos_user :
 #
 
 knp_paginator :
+  page_range      : 5
   default_options : { page_name  : "p" }
   template        : { pagination : "paginator.html.twig" }
 

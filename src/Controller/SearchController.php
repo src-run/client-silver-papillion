@@ -11,8 +11,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\SearchType;
-use AppBundle\Model\Search;
+use AppBundle\Component\Form\SearchForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,23 +25,17 @@ class SearchController extends AbstractProductAwareController
      */
     public function searchAction(Request $request, string $search): Response
     {
-        $search = urldecode($search);
+        $form = new SearchForm($this->getFormFactory(), $this->getRouter());
 
-        $form = $this->createForm(SearchType::class, $formSearch = new Search());
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            return $this->redirectRouteTemporary('app_search', [
-                'search' => urlencode($formSearch->getSearch()),
-            ]);
+        if (null !== $response = $form->handle($request)) {
+            return $response;
         }
 
         return $this->render('AppBundle:search:search.html.twig', [
-            '_c'         => static::class,
             'categories' => $this->categoryManager->getAll(),
-            'search'     => $form->createView(),
-            'searchTerm' => $search,
-            'products'   => $this->productManager->getByNameSearch($search),
+            'search'     => $form->createFormView(),
+            'searchTerm' => urldecode($search),
+            'products'   => $this->productManager->getByNameKeywords($search),
         ]);
     }
 }

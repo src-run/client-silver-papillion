@@ -12,6 +12,7 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Entity\Coupon;
+use AppBundle\Manager\CouponManager;
 use AppBundle\Repository\CouponRepository;
 use Doctrine\ORM\EntityManager;
 use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
@@ -26,9 +27,9 @@ class ReturningCustomerCoupon extends TwigExtension
     private static $couponName = 'Order Email Offer';
 
     /**
-     * @var CouponRepository
+     * @var CouponManager
      */
-    private $repository;
+    private $manager;
 
     /**
      * @var Coupon
@@ -36,15 +37,15 @@ class ReturningCustomerCoupon extends TwigExtension
     private $coupon;
 
     /**
-     * @param EntityManager $em
+     * @param CouponManager $manager
      */
-    public function __construct(EntityManager $em)
+    public function __construct(CouponManager $manager)
     {
-        $this->repository = $em->getRepository(Coupon::class);
+        $this->manager = $manager;
 
         parent::__construct(new TwigOptionsDefinition(), [], [
             new TwigFunctionDefinition('has_returning_customer_coupon', function () {
-                return $this->getCoupon() !== null;
+                return $this->hasCoupon();
             }),
             new TwigFunctionDefinition('returning_customer_coupon', function () {
                 return $this->getCoupon();
@@ -57,25 +58,28 @@ class ReturningCustomerCoupon extends TwigExtension
      */
     private function getCoupon(): ?Coupon
     {
-        if ($this->coupon !== null) {
+        if ($this->hasCoupon()) {
             return $this->coupon;
         }
 
         try {
-            $coupon = $this->repository->findOneBy([
-                'name' => static::$couponName,
-            ]);
-
-            if (!$coupon) {
+            if (null === $coupon = $this->manager->getByName(static::$couponName)) {
                 return null;
             }
 
             $this->coupon = $coupon->isEnabled() ? $coupon : null;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return null;
         }
 
         return $this->coupon;
+    }
+
+    /**
+     * @return bool
+     */
+    private function hasCoupon(): bool
+    {
+        return null !== $this->coupon;
     }
 }

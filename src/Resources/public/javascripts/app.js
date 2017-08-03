@@ -326,12 +326,47 @@ class ToolTips {
   }
 }
 
+class SearchToggle {
+    constructor() {
+        SearchToggle.setupToggle();
+    }
+
+    static setupToggle() {
+        this.toggle = jQuery('.search-toggle');
+
+        if (0 === this.toggle.length) {
+            return;
+        }
+
+        this.form = jQuery('.search-form');
+
+        if (0 === this.form.length) {
+            return;
+        }
+
+        this.input = jQuery('.search-form input[type=text]');
+
+        if (this.form.hasClass('search-focus')) {
+            this.toggle.hide();
+            this.form.show();
+        } else {
+            this.form.hide();
+            this.toggle.on('click', function () {
+                this.toggle.hide();
+                this.form.show();
+                this.input.focus();
+            }.bind(this));
+        }
+    }
+}
+
 jQuery(document).ready(() => {
   new Carousel();
   new FancyBox();
   new ToolTips();
   new FeedRequest();
   new Events();
+  new SearchToggle();
   new ClipboardInitializer();
   $('#modal-coupon').modal({
       'show': true,

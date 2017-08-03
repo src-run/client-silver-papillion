@@ -13,41 +13,28 @@ namespace AppBundle\Twig;
 
 use AppBundle\Entity\OrderItem;
 use AppBundle\Entity\Product;
-use AppBundle\Repository\ProductRepository;
-use Doctrine\ORM\EntityManager;
+use AppBundle\Manager\ProductManager;
 use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
 use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
 use SR\WonkaBundle\Twig\TwigExtension;
-use Symfony\Component\VarDumper\VarDumper;
 
 class OrderItemToProductExtension extends TwigExtension
 {
     /**
-     * @var ProductRepository
+     * @var ProductManager
      */
-    private $repository;
+    private $manager;
 
     /**
-     * @var Product[]
+     * @param ProductManager $manager
      */
-    private $cache;
-
-    /**
-     * @param EntityManager $em
-     */
-    public function __construct(EntityManager $em)
+    public function __construct(ProductManager $manager)
     {
-        $this->repository = $em->getRepository(Product::class);
+        $this->manager = $manager;
 
         parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('order_product', function (OrderItem $item) {
-                if (isset($this->cache[$item->getSku()])) {
-                    return $this->cache[$item->getSku()];
-                }
-
-                return $this->cache[$item->getSku()] = $this->repository->findOneBy([
-                    'sku' => $item->getSku(),
-                ]);
+            new TwigFunctionDefinition('order_product', function (OrderItem $item): Product {
+                return $this->manager->getBySku($item->getSku());
             }),
         ]);
     }

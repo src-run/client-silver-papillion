@@ -13,17 +13,23 @@ namespace AppBundle\Controller;
 
 use AppBundle\Manager\CategoryManager;
 use AppBundle\Manager\ConfigurationManager;
+use AppBundle\Manager\CouponManager;
 use AppBundle\Manager\HoursManager;
 use AppBundle\Manager\ProductManager;
 use AppBundle\Util\MapperStatic;
-use Symfony\Bundle\TwigBundle\TwigEngine;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Templating\EngineInterface;
 
 class DefaultController extends AbstractProductAwareController
 {
+    /**
+     * @var CouponManager
+     */
+    private $couponManager;
+
     /**
      * @var HoursManager
      */
@@ -32,25 +38,27 @@ class DefaultController extends AbstractProductAwareController
     /**
      * @var MapperStatic
      */
-    private $mapper;
+    private $mapperStatic;
 
     /**
-     * @param TwigEngine           $twig
+     * @param EngineInterface      $engine
      * @param RouterInterface      $router
      * @param SessionInterface     $session
-     * @param FormFactory          $formFactory
+     * @param FormFactoryInterface $formFactory
      * @param ConfigurationManager $configuration
      * @param CategoryManager      $categoryManager
      * @param ProductManager       $productManager
+     * @param CouponManager        $couponManager
      * @param HoursManager         $hoursManager
-     * @param MapperStatic         $mapper
+     * @param MapperStatic         $mapperStatic
      */
-    public function __construct(TwigEngine $twig, RouterInterface $router, SessionInterface $session, FormFactory $formFactory, ConfigurationManager $configuration, CategoryManager $categoryManager, ProductManager $productManager, HoursManager $hoursManager, MapperStatic $mapper)
+    public function __construct(EngineInterface $engine, RouterInterface $router, SessionInterface $session, FormFactoryInterface $formFactory, ConfigurationManager $configuration, CategoryManager $categoryManager, ProductManager $productManager, CouponManager $couponManager, HoursManager $hoursManager, MapperStatic $mapperStatic)
     {
-        parent::__construct($twig, $router, $session, $formFactory, $configuration, $categoryManager, $productManager);
+        parent::__construct($engine, $router, $session, $formFactory, $configuration, $categoryManager, $productManager);
 
+        $this->couponManager = $couponManager;
         $this->hoursManager = $hoursManager;
-        $this->mapper = $mapper;
+        $this->mapperStatic = $mapperStatic;
     }
 
     /**
@@ -58,30 +66,15 @@ class DefaultController extends AbstractProductAwareController
      */
     public function indexAction(): Response
     {
-        $count = $this->configurationValue('product.count.featured', 3);
-
         return $this->render('AppBundle:default:index.html.twig', [
-            '_c'         => static::class,
+            'featured'   => $this->productManager->getFeatured(
+                $this->configurationValue('product.count.featured', 3)
+            ),
             'hours'      => $this->hoursManager->getAll(),
-            'featured'   => $this->productManager->getFeatured($count),
-            'staticMaps' => $this->mapper->generate('420x220'),
-            'showCoupon' => $this->showCouponState(),
+            'staticMaps' => $this->mapperStatic->generate(
+                $this->configurationValue('maps.size.default', '420x220')
+            ),
+            'showCoupon' => !$this->couponManager->getCouponViewedState(),
         ]);
-    }
-
-    /**
-     * @return bool
-     */
-    private function showCouponState(): bool
-    {
-        $timeNow = time();
-
-        if (($this->sessionGet('coupon_featured') ?? $timeNow) <= $timeNow) {
-            $this->sessionSet('coupon_featured', strtotime('+10 minute'));
-
-            return true;
-        }
-
-        return false;
     }
 }

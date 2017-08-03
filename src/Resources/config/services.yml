@@ -8,6 +8,9 @@ services :
     Twig_Extension:
       tags: [ 'twig.extension' ]
 
+    Symfony\Component\EventDispatcher\EventSubscriberInterface:
+      tags: [ 'kernel.event_subscriber' ]
+
   AppBundle\:
     resource: '../../*'
     exclude: '../../{Doctrine}'
@@ -55,6 +58,10 @@ services :
   app.environment:
     public: true
     alias: AppBundle\Component\Environment\Environment
+
+  app.mailer:
+    public: true
+    alias: AppBundle\Component\Mailer\Mailer
 
   AppBundle\Util\Directions:
     calls :
@@ -141,6 +148,11 @@ services :
   app.manager.configuration :
     public: true
     alias : AppBundle\Manager\ConfigurationManager
+
+  Knp\Component\Pager\Paginator:
+    alias: knp_paginator
+
+  Doctrine\DBAL\Logging\DebugStack:
 
   AppBundle\Component\Facebook\Provider\FeedProvider:
     arguments :

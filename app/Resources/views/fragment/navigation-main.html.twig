@@ -15,21 +15,21 @@
 
     <ul class="nav {{ nav_class|default('navbar-nav') }}">
 
-        <li class="{% if 'Default' in _c %}active{% endif %}">
+        <li class="{% if 'Default' in request_controller_name_short() %}active{% endif %}">
             <a href="{{ path('app_home') }}">{% if use_icons %}{{ fa('home') }} {% endif %}Home</a>
         </li>
 
-        <li class="{% if 'Feed' in _c %} active {% endif %}{% if is_facebook_feed_cached() != true %} hidden {% endif %}" id="{{ nav_id|default('navbar') }}-nav-feed">
+        <li class="{% if 'Feed' in request_controller_name_short() %} active {% endif %}{% if is_facebook_feed_cached() != true %} hidden {% endif %}" id="{{ nav_id|default('navbar') }}-nav-feed">
             <a href="{{ url('app_feed_view') }}">{% if use_icons %}{{ fa('sticky-note') }} {% endif %}News</a>
         </li>
 
         {% if disable_dropdowns %}
-            <li class="{% if 'Category' in _c %} active {% endif %}">
+            <li class="{% if 'Category' in request_controller_name_short() %} active {% endif %}">
                 <a href="{{ url('app_category_list') }}">{% if use_icons %}{{ fa('shopping-bag') }} {% endif %}Shop</a>
             </li>
         {% else %}
             <!-- START: shop dropdown -->
-            <li class="{% if 'Category' in _c %}active{% endif %} dropdown">
+            <li class="{% if 'Category' in request_controller_name_short() %}active{% endif %} dropdown">
 
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {% if use_icons %}{{ fa('shopping-bag') }} {% endif %}Shop <span class="caret"></span>
@@ -55,12 +55,12 @@
 
         {% if cart_count() > 0 %}
             {% if disable_dropdowns %}
-                <li class="{% if 'Cart' in _c %} active {% endif %}">
+                <li class="{% if 'Cart' in request_controller_name_short() %} active {% endif %}">
                     <a href="{{ url('app_cart_view') }}">{% if use_icons %}{{ fa('shopping-cart') }} {% endif %}Cart</a>
                 </li>
             {% else %}
                 <!-- START: cart dropdown -->
-                <li class="{% if 'Cart' in _c %}active{% endif %} dropdown">
+                <li class="{% if 'Cart' in request_controller_name_short() %}active{% endif %} dropdown">
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 {% if use_icons %}{{ fa('shopping-cart') }} Cart {% endif %}<span class="caret"></span>
@@ -77,22 +77,22 @@
             {% endif %}
         {% endif %}
 
-        <li class="{% if 'Loc' in _c %}active{% endif %}">
+        <li class="{% if 'Loc' in request_controller_name_short() %}active{% endif %}">
             <a href="{{ url('app_location') }}">{% if use_icons %}{{ fa('map') }} {% endif %}Location</a>
         </li>
 
-        <li class="{% if 'Contact' in _c %}active{% endif %}">
+        <li class="{% if 'Contact' in request_controller_name_short() %}active{% endif %}">
             <a href="{{ url('app_contact_view') }}">{% if use_icons %}{{ fa('comment') }} {% endif %}Contact</a>
         </li>
 
         {% if use_extra %}
 
 
-            <li class="{% if 'LegalTos' in _c %}active{% endif %}">
+            <li class="{% if 'LegalTos' in request_controller_name_short() %}active{% endif %}">
                 <a href="{{ url('app_legal_tos') }}">{% if use_icons %}{{ fa('pencil') }} {% endif %}Terms of Service</a>
             </li>
 
-            <li class="{% if 'LegalPrivacy' in _c %}active{% endif %}">
+            <li class="{% if 'LegalPrivacy' in request_controller_name_short() %}active{% endif %}">
                 <a href="{{ url('app_legal_privacy') }}">{% if use_icons %}{{ fa('eye') }} {% endif %}Privacy Policy</a>
             </li>
 

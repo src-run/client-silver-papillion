@@ -11,6 +11,7 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMException;
@@ -19,9 +20,6 @@ use SR\Exception\Runtime\RuntimeException;
 use SR\Util\Info\ClassInfo;
 use SR\Util\Transform\StringTransform;
 
-/**
- * Class AbstractRepository.
- */
 abstract class AbstractRepository extends EntityRepository
 {
     /**
@@ -32,7 +30,12 @@ abstract class AbstractRepository extends EntityRepository
     /**
      * @var int
      */
-    const DEFAULT_TTL = 1800;
+    const DEFAULT_TTL = 3600;
+
+    /**
+     * @var CacheProvider
+     */
+    static protected $cacheDriver;
 
     /**
      * @param callable|null $config
@@ -62,17 +65,14 @@ abstract class AbstractRepository extends EntityRepository
      *
      * @return mixed
      */
-    protected function getResult(callable $build = null, $single = false, $ttl = null)
+    protected function  getResult(callable $build = null, $single = false, $ttl = null)
     {
         $query = $this->getQuery($build);
+        $cache = $this->getCacheDriver();
+        $index = $this->getCacheKey($query);
 
-        if (self::CACHE_ENABLED) {
-            $index = $this->getCacheKey($query);
-            $cache = $this->getCacheDriver();
-
-            if ($cache->contains($index)) {
-                return $cache->fetch($index);
-            }
+        if (self::CACHE_ENABLED && $cache->contains($index)) {
+            return $cache->fetch($index);
         }
 
         if ($single === true) {
@@ -81,7 +81,7 @@ abstract class AbstractRepository extends EntityRepository
             $result = $query->getResult();
         }
 
-        if (isset($cache) && isset($index)) {
+        if (self::CACHE_ENABLED) {
             $cache->save($index, $result, $ttl ?: self::DEFAULT_TTL);
         }
 
@@ -126,17 +126,29 @@ abstract class AbstractRepository extends EntityRepository
     }
 
     /**
-     * @return FilesystemCache
+     * @return CacheProvider
      */
-    protected function getCacheDriver()
+    protected function getCacheDriver(): CacheProvider
     {
-        static $cacheDriver;
-
-        if ($cacheDriver === null) {
-            $cacheDriver = new FilesystemCache(__DIR__ . '/../../../var/cache/dev/repo/');
+        if (null === static::$cacheDriver) {
+            static::$cacheDriver = new FilesystemCache($this->getCachePath());
         }
 
-        return $cacheDriver;
+        return static::$cacheDriver;
+    }
+
+    /**
+     * @return string
+     */
+    private function getCachePath(): string
+    {
+        $path = dirname((new \ReflectionClass(\AppKernel::class))->getFileName()).'/../var/cache/repository/';
+
+        if (!is_dir($path) && !@mkdir($path)) {
+            throw new RuntimeException('Unable to create repository cache directory "%s"', $path);
+        }
+
+        return $path;
     }
 
     /**
@@ -155,5 +167,3 @@ abstract class AbstractRepository extends EntityRepository
         return ClassInfo::getNameShort($this->getClassName());
     }
 }
-
-/* EOF */

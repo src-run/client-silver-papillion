@@ -10,6 +10,9 @@
 
 {% block search %}
     <div class="search">
+        <div class="search-toggle">
+            {{ fa('search') }}
+        </div>
         <div class="search-form form-basic">
 
             {{ form_start(search) }}
@@ -27,7 +30,7 @@
     <div class="container container-sr">
 
         <div class="page-navigation">
-            {{ knp_pagination_render(pagination) }}
+            {{ knp_pagination_render(products) }}
         </div>
 
         <h2 class="primary-hr-i">
@@ -35,13 +38,13 @@
         </h2>
 
         <div class="card-listing">
-            {% for p in pagination %}
+            {% for p in products %}
                 {% include 'AppBundle:fragment:product-list-item-default.html.twig' with { 'product': p } only %}
             {% endfor %}
         </div>
 
         <div class="page-navigation">
-            {{ knp_pagination_render(pagination) }}
+            {{ knp_pagination_render(products) }}
         </div>
 
     </div>

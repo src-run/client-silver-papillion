@@ -20,8 +20,6 @@ class LegalTosController extends AbstractController
      */
     public function indexAction(): Response
     {
-        return $this->render('AppBundle:legal:tos.html.twig', [
-            '_c' => static::class,
-        ]);
+        return $this->render('AppBundle:legal:tos.html.twig');
     }
 }

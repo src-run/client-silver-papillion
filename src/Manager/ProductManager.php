@@ -15,7 +15,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Model\SearchProduct;
 use AppBundle\Repository\ProductRepository;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Paginator;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\VarDumper\VarDumper;
@@ -38,10 +38,10 @@ class ProductManager extends AbstractManager
     private $cache;
 
     /**
-     * @param EntityManager $em
-     * @param Paginator     $paginator
+     * @param EntityManagerInterface $em
+     * @param Paginator              $paginator
      */
-    public function __construct(EntityManager $em, Paginator $paginator, CacheItemPoolInterface $cache)
+    public function __construct(EntityManagerInterface $em, Paginator $paginator, CacheItemPoolInterface $cache)
     {
         parent::__construct($em);
 
@@ -103,21 +103,37 @@ class ProductManager extends AbstractManager
      *
      * @return Product[]
      */
-    public function getByNameSearch(string $search): array
+    public function getByNameKeywords(string $search): array
     {
-        $item = $this->cache->getItem(vsprintf('__%s__%s', [
-            preg_replace('{[^a-z0-9]+}i', '-', __CLASS__),
-            md5($search),
-        ]));
+        return $this->searchByNameSearch(str_word_count($search, 1));
+    }
+
+    /**
+     * @param string[] $searches
+     *
+     * @return Product[]
+     */
+    public function searchByNameSearch(array $searches): array
+    {
+        $item = $this->cache->getItem($this->getCacheKey(__FUNCTION__, implode('_', $searches)));
 
         if (!$item->isHit()) {
             $item->set(array_map(function (SearchProduct $product) {
                 return $this->getMatchingId($product->getId());
-            }, array_filter($this->getIdAndTitles(), function (SearchProduct $product) use ($search) {
-                return $product->isNameMatch($search);
+            }, array_filter($this->getIdAndTitles(), function (SearchProduct $product) use ($searches) {
+                foreach ($searches as $search) {
+                    if (!$product->isNameMatch($search)) {
+                        return false;
+                    }
+                }
+
+                return true;
             })));
             $this->cache->save($item);
+            VarDumper::dump('SAVE');
         }
+
+        VarDumper::dump($item->get());
 
         return $item->get();
     }
@@ -177,6 +193,7 @@ class ProductManager extends AbstractManager
             ...array_merge([$product], $product->getRelatedProducts()->toArray())
         );
         shuffle($products);
+        shuffle($products);
 
         return array_splice($products, 0, $limit);
     }
@@ -190,6 +207,7 @@ class ProductManager extends AbstractManager
     public function getRandomOther(Product $product, $limit)
     {
         $products = $this->getRepository()->findNotInCategory($product->getCategory());
+        shuffle($products);
         shuffle($products);
 
         return array_splice($products, 0, $limit);
@@ -205,6 +223,34 @@ class ProductManager extends AbstractManager
     public function getAllFromCategoryPaginated(Category $category, $page, $limit = 12)
     {
         return $this->getRepository()->findInCategoryPaginated($category, $this->paginator, $page, $limit);
+    }
+
+    /**
+     * @param string $sku
+     *
+     * @return Product
+     */
+    public function getBySku(string $sku): Product
+    {
+        return $this->getRepository()->findSingleBySku($sku);
+    }
+
+    /**
+     * @param string $type
+     * @param string $context
+     *
+     * @return string
+     */
+    private function getCacheKey(string $type, string $context = 'main', ...$more): string
+    {
+        return vsprintf('__%s__%s__%s__%s', [
+            preg_replace('{[^a-z0-9]+}i', '-', __CLASS__),
+            md5($type),
+            md5($context),
+            md5(implode('-', array_map(function ($value) {
+                return var_export($value, true);
+            }, $more)))
+        ]);
     }
 }
 

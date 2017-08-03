@@ -12,20 +12,20 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Manager\ConfigurationManager;
-use Symfony\Bundle\TwigBundle\TwigEngine;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Templating\EngineInterface;
 
 abstract class AbstractController
 {
     /**
-     * @var TwigEngine
+     * @var EngineInterface
      */
-    private $twig;
+    private $engine;
 
     /**
      * @var RouterInterface
@@ -38,7 +38,7 @@ abstract class AbstractController
     private $session;
 
     /**
-     * @var FormFactory
+     * @var FormFactoryInterface
      */
     private $formFactory;
 
@@ -48,15 +48,15 @@ abstract class AbstractController
     private $configuration;
 
     /**
-     * @param TwigEngine           $twig
+     * @param EngineInterface      $engine
      * @param RouterInterface      $router
      * @param SessionInterface     $session
-     * @param FormFactory          $formFactory
+     * @param FormFactoryInterface $formFactory
      * @param ConfigurationManager $configuration
      */
-    public function __construct(TwigEngine $twig, RouterInterface $router, SessionInterface $session, FormFactory $formFactory, ConfigurationManager $configuration)
+    public function __construct(EngineInterface $engine, RouterInterface $router, SessionInterface $session, FormFactoryInterface $formFactory, ConfigurationManager $configuration)
     {
-        $this->twig = $twig;
+        $this->engine = $engine;
         $this->router = $router;
         $this->session = $session;
         $this->formFactory = $formFactory;
@@ -71,7 +71,7 @@ abstract class AbstractController
      */
     protected function renderView(string $route, array $parameters = []): string
     {
-        return $this->twig->render($route, $parameters);
+        return $this->engine->render($route, $parameters);
     }
 
     /**
@@ -83,7 +83,7 @@ abstract class AbstractController
      */
     protected function render(string $route, array $parameters = [], Response $response = null): Response
     {
-        return $this->twig->renderResponse($route, $parameters, $response);
+        return $this->engine->renderResponse($route, $parameters, $response);
     }
 
     /**
@@ -166,6 +166,14 @@ abstract class AbstractController
     }
 
     /**
+     * @return RouterInterface
+     */
+    protected function getRouter(): RouterInterface
+    {
+        return $this->router;
+    }
+
+    /**
      * Creates and returns a Form instance from the type of the form.
      *
      * @param string $type    The fully qualified class name of the form type
@@ -177,6 +185,14 @@ abstract class AbstractController
     protected function createForm($type, $data = null, array $options = array())
     {
         return $this->formFactory->create($type, $data, $options);
+    }
+
+    /**
+     * @return FormFactoryInterface
+     */
+    protected function getFormFactory(): FormFactoryInterface
+    {
+        return $this->formFactory;
     }
 
     /**

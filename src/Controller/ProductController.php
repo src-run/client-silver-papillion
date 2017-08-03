@@ -11,8 +11,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Component\Form\SearchForm;
 use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends AbstractProductAwareController
@@ -20,15 +22,21 @@ class ProductController extends AbstractProductAwareController
     /**
      * @ParamConverter("product")
      *
-     * @param string  $productName
      * @param Product $product
+     * @param Request $request
      *
      * @return Response
      */
-    public function viewAction(string $productName, Product $product): Response
+    public function viewAction(Product $product, Request $request): Response
     {
+        $form = new SearchForm($this->getFormFactory(), $this->getRouter());
+
+        if (null !== $response = $form->handle($request)) {
+            return $response;
+        }
+
         return $this->render('AppBundle:product:view.html.twig', [
-            '_c'       => static::class,
+            'search'   => $form->createFormView(),
             'product'  => $product,
             'similar'  => $this->productManager->getRandomSimilar(
                 $product,

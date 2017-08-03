@@ -13,6 +13,8 @@ namespace AppBundle\Manager;
 
 use AppBundle\Entity\Coupon;
 use AppBundle\Repository\CouponRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CouponManager extends AbstractManager
 {
@@ -20,6 +22,22 @@ class CouponManager extends AbstractManager
      * @var string
      */
     const ENTITY = Coupon::class;
+
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    /**
+     * @param EntityManagerInterface $em
+     * @param SessionInterface       $session
+     */
+    public function __construct(EntityManagerInterface $em, SessionInterface $session)
+    {
+        parent::__construct($em);
+
+        $this->session = $session;
+    }
 
     /**
      * @return CouponRepository|\Doctrine\ORM\EntityRepository
@@ -69,6 +87,32 @@ class CouponManager extends AbstractManager
         shuffle($coupons);
 
         return array_pop($coupons);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getCouponViewedState()
+    {
+        $now = time();
+
+        if (($this->session->get('coupon_featured') ?? $now) <= $now) {
+            $this->session->set('coupon_featured', strtotime('+10 minute'));
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Coupon|null
+     */
+    public function getByName(string $name): ?Coupon
+    {
+        return $this->getRepository()->findSingleByName($name);
     }
 }
 

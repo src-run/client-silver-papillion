@@ -14,10 +14,10 @@ namespace AppBundle\Controller;
 use AppBundle\Manager\CategoryManager;
 use AppBundle\Manager\ConfigurationManager;
 use AppBundle\Manager\ProductManager;
-use Symfony\Bundle\TwigBundle\TwigEngine;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Templating\EngineInterface;
 
 abstract class AbstractProductAwareController extends AbstractController
 {
@@ -32,17 +32,17 @@ abstract class AbstractProductAwareController extends AbstractController
     protected $productManager;
 
     /**
-     * @param TwigEngine           $twig
+     * @param EngineInterface      $engine
      * @param RouterInterface      $router
      * @param SessionInterface     $session
-     * @param FormFactory          $formFactory
+     * @param FormFactoryInterface $formFactory
      * @param ConfigurationManager $configuration
      * @param CategoryManager      $categoryManager
      * @param ProductManager       $productManager
      */
-    public function __construct(TwigEngine $twig, RouterInterface $router, SessionInterface $session, FormFactory $formFactory, ConfigurationManager $configuration, CategoryManager $categoryManager, ProductManager $productManager)
+    public function __construct(EngineInterface $engine, RouterInterface $router, SessionInterface $session, FormFactoryInterface $formFactory, ConfigurationManager $configuration, CategoryManager $categoryManager, ProductManager $productManager)
     {
-        parent::__construct($twig, $router, $session, $formFactory, $configuration);
+        parent::__construct($engine, $router, $session, $formFactory, $configuration);
 
         $this->categoryManager = $categoryManager;
         $this->productManager = $productManager;

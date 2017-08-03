@@ -11,10 +11,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Component\Form\SearchForm;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Form\SearchType;
-use AppBundle\Model\Search;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,19 +26,15 @@ class CategoryController extends AbstractProductAwareController
      */
     public function listAction(Request $request): Response
     {
-        $form = $this->createForm(SearchType::class, $search = new Search());
-        $form->handleRequest($request);
+        $form = new SearchForm($this->getFormFactory(), $this->getRouter());
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            return $this->redirectRouteTemporary('app_search', [
-                'search' => urlencode($search->getSearch()),
-            ]);
+        if (null !== $response = $form->handle($request)) {
+            return $response;
         }
 
         return $this->render('AppBundle:category:list.html.twig', [
-            '_c'         => static::class,
+            'search'     => $form->createFormView(),
             'categories' => $this->categoryManager->getAllByWeight(),
-            'search'     => $form->createView(),
         ]);
     }
 
@@ -56,24 +50,20 @@ class CategoryController extends AbstractProductAwareController
      */
     public function viewAction(Request $request, Category $category): Response
     {
-        $form = $this->createForm(SearchType::class, $search = new Search());
-        $form->handleRequest($request);
+        $form = new SearchForm($this->getFormFactory(), $this->getRouter());
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            return $this->redirectRouteTemporary('app_search', [
-                'search' => urlencode($search->getSearch()),
-            ]);
+        if (null !== $response = $form->handle($request)) {
+            return $response;
         }
 
-        $page = $request->query->getInt('p', 1);
-        $count = $this->configurationValue('product.count', 12);
-
         return $this->render('AppBundle:category:view.html.twig', [
-            '_c'         => static::class,
+            'search'     => $form->createFormView(),
             'category'   => $category,
-            'categories' => $this->categoryManager->getAll(),
-            'pagination' => $this->productManager->getAllFromCategoryPaginated($category, $page, $count),
-            'search'     => $form->createView(),
+            'products'   => $this->productManager->getAllFromCategoryPaginated(
+                $category,
+                $request->query->getInt('p', 1),
+                $this->configurationValue('product.count', 12)
+            ),
         ]);
     }
 }

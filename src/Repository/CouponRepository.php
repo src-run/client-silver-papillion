@@ -41,6 +41,21 @@ class CouponRepository extends AbstractRepository
                 ->orderBy('c.expiration');
         });
     }
+
+    /**
+     * @param string $name
+     *
+     * @return Coupon
+     */
+    public function findSingleByName(string $name): ?Coupon
+    {
+        return $this->getResult(function (QueryBuilder $queryBuilder) use ($name) {
+            $queryBuilder
+                ->where('c.name = :name')
+                ->setParameter('name', $name)
+                ->setMaxResults(1);
+        }, true);
+    }
 }
 
 /* EOF */
