@@ -43,3 +43,4 @@ parameters:
 
     location_lookup.max_mind.database: /var/lib/GeoIP/GeoLite2-City.mmdb
     location_lookup.ip2location.database: /var/lib/Ip2Location/Ip2Location-Lite-DB11.bin
+    location_lookup.ip2location.ipv6.database: /var/lib/Ip2Location/Ip2Location-Lite-DB11-IPv6.bin

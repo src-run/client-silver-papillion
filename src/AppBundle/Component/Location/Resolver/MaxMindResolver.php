@@ -41,7 +41,7 @@ class MaxMindResolver extends AbstractLocationResolver
     /**
      * @param string $address
      *
-     * @throws \InvalidArgumentException On failed lookup
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException On failed lookup
      *
      * @return mixed[]
      */
@@ -111,12 +111,6 @@ class MaxMindResolver extends AbstractLocationResolver
         }
 
         $normalized['ipVersion'] = 4;
-
-
-
-        foreach (['latitude', 'longitude', 'countryName', 'zipCode', 'cityName', 'regionName'] as $key) {
-
-        }
 
         return $normalized;
     }

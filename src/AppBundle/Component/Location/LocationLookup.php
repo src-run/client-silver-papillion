@@ -44,6 +44,7 @@ class LocationLookup implements LocationLookupInterface
     /**
      * @param LocationResolverInterface[] $resolvers
      * @param Cache|null                  $cache
+     * @param int                         $cacheTtl
      */
     public function __construct(array $resolvers = [], Cache $cache = null, int $cacheTtl = 600)
     {
@@ -53,7 +54,7 @@ class LocationLookup implements LocationLookupInterface
 
         $this->cache = $cache;
 
-        if ($cache === null) {
+        if ($this->cache === null) {
             $this->cache = new Cache();
             $this->cache->setEnabled(false);
         }

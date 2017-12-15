@@ -368,12 +368,20 @@ services :
       - "%location_lookup.ip2location.database%"
 
   #
+  # ip2location location resolver
+  #
+  app.location_lookup.ip2location.ipv6.resolver:
+    class     : AppBundle\Component\Location\Resolver\Ip2LocationResolver
+    arguments :
+      - "%location_lookup.ip2location.ipv6.database%"
+
+  #
   # location lookup master resolver
   #
   app.location_lookup.resolver:
     class     : AppBundle\Component\Location\LocationLookup
     arguments :
-      - ["@app.location_lookup.maxmind.resolver", "@app.location_lookup.ip2location.resolver"]
+      - ["@app.location_lookup.ip2location.resolver", "@app.location_lookup.ip2location.ipv6.resolver", "@app.location_lookup.maxmind.resolver"]
       - "@app.location_lookup.cache"
       - 3600
     calls :
