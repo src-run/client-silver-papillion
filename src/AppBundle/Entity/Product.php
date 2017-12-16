@@ -492,7 +492,6 @@ class Product
      */
     public function hasNoShipping()
     {
-        return true;
         return $this->shipping === 0.0;
     }
 
@@ -503,7 +502,6 @@ class Product
      */
     public function getShippingRate($default = self::RATE_SHIPPING_DEFAULT)
     {
-        return 0.0;
         return $this->hasShipping() ? $this->getShipping() : $default;
     }
 
