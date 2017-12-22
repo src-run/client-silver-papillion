@@ -14,7 +14,7 @@
     "string-no-newline": true,
     "string-quotes": "single",
     "length-zero-no-unit": true,
-    "time-no-imperceptible": true,
+    "time-min-milliseconds": 100,
     "property-case": "lower",
     "property-no-vendor-prefix": true,
     "indentation": 2,
