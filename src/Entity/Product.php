@@ -25,7 +25,7 @@ class Product
     /**
      * @var float
      */
-    const RATE_SHIPPING_DEFAULT = 13.45;
+    const RATE_SHIPPING_DEFAULT = 10.00;
 
     /**
      * @var float
@@ -501,6 +501,10 @@ class Product
      */
     public function getShippingRate($default = self::RATE_SHIPPING_DEFAULT)
     {
+        if ($this->category->getId() === 1) {
+            return 0.0;
+        }
+
         return $this->hasShipping() ? $this->getShipping() : $default;
     }
 
