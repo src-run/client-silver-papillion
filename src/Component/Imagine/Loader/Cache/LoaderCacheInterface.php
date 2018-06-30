@@ -36,5 +36,3 @@ interface LoaderCacheInterface extends CacheItemPoolInterface, LoggerAwareInterf
      */
     public static function getItemBasePath($id);
 }
-
-/* EOF */

@@ -13,10 +13,7 @@ namespace AppBundle\Twig\Parser;
 
 use AppBundle\Twig\Locator\TemplateLocator;
 
-/**
- * Class ModifiedParser.
- */
-class ModifiedParser extends \Twig_TokenParser
+class TemplateModifiedParser extends \Twig_TokenParser
 {
     /**
      * @var TemplateLocator
@@ -31,18 +28,28 @@ class ModifiedParser extends \Twig_TokenParser
         $this->locator = $locator;
     }
 
-    public function parse(\Twig_Token $token)
+    /**
+     * @param \Twig_Token $token
+     *
+     * @throws \Twig_Error_Syntax
+     *
+     * @return \Twig_Node_Text
+     */
+    public function parse(\Twig_Token $token): \Twig_Node_Text
     {
         $stream = $this->parser->getStream();
-        $file = $this->locator->find($this->parser->getStream()->getSourceContext());
         $format = 'l, F j Y, h:i A';
 
         if (!$stream->test(\Twig_Token::BLOCK_END_TYPE)) {
             $format = $stream->expect(\Twig_Token::STRING_TYPE)->getValue();
         }
+
         $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
-        return new \Twig_Node_Text($file->getTimeModified()->format($format), $token->getLine(), $this->getTag());
+        return new \Twig_Node_Text(
+            gmdate($format, $this->locator->find($this->parser->getStream()->getSourceContext())->getMTime()),
+            $token->getLine()
+        );
     }
 
     /**
@@ -53,5 +60,3 @@ class ModifiedParser extends \Twig_TokenParser
         return 'file_m_time';
     }
 }
-
-/* EOF */

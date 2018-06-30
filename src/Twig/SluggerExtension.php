@@ -12,27 +12,46 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Util\Slugger;
-use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
-/**
- * Class SluggerExtension.
- */
-class SluggerExtension extends TwigExtension
+class SluggerExtension extends AbstractExtension
 {
+    /**
+     * @var Slugger
+     */
+    private $slugger;
+
     /**
      * @param Slugger $slugger
      */
     public function __construct(Slugger $slugger)
     {
-        parent::__construct(new TwigOptionsDefinition(), [
-            new TwigFilterDefinition('slugify', [$slugger, 'slugify']),
-        ], [
-            new TwigFunctionDefinition('slugify', [$slugger, 'slugify']),
-        ]);
+        $this->slugger = $slugger;
+    }
+
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('slugify', function (string $string) {
+                return $this->slugger->slugify($string);
+            }),
+        ];
+    }
+
+    /**
+     * @return array|\Twig_Filter[]
+     */
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('slugify', function (string $string) {
+                return $this->slugger->slugify($string);
+            }),
+        ];
     }
 }
-
-/* EOF */

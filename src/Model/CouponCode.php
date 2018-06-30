@@ -34,5 +34,3 @@ class CouponCode
         return $this->code;
     }
 }
-
-/* EOF */

@@ -14,9 +14,6 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\CarouselSlide;
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * Class CarouselSlideRepository.
- */
 class CarouselSlideRepository extends AbstractRepository
 {
     /**

@@ -14,9 +14,6 @@ namespace AppBundle\Manager;
 use AppBundle\Entity\ContentBlock;
 use AppBundle\Repository\ContentBlockRepository;
 
-/**
- * Class ContentBlockManager.
- */
 class ContentBlockManager extends AbstractManager
 {
     /**
@@ -40,5 +37,3 @@ class ContentBlockManager extends AbstractManager
         return $this->getRepository()->findOneByName($key);
     }
 }
-
-/* EOF */

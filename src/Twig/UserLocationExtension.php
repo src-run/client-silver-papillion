@@ -11,31 +11,56 @@
 
 namespace AppBundle\Twig;
 
-use AppBundle\Component\Location\LocationLookup;
+use AppBundle\Component\Location\GeoIpLookup;
 use AppBundle\Manager\ConfigurationManager;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Class UserLocationExtension.
- */
-class UserLocationExtension extends TwigExtension
+class UserLocationExtension extends AbstractExtension
 {
-    public function __construct(LocationLookup $lookup, ConfigurationManager $configuration)
-    {
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('client_is_taxable', function () use ($lookup, $configuration) {
-                $clientIpRegion = $lookup->lookupUsingClientIp()->getRegionName();
-                $taxableRegions = explode(',', $configuration->get('taxable.states')->getValue());
+    /**
+     * @var GeoIpLookup
+     */
+    private $lookup;
 
-                return in_array($clientIpRegion, $taxableRegions) || $clientIpRegion === null;
+    /**
+     * @var ConfigurationManager
+     */
+    private $config;
+
+    /**
+     * @param GeoIpLookup          $lookup
+     * @param ConfigurationManager $configuration
+     */
+    public function __construct(GeoIpLookup $lookup, ConfigurationManager $configuration)
+    {
+        $this->lookup = $lookup;
+        $this->config = $configuration;
+    }
+
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('client_is_taxable', function () {
+                return in_array(
+                    $this->lookupClientRegionName(),
+                    explode(',', $this->config->get('taxable.states')->getValue())
+                ) || $this->lookupClientRegionName() === null;
             }),
-            new TwigFunctionDefinition('client_region_name', function () use ($lookup) {
-                return $lookup->lookupUsingClientIp()->getRegionName();
+            new TwigFunction('client_region_name', function () {
+                return $this->lookupClientRegionName();
             }),
-        ]);
+        ];
+    }
+
+    /**
+     * @return mixed
+     */
+    private function lookupClientRegionName()
+    {
+        return $this->lookup->lookupUsingClientIp()->getRegionName();
     }
 }
-
-/* EOF */

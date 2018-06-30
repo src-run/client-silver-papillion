@@ -19,5 +19,3 @@ use SR\Exception\Exception;
 class FacebookException extends Exception
 {
 }
-
-/* EOF */

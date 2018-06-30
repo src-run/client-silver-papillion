@@ -133,5 +133,3 @@ class Cache implements CacheInterface
         return $this->adapter->commit();
     }
 }
-
-/* EOF */

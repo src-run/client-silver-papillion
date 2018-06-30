@@ -70,5 +70,3 @@ class ProductUpdateCommand extends ContainerAwareCommand
         $this->em->persist($p);
     }
 }
-
-/* EOF */

@@ -12,11 +12,7 @@
 namespace AppBundle\Twig\Locator;
 
 use SR\Exception\Runtime\RuntimeException;
-use SR\Spl\File\SplFileInfo;
 
-/**
- * Class TemplateLocator.
- */
 class TemplateLocator
 {
     /**
@@ -39,7 +35,7 @@ class TemplateLocator
     /**
      * @param \Twig_Source $source
      *
-     * @return SplFileInfo
+     * @return \SplFileInfo
      */
     public function find(\Twig_Source $source)
     {
@@ -47,7 +43,7 @@ class TemplateLocator
             $path = $this->templatePathFromSourceContextName($source);
         }
 
-        return new SplFileInfo($path);
+        return new \SplFileInfo($path);
     }
 
     /**
@@ -86,5 +82,3 @@ class TemplateLocator
         return realpath(sprintf('%s/../src/%s/Resources/views/%s/%s', $this->kernelRootDirectory, ...$bundleSyntax));
     }
 }
-
-/* EOF */

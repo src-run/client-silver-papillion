@@ -12,28 +12,34 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Twig\Helper\VichFilePathExtensionHelper;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Class VichFilePathExtension.
- */
-class VichFilePathExtension extends TwigExtension
+class VichFilePathExtension extends AbstractExtension
 {
+    /**
+     * @var VichFilePathExtensionHelper
+     */
+    private $helper;
 
     /**
      * @param VichFilePathExtensionHelper $helper
      */
     public function __construct(VichFilePathExtensionHelper $helper)
     {
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('asset_uploaded', [$helper, 'assetUploaded']),
-            new TwigFunctionDefinition('asset_product', [$helper, 'assetProduct']),
-            new TwigFunctionDefinition('asset_category', [$helper, 'assetCategory']),
-            new TwigFunctionDefinition('asset_carousel', [$helper, 'assetCarousel']),
-        ]);
+        $this->helper = $helper;
+    }
+
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('asset_uploaded', [$this->helper, 'assetUploaded']),
+            new TwigFunction('asset_product', [$this->helper, 'assetProduct']),
+            new TwigFunction('asset_category', [$this->helper, 'assetCategory']),
+            new TwigFunction('asset_carousel', [$this->helper, 'assetCarousel']),
+        ];
     }
 }
-
-/* EOF */

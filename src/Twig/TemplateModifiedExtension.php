@@ -12,12 +12,10 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Twig\Locator\TemplateLocator;
-use AppBundle\Twig\Parser\ModifiedParser;
+use AppBundle\Twig\Parser\TemplateModifiedParser;
+use Twig\Extension\AbstractExtension;
 
-/**
- * Class ModifiedExtension.
- */
-class ModifiedExtension extends \Twig_Extension
+class TemplateModifiedExtension extends AbstractExtension
 {
     /**
      * @var TemplateLocator
@@ -38,7 +36,7 @@ class ModifiedExtension extends \Twig_Extension
     public function getTokenParsers()
     {
         return [
-            new ModifiedParser($this->locator),
+            new TemplateModifiedParser($this->locator),
         ];
     }
 
@@ -50,5 +48,3 @@ class ModifiedExtension extends \Twig_Extension
         return 'modified_extension';
     }
 }
-
-/* EOF */

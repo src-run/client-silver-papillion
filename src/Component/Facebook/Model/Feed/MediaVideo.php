@@ -13,9 +13,6 @@ namespace AppBundle\Component\Facebook\Model\Feed;
 
 use AppBundle\Component\Facebook\Transformer\DateTimeTransformer;
 
-/**
- * Class MediaVideo.
- */
 class MediaVideo extends Media
 {
     /**
@@ -85,5 +82,3 @@ class MediaVideo extends Media
         return $this->formatLgrThan($size)->getLink();
     }
 }
-
-/* EOF */

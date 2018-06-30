@@ -13,9 +13,6 @@ namespace AppBundle\Entity;
 
 use SR\Exception\RuntimeException;
 
-/**
- * Class Order.
- */
 class Order
 {
     /**
@@ -404,5 +401,3 @@ class Order
         $this->couponValue = $couponValue;
     }
 }
-
-/* EOF */

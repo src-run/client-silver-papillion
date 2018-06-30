@@ -11,9 +11,6 @@
 
 namespace AppBundle\Repository;
 
-/**
- * Class ProductImageRepository.
- */
 class ProductImageRepository extends AbstractRepository
 {
 }

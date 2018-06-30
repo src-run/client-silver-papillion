@@ -14,7 +14,7 @@ namespace AppBundle\Component\Location\Resolver;
 use IP2Location\Database;
 use SR\Exception\Logic\InvalidArgumentException;
 
-class Ip2LocationResolver extends AbstractLocationResolver
+class Ip2LocationGeoIpResolver extends AbstractGeoIpResolver
 {
     /**
      * @var bool
@@ -60,7 +60,7 @@ class Ip2LocationResolver extends AbstractLocationResolver
      *
      * @return mixed[]
      */
-    protected function getDatabaseResult(string $address): array
+    protected function getFieldModels(string $address): array
     {
         static $results = [];
 
@@ -78,12 +78,42 @@ class Ip2LocationResolver extends AbstractLocationResolver
     }
 
     /**
-     * @param array $result
+     * @return string[]
+     */
+    protected static function getFieldMappings(): array
+    {
+        return [
+            'zipCode' => 'zipCode',
+            'latitude' => 'latitude',
+            'longitude' => 'longitude',
+            'metroCode' => null,
+            'timeZone' => 'timeZone',
+            'accuracyRadias' => null,
+            'city' => 'city',
+            'continent' => 'continent',
+            'country' => 'country',
+            'registeredCountry' => 'registered_country',
+            'regions' => 'subdivisions',
+        ];
+    }
+
+    /**
+     * @param array $data
      *
      * @return array
      */
-    private function mapResults(array $result): array
+    private function mapResults(array $data): array
     {
+        return [];
+        $fields = array_map(function (string $field) use ($data) {
+            return $this->hydrateField($this->resolveFieldValue($field, $data));
+        }, static::getFieldMappings());
+
+        return array_merge([
+            'resolver' => new ScalarField($this->getType()),
+            'ipVersion' => new ScalarField(4),
+            'ipAddress' => new ScalarField($address)
+        ], $fields);
         $normalized = [
             'resolver' => $this->getType(),
             'ipVersion' => null,
@@ -100,7 +130,7 @@ class Ip2LocationResolver extends AbstractLocationResolver
         ];
 
         foreach (['ipVersion', 'ipAddress', 'latitude', 'longitude', 'countryCode', 'countryName', 'zipCode', 'cityName', 'regionName', 'timeZone'] as $key) {
-            $normalized[$key] = isset($result[$key]) && $result[$key] !== '-' && $result[$key] !== 0.0 ? $result[$key] : null;
+            $normalized[$key] = isset($data[$key]) && $data[$key] !== '-' && $data[$key] !== 0.0 ? $data[$key] : null;
         }
 
         return $normalized;

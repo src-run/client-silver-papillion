@@ -426,7 +426,6 @@ class Product
      */
     public function removeImage(ProductImage $image)
     {
-        dump($image);
         if ($this->images->contains($image)) {
             $this->images->removeElement($image);
             $image->setProduct(null);
@@ -613,5 +612,3 @@ class Product
         return !$this->inverseRelatedProducts->isEmpty();
     }
 }
-
-/* EOF */

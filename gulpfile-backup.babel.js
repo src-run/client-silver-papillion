@@ -180,5 +180,3 @@ gulp.task('default', gulp.series(
     'build',
     'watch'
 ));
-
-/* EOF */

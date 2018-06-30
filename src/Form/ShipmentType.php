@@ -17,9 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * Class ShipmentType.
- */
 class ShipmentType extends AbstractType
 {
     /**
@@ -38,5 +35,3 @@ class ShipmentType extends AbstractType
             ->add('submit', SubmitType::class);
     }
 }
-
-/* EOF */

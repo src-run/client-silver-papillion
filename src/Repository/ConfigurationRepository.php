@@ -14,9 +14,6 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Configuration;
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * Class ConfigurationRepository.
- */
 class ConfigurationRepository extends AbstractRepository
 {
     /**

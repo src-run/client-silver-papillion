@@ -12,56 +12,36 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Manager\ConfigurationManager;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Class ConfigurationExtension.
- */
-class ConfigurationExtension extends TwigExtension
+class ConfigurationExtension extends AbstractExtension
 {
     /**
      * @var ConfigurationManager
      */
     private $manager;
 
-    public function __construct()
-    {
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('config_instance', [$this, 'getConfig']),
-            new TwigFunctionDefinition('config', [$this, 'getValue']),
-        ]);
-    }
-
     /**
      * @param ConfigurationManager $manager
      */
-    public function setConfigurationManager(ConfigurationManager $manager)
+    public function __construct(ConfigurationManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param string $index
-     *
-     * @return \AppBundle\Entity\Configuration
+     * @return array|\Twig_Function[]
      */
-    public function getConfig($index)
+    public function getFunctions(): array
     {
-        return $this->manager->get($index);
-    }
-
-    /**
-     * @param string     $index
-     * @param mixed|null $default
-     *
-     * @return string
-     */
-    public function getValue($index, $default = null)
-    {
-        return $this->manager->value($index, $default);
+        return [
+            new TwigFunction('config_instance', function (string $index) {
+                return $this->manager->get($index);
+            }),
+            new TwigFunction('config', function (string $index, string $default = null) {
+                return $this->manager->value($index, $default);
+            })
+        ];
     }
 }
-
-/* EOF */

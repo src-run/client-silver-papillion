@@ -16,9 +16,6 @@ use Liip\ImagineBundle\Imagine\Cache\Resolver\WebPathResolver;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\RequestContext;
 
-/**
- * Class RemoteLoader.
- */
 class RemoteResolver extends WebPathResolver
 {
     /**
@@ -52,5 +49,3 @@ class RemoteResolver extends WebPathResolver
         return sprintf('%s/%s/%s', $this->cachePrefix, $filter, ltrim($relativePath, '/'));
     }
 }
-
-/* EOF */

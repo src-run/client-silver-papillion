@@ -12,16 +12,11 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Component\Environment\Environment;
-use AppBundle\Component\Facebook\Model\AbstractModel;
 use AppBundle\Component\Facebook\Provider\ProviderInterface;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Class FacebookExtension.
- */
-class FacebookExtension extends TwigExtension
+class FacebookExtension extends AbstractExtension
 {
     /**
      * @var Environment
@@ -41,46 +36,26 @@ class FacebookExtension extends TwigExtension
     {
         $this->provider = $provider;
         $this->environment = $environment;
-
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('is_facebook_feed_direct', [$this, 'isFacebookFeedDirect']),
-            new TwigFunctionDefinition('is_facebook_feed_cached', [$this, 'isFacebookFeedCached']),
-            new TwigFunctionDefinition('facebook_feed_direct',    [$this, 'facebookFeedDirect']),
-            new TwigFunctionDefinition('facebook_feed_cached',    [$this, 'facebookFeedCached']),
-        ]);
     }
 
     /**
-     * @return bool
+     * @return array|\Twig_Function[]
      */
-    public function isFacebookFeedDirect()
+    public function getFunctions(): array
     {
-        return $this->provider->has();
-    }
-
-    /**
-     * @return AbstractModel
-     */
-    public function facebookFeedDirect()
-    {
-        return $this->provider->get();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isFacebookFeedCached()
-    {
-        return $this->provider->hasCached();
-    }
-
-    /**
-     * @return AbstractModel||PageFeed
-     */
-    public function facebookFeedCached()
-    {
-        return $this->provider->getCached();
+        return [
+            new TwigFunction('is_facebook_feed_direct', function () {
+                return $this->provider->has();
+            }),
+            new TwigFunction('is_facebook_feed_cached', function () {
+                return $this->provider->hasCached();
+            }),
+            new TwigFunction('facebook_feed_direct', function () {
+                return $this->provider->get();
+            }),
+            new TwigFunction('facebook_feed_cached', function () {
+                return $this->provider->getCached();
+            }),
+        ];
     }
 }
-
-/* EOF */

@@ -12,24 +12,31 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Twig\Helper\UrlTransformerExtensionHelper;
-use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-/**
- * Class UrlTransformerExtension.
- */
-class UrlTransformerExtension extends TwigExtension
+class UrlTransformerExtension extends AbstractExtension
 {
+    /**
+     * @var UrlTransformerExtensionHelper
+     */
+    private $helper;
+
     /**
      * @param UrlTransformerExtensionHelper $helper
      */
     public function __construct(UrlTransformerExtensionHelper $helper)
     {
-        parent::__construct(new TwigOptionsDefinition(), [
-            new TwigFilterDefinition('url_abs_to_rel', [$helper, 'urlAbsToRel']),
-        ]);
+        $this->helper = $helper;
+    }
+
+    /**
+     * @return array|\Twig_Filter[]
+     */
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('url_abs_to_rel', [$this->helper, 'urlAbsToRel']),
+        ];
     }
 }
-
-/* EOF */

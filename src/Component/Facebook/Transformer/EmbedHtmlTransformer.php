@@ -13,9 +13,6 @@ namespace AppBundle\Component\Facebook\Transformer;
 
 use AppBundle\Component\Facebook\Model\AbstractModel;
 
-/**
- * Class EmbedHtmlTransformer.
- */
 class EmbedHtmlTransformer implements TransformerInterface
 {
     /**
@@ -32,5 +29,3 @@ class EmbedHtmlTransformer implements TransformerInterface
         return $data;
     }
 }
-
-/* EOF */

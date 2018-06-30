@@ -192,5 +192,3 @@ class WineCaddyCommand extends ContainerAwareCommand
         return $prodName;
     }
 }
-
-/* EOF */

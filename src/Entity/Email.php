@@ -13,9 +13,6 @@ namespace AppBundle\Entity;
 
 use WhiteOctober\SwiftMailerDBBundle\EmailInterface;
 
-/**
- * Class Email.
- */
 class Email implements EmailInterface
 {
     /**
@@ -218,5 +215,3 @@ class Email implements EmailInterface
         return unserialize($message);
     }
 }
-
-/* EOF */

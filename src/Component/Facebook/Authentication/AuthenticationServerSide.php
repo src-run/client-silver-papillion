@@ -177,5 +177,3 @@ class AuthenticationServerSide implements AuthenticationInterface
         return sprintf('%s?%s', self::OAUTH_ENDPOINT, $query);
     }
 }
-
-/* EOF */

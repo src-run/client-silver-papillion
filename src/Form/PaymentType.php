@@ -17,9 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * Class PaymentType.
- */
 class PaymentType extends AbstractType
 {
     /**
@@ -66,5 +63,3 @@ class PaymentType extends AbstractType
         return $c;
     }
 }
-
-/* EOF */

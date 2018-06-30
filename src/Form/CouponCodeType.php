@@ -29,5 +29,3 @@ class CouponCodeType extends AbstractType
             ->add('submit', SubmitType::class);
     }
 }
-
-/* EOF */

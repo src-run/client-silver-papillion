@@ -14,9 +14,6 @@ namespace AppBundle\Component\Facebook\Factory;
 use AppBundle\Component\Facebook\Exception\FacebookException;
 use Facebook\Facebook;
 
-/**
- * Class FacebookFactory.
- */
 class FacebookFactory
 {
     /**
@@ -50,5 +47,3 @@ class FacebookFactory
         return static::$facebook;
     }
 }
-
-/* EOF */

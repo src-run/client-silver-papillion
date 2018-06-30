@@ -115,5 +115,3 @@ class CouponManager extends AbstractManager
         return $this->getRepository()->findSingleByName($name);
     }
 }
-
-/* EOF */

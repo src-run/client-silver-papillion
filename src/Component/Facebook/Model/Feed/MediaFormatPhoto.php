@@ -11,9 +11,6 @@
 
 namespace AppBundle\Component\Facebook\Model\Feed;
 
-/**
- * Class MediaFormatPhoto.
- */
 class MediaFormatPhoto extends MediaFormat
 {
     /**
@@ -25,5 +22,3 @@ class MediaFormatPhoto extends MediaFormat
         ],
     ];
 }
-
-/* EOF */

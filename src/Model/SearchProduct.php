@@ -59,5 +59,3 @@ class SearchProduct
         return false !== strpos(strtolower($this->getName()), strtolower($search));
     }
 }
-
-/* EOF */

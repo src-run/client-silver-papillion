@@ -12,9 +12,6 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-/**
- * Class AppKernel.
- */
 class AppKernel extends Kernel
 {
     /**
@@ -87,5 +84,3 @@ class AppKernel extends Kernel
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 }
-
-/* EOF */

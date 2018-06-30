@@ -13,9 +13,6 @@ namespace AppBundle\Model;
 
 use AppBundle\Entity\Product;
 
-/**
- * Class CartGroup.
- */
 class CartGroup
 {
     /**
@@ -101,5 +98,3 @@ class CartGroup
         return $this->items[0]->getName();
     }
 }
-
-/* EOF */

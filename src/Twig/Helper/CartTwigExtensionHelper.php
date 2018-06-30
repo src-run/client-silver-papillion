@@ -14,11 +14,7 @@ namespace AppBundle\Twig\Helper;
 use AppBundle\Entity\Coupon;
 use AppBundle\Entity\Product;
 use AppBundle\Model\Cart;
-use Symfony\Component\VarDumper\VarDumper;
 
-/**
- * Class CartTwigExtensionHelper.
- */
 class CartTwigExtensionHelper
 {
     /**
@@ -159,5 +155,3 @@ class CartTwigExtensionHelper
         return $this->cart->couponErrorMessage();
     }
 }
-
-/* EOF */

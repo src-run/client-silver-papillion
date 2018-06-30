@@ -11,9 +11,6 @@
 
 namespace AppBundle\Twig\Helper;
 
-/**
- * Class VichFilePathExtension.
- */
 class VichFilePathExtensionHelper
 {
     /**
@@ -69,5 +66,3 @@ class VichFilePathExtensionHelper
         return $this->assetUploaded($file, 'carousel');
     }
 }
-
-/* EOF */

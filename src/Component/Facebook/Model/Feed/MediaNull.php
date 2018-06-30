@@ -11,11 +11,6 @@
 
 namespace AppBundle\Component\Facebook\Model\Feed;
 
-/**
- * Class MediaNull.
- */
 class MediaNull extends Media
 {
 }
-
-/* EOF */

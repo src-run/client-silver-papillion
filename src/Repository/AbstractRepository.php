@@ -14,11 +14,10 @@ namespace AppBundle\Repository;
 use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use SR\Exception\Runtime\RuntimeException;
-use SR\Util\Info\ClassInfo;
-use SR\Util\Transform\StringTransform;
+use SR\Utilities\ClassQuery;
+use SR\Utilities\Transform\StringTransform;
 
 abstract class AbstractRepository extends EntityRepository
 {
@@ -109,7 +108,7 @@ abstract class AbstractRepository extends EntityRepository
     /**
      * @param Query\Parameter $parameter
      *
-     * @throws ORMException
+     * @throws \RuntimeException
      *
      * @return string
      */
@@ -164,6 +163,6 @@ abstract class AbstractRepository extends EntityRepository
      */
     private function getClassNameShort()
     {
-        return ClassInfo::getNameShort($this->getClassName());
+        return ClassQuery::getNameShort($this->getClassName());
     }
 }

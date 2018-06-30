@@ -15,9 +15,6 @@ use AppBundle\Component\Facebook\Authentication\AuthenticationInterface;
 use AppBundle\Component\Facebook\Model\AbstractModel;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 
-/**
- * Class ProviderInterface.
- */
 interface ProviderInterface
 {
     /**
@@ -80,5 +77,3 @@ interface ProviderInterface
      */
     public function has();
 }
-
-/* EOF */

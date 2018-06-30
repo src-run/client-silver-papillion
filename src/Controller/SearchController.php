@@ -32,7 +32,7 @@ class SearchController extends AbstractProductAwareController
         }
 
         return $this->render('AppBundle:search:search.html.twig', [
-            'categories' => $this->categoryManager->getAll(),
+            'categories' => $this->categoryManager->getAllByWeight(),
             'search'     => $form->createFormView(),
             'searchTerm' => urldecode($search),
             'products'   => $this->productManager->getByNameKeywords($search),

@@ -12,30 +12,45 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Twig\Helper\FrameworkReflectExtensionHelper;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Class FrameworkReflectTwigExtension.
- */
-class FrameworkReflectTwigExtension extends TwigExtension
+class FrameworkReflectTwigExtension extends AbstractExtension
 {
+    /**
+     * @var FrameworkReflectExtensionHelper
+     */
+    private $helper;
+
     /**
      * @param FrameworkReflectExtensionHelper $helper
      */
     public function __construct(FrameworkReflectExtensionHelper $helper)
     {
-        $options = new TwigOptionsDefinition(['is_safe' => ['html']]);
+        $this->helper = $helper;
+    }
 
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('framework_env', [$helper, 'getEnvironment'], $options),
-            new TwigFunctionDefinition('framework_debug', [$helper, 'isDebug'], $options),
-            new TwigFunctionDefinition('framework_name', [$helper, 'getName'], $options),
-            new TwigFunctionDefinition('framework_version', [$helper, 'getKernelId'], $options),
-            new TwigFunctionDefinition('framework_eol', [$helper, 'getEndOfLife'], $options),
-        ]);
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('framework_env', function (): string {
+                return $this->helper->getEnvironment();
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('framework_debug', function (): bool {
+                return $this->helper->isDebug();
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('framework_name', function (): string {
+                return $this->helper->getName();
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('framework_version', function (): int {
+                return $this->helper->getKernelId();
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('framework_eol', function (): string {
+                return $this->helper->getEndOfLife();
+            }, ['is_safe' => ['html']]),
+        ];
     }
 }
-
-/* EOF */

@@ -14,9 +14,6 @@ namespace AppBundle\Manager;
 use AppBundle\Entity\Configuration;
 use AppBundle\Repository\ConfigurationRepository;
 
-/**
- * Class ConfigurationManager.
- */
 class ConfigurationManager extends AbstractManager
 {
     /**
@@ -63,5 +60,3 @@ class ConfigurationManager extends AbstractManager
         }
     }
 }
-
-/* EOF */

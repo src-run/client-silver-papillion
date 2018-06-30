@@ -95,5 +95,3 @@ class Mailer
         $this->flush();
     }
 }
-
-/* EOF */

@@ -11,9 +11,6 @@
 
 namespace AppBundle\Model;
 
-/**
- * Class Payment.
- */
 class Payment
 {
     /**
@@ -168,5 +165,3 @@ class Payment
         $this->stripeToken = $stipeToken;
     }
 }
-
-/* EOF */

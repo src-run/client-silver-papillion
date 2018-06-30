@@ -64,5 +64,3 @@ interface CacheInterface
      */
     public function commit() : bool;
 }
-
-/* EOF */

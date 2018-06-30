@@ -11,11 +11,16 @@
 
 namespace AppBundle\Component\Location\Resolver;
 
+use AppBundle\Component\Location\Model\Field\CollectionField;
+use AppBundle\Component\Location\Model\Field\FieldInterface;
+use AppBundle\Component\Location\Model\Field\LocalizedField;
+use AppBundle\Component\Location\Model\Field\NullField;
+use AppBundle\Component\Location\Model\Field\ScalarField;
 use AppBundle\Component\Location\Model\LocationModel;
 use SR\Exception\Logic\InvalidArgumentException;
-use SR\Util\Info\ClassInfo;
+use SR\Utilities\ClassQuery;
 
-abstract class AbstractLocationResolver implements LocationResolverInterface
+abstract class AbstractGeoIpResolver implements GeoIpResolverInterface
 {
     /**
      * @var string
@@ -59,7 +64,7 @@ abstract class AbstractLocationResolver implements LocationResolverInterface
      */
     final public function getType() : string
     {
-        return ClassInfo::getNameShort(static::class);
+        return ClassQuery::getNameShort(static::class);
     }
 
     /**
@@ -71,7 +76,7 @@ abstract class AbstractLocationResolver implements LocationResolverInterface
     }
 
     /**
-     * @param array $data
+     * @param FieldInterface[]|NullField[]|CollectionField[]|ScalarField[]|LocalizedField[] $data
      *
      * @return LocationModel
      */
@@ -96,7 +101,7 @@ abstract class AbstractLocationResolver implements LocationResolverInterface
     protected function hasResultFor(string $address): bool
     {
         try {
-            $this->getDatabaseResult($address);
+            $this->getFieldModels($address);
         } catch (InvalidArgumentException $e) {
             return false;
         }
@@ -112,16 +117,8 @@ abstract class AbstractLocationResolver implements LocationResolverInterface
     protected function getResultFor(string $address): LocationModel
     {
         try {
-            $result = $this->getDatabaseResult($address);
-
-            uksort($result, function ($a, $b) {
-                return $a > $b;
-            });
-
-            return $this->createValidLocationModel($result);
-
+            return $this->createValidLocationModel($this->getFieldModels($address));
         } catch (InvalidArgumentException $e) {
-
             return $this->createInvalidLocationModel();
         }
     }
@@ -132,13 +129,18 @@ abstract class AbstractLocationResolver implements LocationResolverInterface
     abstract protected function getDatabaseInstance();
 
     /**
+     * @return string[]
+     */
+    abstract protected static function getFieldMappings(): array;
+
+    /**
      * @param string $address
      *
      * @throws InvalidArgumentException On failed lookup
      *
      * @return mixed[]
      */
-    abstract protected function getDatabaseResult(string $address) : array;
+    abstract protected function getFieldModels(string $address) : array;
 }
 
 /* EOF */

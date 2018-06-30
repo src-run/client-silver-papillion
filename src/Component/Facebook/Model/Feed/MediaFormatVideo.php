@@ -11,9 +11,6 @@
 
 namespace AppBundle\Component\Facebook\Model\Feed;
 
-/**
- * Class MediaFormatVideo.
- */
 class MediaFormatVideo extends MediaFormat
 {
     /**
@@ -58,5 +55,3 @@ class MediaFormatVideo extends MediaFormat
         return $this->embeddableIframe;
     }
 }
-
-/* EOF */

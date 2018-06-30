@@ -22,9 +22,6 @@ use SR\Exception\ExceptionInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\CacheItem;
 
-/**
- * Class AbstractProvider.
- */
 abstract class AbstractProvider implements ProviderInterface
 {
     /**
@@ -173,13 +170,22 @@ abstract class AbstractProvider implements ProviderInterface
     }
 
     /**
-     * @return mixed
+     * @return AbstractModel|null
+     *
+     * @throws ExceptionInterface
+     * @throws \Exception
      */
     protected function refresh()
     {
+        if (null === $response = $this->getResponse()) {
+            return null;
+        }
+
         $item = $this->getCachedItem();
-        $item->set($response = $this->getResponse());
+        $item->set($response);
         $item->expiresAfter(new \DateInterval($this->getCacheTtl()));
+        dump($item);
+        dump($item->getKey());
         $this->getCache()->save($item);
 
         return $response;
@@ -223,11 +229,22 @@ abstract class AbstractProvider implements ProviderInterface
     abstract protected function hydrate(FacebookResponse $response);
 
     /**
-     * @return CacheItemInterface
+     * @return CacheItem
      */
-    protected function getCachedItem()
+    protected function getCachedItem(): CacheItem
     {
-        return new CacheItem();
+        try {
+            return $this->getCache()->getItem(
+                sprintf('facebook.feed.%s.%s', hash('sha256', get_called_class()), hash('sha256', $this->getEndpoint()))
+            );
+        } catch (\Psr\Cache\InvalidArgumentException $exception) {
+            throw new \InvalidArgumentException(sprintf(
+                'Failed to create cache item for "%s:%s" facebook provider: %s',
+                get_called_class(),
+                $this->getEndpoint(),
+                $exception->getMessage()
+            ));
+        }
     }
 
     /**
@@ -258,5 +275,3 @@ abstract class AbstractProvider implements ProviderInterface
         return (bool) (is_array($data) && isset($data['data']) && is_array($data['data']));
     }
 }
-
-/* EOF */

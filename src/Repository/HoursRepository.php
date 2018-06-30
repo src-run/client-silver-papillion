@@ -14,9 +14,6 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Hours;
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * Class HoursRepository.
- */
 class HoursRepository extends AbstractRepository
 {
     /**

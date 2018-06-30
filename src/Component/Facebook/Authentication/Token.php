@@ -11,9 +11,6 @@
 
 namespace AppBundle\Component\Facebook\Authentication;
 
-/**
- * Class Token.
- */
 class Token implements TokenInterface
 {
     private $token;
@@ -60,5 +57,3 @@ class Token implements TokenInterface
         return $this->token;
     }
 }
-
-/* EOF */

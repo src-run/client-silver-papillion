@@ -18,9 +18,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Class LoadUsers.
- */
 class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     /**

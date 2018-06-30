@@ -11,9 +11,6 @@
 
 namespace AppBundle\Model;
 
-/**
- * Class Shipment.
- */
 class Shipment
 {
     /**
@@ -250,5 +247,3 @@ class Shipment
         return $this;
     }
 }
-
-/* EOF */

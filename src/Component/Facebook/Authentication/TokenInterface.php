@@ -43,5 +43,3 @@ interface TokenInterface
      */
     public function getToken();
 }
-
-/* EOF */

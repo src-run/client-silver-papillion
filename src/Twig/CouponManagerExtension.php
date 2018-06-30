@@ -12,39 +12,41 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Manager\CouponManager;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class CouponManagerExtension extends TwigExtension
+class CouponManagerExtension extends AbstractExtension
 {
     /**
      * @var CouponManager
      */
     private $manager;
 
-    public function __construct()
-    {
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('get_featured_coupon', function () {
-                return $this->manager->getFeatured();
-            }),
-            new TwigFunctionDefinition('has_featured_coupon', function () {
-                return $this->manager->getFeatured() !== null;
-            }),
-            new TwigFunctionDefinition('get_published_coupons', function (int $count = 1000) {
-                return $this->manager->getPublished($count);
-            })
-        ]);
-    }
-
     /**
+     * CouponManagerExtension constructor.
+     *
      * @param CouponManager $manager
      */
-    public function setCouponManager(CouponManager $manager)
+    public function __construct(CouponManager $manager)
     {
         $this->manager = $manager;
     }
-}
 
-/* EOF */
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('get_featured_coupon', function () {
+                return $this->manager->getFeatured();
+            }),
+            new TwigFunction('has_featured_coupon', function () {
+                return $this->manager->getFeatured() !== null;
+            }),
+            new TwigFunction('get_published_coupons', function (int $count = 1000) {
+                return $this->manager->getPublished($count);
+            })
+        ];
+    }
+}

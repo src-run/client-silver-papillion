@@ -14,9 +14,6 @@ namespace AppBundle\Manager;
 use AppBundle\Entity\Hours;
 use AppBundle\Repository\HoursRepository;
 
-/**
- * Class HoursManager.
- */
 class HoursManager extends AbstractManager
 {
     /**
@@ -40,5 +37,3 @@ class HoursManager extends AbstractManager
         return $this->getRepository()->findAllOrderByIso8601();
     }
 }
-
-/* EOF */

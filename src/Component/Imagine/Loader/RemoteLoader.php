@@ -13,29 +13,14 @@ namespace AppBundle\Component\Imagine\Loader;
 
 use AppBundle\Component\Imagine\Loader\Cache\LoaderCache;
 use AppBundle\Component\Imagine\Loader\Cache\LoaderCacheInterface;
-use Liip\ImagineBundle\Binary\Loader\LoaderInterface;
-use Liip\ImagineBundle\Binary\MimeTypeGuesserInterface;
-use Liip\ImagineBundle\Exception\Binary\Loader\NotLoadableException;
-use Liip\ImagineBundle\Model\FileBinary;
+use Liip\ImagineBundle\Exception\File\Loader\NotLoadableException;
+use Liip\ImagineBundle\File\FileInterface;
+use Liip\ImagineBundle\File\FilePath;
+use Liip\ImagineBundle\Imagine\Data\Loader\LoaderInterface;
 use Psr\Cache\CacheItemInterface;
-use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
-use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesserInterface;
 
-/**
- * Class RemoteLoader.
- */
 class RemoteLoader implements LoaderInterface
 {
-    /**
-     * @var MimeTypeGuesserInterface
-     */
-    private $mimeTypeGuesser;
-
-    /**
-     * @var ExtensionGuesser
-     */
-    private $extensionGuesser;
-
     /**
      * @var LoaderCacheInterface
      */
@@ -47,82 +32,42 @@ class RemoteLoader implements LoaderInterface
     private $temporaryDirectory;
 
     /**
-     * @param string                    $temporaryDirectory
-     * @param MimeTypeGuesserInterface  $mimeType
-     * @param ExtensionGuesserInterface $extension
-     * @param LoaderCacheInterface      $cache
+     * @param string               $temporaryDirectory
+     * @param LoaderCacheInterface $cache
      */
-    public function __construct($temporaryDirectory, MimeTypeGuesserInterface $mimeType, ExtensionGuesserInterface $extension, LoaderCacheInterface $cache)
+    public function __construct($temporaryDirectory, LoaderCacheInterface $cache)
     {
         $this->temporaryDirectory = LoaderCache::ensureValidCacheDirectory($temporaryDirectory);
-        $this->mimeTypeGuesser = $mimeType;
-        $this->extensionGuesser = $extension;
         $this->remoteCache = $cache;
     }
 
     /**
      * @param string $url
      *
-     * @return FileBinary
+     * @throws \Psr\Cache\InvalidArgumentException
+     *
+     * @return FileInterface
      */
-    public function find($url)
+    public function find(string $url): FileInterface
     {
         if (!static::validateUrl($url)) {
             throw new NotLoadableException('Invalid remote URL: '.$url);
         }
 
-        $this->handleRemoteFileLoad($url);
-        list($absolutePath, , $mimeType, $extension) = $this->info($url);
-
-        return new FileBinary($absolutePath, $mimeType, $extension);
-    }
-
-    /**
-     * @param string $url
-     *
-     * @return MimeTypeGuesserInterface[]|ExtensionGuesserInterface[]|string[]
-     */
-    public function info($url)
-    {
-        $url = static::sanitizeUrl($url);
-        $file = $this->getCacheEntry($url);
-
-        $mimeType = $this->mimeTypeGuesser->guess($file->get());
-        $extension = $this->extensionGuesser->guess($mimeType);
-
-        return [
-            $this->writeTemporaryFile($url, $file, $extension),
-            sprintf('%s.%s', static::slugifyUrl($url), $extension),
-            $mimeType,
-            $extension,
-        ];
-    }
-
-    /**
-     * @param string $url
-     *
-     * @return MimeTypeGuesserInterface[]|ExtensionGuesserInterface[]|string[]
-     */
-    private function handleRemoteFileLoad($url)
-    {
-        $url = static::sanitizeUrl($url);
-        $file = $this->getCacheEntry($url);
+        $file = $this->remoteCache->getItem(static::slugifyUrl(
+            $url = static::sanitizeUrl($url)
+        ));
 
         if (!$file->isHit()) {
-            $this->refreshCacheEntry($url, $file);
+            if (false === $remoteContents = @file_get_contents($url)) {
+                throw new NotLoadableException(sprintf('Could not fetch remote URL %s', $url));
+            }
+
+            $file->set($remoteContents);
+            $this->remoteCache->save($file);
         }
 
-        return $this->info($url);
-    }
-
-    /**
-     * @param string $url
-     *
-     * @return \Psr\Cache\CacheItemInterface
-     */
-    public function getCacheEntry($url)
-    {
-        return $this->remoteCache->getItem(static::slugifyUrl($url));
+        return FilePath::create($this->writeTemporaryFile($url, $file));
     }
 
     /**
@@ -131,34 +76,15 @@ class RemoteLoader implements LoaderInterface
      *
      * @return string
      */
-    private function refreshCacheEntry($url, CacheItemInterface $file)
+    private function writeTemporaryFile($url, CacheItemInterface $file)
     {
-        $remoteContents = file_get_contents($url);
+        $temporary = sprintf('%s%s.download', $this->temporaryDirectory, static::slugifyUrl($url));
 
-        if (!$remoteContents) {
-            throw new NotLoadableException(sprintf('Could not fetch remote URL %s', $url));
+        if (false === file_put_contents($temporary, $file->get())) {
+            throw new NotLoadableException(sprintf('Unable to save temporary local copy (%s) of remote file (%s).', $temporary, $url));
         }
 
-        $file->set($remoteContents);
-        $this->remoteCache->save($file);
-    }
-
-    /**
-     * @param string             $url
-     * @param CacheItemInterface $file
-     * @param string             $extension
-     *
-     * @return string
-     */
-    private function writeTemporaryFile($url, CacheItemInterface $file, $extension)
-    {
-        $temporaryDirectory = sprintf('%s%s.%s', $this->temporaryDirectory, static::slugifyUrl($url), $extension);
-
-        if (false === file_put_contents($temporaryDirectory, $file->get())) {
-            throw new NotLoadableException(sprintf('Unable to save temporary local copy (%s) of remote file (%s).', $temporaryDirectory, $url));
-        }
-
-        return $temporaryDirectory;
+        return $temporary;
     }
 
     /**
@@ -191,5 +117,3 @@ class RemoteLoader implements LoaderInterface
         return filter_var($url, FILTER_VALIDATE_URL);
     }
 }
-
-/* EOF */

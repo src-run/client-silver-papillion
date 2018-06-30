@@ -11,7 +11,7 @@
 
 namespace AppBundle\Model;
 
-use AppBundle\Component\Location\LocationLookupInterface;
+use AppBundle\Component\Location\GeoIpLookupInterface;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Coupon;
 use AppBundle\Entity\Product;
@@ -21,9 +21,6 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\VarDumper\VarDumper;
 
-/**
- * Class Cart.
- */
 class Cart implements \Serializable
 {
     /**
@@ -72,7 +69,7 @@ class Cart implements \Serializable
     protected $coupon;
 
     /**
-     * @var LocationLookupInterface
+     * @var GeoIpLookupInterface
      */
     protected $locationLookup;
 
@@ -80,9 +77,9 @@ class Cart implements \Serializable
      * @param Session                 $session
      * @param EntityManager           $entityManager
      * @param ConfigurationManager    $configurationManager
-     * @param LocationLookupInterface $locationLookup
+     * @param GeoIpLookupInterface $locationLookup
      */
-    public function __construct(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager, LocationLookupInterface $locationLookup)
+    public function __construct(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager, GeoIpLookupInterface $locationLookup)
     {
         $this->setSession($session);
         $this->setEntityManager($entityManager);
@@ -105,11 +102,11 @@ class Cart implements \Serializable
      * @param Session                 $session
      * @param EntityManager           $entityManager
      * @param ConfigurationManager    $configurationManager
-     * @param LocationLookupInterface $locationLookup
+     * @param GeoIpLookupInterface $locationLookup
      *
      * @return mixed|static
      */
-    public static function create(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager, LocationLookupInterface $locationLookup)
+    public static function create(Session $session, EntityManager $entityManager, ConfigurationManager $configurationManager, GeoIpLookupInterface $locationLookup)
     {
         if ($session->has(static::SESSION_KEY)) {
             $instance = unserialize($session->get(static::SESSION_KEY));
@@ -153,9 +150,9 @@ class Cart implements \Serializable
     }
 
     /**
-     * @param LocationLookupInterface $locationLookup
+     * @param GeoIpLookupInterface $locationLookup
      */
-    public function setLocationLookup(LocationLookupInterface $locationLookup)
+    public function setLocationLookup(GeoIpLookupInterface $locationLookup)
     {
         $this->locationLookup = $locationLookup;
     }
@@ -487,5 +484,3 @@ class Cart implements \Serializable
         $this->coupon = $data['coupon'] ?? null;
     }
 }
-
-/* EOF */

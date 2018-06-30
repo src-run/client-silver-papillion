@@ -11,9 +11,6 @@
 
 namespace AppBundle\Twig\Helper;
 
-/**
- * Class UrlTransformerExtensionHelper.
- */
 class UrlTransformerExtensionHelper
 {
     public function urlAbsToRel($url)
@@ -36,5 +33,3 @@ class UrlTransformerExtensionHelper
         return $return;
     }
 }
-
-/* EOF */

@@ -11,9 +11,6 @@
 
 namespace AppBundle\Entity;
 
-/**
- * Class OrderItem.
- */
 class OrderItem
 {
     /**
@@ -129,5 +126,3 @@ class OrderItem
         $this->total = $total;
     }
 }
-
-/* EOF */

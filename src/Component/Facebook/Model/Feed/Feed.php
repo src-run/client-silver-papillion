@@ -13,9 +13,6 @@ namespace AppBundle\Component\Facebook\Model\Feed;
 
 use AppBundle\Component\Facebook\Model\AbstractModel;
 
-/**
- * Class Feed.
- */
 class Feed extends AbstractModel implements \IteratorAggregate
 {
     /**
@@ -71,5 +68,3 @@ class Feed extends AbstractModel implements \IteratorAggregate
         return $this->posts;
     }
 }
-
-/* EOF */

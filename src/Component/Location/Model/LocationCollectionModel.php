@@ -11,6 +11,7 @@
 
 namespace AppBundle\Component\Location\Model;
 
+use SR\Reflection\Exception\InvalidArgumentException;
 use SR\Reflection\Inspect;
 
 final class LocationCollectionModel implements \Countable, \IteratorAggregate
@@ -51,16 +52,17 @@ final class LocationCollectionModel implements \Countable, \IteratorAggregate
     private function callDynamicHasMethod(string $method) : bool
     {
         $property = lcfirst(substr($method, 3));
-        dump($property);
 
         foreach ($this->locations as $l) {
-            $r = Inspect::useInstance($l);
-            $p = $r->getProperty('data');
-            $v = $p->value($l);
+            try {
+                $r = Inspect::useInstance($l);
+                $p = $r->getProperty('data');
+                $v = $p->value($l);
 
-            if (isset($v[$property]) && null !== $v[$property]) {
-                return true;
-            }
+                if (isset($v[$property]) && null !== $v[$property]) {
+                    return true;
+                }
+            } catch (InvalidArgumentException $e) {}
         }
 
         return false;

@@ -15,22 +15,32 @@ use AppBundle\Twig\Helper\UrlToFileExtensionHelper;
 use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
 use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
 use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-/**
- * Class UrlToFileExtension.
- */
-class UrlToFileExtension extends TwigExtension
+class UrlToFileExtension extends AbstractExtension
 {
+    /**
+     * @var UrlToFileExtensionHelper
+     */
+    private $helper;
+
     /**
      * @param UrlToFileExtensionHelper $helper
      */
     public function __construct(UrlToFileExtensionHelper $helper)
     {
-        parent::__construct(new TwigOptionsDefinition(), [
-            new TwigFilterDefinition('url_to_file', [$helper, 'urlToFile']),
-            new TwigFilterDefinition('cache_url', [$helper, 'urlToFile']),
-        ]);
+        $this->helper = $helper;
+    }
+
+    /**
+     * @return array|\Twig_Filter[]
+     */
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('url_to_file', [$this->helper, 'urlToFile']),
+            new TwigFilter('cache_url', [$this->helper, 'urlToFile']),
+        ];
     }
 }
-
-/* EOF */

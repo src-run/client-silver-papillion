@@ -11,6 +11,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Product;
 use AppBundle\Manager\CategoryManager;
 use AppBundle\Manager\ConfigurationManager;
 use AppBundle\Manager\CouponManager;
@@ -66,15 +67,38 @@ class DefaultController extends AbstractProductAwareController
      */
     public function indexAction(): Response
     {
+        $featuredWineCaddies = $this->productManager->getFeaturedWineCaddyProducts(
+            $this->configurationValue('product.count.featured_wine_caddies', 3)
+        );
+        $featuredWineCaddiesIds = array_map(function (Product $product): int {
+            return $product->getId();
+        }, $featuredWineCaddies);
+
+        $featuredCategory = $this->categoryManager->getRandomNot('wine-caddies');
+        $featuredCategoryProducts = $this->productManager->getRandomProductsInCategory(
+            $featuredCategory,
+            $featuredWineCaddiesIds,
+            $this->configurationValue('product.count.featured_category', 3)
+        );
+        $featuredCategoryIds = array_map(function (Product $product): int {
+            return $product->getId();
+        }, $featuredCategoryProducts);
+
+        $featuredRandom = $this->productManager->getRandomFromAllCategories(
+            array_merge($featuredWineCaddiesIds, $featuredCategoryIds),
+            $this->configurationValue('product.count.featured', 3)
+        );
+
         return $this->render('AppBundle:default:index.html.twig', [
-            'featured'   => $this->productManager->getFeatured(
-                $this->configurationValue('product.count.featured', 3)
-            ),
-            'hours'      => $this->hoursManager->getAll(),
-            'staticMaps' => $this->mapperStatic->generate(
+            'featured_wine_caddy_products' => $featuredWineCaddies,
+            'featured_category' => $featuredCategory,
+            'featured_category_products' => $featuredCategoryProducts,
+            'featured_random_products' => $featuredRandom,
+            'hours' => $this->hoursManager->getAll(),
+            'maps_static' => $this->mapperStatic->generate(
                 $this->configurationValue('maps.size.default', '420x220')
             ),
-            'showCoupon' => !$this->couponManager->getCouponViewedState(),
+            'coupon_modal' => !$this->couponManager->getCouponViewedState(),
         ]);
     }
 }

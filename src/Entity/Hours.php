@@ -11,9 +11,6 @@
 
 namespace AppBundle\Entity;
 
-/**
- * Class Hours.
- */
 class Hours
 {
     /**
@@ -166,5 +163,3 @@ class Hours
         return $this->timeClose;
     }
 }
-
-/* EOF */

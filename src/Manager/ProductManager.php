@@ -58,14 +58,70 @@ class ProductManager extends AbstractManager
     }
 
     /**
+     * @param int $limit
+     *
      * @return Product[]
      */
-    public function getFeatured($limit = 3)
+    public function getFeaturedWineCaddyProducts($limit = 3)
     {
-        $featured = $this->getRepository()->findFeatured();
+        $featured = $this->getRepository()->findFeaturedInCategory(
+            $this->em->getRepository(Category::class)->findBy([
+                'slug' => 'wine-caddies',
+            ])[0]
+        );
         shuffle($featured);
 
         return array_slice($featured, 0, $limit);
+    }
+
+    /**
+     * @param Category $category
+     * @param array    $notIds
+     * @param int      $limit
+     *
+     * @return Product[]
+     */
+    public function getRandomProductsInCategory(Category $category, array $notIds, int $limit = 3)
+    {
+        $random = array_filter($this->getRepository()->findInCategory($category), function (Product $product) use ($notIds): bool {
+            return !in_array($product->getId(), $notIds);
+        });
+
+        shuffle($random);
+
+        return array_slice($random, 0, $limit);
+    }
+
+    /**
+     * @param array $notIds
+     * @param int   $limit
+     *
+     * @return Product[]
+     */
+    public function getRandomFromAllCategories(array $notIds, int $limit = 3)
+    {
+        $categories = $this->em->getRepository(Category::class)->findAllOrderByWeight();
+        $random = [];
+        foreach ($categories as $c) {
+            $r = array_filter($this->getRepository()->findInCategory($c), function (Product $product) use ($notIds): bool {
+                return !in_array($product->getId(), $notIds);
+            });
+            $c = count($r);
+            shuffle($r);
+            if ($c > 0) {
+                $random[] = array_shift($r);
+            }
+            if ($c > 1) {
+                $random[] = array_shift($r);
+            }
+            if ($c > 2) {
+                $random[] = array_shift($r);
+            }
+        }
+
+        shuffle($random);
+
+        return array_slice($random, 0, $limit);
     }
 
     /**
@@ -130,10 +186,7 @@ class ProductManager extends AbstractManager
                 return true;
             })));
             $this->cache->save($item);
-            VarDumper::dump('SAVE');
         }
-
-        VarDumper::dump($item->get());
 
         return $item->get();
     }
@@ -253,5 +306,3 @@ class ProductManager extends AbstractManager
         ]);
     }
 }
-
-/* EOF */

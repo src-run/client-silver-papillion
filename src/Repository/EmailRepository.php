@@ -11,9 +11,6 @@
 
 namespace AppBundle\Repository;
 
-/**
- * Class EmailRepository.
- */
 class EmailRepository extends AbstractRepository
 {
 }

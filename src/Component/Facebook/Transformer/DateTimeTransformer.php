@@ -13,9 +13,6 @@ namespace AppBundle\Component\Facebook\Transformer;
 
 use AppBundle\Component\Facebook\Exception\FacebookException;
 
-/**
- * Class DateTimeTransformer.
- */
 class DateTimeTransformer implements TransformerInterface
 {
     /**
@@ -41,5 +38,3 @@ class DateTimeTransformer implements TransformerInterface
         throw FacebookException::create('Could not transform data value (%s) to \DateTime object instance.', $data);
     }
 }
-
-/* EOF */

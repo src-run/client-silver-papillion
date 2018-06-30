@@ -13,13 +13,10 @@ namespace AppBundle\Twig;
 
 use AppBundle\Entity\Coupon;
 use AppBundle\Manager\CouponManager;
-use AppBundle\Repository\CouponRepository;
-use Doctrine\ORM\EntityManager;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class ReturningCustomerCoupon extends TwigExtension
+class ReturningCustomerCoupon extends AbstractExtension
 {
     /**
      * @var string
@@ -42,15 +39,18 @@ class ReturningCustomerCoupon extends TwigExtension
     public function __construct(CouponManager $manager)
     {
         $this->manager = $manager;
+    }
 
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('has_returning_customer_coupon', function () {
-                return $this->hasCoupon();
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('has_returning_customer_coupon', function () {
+                return null !== $this->coupon;
             }),
-            new TwigFunctionDefinition('returning_customer_coupon', function () {
+            new TwigFunction('returning_customer_coupon', function () {
                 return $this->getCoupon();
             }),
-        ]);
+        ];
     }
 
     /**
@@ -73,13 +73,5 @@ class ReturningCustomerCoupon extends TwigExtension
         }
 
         return $this->coupon;
-    }
-
-    /**
-     * @return bool
-     */
-    private function hasCoupon(): bool
-    {
-        return null !== $this->coupon;
     }
 }

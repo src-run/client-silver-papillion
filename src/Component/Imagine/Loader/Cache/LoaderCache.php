@@ -14,9 +14,6 @@ namespace AppBundle\Component\Imagine\Loader\Cache;
 use AppBundle\Component\Imagine\Exception\LoaderCacheException;
 use Symfony\Component\Cache\Adapter\AbstractAdapter;
 
-/**
- * Class LoaderCache.
- */
 class LoaderCache extends AbstractAdapter implements LoaderCacheInterface
 {
     /**
@@ -239,5 +236,3 @@ class LoaderCache extends AbstractAdapter implements LoaderCacheInterface
         return $directoryPath;
     }
 }
-
-/* EOF */

@@ -12,9 +12,6 @@
 namespace AppBundle\Twig\Helper;
 use SR\Silencer\CallSilencerFactory;
 
-/**
- * Class UrlToFileExtensionHelper.
- */
 class UrlToFileExtensionHelper
 {
     /**
@@ -127,5 +124,3 @@ class UrlToFileExtensionHelper
         return $webFilePath;
     }
 }
-
-/* EOF */

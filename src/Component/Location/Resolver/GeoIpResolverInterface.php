@@ -13,7 +13,7 @@ namespace AppBundle\Component\Location\Resolver;
 
 use AppBundle\Component\Location\Model\LocationModel;
 
-interface LocationResolverInterface
+interface GeoIpResolverInterface
 {
     /**
      * Check if IP address information is available

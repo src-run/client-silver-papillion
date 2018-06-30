@@ -12,6 +12,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -198,7 +199,7 @@ class Category
     }
 
     /**
-     * @return Product[]
+     * @return Product[]|PersistentCollection
      */
     public function getProducts()
     {
@@ -210,8 +211,11 @@ class Category
      */
     public function getProductsShuffled()
     {
-        $products = $this->products->toArray();
-         shuffle($products);
+        $products = array_filter($this->products->toArray(), function (Product $product): bool {
+            return $product->isEnabled();
+        });
+
+        shuffle($products);
 
         return new ArrayCollection($products);
     }
@@ -256,5 +260,3 @@ class Category
         return $this;
     }
 }
-
-/* EOF */

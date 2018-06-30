@@ -14,9 +14,6 @@ namespace AppBundle\Manager;
 use AppBundle\Entity\CarouselSlide;
 use AppBundle\Repository\CarouselSlideRepository;
 
-/**
- * Class CarouselSlideManager.
- */
 class CarouselSlideManager extends AbstractManager
 {
     /**
@@ -40,5 +37,3 @@ class CarouselSlideManager extends AbstractManager
         return $this->getRepository()->findAllEnabledOrderedByWeight();
     }
 }
-
-/* EOF */

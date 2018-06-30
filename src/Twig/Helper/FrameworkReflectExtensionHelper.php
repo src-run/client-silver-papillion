@@ -14,9 +14,6 @@ namespace AppBundle\Twig\Helper;
 use SR\Exception\Logic\InvalidArgumentException;
 use Symfony\Component\HttpKernel\Kernel;
 
-/**
- * Class FrameworkReflectExtensionHelper.
- */
 class FrameworkReflectExtensionHelper
 {
     /**
@@ -105,5 +102,3 @@ class FrameworkReflectExtensionHelper
         }
     }
 }
-
-/* EOF */

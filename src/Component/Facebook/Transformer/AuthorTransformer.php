@@ -11,9 +11,6 @@
 
 namespace AppBundle\Component\Facebook\Transformer;
 
-/**
- * Class AuthorTransformer.
- */
 class AuthorTransformer implements TransformerInterface
 {
     /**
@@ -26,5 +23,3 @@ class AuthorTransformer implements TransformerInterface
         return isset($data['name']) ? $data['name'] : null;
     }
 }
-
-/* EOF */

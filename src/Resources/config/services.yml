@@ -81,20 +81,20 @@ services :
       - "@app.cart"
 
   AppBundle\Twig\CategoryManagerExtension:
-    calls  :
-      - [setCategoryManager, ["@app.manager.category"]]
+    arguments :
+      - "@app.manager.category"
 
   AppBundle\Twig\CouponManagerExtension:
-    calls  :
-      - [setCouponManager, ["@app.manager.coupon"]]
+    arguments :
+      - "@app.manager.coupon"
 
   AppBundle\Twig\ContentBlockExtension:
-    calls  :
-      - [setContentBlockManager, ["@app.manager.content_block"]]
+    arguments :
+      - "@app.manager.content_block"
 
   AppBundle\Twig\ConfigurationExtension:
-    calls  :
-      - [setConfigurationManager, ["@app.manager.configuration"]]
+    arguments :
+      - "@app.manager.configuration"
 
   AppBundle\Twig\Helper\UrlToFileExtensionHelper:
     public : false
@@ -177,8 +177,6 @@ services :
     class     : AppBundle\Component\Imagine\Loader\RemoteLoader
     arguments :
       - "%kernel.cache_dir%/liip/"
-      - "@liip_imagine.binary.mime_type_guesser"
-      - "@liip_imagine.extension_guesser"
       - "@app.liip_bundle.remote.loader_cache"
     tags:
       - { name: liip_imagine.binary.loader, loader: remote }
@@ -209,23 +207,22 @@ services :
       - "@cache.app"
 
   app.location_lookup.maxmind.resolver:
-    class     : AppBundle\Component\Location\Resolver\MaxMindResolver
+    class     : AppBundle\Component\Location\Resolver\MaxMindGeoIpResolver
     arguments :
       - "%location_lookup.max_mind.database%"
 
   app.location_lookup.ip2location.resolver:
-    class     : AppBundle\Component\Location\Resolver\Ip2LocationResolver
+    class     : AppBundle\Component\Location\Resolver\Ip2LocationGeoIpResolver
     arguments :
       - "%location_lookup.ip2location.database%"
 
-  AppBundle\Component\Location\LocationLookup:
+  AppBundle\Component\Location\GeoIpLookup:
     arguments :
-      - ["@app.location_lookup.maxmind.resolver", "@app.location_lookup.ip2location.resolver"]
+      - ["@app.location_lookup.maxmind.resolver"]
       - "@app.location_lookup.cache"
-      - 3600
     calls :
       - [setRequestStack, ["@request_stack"]]
 
   app.location_lookup.resolver:
     public: true
-    alias: AppBundle\Component\Location\LocationLookup
+    alias: AppBundle\Component\Location\GeoIpLookup

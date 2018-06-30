@@ -14,9 +14,6 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Category;
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * Class CategoryRepository.
- */
 class CategoryRepository extends AbstractRepository
 {
     /**

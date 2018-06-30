@@ -12,37 +12,42 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Twig\Helper\IconExtensionHelper;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Class IconExtension.
- */
-class IconExtension extends TwigExtension
+class IconExtension extends AbstractExtension
 {
+    /**
+     * @var IconExtensionHelper
+     */
+    private $helper;
+
     /**
      * @param IconExtensionHelper $helper
      */
     public function __construct(IconExtensionHelper $helper)
     {
-        $options = new TwigOptionsDefinition(['is_safe' => ['html']]);
+        $this->helper = $helper;
+    }
 
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('ion', function ($icon) use ($helper) {
-                return $helper->renderIconIon($icon, false);
-            }, $options),
-            new TwigFunctionDefinition('ion-block', function ($icon) use ($helper) {
-                return $helper->renderIconIon($icon, true);
-            }, $options),
-            new TwigFunctionDefinition('fa', function ($icon) use ($helper) {
-                return $helper->renderIconFa($icon, false);
-            }, $options),
-            new TwigFunctionDefinition('fa-block', function ($icon) use ($helper) {
-                return $helper->renderIconFa($icon, true);
-            }, $options),
-        ]);
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('ion', function ($icon) {
+                return $this->helper->renderIconIon($icon, false);
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('ion-block', function ($icon) {
+                return $this->helper->renderIconIon($icon, true);
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('fa', function ($icon) {
+                return $this->helper->renderIconFa($icon, false);
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('fa-block', function ($icon) {
+                return $this->helper->renderIconFa($icon, true);
+            }, ['is_safe' => ['html']]),
+        ];
     }
 }
-
-/* EOF */

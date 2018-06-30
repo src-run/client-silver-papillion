@@ -13,12 +13,12 @@ namespace AppBundle\Component\Location;
 
 use AppBundle\Component\Cache\Cache;
 use AppBundle\Component\Location\Model\LocationCollectionModel;
-use AppBundle\Component\Location\Resolver\LocationResolverInterface;
+use AppBundle\Component\Location\Resolver\GeoIpResolverInterface;
 
-interface LocationLookupInterface extends LocationResolverInterface
+interface GeoIpLookupInterface extends GeoIpResolverInterface
 {
     /**
-     * @param LocationResolverInterface[] $resolvers
+     * @param GeoIpResolverInterface[] $resolvers
      * @param Cache|null                  $cache
      */
     public function __construct(array $resolvers = [], Cache $cache = null);
@@ -26,11 +26,11 @@ interface LocationLookupInterface extends LocationResolverInterface
     /**
      * Add location resolver implementation instance to lookup chain.
      *
-     * @param LocationResolverInterface $resolver
+     * @param GeoIpResolverInterface $resolver
      *
-     * @return LocationLookupInterface
+     * @return GeoIpLookupInterface
      */
-    public function addResolver(LocationResolverInterface $resolver) : LocationLookupInterface;
+    public function addResolver(GeoIpResolverInterface $resolver) : GeoIpLookupInterface;
 
     /**
      * Get an array of the registered resolver types.
@@ -62,5 +62,3 @@ interface LocationLookupInterface extends LocationResolverInterface
      */
     public function lookupUsingClientIp() : LocationCollectionModel;
 }
-
-/* EOF */

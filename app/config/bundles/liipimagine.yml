@@ -2,12 +2,27 @@
 
 liip_imagine :
 
-  driver : "gmagick"
+  driver : imagick
+  cache  : default
 
   resolvers :
 
     default :
       web_path : { cache_prefix : "assets/cache" }
+
+    aws:
+      aws_s3:
+        bucket: %amazon.s3.bucket%
+        client_config:
+          version: %amazon.s3.target%
+          region:  %amazon.s3.region%
+          credentials:
+            key:     %amazon.s3.access%
+            secret:  %amazon.s3.secret%
+        get_options:
+          Scheme: https
+        put_options:
+          CacheControl: "max-age=300"
 
   loaders:
     default:

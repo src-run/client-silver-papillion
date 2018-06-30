@@ -14,9 +14,6 @@ namespace AppBundle\Component\Facebook\Provider\Feed;
 use AppBundle\Component\Facebook\Provider\AbstractProvider;
 use Facebook\FacebookResponse;
 
-/**
- * Class MediaVideoProvider.
- */
 class MediaVideoProvider extends AbstractProvider
 {
     const ENDPOINT_FIELDS = [
@@ -43,5 +40,3 @@ class MediaVideoProvider extends AbstractProvider
         return $response->getDecodedBody();
     }
 }
-
-/* EOF */

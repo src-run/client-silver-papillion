@@ -11,11 +11,6 @@
 
 namespace AppBundle\Component\Imagine\Loader\Cache;
 
-/**
- * Class RemoteLoaderCache.
- */
 class RemoteLoaderCache extends LoaderCache
 {
 }
-
-/* EOF */

@@ -14,9 +14,6 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\ContentBlock;
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * Class ContentBlockRepository.
- */
 class ContentBlockRepository extends AbstractRepository
 {
     /**

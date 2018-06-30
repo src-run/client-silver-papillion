@@ -14,11 +14,10 @@ namespace AppBundle\Twig;
 use AppBundle\Entity\OrderItem;
 use AppBundle\Entity\Product;
 use AppBundle\Manager\ProductManager;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class OrderItemToProductExtension extends TwigExtension
+class OrderItemToProductExtension extends AbstractExtension
 {
     /**
      * @var ProductManager
@@ -31,11 +30,17 @@ class OrderItemToProductExtension extends TwigExtension
     public function __construct(ProductManager $manager)
     {
         $this->manager = $manager;
+    }
 
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('order_product', function (OrderItem $item): Product {
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('order_product', function (OrderItem $item): Product {
                 return $this->manager->getBySku($item->getSku());
             }),
-        ]);
+        ];
     }
 }

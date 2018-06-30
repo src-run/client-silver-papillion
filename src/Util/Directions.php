@@ -15,9 +15,6 @@ use AppBundle\Manager\ConfigurationManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-/**
- * Class Directions.
- */
 class Directions implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
@@ -76,5 +73,3 @@ class Directions implements ContainerAwareInterface
         return str_replace('${address}', $this->getAddress(), $this->uri);
     }
 }
-
-/* EOF */

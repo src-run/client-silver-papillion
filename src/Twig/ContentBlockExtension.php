@@ -12,14 +12,10 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Manager\ContentBlockManager;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Class ContentBlockExtension.
- */
-class ContentBlockExtension extends TwigExtension
+class ContentBlockExtension extends AbstractExtension
 {
     public static $cache = [];
 
@@ -28,22 +24,35 @@ class ContentBlockExtension extends TwigExtension
      */
     private $manager;
 
-    public function __construct()
+    /**
+     * ContentBlockExtension constructor.
+     *
+     * @param ContentBlockManager $manager
+     */
+    public function __construct(ContentBlockManager $manager)
     {
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('block_title', [$this, 'blockTitle'], new TwigOptionsDefinition(['is_safe' => ['html']])),
-            new TwigFunctionDefinition('block_content', [$this, 'blockContent'], new TwigOptionsDefinition(['is_safe' => ['html']])),
-            new TwigFunctionDefinition('block_props', [$this, 'blockProps'], new TwigOptionsDefinition(['is_safe' => ['html']])),
-            new TwigFunctionDefinition('block_prop', [$this, 'blockProp'], new TwigOptionsDefinition(['is_safe' => ['html']])),
-        ]);
+        $this->manager = $manager;
     }
 
     /**
-     * @param ContentBlockManager $manager
+     * @return array|\Twig_Function[]
      */
-    public function setContentBlockManager(ContentBlockManager $manager)
+    public function getFunctions(): array
     {
-        $this->manager = $manager;
+        return  [
+            new TwigFunction('block_title', function (string $name) {
+                return $this->blockTitle($name);
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('block_content', function (string $name) {
+                return $this->blockContent($name);
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('block_props', function (string $name) {
+                return $this->blockProps($name);
+            }, ['is_safe' => ['html']]),
+            new TwigFunction('block_prop', function (string $name, string $index) {
+                return $this->blockProp($name, $index);
+            }, ['is_safe' => ['html']]),
+        ];
     }
 
     /**
@@ -51,7 +60,7 @@ class ContentBlockExtension extends TwigExtension
      *
      * @return string
      */
-    public function blockTitle($name)
+    private function blockTitle($name)
     {
         return $this->get($name)->getTitle();
     }
@@ -61,7 +70,7 @@ class ContentBlockExtension extends TwigExtension
      *
      * @return string
      */
-    public function blockContent($name)
+    private function blockContent($name)
     {
         return $this->get($name)->getContent();
     }
@@ -71,7 +80,7 @@ class ContentBlockExtension extends TwigExtension
      *
      * @return string[]
      */
-    public function blockProps($name)
+    private function blockProps($name)
     {
         $props = [];
         foreach ($this->get($name)->getProperties() as $p) {
@@ -91,15 +100,15 @@ class ContentBlockExtension extends TwigExtension
      *
      * @return string
      */
-    public function blockProp($name, $index)
+    private function blockProp($name, $index)
     {
-        $props = $this->blockProps($name);
+        $properties = $this->blockProps($name);
 
-        if (!array_key_exists($index, $props)) {
+        if (!array_key_exists($index, $properties)) {
             return null;
         }
 
-        return $props[$index];
+        return $properties[$index];
     }
 
     /**
@@ -118,5 +127,3 @@ class ContentBlockExtension extends TwigExtension
         return $result;
     }
 }
-
-/* EOF */

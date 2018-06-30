@@ -16,5 +16,3 @@ use Liip\ImagineBundle\Exception\ExceptionInterface;
 class LoaderCacheException extends \RuntimeException implements ExceptionInterface
 {
 }
-
-/* EOF */

@@ -61,5 +61,3 @@ interface AuthenticationInterface
      */
     public function setGraphVersion($graphVersion);
 }
-
-/* EOF */

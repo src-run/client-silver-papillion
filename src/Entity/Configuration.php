@@ -11,9 +11,6 @@
 
 namespace AppBundle\Entity;
 
-/**
- * Class Configuration.
- */
 class Configuration
 {
     /**
@@ -66,5 +63,3 @@ class Configuration
         return $this;
     }
 }
-
-/* EOF */

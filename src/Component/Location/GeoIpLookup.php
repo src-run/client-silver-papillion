@@ -14,15 +14,15 @@ namespace AppBundle\Component\Location;
 use AppBundle\Component\Cache\Cache;
 use AppBundle\Component\Location\Model\LocationCollectionModel;
 use AppBundle\Component\Location\Model\LocationModel;
-use AppBundle\Component\Location\Resolver\LocationResolverInterface;
+use AppBundle\Component\Location\Resolver\GeoIpResolverInterface;
 use SR\Exception\Runtime\RuntimeException;
-use SR\Util\Info\ClassInfo;
+use SR\Utilities\ClassQuery;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class LocationLookup implements LocationLookupInterface
+class GeoIpLookup implements GeoIpLookupInterface
 {
     /**
-     * @var LocationResolverInterface[]
+     * @var GeoIpResolverInterface[]
      */
     private $resolvers = [];
 
@@ -32,33 +32,40 @@ class LocationLookup implements LocationLookupInterface
     private $cache;
 
     /**
-     * @var int
-     */
-    private $cacheTtl;
-
-    /**
      * @var RequestStack|null
      */
     private $requestStack;
 
     /**
-     * @param LocationResolverInterface[] $resolvers
+     * @param GeoIpResolverInterface[] $resolvers
      * @param Cache|null                  $cache
      */
-    public function __construct(array $resolvers = [], Cache $cache = null, int $cacheTtl = 600)
+    public function __construct(array $resolvers = [], Cache $cache = null)
     {
         foreach ($resolvers as $r) {
             $this->addResolver($r);
         }
 
-        $this->cache = $cache;
-
         if ($cache === null) {
-            $this->cache = new Cache();
-            $this->cache->setEnabled(false);
+            $cache = new Cache();
+            $cache->setEnabled(false);
         }
 
-        $this->cacheTtl = $cacheTtl;
+        $this->cache = $cache;
+    }
+
+    /**
+     * Add location resolver implementation instance to lookup chain.
+     *
+     * @param GeoIpResolverInterface $resolver
+     *
+     * @return GeoIpLookupInterface
+     */
+    public function addResolver(GeoIpResolverInterface $resolver) : GeoIpLookupInterface
+    {
+        $this->resolvers[] = $resolver;
+
+        return $this;
     }
 
     /**
@@ -70,20 +77,6 @@ class LocationLookup implements LocationLookupInterface
     }
 
     /**
-     * Add location resolver implementation instance to lookup chain.
-     *
-     * @param LocationResolverInterface $resolver
-     *
-     * @return LocationLookupInterface
-     */
-    public function addResolver(LocationResolverInterface $resolver) : LocationLookupInterface
-    {
-        $this->resolvers[] = $resolver;
-
-        return $this;
-    }
-
-    /**
      * Check if IP address information is available
      *
      * @param string $address
@@ -92,11 +85,9 @@ class LocationLookup implements LocationLookupInterface
      */
     public function has(string $address) : bool
     {
-        $resolvers = array_filter($this->resolvers, function (LocationResolverInterface $resolver) use ($address) {
+        return count(array_filter($this->resolvers, function (GeoIpResolverInterface $resolver) use ($address) {
             return $resolver->has($address);
-        });
-
-        return count($resolvers) > 0;
+        })) > 0;
     }
 
     /**
@@ -141,14 +132,14 @@ class LocationLookup implements LocationLookupInterface
         $item = $this->cache->get($this->getCacheKey($address));
 
         if (!$item->isHit()) {
-            $locations = array_map(function (LocationResolverInterface $resolver) use ($address) {
+            $locations = array_map(function (GeoIpResolverInterface $resolver) use ($address) {
                 return $resolver->lookup($address);
-            }, array_filter($this->resolvers, function (LocationResolverInterface $resolver) use ($address) {
+            }, array_filter($this->resolvers, function (GeoIpResolverInterface $resolver) use ($address) {
                 return $resolver->has($address);
             }));
 
             $item->set(new LocationCollectionModel($locations));
-            $item->expiresAfter(new \DateInterval(sprintf('PT%dS', $this->cacheTtl)));
+            $item->expiresAfter(new \DateInterval('PT600S'));
 
             $this->cache->set($item);
         }
@@ -175,7 +166,7 @@ class LocationLookup implements LocationLookupInterface
      */
     public function getRegisteredResolverTypes() : array
     {
-        return array_map(function(LocationResolverInterface $r) {
+        return array_map(function(GeoIpResolverInterface $r) {
             return $r->getType();
         }, $this->resolvers);
     }
@@ -187,7 +178,7 @@ class LocationLookup implements LocationLookupInterface
      */
     public function getType() : string
     {
-        return ClassInfo::getNameShort(static::class);
+        return ClassQuery::getNameShort(static::class);
     }
 
     /**
@@ -207,8 +198,6 @@ class LocationLookup implements LocationLookupInterface
      */
     private function getCacheKey(string $address) : string
     {
-        return sprintf('location_lookup_%s_%s', $address, md5($address));
+        return preg_replace('{[^a-zA-Z0-9_-]+}', '-', sprintf('location_lookup_%s_%s', $address, md5($address)));
     }
 }
-
-/* EOF */

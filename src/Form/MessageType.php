@@ -17,9 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * Class MessageType.
- */
 class MessageType extends AbstractType
 {
     /**
@@ -35,5 +32,3 @@ class MessageType extends AbstractType
             ->add('submit', SubmitType::class);
     }
 }
-
-/* EOF */

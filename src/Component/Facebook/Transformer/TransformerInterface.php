@@ -24,5 +24,3 @@ interface TransformerInterface
      */
     public static function transform($data, ...$parameters);
 }
-
-/* EOF */

@@ -11,9 +11,6 @@
 
 namespace AppBundle\Component\Facebook\Transformer;
 
-/**
- * Class AttachmentTargetTransformer.
- */
 class AttachmentTargetTransformer implements TransformerInterface
 {
     /**
@@ -26,5 +23,3 @@ class AttachmentTargetTransformer implements TransformerInterface
         return isset($data['url']) ? $data['url'] : null;
     }
 }
-
-/* EOF */

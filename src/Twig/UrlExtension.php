@@ -14,13 +14,11 @@ namespace AppBundle\Twig;
 use AppBundle\Component\Environment\Environment;
 use SR\Exception\Logic\InvalidArgumentException;
 use SR\Exception\Logic\LogicException;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\VarDumper\VarDumper;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class UrlExtension extends TwigExtension
+class UrlExtension extends AbstractExtension
 {
     /**
      * @var RouterInterface
@@ -47,12 +45,24 @@ class UrlExtension extends TwigExtension
         $this->router = $router;
         $this->environment = $environment;
         $this->domainTypes = $domainTypes;
-
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('ajax_data_href', [$this, 'getAjaxDataHref'], new TwigOptionsDefinition(['is_safe' => ['html']])),
-        ]);
     }
 
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('ajax_data_href', [$this, 'getAjaxDataHref'], ['is_safe' => ['html']]),
+        ];
+    }
+
+    /**
+     * @param string $route
+     * @param mixed  ...$parameters
+     *
+     * @return mixed
+     */
     public function getAjaxDataHref(string $route, ...$parameters)
     {
         return call_user_func_array([$this, $this->getMethodName($type = $this->getUrlType(__FUNCTION__))], [
@@ -158,5 +168,3 @@ class UrlExtension extends TwigExtension
         ]);
     }
 }
-
-/* EOF */

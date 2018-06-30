@@ -192,5 +192,3 @@ class Mapper
         return '';
     }
 }
-
-/* EOF */

@@ -13,9 +13,6 @@ namespace AppBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * Class AbstractManager.
- */
 abstract class AbstractManager
 {
     /**
@@ -31,5 +28,3 @@ abstract class AbstractManager
         $this->em = $em;
     }
 }
-
-/* EOF */

@@ -13,11 +13,8 @@ namespace AppBundle\Util;
 
 use SR\Exception\Logic\InvalidArgumentException;
 use SR\Reflection\Inspect;
-use SR\Util\Transform\StringTransform;
+use SR\Utilities\Transform\StringTransform;
 
-/**
- * Class Slugger.
- */
 class Slugger
 {
     /**
@@ -70,5 +67,3 @@ class Slugger
             ->value($entity);
     }
 }
-
-/* EOF */

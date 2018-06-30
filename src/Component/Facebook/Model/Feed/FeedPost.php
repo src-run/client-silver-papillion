@@ -16,9 +16,6 @@ use AppBundle\Component\Facebook\Transformer\AuthorTransformer;
 use AppBundle\Component\Facebook\Transformer\DateTimeTransformer;
 use AppBundle\Component\Facebook\Transformer\TransformerInterface;
 
-/**
- * Class FeedPost.
- */
 class FeedPost extends AbstractModel
 {
     /**
@@ -347,5 +344,3 @@ class FeedPost extends AbstractModel
         });
     }
 }
-
-/* EOF */

@@ -11,24 +11,24 @@
 
 namespace AppBundle\Twig;
 
-use AppBundle\Util\Slugger;
-use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
-use Symfony\Component\VarDumper\VarDumper;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-class DomainReplacementExtension extends TwigExtension
+class DomainReplacementExtension extends AbstractExtension
 {
-    public function __construct()
+    /**
+     * @return array|\Twig_Filter[]
+     */
+    public function getFilters(): array
     {
-        parent::__construct(new TwigOptionsDefinition(), [
-            new TwigFilterDefinition('replace_domain', function (string $url, string $domain, string $schema = 'https') {
-                $parts = parse_url($url);
-                return sprintf('%s://%s%s', $schema, $domain, $parts['path']);
+        return [
+            new TwigFilter('replace_domain', function (string $url, string $domain, string $schema = 'https') {
+                if (false !== $parts = parse_url($url)) {
+                    return sprintf('%s://%s%s', $schema, $domain, $parts['path']);
+                }
+
+                return null;
             }),
-        ]);
+        ];
     }
 }
-
-/* EOF */

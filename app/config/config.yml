@@ -7,7 +7,6 @@
 imports:
   - { resource: parameters.yml }
   - { resource: parameters_platform.php }
-  - { resource: services.yml }
   - { resource: security.yml }
   - { resource: admin/ }
   - { resource: bundles/ }
@@ -141,6 +140,8 @@ doctrine :
     dql:
       string_functions:
         MATCH: AppBundle\Doctrine\ORM\Query\AST\Functions\MatchAgainstFunctionNode
+      numeric_functions:
+        RAND: AppBundle\Doctrine\ORM\Query\AST\Functions\RandFunctionNode
 
 
 #

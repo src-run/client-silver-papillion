@@ -13,9 +13,6 @@ namespace AppBundle\Component\Facebook\Model\Feed;
 
 use AppBundle\Component\Facebook\Model\AbstractModel;
 
-/**
- * Class FeedMedia.
- */
 abstract class MediaFormat extends AbstractModel
 {
     /**
@@ -85,5 +82,3 @@ abstract class MediaFormat extends AbstractModel
     {
     }
 }
-
-/* EOF */

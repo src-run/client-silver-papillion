@@ -12,24 +12,33 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Manager\CarouselSlideManager;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Class CarouselSlideExtension.
- */
-class CarouselSlideExtension extends TwigExtension
+class CarouselSlideExtension extends AbstractExtension
 {
     /**
-     * @param CarouselSlideManager $manager
+     * @var CarouselSlideManager
      */
-    public function __construct(CarouselSlideManager $manager)
+    private $carouselSlideManager;
+
+    /**
+     * @param CarouselSlideManager $carouselSlideManager
+     */
+    public function __construct(CarouselSlideManager $carouselSlideManager)
     {
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('carousel_slides', [$manager, 'getEnabled'], new TwigOptionsDefinition(['is_safe' => ['html']])),
-        ]);
+        $this->carouselSlideManager = $carouselSlideManager;
+    }
+
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('carousel_slides', function (): array {
+                return $this->carouselSlideManager->getEnabled();
+            }, ['is_safe' => ['html']]),
+        ];
     }
 }
-
-/* EOF */

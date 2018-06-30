@@ -13,9 +13,6 @@ namespace AppBundle\Component\Facebook\Model\Feed;
 
 use AppBundle\Component\Facebook\Model\AbstractModel;
 
-/**
- * Class Reaction.
- */
 class Reaction extends AbstractModel
 {
     /**
@@ -69,5 +66,3 @@ class Reaction extends AbstractModel
         return $this->author !== null;
     }
 }
-
-/* EOF */

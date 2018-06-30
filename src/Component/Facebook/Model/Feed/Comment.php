@@ -16,9 +16,6 @@ use AppBundle\Component\Facebook\Transformer\AuthorTransformer;
 use AppBundle\Component\Facebook\Transformer\DateTimeTransformer;
 use AppBundle\Component\Facebook\Transformer\TransformerInterface;
 
-/**
- * Class Comment.
- */
 class Comment extends AbstractModel
 {
     /**
@@ -80,5 +77,3 @@ class Comment extends AbstractModel
         return $this->message;
     }
 }
-
-/* EOF */

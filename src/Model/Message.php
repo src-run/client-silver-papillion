@@ -11,9 +11,6 @@
 
 namespace AppBundle\Model;
 
-/**
- * Class Message.
- */
 class Message
 {
     /**
@@ -91,5 +88,3 @@ class Message
         return $this;
     }
 }
-
-/* EOF */

@@ -11,36 +11,78 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Model\Cart;
 use AppBundle\Twig\Helper\CartTwigExtensionHelper;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Ramsey\Uuid\UuidInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Class CartTwigExtension.
- */
-class CartTwigExtension extends TwigExtension
+class CartTwigExtension extends AbstractExtension
 {
+    /**
+     * @var CartTwigExtensionHelper
+     */
+    private $helper;
+
+    /**
+     * @param CartTwigExtensionHelper $helper
+     */
     public function __construct(CartTwigExtensionHelper $helper)
     {
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('get_cart',           [$helper, 'getCart']),
-            new TwigFunctionDefinition('cart_has',           [$helper, 'cartHas']),
-            new TwigFunctionDefinition('cart_uuid',          [$helper, 'cartUuid']),
-            new TwigFunctionDefinition('cart_count',         [$helper, 'cartCount']),
-            new TwigFunctionDefinition('cart_total',         [$helper, 'cartTotal']),
-            new TwigFunctionDefinition('cart_subTotal',      [$helper, 'cartSubTotal']),
-            new TwigFunctionDefinition('cart_tax',           [$helper, 'cartTax']),
-            new TwigFunctionDefinition('cart_shipping',      [$helper, 'cartShipping']),
-            new TwigFunctionDefinition('cart_items',         [$helper, 'cartItems']),
-            new TwigFunctionDefinition('cart_items_grouped', [$helper, 'cartItemsGrouped']),
-            new TwigFunctionDefinition('cart_discount',      [$helper, 'cartDiscount']),
-            new TwigFunctionDefinition('cart_has_discount',  [$helper, 'cartHasDiscount']),
-            new TwigFunctionDefinition('cart_discount_code', [$helper, 'cartDiscountCode']),
-            new TwigFunctionDefinition('cart_has_discount_err', [$helper, 'cartHasDiscountError']),
-            new TwigFunctionDefinition('cart_discount_err_msg', [$helper, 'cartDiscountErrorMessage']),
-        ]);
+        $this->helper = $helper;
+    }
+
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('get_cart', function (): Cart {
+                return $this->helper->getCart();
+            }),
+            new TwigFunction('cart_has', function ($product): bool {
+                return $this->helper->cartHas($product);
+            }),
+            new TwigFunction('cart_uuid', function (): string {
+                return $this->helper->cartUuid();
+            }),
+            new TwigFunction('cart_count', function (): int {
+                return $this->helper->cartCount();
+            }),
+            new TwigFunction('cart_total', function (): float {
+                return $this->helper->cartTotal();
+            }),
+            new TwigFunction('cart_subTotal', function (): float {
+                return $this->helper->cartSubTotal();
+            }),
+            new TwigFunction('cart_tax', function (): float {
+                return $this->helper->cartTax();
+            }),
+            new TwigFunction('cart_shipping', function (): float {
+                return $this->helper->cartShipping();
+            }),
+            new TwigFunction('cart_items', function (): array {
+                return $this->helper->cartItems();
+            }),
+            new TwigFunction('cart_items_grouped', function (): array {
+                return $this->helper->cartItemsGrouped();
+            }),
+            new TwigFunction('cart_discount', function (): float {
+                return $this->helper->cartDiscount();
+            }),
+            new TwigFunction('cart_has_discount', function (): bool {
+                return $this->helper->cartHasDiscount();
+            }),
+            new TwigFunction('cart_discount_code', function (): string {
+                return $this->helper->cartDiscountCode();
+            }),
+            new TwigFunction('cart_has_discount_err', function (): bool {
+                return $this->helper->cartHasDiscountError();
+            }),
+            new TwigFunction('cart_discount_err_msg', function (): string {
+                return $this->helper->cartDiscountErrorMessage();
+            }),
+        ];
     }
 }
-
-/* EOF */

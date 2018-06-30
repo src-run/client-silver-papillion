@@ -42,5 +42,3 @@ class Search
         return $this->search !== null;
     }
 }
-
-/* EOF */

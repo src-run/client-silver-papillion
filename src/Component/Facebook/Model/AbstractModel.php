@@ -363,5 +363,3 @@ abstract class AbstractModel
         return $inspector;
     }
 }
-
-/* EOF */

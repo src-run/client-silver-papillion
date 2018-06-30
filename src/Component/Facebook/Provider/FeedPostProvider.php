@@ -18,9 +18,6 @@ use AppBundle\Component\Facebook\Model\Feed\MediaAlbum;
 use Facebook\FacebookResponse;
 use Symfony\Component\Cache\CacheItem;
 
-/**
- * Class FeedPostProvider.
- */
 class FeedPostProvider extends AbstractProvider
 {
     const ENDPOINT_FIELDS = [
@@ -191,14 +188,4 @@ class FeedPostProvider extends AbstractProvider
 
         return substr($data['type'], 0, 5);
     }
-
-    /**
-     * @return CacheItem
-     */
-    protected function getCachedItem()
-    {
-        return new CacheItem();
-    }
 }
-
-/* EOF */

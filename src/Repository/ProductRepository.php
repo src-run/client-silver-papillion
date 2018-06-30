@@ -17,9 +17,6 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\Paginator;
 
-/**
- * Class ProductRepository.
- */
 class ProductRepository extends AbstractRepository
 {
     /**
@@ -67,9 +64,39 @@ class ProductRepository extends AbstractRepository
     }
 
     /**
+     * @param Category $category
+     *
      * @return Product[]
      */
-    public function findFeatured()
+    public function findFeaturedInCategory(Category $category)
+    {
+        return $this->getResult(function (QueryBuilder $queryBuilder) use ($category) {
+            $queryBuilder
+                ->where('p.featured = 1')
+                ->andWhere('p.enabled = 1')
+                ->andWhere('p.category = :category')
+                ->setParameter('category', $category)
+                ->orderBy('p.name');
+        });
+    }
+
+    /**
+     * @return Product[]
+     */
+    public function findRandomCategoryItems()
+    {
+        return $this->getResult(function (QueryBuilder $queryBuilder) {
+            $queryBuilder
+                ->where('p.featured = 1')
+                ->andWhere('p.enabled = 1')
+                ->orderBy('p.name');
+        });
+    }
+
+    /**
+     * @return Product[]
+     */
+    public function findRandom()
     {
         return $this->getResult(function (QueryBuilder $queryBuilder) {
             $queryBuilder

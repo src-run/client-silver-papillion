@@ -24,11 +24,61 @@
     <div class="container container-sr">
 
         <h2 class="primary-hr-i">
-            {{ ion('star') }} Featured <em>Products</em>
+            {{ ion('android-star-outline') }} Featured <em>Wine Caddies</em>
         </h2>
 
         <div class="card-listing">
-            {% for f in featured %}
+            {% for f in featured_wine_caddy_products %}
+                {% include 'AppBundle:fragment:product-list-item-feature.html.twig' with {
+                    'product': f
+                } only %}
+            {% endfor %}
+        </div>
+
+        {% include 'AppBundle:fragment:link-button-right.html.twig' with {
+            'route' : 'app_category_view',
+            'args'  : {
+                category: 'wine-caddies'
+            },
+            'text'  : 'View Wine Caddies'
+        } only %}
+
+    </div>
+
+    <div class="container-sr-odd">
+        <div class="container">
+
+            <h2 class="primary-hr-i">
+                {{ ion('android-sunny') }} Featured <em>{{ featured_category.getName() }}</em>
+            </h2>
+
+            <div class="card-listing">
+                {% for f in featured_category_products %}
+                    {% include 'AppBundle:fragment:product-list-item-feature.html.twig' with {
+                        'product': f
+                    } only %}
+                {% endfor %}
+            </div>
+
+            {% include 'AppBundle:fragment:link-button-right.html.twig' with {
+                'route' : 'app_category_view',
+                'args'  : {
+                    category: featured_category.getSlug()
+                },
+                'text'  : 'View '~featured_category.getName()
+            } only %}
+
+        </div>
+    </div>
+
+    <div class="container container-sr">
+
+        <h2 class="primary-hr-i">
+            {{ ion('android-checkmark-circle') }} Featured <em>Products</em>
+        </h2>
+
+        <div class="card-listing">
+            {% for f in featured_random_products %}
                 {% include 'AppBundle:fragment:product-list-item-feature.html.twig' with {
                     'product': f
                 } only %}
@@ -91,7 +141,7 @@
                 </div>
 
                 <div class="info-address">
-                    <img class="img-responsive" src="{{ staticMaps }}" alt="{{ block_content('about.address') }}" />
+                    <img class="img-responsive" src="{{ maps_static }}" alt="{{ block_content('about.address') }}" />
                 </div>
 
                 {% include 'AppBundle:fragment:link-button-right.html.twig' with {
@@ -106,6 +156,6 @@
     </div>
 
     {% include 'AppBundle:fragment:modal-coupon.html.twig' with {
-        showCoupon: showCoupon
+        showCoupon: coupon_modal
     } only %}
 {% endblock %}

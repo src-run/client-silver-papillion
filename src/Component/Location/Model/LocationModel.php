@@ -11,12 +11,18 @@
 
 namespace AppBundle\Component\Location\Model;
 
+use AppBundle\Component\Location\Model\Field\CollectionField;
+use AppBundle\Component\Location\Model\Field\FieldInterface;
+use AppBundle\Component\Location\Model\Field\LocalizedField;
+use AppBundle\Component\Location\Model\Field\NullField;
+use AppBundle\Component\Location\Model\Field\ScalarField;
+
 final class LocationModel
 {
     /**
      * @var mixed[]
      */
-    private $data = [];
+    private $fields = [];
 
     /**
      * @var bool
@@ -29,12 +35,13 @@ final class LocationModel
     private $priority;
 
     /**
-     * @param mixed[] $data
-     * @param int     $priority
+     * @param FieldInterface[]|NullField[]|CollectionField[]|ScalarField[]|LocalizedField[] $fields
+     * @param bool                                                                          $valid
+     * @param int                                                                           $priority
      */
-    public function __construct(array $data = [], bool $valid = true, int $priority = -1)
+    public function __construct(array $fields = [], bool $valid = true, int $priority = -1)
     {
-        $this->data = $data;
+        $this->fields = $fields;
         $this->valid = $valid;
         $this->priority = $priority;
     }
@@ -44,7 +51,9 @@ final class LocationModel
      */
     public function __toArray() : array
     {
-        return $this->data;
+        return array_map(function (FieldInterface $field) {
+            return $field->getValue();
+        }, $this->fields);
     }
 
     /**
@@ -52,7 +61,9 @@ final class LocationModel
      */
     public function hasData() : bool
     {
-        return count($this->data) > 0;
+        return 0 !== count(array_filter($this->fields, function (FieldInterface $field) {
+            return $field->hasValue();
+        }));
     }
 
     /**
@@ -76,7 +87,7 @@ final class LocationModel
      */
     public function getResolver()
     {
-        return $this->getDataIndex('resolver');
+        return $this->getField('resolver')->getValue();
     }
 
     /**
@@ -84,7 +95,7 @@ final class LocationModel
      */
     public function getIpVersion()
     {
-        return $this->getDataIndex('ipVersion');
+        return $this->getField('ipVersion')->getValue();
     }
 
     /**
@@ -92,7 +103,7 @@ final class LocationModel
      */
     public function getIpAddress()
     {
-        return $this->getDataIndex('ipAddress');
+        return $this->getField('ipAddress')->getValue();
     }
 
     /**
@@ -100,7 +111,7 @@ final class LocationModel
      */
     public function getLatitude()
     {
-        return $this->getDataIndex('latitude');
+        return $this->getField('latitude')->getValue();
     }
 
     /**
@@ -108,7 +119,7 @@ final class LocationModel
      */
     public function getLongitude()
     {
-        return $this->getDataIndex('longitude');
+        return $this->getField('longitude')->getValue();
     }
 
     /**
@@ -116,47 +127,103 @@ final class LocationModel
      */
     public function getZipCode()
     {
-        return $this->getDataIndex('zipCode');
+        return $this->getField('zipCode')->getValue();
     }
 
     /**
-     * @return mixed|null
+     * @return LocalizedField
+     */
+    public function getRegion(): LocalizedField
+    {
+        return $this->getField('regions')->getField() ?? new LocalizedField();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRegionId()
+    {
+        return $this->getRegion()->getId();
+    }
+
+    /**
+     * @return string|null
      */
     public function getRegionCode()
     {
-        return $this->getDataIndex('regionCode');
+        return $this->getRegion()->getCode();
     }
 
     /**
-     * @return mixed|null
+     * @return string|null
      */
     public function getRegionName()
     {
-        return $this->getDataIndex('regionName');
+        return $this->getRegion()->getValue();
     }
 
     /**
-     * @return mixed|null
+     * @return LocalizedField
+     */
+    public function getCity(): LocalizedField
+    {
+        return $this->getField('city') ?? new LocalizedField();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCityId()
+    {
+        return $this->getCity()->getId();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCityCode()
+    {
+        return $this->getCity()->getCode();
+    }
+
+    /**
+     * @return string|null
      */
     public function getCityName()
     {
-        return $this->getDataIndex('cityName');
+        return $this->getCity()->getValue();
     }
 
     /**
-     * @return mixed|null
+     * @return LocalizedField
+     */
+    public function getCountry(): LocalizedField
+    {
+        return $this->getField('country') ?? new LocalizedField();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountryId()
+    {
+        return $this->getCountry()->getId();
+    }
+
+    /**
+     * @return string|null
      */
     public function getCountryCode()
     {
-        return $this->getDataIndex('countryCode');
+        return $this->getCountry()->getCode();
     }
 
     /**
-     * @return mixed|null
+     * @return string|null
      */
     public function getCountryName()
     {
-        return $this->getDataIndex('countryName');
+        return $this->getCountry()->getValue();
     }
 
     /**
@@ -164,21 +231,21 @@ final class LocationModel
      */
     public function getTimeZone()
     {
-        return $this->getDataIndex('timeZone');
+        return $this->getField('timeZone')->getValue();
     }
 
     /**
-     * @param string $index
+     * @param string $key
      *
-     * @return mixed|null
+     * @return FieldInterface|NullField|CollectionField|ScalarField|LocalizedField
      */
-    private function getDataIndex(string $index)
+    public function getField(string $key): FieldInterface
     {
-        if (isset($this->data[$index])) {
-            return $this->data[$index];
+        if (array_key_exists($key, $this->fields)) {
+            return $this->fields[$key];
         }
 
-        return null;
+        return new NullField();
     }
 }
 

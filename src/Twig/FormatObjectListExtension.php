@@ -11,22 +11,22 @@
 
 namespace AppBundle\Twig;
 
-use Doctrine\ORM\PersistentCollection;
 use SR\Exception\Logic\InvalidArgumentException;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
-use Symfony\Component\VarDumper\VarDumper;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class FormatObjectListExtension extends TwigExtension
+class FormatObjectListExtension extends AbstractExtension
 {
-    public function __construct()
+    /**
+     * @return array|\Twig_Function[]
+     */
+    public function getFunctions(): array
     {
-        parent::__construct(new TwigOptionsDefinition(), [], [
-            new TwigFunctionDefinition('format_object_list', function (array $list, string $glue = ',', string $format = '%s', string $accessor = '__toString') {
+        return [
+            new TwigFunction('format_object_list', function (array $list, string $glue = ',', string $format = '%s', string $accessor = '__toString') {
                 return $this->formatObjectList($list, $glue, $format, $accessor);
             }),
-        ]);
+        ];
     }
 
     /**

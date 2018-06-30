@@ -16,10 +16,8 @@ use AppBundle\Component\Facebook\Model\AbstractModel;
 use AppBundle\Component\Facebook\Model\Feed\Feed;
 use Facebook\FacebookResponse;
 use Psr\Cache\CacheItemInterface;
+use Symfony\Component\Cache\CacheItem;
 
-/**
- * Class FeedProvider.
- */
 class FeedProvider extends AbstractProvider
 {
     /**
@@ -184,14 +182,16 @@ class FeedProvider extends AbstractProvider
     }
 
     /**
-     * @return CacheItemInterface
+     * @throws \Psr\Cache\InvalidArgumentException
+     *
+     * @return CacheItem
      */
-    protected function getCachedItem()
+    protected function getCachedItem(): CacheItem
     {
         static $cacheItem;
 
         if ($cacheItem === null) {
-            $cacheItem = $this->getCache()->getItem(sprintf('facebook.feed.%s', md5($this->getEndpoint())));
+            $cacheItem = $this->getCache()->getItem(sprintf('facebook.feed.%s.%s', hash('sha256', get_called_class()), hash('sha256', $this->getEndpoint())));
         }
 
         return $cacheItem;
@@ -231,5 +231,3 @@ class FeedProvider extends AbstractProvider
         return in_array(spl_object_hash($model), static::$cleanObjectHashes);
     }
 }
-
-/* EOF */

@@ -383,5 +383,3 @@ class Coupon
         }
     }
 }
-
-/* EOF */

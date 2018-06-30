@@ -11,23 +11,20 @@
 
 namespace AppBundle\Twig;
 
-use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-/**
- * Class StripHtmlExtension.
- */
-class StripHtmlExtension extends TwigExtension
+class StripHtmlExtension extends AbstractExtension
 {
-    public function __construct()
+    /**
+     * @return array|\Twig_Filter[]
+     */
+    public function getFilters(): array
     {
-        parent::__construct(new TwigOptionsDefinition(), [
-            new TwigFilterDefinition('strip_html', function (string $html, string $allowed = '<b><string><em><italic><a>') {
+        return [
+            new TwigFilter('strip_html', function (string $html, string $allowed = '<b><string><em><italic><a>') {
                 return strip_tags($html, $allowed);
             })
-        ], []);
+        ];
     }
 }
-
-/* EOF */

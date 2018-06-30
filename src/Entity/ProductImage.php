@@ -283,5 +283,3 @@ class ProductImage
         return $this;
     }
 }
-
-/* EOF */

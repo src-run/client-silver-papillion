@@ -13,9 +13,6 @@ namespace AppBundle\Component\Facebook\Model\Feed;
 
 use AppBundle\Component\Facebook\Transformer\DateTimeTransformer;
 
-/**
- * Class MediaAlbum.
- */
 class MediaAlbum extends Media
 {
     /**
@@ -59,5 +56,3 @@ class MediaAlbum extends Media
         return $this->photos;
     }
 }
-
-/* EOF */

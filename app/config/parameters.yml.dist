@@ -43,3 +43,9 @@ parameters:
 
     location_lookup.max_mind.database: /var/lib/GeoIP/GeoLite2-City.mmdb
     location_lookup.ip2location.database: /var/lib/Ip2Location/Ip2Location-Lite-DB11.bin
+
+    amazon.s3.target: "2006-03-01"
+    amazon.s3.access:
+    amazon.s3.secret:
+    amazon.s3.bucket: src-silverpapillon-cache-001
+    amazon.s3.region:

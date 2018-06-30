@@ -11,9 +11,6 @@
 
 namespace AppBundle\Twig\Helper;
 
-/**
- * Class IconExtensionHelper.
- */
 class IconExtensionHelper
 {
     /**
@@ -76,5 +73,3 @@ class IconExtensionHelper
         return $html;
     }
 }
-
-/* EOF */

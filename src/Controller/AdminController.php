@@ -15,9 +15,6 @@ use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as EasyAdmin
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class AdminController.
- */
 class AdminController extends EasyAdminController
 {
     /**

@@ -11,15 +11,11 @@
 
 namespace AppBundle\Twig;
 
-use SR\Exception\Runtime\RuntimeException;
-use SR\WonkaBundle\Twig\Definition\TwigFunctionDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\VarDumper\VarDumper;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class RequestRouteExtension extends TwigExtension
+class RequestRouteExtension extends AbstractExtension
 {
     private $requestStack;
 
@@ -29,35 +25,33 @@ class RequestRouteExtension extends TwigExtension
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
-
-        parent::__construct(null, [], [
-            new TwigFunctionDefinition('request_controller', function () {
-                return $this->getController();
-            }),
-            new TwigFunctionDefinition('request_controller_name', function () {
-                return $this->getControllerName();
-            }),
-            new TwigFunctionDefinition('request_controller_name_short', function () {
-                return $this->getControllerNameShort();
-            }),
-            new TwigFunctionDefinition('request_controller_action', function () {
-                return $this->getControllerAction();
-            }),
-            new TwigFunctionDefinition('request_route', function () {
-                return $this->getRoute();
-            }),
-            new TwigFunctionDefinition('request_route_parameters', function () {
-                return $this->getRouteParameters();
-            }),
-        ]);
     }
 
     /**
-     * @return string
+     * @return array|\Twig_Function[]
      */
-    private function getController(): ?string
+    public function getFunctions(): array
     {
-        return $this->getCurrentRequestAttribute('_controller');
+        return [
+            new TwigFunction('request_controller', function () {
+                return $this->getControllerRequestAttribute();
+            }),
+            new TwigFunction('request_controller_name', function () {
+                return $this->getControllerName();
+            }),
+            new TwigFunction('request_controller_name_short', function () {
+                return $this->getControllerNameShort();
+            }),
+            new TwigFunction('request_controller_action', function () {
+                return $this->getControllerAction();
+            }),
+            new TwigFunction('request_route', function () {
+                return $this->getRouteRequestAttribute();
+            }),
+            new TwigFunction('request_route_parameters', function () {
+                return $this->getRouteParamsRequestAttribute();
+            }),
+        ];
     }
 
     /**
@@ -65,7 +59,7 @@ class RequestRouteExtension extends TwigExtension
      */
     private function getControllerName(): ?string
     {
-        if (1 === preg_match('{^(?<controller>[^:]+)::}', $this->getController(), $matches)) {
+        if (1 === preg_match('{^(?<controller>[^:]+)::}', $this->getControllerRequestAttribute(), $matches)) {
             return $matches['controller'];
         }
 
@@ -77,7 +71,7 @@ class RequestRouteExtension extends TwigExtension
      */
     private function getControllerNameShort(): ?string
     {
-        if (1 === preg_match('{(?<controller>[^:\\\]+)::}', $this->getController(), $matches)) {
+        if (1 === preg_match('{(?<controller>[^:\\\]+)::}', $this->getControllerRequestAttribute(), $matches)) {
             return $matches['controller'];
         }
 
@@ -89,7 +83,7 @@ class RequestRouteExtension extends TwigExtension
      */
     private function getControllerAction(): ?string
     {
-        if (1 === preg_match('{::(?<action>.+)$}', $this->getController(), $matches)) {
+        if (1 === preg_match('{::(?<action>.+)$}', $this->getControllerRequestAttribute(), $matches)) {
             return $matches['action'];
         }
 
@@ -99,7 +93,15 @@ class RequestRouteExtension extends TwigExtension
     /**
      * @return string
      */
-    private function getRoute(): ?string
+    private function getControllerRequestAttribute(): ?string
+    {
+        return $this->getCurrentRequestAttribute('_controller');
+    }
+
+    /**
+     * @return string
+     */
+    private function getRouteRequestAttribute(): ?string
     {
         return $this->getCurrentRequestAttribute('_route');
     }
@@ -107,7 +109,7 @@ class RequestRouteExtension extends TwigExtension
     /**
      * @return mixed[]
      */
-    private function getRouteParameters(): ?array
+    private function getRouteParamsRequestAttribute(): ?array
     {
         return $this->getCurrentRequestAttribute('_route_params');
     }
@@ -124,5 +126,3 @@ class RequestRouteExtension extends TwigExtension
         return $attributes->has($name) ? $attributes->get($name) : null;
     }
 }
-
-/* EOF */

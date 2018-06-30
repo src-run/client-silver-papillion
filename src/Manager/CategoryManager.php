@@ -12,11 +12,9 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Product;
 use AppBundle\Repository\CategoryRepository;
 
-/**
- * Class CategoryManager.
- */
 class CategoryManager extends AbstractManager
 {
     /**
@@ -41,12 +39,30 @@ class CategoryManager extends AbstractManager
     }
 
     /**
+     * @param string ...$categorySlugs
+     *
+     * @return Category
+     */
+    public function getRandomNot(string ...$categorySlugs)
+    {
+        $categories = array_filter($this->getAllByWeight(), function (Category $category) use ($categorySlugs): bool {
+            return !in_array($category->getSlug(), $categorySlugs);
+        });
+
+        shuffle($categories);
+
+        return $categories[0];
+    }
+
+    /**
      * @return Category[]
      */
     public function getAllByWeight()
     {
-        return $this->getRepository()->findAllOrderByWeight();
+        return array_filter($this->getRepository()->findAllOrderByWeight(), function (Category $category): bool {
+            return 0 < count(array_filter($category->getProducts()->toArray(), function (Product $product): bool {
+                return $product->isEnabled();
+            }));
+        });
     }
 }
-
-/* EOF */
