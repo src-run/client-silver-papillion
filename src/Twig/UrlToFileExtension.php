@@ -12,9 +12,6 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Twig\Helper\UrlToFileExtensionHelper;
-use SR\WonkaBundle\Twig\Definition\TwigFilterDefinition;
-use SR\WonkaBundle\Twig\Definition\TwigOptionsDefinition;
-use SR\WonkaBundle\Twig\TwigExtension;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f5d1930d020e13deeb92d52efb303d5",
+    "content-hash": "762f7d85a850f7081ce71c8e4da3dd6a",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.62.5",
+            "version": "3.62.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "75113b0ba22fffd968c45f06ba20fa94509dc973"
+                "reference": "0be301c36a5c337b40e69ce3b4698cca5427e4b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/75113b0ba22fffd968c45f06ba20fa94509dc973",
-                "reference": "75113b0ba22fffd968c45f06ba20fa94509dc973",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0be301c36a5c337b40e69ce3b4698cca5427e4b9",
+                "reference": "0be301c36a5c337b40e69ce3b4698cca5427e4b9",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-06-28T21:12:53+00:00"
+            "time": "2018-06-29T22:12:11+00:00"
         },
         {
             "name": "behat/transliterator",
@@ -4453,151 +4453,6 @@
                 "var-dumper"
             ],
             "time": "2018-04-03T17:11:17+00:00"
-        },
-        {
-            "name": "src-run/wonka-bundle",
-            "version": "0.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/src-run/wonka-bundle.git",
-                "reference": "b19afe36127f18388f46f882cc89a29502bf957c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/src-run/wonka-bundle/zipball/b19afe36127f18388f46f882cc89a29502bf957c",
-                "reference": "b19afe36127f18388f46f882cc89a29502bf957c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~7.0",
-                "src-run/wonka-library": "~0.7",
-                "symfony/config": "~3.0",
-                "symfony/dependency-injection": "~3.0",
-                "symfony/http-foundation": "~3.0",
-                "twig/twig": "~1.0 || ~2.0@dev"
-            },
-            "require-dev": {
-                "codacy/coverage": "~1.0",
-                "friendsofphp/php-cs-fixer": "v2.0.0-alpha",
-                "phpunit/phpunit": "~5.4",
-                "psr/log": "~1.0",
-                "satooshi/php-coveralls": "~1.0",
-                "sllh/php-cs-fixer-styleci-bridge": "~2.1",
-                "symfony/debug-bundle": "~3.0",
-                "symfony/framework-bundle": "~3.0",
-                "symfony/monolog-bundle": "~2.11 || ~3.0",
-                "symfony/phpunit-bridge": "~3.0",
-                "symfony/stopwatch": "~3.0",
-                "symfony/symfony": "~3.0",
-                "symfony/twig-bundle": "~3.0",
-                "symfony/var-dumper": "~3.0"
-            },
-            "type": "project",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SR\\WonkaBundle\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rob Frawley 2nd",
-                    "email": "rmf@src.run",
-                    "homepage": "https://src.run/rmf",
-                    "role": "Project Lead"
-                }
-            ],
-            "description": "a collection of classes and interfaces aimed at facilitating Symfony bundle's, including helpers for advanced bundle configuration, kernel compiler passes, and more",
-            "homepage": "https://src.run/wonka-bundle",
-            "keywords": [
-                "bundle",
-                "rmf",
-                "src-run",
-                "wonka",
-                "wonka-bundle"
-            ],
-            "time": "2016-11-20T16:06:47+00:00"
-        },
-        {
-            "name": "src-run/wonka-library",
-            "version": "0.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/src-run/wonka-library.git",
-                "reference": "302576929b86fe1153692f2bd65fd099a397b4f6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/src-run/wonka-library/zipball/302576929b86fe1153692f2bd65fd099a397b4f6",
-                "reference": "302576929b86fe1153692f2bd65fd099a397b4f6",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~7.0",
-                "src-run/augustus-deprecation-library": "~0.7",
-                "src-run/augustus-dumper-library": "~0.7",
-                "src-run/augustus-exception-library": "~0.7",
-                "src-run/augustus-file-lock-library": "~0.7",
-                "src-run/augustus-log-library": "~0.7",
-                "src-run/augustus-polyfill-library": "~0.6",
-                "src-run/augustus-primitive-library": "~0.6",
-                "src-run/augustus-reflection-library": "~0.7",
-                "src-run/augustus-silencer-library": "~0.7",
-                "src-run/augustus-utility-library": "~0.6"
-            },
-            "require-dev": {
-                "codacy/coverage": "~1.0",
-                "friendsofphp/php-cs-fixer": "v2.0.0-alpha",
-                "phpunit/phpunit": "~5.4",
-                "psr/log": "~1.0",
-                "satooshi/php-coveralls": "~1.0",
-                "sllh/php-cs-fixer-styleci-bridge": "~2.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SR\\Wonka\\": "lib/"
-                },
-                "files": [
-                    "lib/stub/functions-values.php",
-                    "lib/stub/functions-collections.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rob Frawley 2nd",
-                    "email": "rmf@src.run",
-                    "homepage": "https://src.run/rmf",
-                    "role": "Project Lead"
-                }
-            ],
-            "description": "a collection of framework-agnostic classes, interfaces, traits, and root-namespace functions used as the building blocks for other projects",
-            "homepage": "https://src.run/wonka-library",
-            "keywords": [
-                "library",
-                "rmf",
-                "src-run",
-                "wonka",
-                "wonka-library"
-            ],
-            "time": "2016-11-16T07:22:48+00:00"
         },
         {
             "name": "stof/doctrine-extensions-bundle",

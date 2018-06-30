@@ -17,7 +17,8 @@
 
                 <div class="feed-info-date">
                     <time datetime="{{ f.getCreatedOn().format('c') }}">
-                        {{ f.getCreatedOn().format('F j Y') }} @ {{ f.getCreatedOn().format('g:ia') }}
+                        <!--{{ f.getCreatedOn().format('F j Y') }} @ {{ f.getCreatedOn().format('g:ia') }}-->
+                        Posted {{ f.getCreatedOn()|moment }}
                     </time>
                 </div>
 

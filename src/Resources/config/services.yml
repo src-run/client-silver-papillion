@@ -111,8 +111,7 @@ services :
     calls :
       - [setKernelRoot, ["%kernel.root_dir%"]]
 
-  app.twig_extension.moment:
-    class  : SR\WonkaBundle\Twig\MomentTwigExtension
+  AppBundle\Twig\MomentExtension:
     public : false
     tags   :
       - { name : twig.extension }
