@@ -128,14 +128,14 @@
                                 {% include 'AppBundle:fragment:link-button.html.twig' with {
                                     'route' : 'app_cart_add',
                                     'args'  : {product: product.getId(), quantity: 1},
-                                    'icon'  : 'plus',
+                                    'icon'  : 'md-add-circle-outline',
                                     'text'  : 'Add to cart'
                                 } only %}
                             {% else %}
                                 <div class="btn-group">
                                     {% include 'AppBundle:fragment:link-button.html.twig' with {
                                         'route' : 'app_cart_view',
-                                        'icon'  : 'ios-cart',
+                                        'icon'  : 'md-cart',
                                         'text'  : cart_count(product) ~ ' in cart',
                                         'tip'   : 'View your cart'
                                     } only %}
@@ -143,21 +143,21 @@
                                         'route' : 'app_cart_remove_group',
                                         'args'  : {product: product.getId()},
                                         'type'  : 'danger',
-                                        'icon'  : 'trash-b',
+                                        'icon'  : 'md-close-circle-outline',
                                         'tip'   : 'remove all'
                                     } only %}
                                     {% include 'AppBundle:fragment:link-button.html.twig' with {
                                         'route' : 'app_cart_remove',
                                         'args'  : {product: product.getId(), quantity: 1},
                                         'type'  : 'warning',
-                                        'icon'  : 'minus-circled',
+                                        'icon'  : 'md-remove-circle-outline',
                                         'tip'   : 'remove one'
                                     } only %}
                                     {% include 'AppBundle:fragment:link-button.html.twig' with {
                                         'route' : 'app_cart_add',
                                         'args'  : {product: product.getId(), quantity: 1},
                                         'type'  : 'success',
-                                        'icon'  : 'plus-circled',
+                                        'icon'  : 'md-add-circle-outline',
                                         'tip'   : 'add another'
                                     } only %}
                                 </div>
@@ -174,7 +174,7 @@
             <div class="container">
 
                 <h4 class="primary-hr-i">
-                    {{ ion('star') }} People Who Purchased <em>{{ product.getName() }}</em> Also Viewed:
+                    {{ ion('md-star') }} People Who Purchased <em>{{ product.getName() }}</em> Also Viewed:
                 </h4>
 
                 <div class="card-listing">
@@ -192,7 +192,7 @@
             <div class="container">
 
                 <h4 class="primary-hr-i">
-                    {{ ion('pricetags') }} Discover More <em>{{ product.getCategory().getName() }}</em> and Similar Products:
+                    {{ ion('md-pricetags') }} Discover More <em>{{ product.getCategory().getName() }}</em> and Similar Products:
                 </h4>
 
                 <div class="card-listing">
@@ -216,7 +216,7 @@
             <div class="container">
 
                 <h4 class="primary-hr-i">
-                    {{ ion('pricetags') }} Discover <em>Other Products</em> Available:
+                    {{ ion('md-pricetags') }} Discover <em>Other Products</em> Available:
                 </h4>
 
                 <div class="card-listing">

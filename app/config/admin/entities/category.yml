@@ -13,7 +13,7 @@ easy_admin:
 
           - name  : 'show'
             label : 'Show'
-            icon  : 'eye'
+            icon  : 'md-eye'
 
           - name  : 'edit'
             label : 'Edit'

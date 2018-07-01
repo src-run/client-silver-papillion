@@ -1,5 +1,5 @@
 {% if icon_l is not defined %}
-    {% set icon = icon|default('android-arrow-forward') %}
+    {% set icon = icon|default('md-arrow-forward') %}
 {% endif %}
 <a
     class="btn btn-{{ type|default('primary') }} {{ classes|default([])|join(' ') }}"

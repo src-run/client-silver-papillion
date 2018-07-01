@@ -61,21 +61,21 @@
                                 'route' : 'app_cart_remove_group',
                                 'args'  : {product: g.getProduct.getId},
                                 'type'  : 'danger',
-                                'icon'  : 'trash-b',
+                                'icon'  : 'md-close-circle-outline',
                                 'tip'   : 'remove all'
                             } only %}
                             {% include 'AppBundle:fragment:link-button-sm.html.twig' with {
                                 'route' : 'app_cart_remove',
                                 'args'  : {product: g.getProduct.getId, quantity: 1},
                                 'type'  : 'warning',
-                                'icon'  : 'minus-circled',
+                                'icon'  : 'md-remove-circle-outline',
                                 'tip'   : 'remove one'
                             } only %}
                             {% include 'AppBundle:fragment:link-button-sm.html.twig' with {
                                 'route' : 'app_cart_add',
                                 'args'  : {product: g.getProduct.getId, quantity: 1},
                                 'type'  : 'success',
-                                'icon'  : 'plus-circled',
+                                'icon'  : 'md-add-circle-outline',
                                 'tip'   : 'add another'
                             } only %}
                         </div>
@@ -89,12 +89,12 @@
                     {% include 'AppBundle:fragment:link-button.html.twig' with {
                         'route'  : 'app_cart_clear',
                         'type'   : 'danger',
-                        'icon_l' : 'trash-b',
+                        'icon_l' : 'md-close-circle-outline',
                         'text'   : 'Clear Cart'
                     } only %}
                     {% include 'AppBundle:fragment:link-button.html.twig' with {
                         'route'  : 'app_cart_checkout',
-                        'icon'   : 'android-arrow-forward',
+                        'icon'   : 'md-arrow-forward',
                         'text'   : 'Checkout'
                     } only %}
                 </div>

@@ -24,7 +24,7 @@
                 </li>
             {% elseif startPage != 2 %}
                 <li class="disabled">
-                    <span>{{ ion('more', true) }}</span>
+                    <span>{{ ion('md-more', true) }}</span>
                 </li>
             {% endif %}
         {% endif %}
@@ -46,7 +46,7 @@
             {% if pageCount > (endPage + 1) %}
                 {% if pageCount > (endPage + 2) %}
                     <li class="disabled">
-                        <span>{{ ion('more', true) }}</span>
+                        <span>{{ ion('md-more', true) }}</span>
                     </li>
                 {% else %}
                     <li class="page-int">

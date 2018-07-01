@@ -12,7 +12,7 @@
             <div class="card-section-head">
 
                 <div class="feed-info-type">
-                    {% if f.isVideo() %}{{ ion('videocamera') }}{% elseif f.isPhoto() %}{{ ion('images') }}{% else %}{{ ion('document-text') }}{% endif %}
+                    {% if f.isVideo() %}{{ ion('md-videocam') }}{% elseif f.isPhoto() %}{{ ion('md-images') }}{% else %}{{ ion('document-text') }}{% endif %}
                 </div>
 
                 <div class="feed-info-date">
@@ -75,7 +75,7 @@
                                 <p class="feed-type">
 
                                     {% if f.getFirstMedia().isVideo() %}Watch video{% else %}Enlarge photo{% endif %}
-                                    {{ ion('android-arrow-forward') }}
+                                    {{ ion('md-arrow-forward') }}
 
                                 </p>
                             </div>
@@ -129,7 +129,7 @@
                                     <p class="feed-type">
 
                                         {% if f.getFirstMedia().isVideo() %}Watch video{% else %}Enlarge photo{% endif %}
-                                        {{ ion('android-arrow-forward') }}
+                                        {{ ion('md-arrow-forward') }}
 
                                     </p>
                                 </div>

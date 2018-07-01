@@ -44,7 +44,7 @@
                             </h3>
                             <h2 class="coupon-code" data-clipboard-target=".coupon-{{ i }}-code">
                                 <span>
-                                    {{ ion('clipboard') }} Coupon Code: <em class="coupon-{{ i }}-code">{{ c.getCode() }}</em>
+                                    {{ ion('md-clipboard') }} Coupon Code: <em class="coupon-{{ i }}-code">{{ c.getCode() }}</em>
                                 </span>
                             </h2>
                             {% if c.hasDescription() %}
@@ -81,7 +81,7 @@
 
                     <div class="card">
                         <h3 class="primary-hr-i">
-                            {{ ion('paper-airplane') }} Use a <em>Coupon</em>
+                            {{ ion('md-paper-plane') }} Use a <em>Coupon</em>
                         </h3>
 
                         {{ block_content('about.coupon') }}

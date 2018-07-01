@@ -11,7 +11,7 @@
     <div class="container container-sr">
 
         <h2 class="primary-hr-i">
-            {{ ion('information-circled') }} {{ block_title('about.description') }}
+            {{ ion('md-information-circle') }} {{ block_title('about.description') }}
         </h2>
 
         <div class="about-text">
@@ -27,7 +27,7 @@
                 <div class="about-address">
 
                     <h3 class="primary-hr-i">
-                        {{ ion('android-call') }} {{ block_title('about.phone') }}
+                        {{ ion('md-call') }} {{ block_title('about.phone') }}
                     </h3>
 
                     <div class="info-phone-and-address">
@@ -35,7 +35,7 @@
                     </div>
 
                     <h3 class="primary-hr-i hr-extra-top">
-                        {{ ion('ios-clock') }} Our <em>Hours</em>
+                        {{ ion('md-clock') }} Our <em>Hours</em>
                     </h3>
 
                     {% include 'AppBundle:fragment:location-hours.html.twig' with { 'hours': hours } only %}
@@ -45,7 +45,7 @@
                 <div class="about-map">
 
                     <h3 class="primary-hr-i">
-                        {{ ion('navigate') }} Get <em>Directions</em>
+                        {{ ion('md-navigate') }} Get <em>Directions</em>
                     </h3>
 
                     <div class="info-phone-and-address">
