@@ -2,7 +2,7 @@
 
 liip_imagine :
 
-  driver : imagick
+  driver : gmagick
   cache  : default
 
   resolvers :

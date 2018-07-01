@@ -81,7 +81,7 @@ framework :
 
   assets :
     enabled        : true
-    version        : 1.2.1
+    version        : 1.4.0
     version_format : "%%s?v=%%s"
     packages :
       images : { base_path: "/bundles/app/images" }

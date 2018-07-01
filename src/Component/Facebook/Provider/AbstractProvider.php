@@ -184,8 +184,6 @@ abstract class AbstractProvider implements ProviderInterface
         $item = $this->getCachedItem();
         $item->set($response);
         $item->expiresAfter(new \DateInterval($this->getCacheTtl()));
-        dump($item);
-        dump($item->getKey());
         $this->getCache()->save($item);
 
         return $response;

@@ -12,28 +12,30 @@
 
 @import 'ion-icons_variables';
 
-@font-face {
-  font-family: "Ionicons";
-  src:url("#{$ionicons-font-path}/ionicons.eot?v=#{$ionicons-version}");
-  src:url("#{$ionicons-font-path}/ionicons.eot?v=#{$ionicons-version}#iefix") format("embedded-opentype"),
-  url("#{$ionicons-font-path}/ionicons.woff2?v=#{$ionicons-version}") format("woff2"),
-  url("#{$ionicons-font-path}/ionicons.woff?v=#{$ionicons-version}") format("woff"),
-  url("#{$ionicons-font-path}/ionicons.ttf?v=#{$ionicons-version}") format("truetype"),
-  url("#{$ionicons-font-path}/ionicons.svg?v=#{$ionicons-version}#Ionicons") format("svg");
-  font-weight: normal;
+@mixin ionicons-font {
+  font-family: Ionicons;
+  font-weight: 300;
   font-style: normal;
 }
 
+@font-face {
+  @include ionicons-font();
+  src:url('#{$ionicons-font-path}/ionicons.eot?v=#{$ionicons-version}');
+  src:url('#{$ionicons-font-path}/ionicons.eot?v=#{$ionicons-version}#iefix') format('embedded-opentype'),
+    url('#{$ionicons-font-path}/ionicons.woff2?v=#{$ionicons-version}') format('woff2'),
+    url('#{$ionicons-font-path}/ionicons.woff?v=#{$ionicons-version}') format('woff'),
+    url('#{$ionicons-font-path}/ionicons.ttf?v=#{$ionicons-version}') format('truetype'),
+    url('#{$ionicons-font-path}/ionicons.svg?v=#{$ionicons-version}#Ionicons') format('svg');
+}
+
 .ion {
-  display: inline-block;
-  font-family: "Ionicons";
+  @include ionicons-font();
   speak: none;
-  font-style: normal;
-  font-weight: normal;
+  display: inline-block;
+  line-height: 1;
   font-variant: normal;
   text-transform: none;
   text-rendering: auto;
-  line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
