@@ -60,11 +60,23 @@
         "${paths.components}ionicons/dist/fonts/*"
       ],
       "builds": {
+        "bower-assets": {
+          "cwd": "./",
+          "cmd": [
+            "bower install"
+          ]
+        },
+        "symfony-assets": {
+          "cwd": "./",
+          "cmd": [
+            "bin/console assets:install"
+          ]
+        },
         "ionicons": {
           "cwd": "${paths.components}ionicons/",
           "cmd": [
-            "yarn install",
-            "yarn run build"
+            "npm install",
+            "npm run build"
           ]
         }
       }
