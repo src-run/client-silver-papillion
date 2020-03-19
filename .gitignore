@@ -25,3 +25,4 @@
 **/*-compiled.js.map
 /.php_cs.cache
 .web-server-pid
+/web/*jv8ix.html
