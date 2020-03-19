@@ -8,6 +8,11 @@
 # file that was distributed with this source code.
 #
 
+app_employee_schedule:
+    path: /employee-schedule
+    defaults:
+        _controller : AppBundle:Default:employeeSchedule
+
 app_root:
     path: /
     defaults:

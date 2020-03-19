@@ -101,4 +101,9 @@ class DefaultController extends AbstractProductAwareController
             'coupon_modal' => !$this->couponManager->getCouponViewedState(),
         ]);
     }
+
+    public function employeeScheduleAction(): Response
+    {
+        return $this->redirectTemporary("https://calendar.google.com/calendar/embed?src=silverpapillon.com_uh806jv57jr8cmoh33f7895sg0%40group.calendar.google.com&ctz=America%2FNew_York");
+    }
 }

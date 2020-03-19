@@ -35,6 +35,7 @@ services :
       - "@app.location_lookup.resolver"
 
   app.slugger :
+    public: true
     alias : AppBundle\Util\Slugger
 
   AppBundle\Util\MapperStatic:
